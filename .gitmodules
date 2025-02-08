@@ -1,0 +1,3 @@
+[submodule "sim/rtl/xpm_vhdl"]
+	path = sim/rtl/xpm_vhdl
+	url = https://github.com/fransschreuder/xpm_vhdl/
