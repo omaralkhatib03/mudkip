@@ -1,38 +1,60 @@
 `timescale 1ns/1ps
 
 module fl_vadd_top  #(
-  parameter AXI_VECTOR_WIDTH  = 32,
-  parameter AXI_PS_DEPTH      = 32,
-  parameter AXI_PS_DATAWIDTH  = 32,
-  parameter AXI_DDR_DATAWIDTH = 32,
-  parameter AXI_DDR_DEPTH     = 32,
-  parameter AXI_DDR_ADDR_WIDTH = $clog2(AXI_DDR_DEPTH),
-  parameter AXI_PS_ADDR_WIDTH = $clog2(AXI_PS_DEPTH)
+  parameter AXI_VECTOR_WIDTH    = 32,
+  parameter AXI_PS_DATAWIDTH    = 32,
+  parameter AXI_DDR_DATAWIDTH   = 32,
+  parameter AXI_DDR_ADDR_WIDTH  = 4,
+  parameter AXI_PS_ADDR_WIDTH   = 4
 ) ( 
   input                          clk,
   input                          rst_n,
 
   // DMA Write In Vector X
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 vector_x tdata" *)
-  input  [AXI_VECTOR_WIDTH-1:0]  in_x_data, 
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 vector_x tvalid" *)
-  input                          in_x_valid, 
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 vector_x tready" *)
-  output                         x_ready,
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 vector_x tlast" *)
-  input                          in_x_tlast,
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axi_mm_x AWADDR" *) 
+  input  [AXI_PS_ADDR_WIDTH-1:0] waddr_y,    
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axi_mm_x AWVALID" *) 
+  input                   wavalid_y,  
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axi_mm_x AWREADY" *) 
+  output                  waready_y,  
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axi_mm_x WDATA" *) 
+  input  [AXI_PS_DATAWIDTH-1:0] wdata_y,   
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axi_mm_x WVALID" *) 
+  input                   wvalid_y,   
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axi_mm_x WREADY" *) 
+  output                  wready_y,  
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axi_mm_x BRESP" *) 
+  output                  wresp_y,  
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axi_mm_x BVALID" *) 
+  output                  bvalid_y,  
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axi_mm_x BREADY" *) 
+  input                  bready_y,  
 
   // DMA Write In Vector X
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 vector_y tdata" *)
-  input  [AXI_VECTOR_WIDTH-1:0] in_y_data, 
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 vector_y tvalid" *)
-  input                          in_y_valid, 
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 vector_y tready" *)
-  output                         y_ready,
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 vector_y tlast" *)
-  input                          in_y_tlast,
-  
-  // PS Slave Axi Interface 
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axi_mm_y  AWADDR" *) 
+  input  [AXI_PS_ADDR_WIDTH-1:0] waddr_x,                       
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axi_mm_y  AWVALID" *) 
+  input                   wavalid_x,                            
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axi_mm_y  AWREADY" *) 
+  output                  waready_x,                            
+                                                                
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axi_mm_y  WDATA" *) 
+  input  [AXI_PS_DATAWIDTH-1:0] wdata_x,                        
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axi_mm_y  WVALID" *) 
+  input                   wvalid_x,                             
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axi_mm_y  WREADY" *) 
+  output                  wready_x,                             
+                                                                
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axi_mm_y  BRESP" *) 
+  output                  wresp_x,                              
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axi_mm_y  BVALID" *) 
+  output                  bvalid_x,                             
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axi_mm_y  BREADY" *) 
+  input                  bready_x,  
+
+  // PS Slave Axi Interface mm2s_x
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if  AWADDR" *) 
   input  [AXI_PS_ADDR_WIDTH-1:0] waddr,    
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if  AWVALID" *) 
@@ -54,19 +76,49 @@ module fl_vadd_top  #(
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if  BREADY" *) 
   input                  bready,  
 
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if  ARADDR" *) 
-  input  [AXI_PS_ADDR_WIDTH-1:0] raddr, 
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if  ARVALID" *) 
-  input                   arvalid,
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if  ARREADY" *) 
-  output                  arready,
+  // PS Slave Axi Interface mm2s_y
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if_x  AWADDR" *) 
+  input  [AXI_PS_ADDR_WIDTH-1:0] waddr_mm2s_x,    
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if_x  AWVALID" *) 
+  input                   wavalid_mm2s_x,  
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if_x  AWREADY" *) 
+  output                  waready_mm2s_x,  
 
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if  RDATA" *) 
-  output [AXI_PS_DATAWIDTH-1:0] rdata, 
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if  RVALID" *) 
-  output                  rvalid,   
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if  RREADY" *) 
-  input                   rready,
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if_x WDATA" *) 
+  input  [AXI_PS_DATAWIDTH-1:0] wdata_mm2s_x,   
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if_x  WVALID" *) 
+  input                   wvalid_mm2s_x,   
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if_x  WREADY" *) 
+  output                  wready_mm2s_x,  
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if_x  BRESP" *) 
+  output                  wresp_mm2s_x,  
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if_x  BVALID" *) 
+  output                  bvalid_mm2s_x,  
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if_x  BREADY" *) 
+  input                   bready_mm2s_x,  
+
+  // PS Slave Axi Interface 
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if_y  AWADDR" *) 
+  input  [AXI_PS_ADDR_WIDTH-1:0] waddr_mm2s_y,                     
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if_y  AWVALID" *) 
+  input                   wavalid_mm2s_y,                          
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if_y  AWREADY" *) 
+  output                  waready_mm2s_y,                          
+                                                                  
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if_y  WDATA" *) 
+  input  [AXI_PS_DATAWIDTH-1:0] wdata_mm2s_y,                      
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if_y  WVALID" *) 
+  input                   wvalid_mm2s_y,                           
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if_y  WREADY" *) 
+  output                  wready_mm2s_y,                           
+                                                                   
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if_y  BRESP" *) 
+  output                  wresp_mm2s_y,                            
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if_y  BVALID" *) 
+  output                  bvalid_mm2s_y,                           
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if_y  BREADY" *) 
+  input                  bready_mm2s_y,  
 
   // AXI Master Output DDR 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 out_vector_if AWADDR" *) 
@@ -106,36 +158,27 @@ module fl_vadd_top  #(
 
 );
 
-  axi_stream_if #(.DATA_WIDTH(AXI_VECTOR_WIDTH)) vector_x();
-  axi_stream_if #(.DATA_WIDTH(AXI_VECTOR_WIDTH)) vector_y();
+  axi_stream_if #(.DATA_WIDTH(AXI_VECTOR_WIDTH)) vector_out();
 
   axi_lite_if #(
-    .DEPTH(AXI_PS_DEPTH),
+    .ADDR_WIDTH(AXI_PS_ADDR_WIDTH),
     .DATA_WIDTH(AXI_PS_DATAWIDTH)
   ) axil_ps_if ();
 
   axi_lite_if #(
-    .DEPTH(AXI_DDR_DEPTH),
+    .ADDR_WIDTH(AXI_PS_ADDR_WIDTH),
+    .DATA_WIDTH(AXI_PS_DATAWIDTH)
+  ) axil_ps_if_x ();
+
+  axi_lite_if #(
+    .ADDR_WIDTH(AXI_PS_ADDR_WIDTH),
+    .DATA_WIDTH(AXI_PS_DATAWIDTH)
+  ) axil_ps_if_y ();
+
+  axi_lite_if #(
+    .ADDR_WIDTH(AXI_DDR_ADDR_WIDTH),
     .DATA_WIDTH(AXI_DDR_DATAWIDTH)
   ) axil_ram_if ();
-
-  assign axil_ps_if.waddr = waddr;
-  assign axil_ps_if.wavalid = wavalid;
-  assign waready = axil_ps_if.waready;
-  assign axil_ps_if.wdata = wdata;
-  assign axil_ps_if.wvalid = wvalid;
-  assign wready = axil_ps_if.wready;
-  
-  assign wresp = axil_ps_if.wresp;
-  assign bvalid = axil_ps_if.wresp;
-  assign axil_ps_if.bready = bready;
-
-  assign axil_ps_if.raddr = raddr;
-  assign axil_ps_if.arvalid = arvalid;
-  assign arready = axil_ps_if.arready;
-  assign rdata = axil_ps_if.rdata;
-  assign rvalid = axil_ps_if.rvalid;
-  assign axil_ps_if.rready = rready;
 
   assign out_vector_waddr = axil_ram_if.waddr; 
   assign out_vector_wavalid = axil_ram_if.wavalid;
@@ -153,6 +196,57 @@ module fl_vadd_top  #(
   assign axil_ram_if.rvalid  = out_vector_rvalid;
   assign out_vector_rready  = axil_ram_if.rready;
 
-  assign 
+  dma_read dma_read_x_I (
+    .clk    (clk),
+    .rst_n  (rst_n)
+
+  );
+
+  ps_if #(
+    .ADDR_WIDTH(axil_ps_if.ADDR_WIDTH),
+    .DATA_WIDTH(axil_ps_if.DATA_WIDTH)
+  ) ps_m_i ();
+  
+   axl_ps_adapter  #(
+    .FIFO_DEPTH(128)
+  ) axl_ps_top_adapter_I (
+    .clk(clk),
+    .rst_n(rst_n),
+    .axl_m_i(axil_ps_if),
+    .ps_m_i(ps_m_i)
+  );
+
+  fl_vadd # (
+    .DATA_WIDTH(32) 
+  ) fl_v_add_I ( 
+    .clk(clk),
+    .rst_n(rst_n),
+
+    .in_x_data    (in_x_data), 
+    .in_x_valid   (in_x_valid), 
+    .x_ready      (in_x_ready),
+    .x_end        (in_x_tlast),
+
+    .in_y_data    (in_y_data), 
+    .in_y_valid   (in_y_valid), 
+    .y_ready      (in_y_ready),
+    .y_end        (in_y_tlast),
+
+    .out_data     (vector_out.data), 
+    .out_valid    (vector_out.valid), 
+    .out_ready    (vector_out.ready),
+    .out_end      (vector_out.last)
+  );
+
+  s2mm #(
+    .DATA_WIDTH(AXI_VECTOR_WIDTH) 
+  ) s2mm_ddr_I (
+
+    .clk(clk),
+    .rst_n(rst_n),
+    .ps_i(ps_m_i),
+    .din_i(vector_out),
+    .dout_i(axil_ram_if)
+  );
 
 endmodule

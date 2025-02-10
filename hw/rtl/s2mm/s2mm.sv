@@ -85,7 +85,7 @@ module s2mm #(
   ////////////           PL_LOGIC: s2mm         ///////////////
   /////////////////////////////////////////////////////////////
   
-  localparam ADDR_WIDTH = $clog2(dout_i.DEPTH);
+  localparam ADDR_WIDTH = dout_i.ADDR_WIDTH;
 
   logic [ADDR_WIDTH-1:0] ram_addr_b;
   logic [ADDR_WIDTH-1:0] ram_addr_r;

@@ -21,9 +21,9 @@ module axl_ps_adapter  #(
       end
 
   `ASSERT_PARAM_EQUAL(axl_m_i.DATA_WIDTH, ps_m_i.DATA_WIDTH)
-  `ASSERT_PARAM_EQUAL(axl_m_i.DEPTH, ps_m_i.DEPTH)
+  `ASSERT_PARAM_EQUAL(axl_m_i.ADDR_WIDTH, ps_m_i.ADDR_WIDTH)
 
-  localparam ADDR_WIDTH = $clog2(axl_m_i.DEPTH);
+  localparam ADDR_WIDTH = axl_m_i.ADDR_WIDTH;
 
   logic   shift_out_w;
   logic   shift_out_r;
@@ -62,8 +62,6 @@ module axl_ps_adapter  #(
     .ctrl_overflow(),
     .ctrl_underflow() 
   );
-
-
 
   assign shift_out_w    = !w_empty && ps_m_i.wready;
   assign shift_out_r    = !r_empty && ps_m_i.rready;

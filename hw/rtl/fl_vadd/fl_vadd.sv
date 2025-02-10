@@ -8,19 +8,16 @@ module fl_vadd # (
   input wire                          clk,
   input wire                          rst_n,
 
-  input wire                          x_start,
   input wire [DATA_WIDTH-1:0]         in_x_data, 
   input wire                          in_x_valid, 
   output logic                        x_ready,
-  output wire                         x_end,
+  input wire                         x_end,
 
-  input wire                          y_start,
   input wire [DATA_WIDTH-1:0]         in_y_data, 
   input wire                          in_y_valid, 
   output logic                        y_ready,
-  output wire                         y_end,
+  input wire                         y_end,
   
-  output logic                        out_start,
   output logic [DATA_WIDTH-1:0]       out_data, 
   output logic                        out_valid, 
   input logic                         out_ready,
@@ -28,19 +25,15 @@ module fl_vadd # (
 );
   
   logic [DATA_WIDTH-1:0] x_data;
-  logic x_sop;
   logic x_eop;
   logic x_valid;
 
   logic [DATA_WIDTH-1:0] y_data;
 
-  logic y_sop;
   logic y_eop;
   logic y_valid;
 
   logic out_fifo_full;
-  logic out_sop;
-  logic out_eop;
   logic empty;
 
   logic x_empty;
@@ -48,14 +41,17 @@ module fl_vadd # (
   logic shift_out;
 
   logic [DATA_WIDTH-1:0] fifo_in;
+
+  logic shift_in;
+  logic s_axis_y_tready;
+  logic s_axis_x_tready;
+  logic out_eop;
   
-  assign shift_out  = !x_empty && !y_empty && !out_fifo_full;
-  assign out_eop    = x_end && y_end;
-  assign out_sop    = x_sop && y_eop;
+  assign shift_out  = !x_empty && !y_empty && s_axis_x_tready && s_axis_y_tready;
   
   ctrl_data_fifo #(
     .DATA_WIDTH     (DATA_WIDTH),
-    .CTRL_WIDTH     (2),
+    .CTRL_WIDTH     (1),
     .DEPTH          (256),
     .READ_LATENCY   (1)
   ) x_fifo (
@@ -65,14 +61,13 @@ module fl_vadd # (
     .data_valid     (in_x_valid),
     .data_ready     (x_ready),
 
-    .ctrl_data      ({x_start, x_end}),
+    .ctrl_data      (x_end),
     .ctrl_valid     (x_valid),
     .ctrl_ready     (),
 
-    .dout           ({x_sop, x_eop, x_data}),
+    .dout           ({x_eop, x_data}),
     .valid          (x_valid),
     .ready          (out_fifo_full),
-
     .shift_out      (shift_out),
     .empty          (x_empty),
 
@@ -85,7 +80,7 @@ module fl_vadd # (
 
   ctrl_data_fifo #(
     .DATA_WIDTH     (DATA_WIDTH),
-    .CTRL_WIDTH     (2),
+    .CTRL_WIDTH     (1),
     .DEPTH          (256),
     .READ_LATENCY   (1)
   ) y_fifo (
@@ -95,11 +90,11 @@ module fl_vadd # (
     .data_valid     (in_y_valid),
     .data_ready     (y_ready),
 
-    .ctrl_data      ({y_start, y_end}),
+    .ctrl_data      (y_end),
     .ctrl_valid     (y_valid),
     .ctrl_ready     (),
 
-    .dout           ({y_sop, y_eop, x_data}),
+    .dout           ({y_eop, y_data}),
     .valid          (y_valid),
     .ready          (out_fifo_full),
 
@@ -113,35 +108,43 @@ module fl_vadd # (
     .data_underflow ()
   );
  
+  fp_add_s fp_add_s_I (
+    .aclk(clk),                                  // input wire aclk
+    .s_axis_a_tvalid      (x_valid),            // input wire s_axis_a_tvalid
+    .s_axis_a_tready      (s_axis_x_tready),            // output wire s_axis_a_tready
+    .s_axis_a_tdata       (x_data),              // input wire [31 : 0] s_axis_a_tdata
+    .s_axis_a_tlast       (x_eop),              // input wire s_axis_a_tlast
 
-  fadd fadd_I ( 
-    .din1(x_data),
-    .din2(y_data),
-    .dout(fifo_in)
-  );
-  
+    .s_axis_b_tvalid      (y_valid),            // input wire s_axis_b_tvalid
+    .s_axis_b_tready      (s_axis_y_tready),            // output wire s_axis_b_tready
+    .s_axis_b_tdata       (y_data),              // input wire [31 : 0] s_axis_b_tdata
+    .s_axis_b_tlast       (y_eop),              // input wire s_axis_b_tlast
+
+    .m_axis_result_tvalid (shift_in),  // output wire m_axis_result_tvalid
+    .m_axis_result_tready (!out_fifo_full),  // input wire m_axis_result_tready
+    .m_axis_result_tdata  (out_data),    // output wire [31 : 0] m_axis_result_tdata
+    .m_axis_result_tlast  (out_eop)    // output wire m_axis_result_tlast
+  ); 
+
   basic_sync_fifo #(
-    .DATA_WIDTH   (DATA_WIDTH + 2),
+    .DATA_WIDTH   (DATA_WIDTH + 1),
     .DEPTH        (256),
     .READ_LATENCY (1)
   ) out_fifo_I (
     .clk          (clk),
     .rst_n        (rst_n),
 
-    .din          ({out_sop, out_eop, fifo_in}),
-    .shift_in     (shift_out),
+    .din          ({out_eop, fifo_in}),
+    .shift_in     (shift_in),
 
     .shift_out    (!empty && out_ready),
     .valid        (out_valid),
-    .dout         ({out_start, out_end, out_data}),
+    .dout         ({out_end, out_data}),
     .empty        (empty),
     .full         (out_fifo_full),
 
     .underflow    (),
     .overflow     ()
   );
-
-  assign x_ready = '1;
-  assign y_ready = '1;
 
 endmodule

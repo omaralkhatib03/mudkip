@@ -1,0 +1,16 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2024.2.1 (lin64) Build 5266912 Sun Dec 15 09:03:31 MST 2024
+| Date         : Sat Feb  8 20:34:28 2025
+| Host         : omar-Dell-G15-5515 running 64-bit Ubuntu 24.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xcvc1902-vsva2197-2MP-e-S
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'fp_add_s'
+
+1. Summary
+----------
+
+SUCCESS in the update of fp_add_s (xilinx.com:ip:floating_point:7.1 (Rev. 19)) to current project options.
+

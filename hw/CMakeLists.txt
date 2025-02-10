@@ -20,6 +20,7 @@ include(FindXSimConf.cmake)
 file(GLOB XVL_SRC_FILES "${CMAKE_SOURCE_DIR}/src/*") 
 file(GLOB_RECURSE RTL_FILES "rtl/*.v" "rtl/*.sv")
 file(GLOB_RECURSE VHD_FILES "rtl/*.vhd" "rtl/*.vhdl")
+file(GLOB_RECURSE IP_FILES "rtl/ips/*stub.v")
 
 # ram_naive_16_1024_1r1w.vdb
 
@@ -39,14 +40,23 @@ add_custom_command(
     COMMENT "Running xvlog..."
 )
 
-add_custom_target(xvhdl ALL DEPENDS ${CMAKE_SOURCE_DIR}/xsim.dir/work/*.vdb)
-add_custom_target(xvlog ALL DEPENDS ${CMAKE_SOURCE_DIR}/xsim.dir)
-
 add_library(xsi OBJECT "${XVL_SRC_FILES}")
 target_include_directories(xsi PUBLIC "${xSIM_HEADER_FILES}" "${XSI_HEADER_FILES}")
 target_link_libraries(xsi PUBLIC "${XILINX_LIB}/libxv_simulator_kernel.so")
 
 include(GetGtest.cmake)
+
+add_custom_command(
+    OUTPUT ${CMAKE_SOURCE_DIR}/xsim.dir/work
+    COMMAND xvlog -incr -L hbm_v1_0_16 -L fifo_generator_v13_2_12 -L blk_mem_gen_v8_4_9 --relax -nolog -sv ${IP_FILES}
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    DEPENDS ${IP_FILES}
+    COMMENT "Compiling Ips..."
+)
+
+add_custom_target(ips ALL DEPENDS ${CMAKE_SOURCE_DIR}/xsim.dir/work)
+add_custom_target(xvhdl ALL DEPENDS ${CMAKE_SOURCE_DIR}/xsim.dir/work/*.vdb)
+add_custom_target(xvlog ALL DEPENDS ${CMAKE_SOURCE_DIR}/xsim.dir)
 
 function(xelab TOP_MODULE)
     message("Created Target: ${CMAKE_SOURCE_DIR}/xsim.dir/work.${TOP_MODULE}/xsimk.so")
@@ -59,6 +69,7 @@ function(xelab TOP_MODULE)
         COMMENT "Running xelab for ${TOP_MODULE}"
     )
     add_custom_target (xsimk_${TOP_MODULE} ALL DEPENDS ${CMAKE_SOURCE_DIR}/xsim.dir/work.${TOP_MODULE}/xsimk.so)
+    add_dependencies (xsimk_${TOP_MODULE} ips)
     add_dependencies (xsimk_${TOP_MODULE} xvhdl)
     add_dependencies (xsimk_${TOP_MODULE} xvlog)
 endfunction()
@@ -67,6 +78,7 @@ endfunction()
 add_subdirectory(src/vector_adder)
 add_subdirectory(src/basic_sync_fifo)
 # add_subdirectory(src/bfly_processor)
+add_subdirectory(src/fl_vadd)
 
 file(GLOB_RECURSE RTL_FILES ${CMAKE_SOURCE_DIR} "rtl/*")
 file(GLOB top_files "./src/top/testbench.cpp" "${TB_SRC}/*/*.hpp")

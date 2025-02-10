@@ -1,0 +1,2 @@
+fp_add_s.v,verilog,xil_defaultlib,../../../../../hw/rtl/ips/fp_add_s/sim/fp_add_s.v,
+glbl.v,Verilog,xil_defaultlib,glbl.v

@@ -1,10 +1,9 @@
 
 interface axi_lite_if #(
-  parameter DEPTH       = 32,
+  parameter ADDR_WIDTH  = 5,
   parameter DATA_WIDTH  = 32
 );
  
-localparam ADDR_WIDTH = $clog2(DEPTH);
 
 logic [ADDR_WIDTH-1:0]  waddr;  // Address to write to
 logic                   wavalid;
@@ -25,6 +24,8 @@ logic                   arready;
 logic [DATA_WIDTH-1:0]  rdata;    // data read
 logic                   rvalid;   // valid data out
 logic                   rready;   // hold on cant accept a read req 
+
+logic                   tuser;
 
   modport slave (
     input waddr,
