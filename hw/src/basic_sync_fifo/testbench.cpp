@@ -20,8 +20,6 @@ int main (int argc, char *argv[])
   mySimulation.addMonitor(myFifoMonitor);
 
   myFifoDriver->add({0xdeadbeef, 1, 0});
-  myFifoDriver->add({0, 0, 0});
-  myFifoDriver->add({0, 0, 0});
   myFifoDriver->add({0, 0, 1});
 
   mySimulation.simulate([&](){

@@ -61,4 +61,5 @@ function(mudkip_verilate TOP_MODULE)
 endfunction()
 
 mudkip_verilate("basic_sync_fifo")
+mudkip_verilate("rf_top")
 

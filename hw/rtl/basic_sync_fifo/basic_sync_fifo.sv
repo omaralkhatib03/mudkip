@@ -2,9 +2,9 @@
 
 
 module basic_sync_fifo #(
-  parameter DATA_WIDTH        = 32,  /*DATA_WIDTH verilator public */
+  parameter DATA_WIDTH        = 32,  /* DATA_WIDTH verilator public */
   parameter DEPTH             = 16,  /* DEPTH verilator public  */
-  parameter READ_LATENCY      = 0    /* READ_LATENCY verilator public  */
+  parameter READ_LATENCY      = 1    /* READ_LATENCY verilator public  */
 ) (
   input wire                    clk,
   input wire                    rst_n,
@@ -52,10 +52,14 @@ module basic_sync_fifo #(
     begin
       wr_ptr_b = wr_ptr_r + 1;
     end
-    
-    if (shift_out && !empty)
+    else if (shift_out && !empty)
     begin
-      rd_ptr_b = rd_ptr_r + 1;       
+      wr_ptr_b = wr_ptr_r - 1;
+    end
+    
+    if (shift_out && rd_ptr_r != 0)
+    begin
+      rd_ptr_b = rd_ptr_r - 1;       
     end
 
   end

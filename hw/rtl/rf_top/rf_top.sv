@@ -9,49 +9,49 @@ module rf_top  #(
 
   // AXI Master PS 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if AWADDR" *) 
-  output [ADDR_WIDTH-1:0] waddr,
+  input [ADDR_WIDTH-1:0] waddr,
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if AWVALID" *) 
-  output                  wavalid,
+  input                  wavalid,
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if AWREADY" *) 
-  input                   waready,
+  output                   waready,
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if WDATA" *) 
-  output [DATA_WIDTH-1:0] wdata, 
+  input [DATA_WIDTH-1:0] wdata, 
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if WVALID" *) 
-  output                  wvalid,
+  input                  wvalid,
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if WREADY" *) 
-  input                   wready,
+  output                   wready,
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if BRESP" *) 
-  input                   wresp, 
+  output                   wresp, 
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if BVALID" *) 
-  input                   bvalid, 
+  output                   bvalid, 
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if BREADY" *) 
-  output                  bready, 
+  input                  bready, 
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if ARADDR" *) 
-  output [ADDR_WIDTH-1:0] raddr,
+  input [ADDR_WIDTH-1:0] raddr,
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if ARVALID" *) 
-  output                  arvalid,
+  input                  arvalid,
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if ARREADY" *) 
-  input                   arready, 
+  output                   arready, 
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if RDATA" *) 
-  input  [DATA_WIDTH-1:0] rdata,  
+  output  [DATA_WIDTH-1:0] rdata,  
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if RVALID" *) 
-  input                   rvalid,
+  output                   rvalid,
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if RREADY" *) 
-  output                  rready 
+  input                  rready 
 
 );
 
@@ -60,21 +60,21 @@ module rf_top  #(
     .DATA_WIDTH(DATA_WIDTH)
   ) axil_ps_if ();
 
-  assign waddr = axil_ps_if.waddr; 
-  assign wavalid = axil_ps_if.wavalid;
-  assign axil_ps_if.waready = waready;
-  assign wdata  = axil_ps_if.wdata;
-  assign wvalid  = axil_ps_if.wvalid;
-  assign axil_ps_if.wready = wready;
-  assign axil_ps_if.wresp  = wresp;
-  assign axil_ps_if.bvalid = bvalid;
-  assign bready = axil_ps_if.bready;
-  assign raddr   = axil_ps_if.raddr;
-  assign arvalid = axil_ps_if.arvalid;
-  assign axil_ps_if.arready = arready;
-  assign axil_ps_if.rdata   = rdata;
-  assign axil_ps_if.rvalid  = rvalid;
-  assign rready  = axil_ps_if.rready;
+  assign axil_ps_if.waddr = waddr; 
+  assign axil_ps_if.wavalid = wavalid;
+  assign waready = axil_ps_if.waready;
+  assign axil_ps_if.wdata = wdata;
+  assign axil_ps_if.wvalid = wvalid;
+  assign wready = axil_ps_if.wready;
+  assign wresp = axil_ps_if.wresp;
+  assign bvalid = axil_ps_if.bvalid;
+  assign axil_ps_if.bready = bready;
+  assign axil_ps_if.raddr = raddr;
+  assign axil_ps_if.arvalid = arvalid;
+  assign arready = axil_ps_if.arready;
+  assign rdata = axil_ps_if.rdata;
+  assign rvalid = axil_ps_if.rvalid;
+  assign axil_ps_if.rready = rready;
 
   ps_if #(
     .ADDR_WIDTH(axil_ps_if.ADDR_WIDTH),

@@ -38,7 +38,8 @@ public:
 
     theCurrentIntf.overflow = this->theDevice->overflow;
     theCurrentIntf.underflow = this->theDevice->underflow;
-    
+  
+
     if (theCurrentIntf.valid)
     {
       this->add(theCurrentIntf);
@@ -49,7 +50,6 @@ public:
   }
 
   FifoMonitorIntf theCurrentIntf{};
-  int theLatencyCounter;
 };
 
 
