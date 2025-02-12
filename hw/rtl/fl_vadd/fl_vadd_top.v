@@ -196,57 +196,57 @@ module fl_vadd_top  #(
   assign axil_ram_if.rvalid  = out_vector_rvalid;
   assign out_vector_rready  = axil_ram_if.rready;
 
-  dma_read dma_read_x_I (
-    .clk    (clk),
-    .rst_n  (rst_n)
-
-  );
-
-  ps_if #(
-    .ADDR_WIDTH(axil_ps_if.ADDR_WIDTH),
-    .DATA_WIDTH(axil_ps_if.DATA_WIDTH)
-  ) ps_m_i ();
-  
-   axl_ps_adapter  #(
-    .FIFO_DEPTH(128)
-  ) axl_ps_top_adapter_I (
-    .clk(clk),
-    .rst_n(rst_n),
-    .axl_m_i(axil_ps_if),
-    .ps_m_i(ps_m_i)
-  );
-
-  fl_vadd # (
-    .DATA_WIDTH(32) 
-  ) fl_v_add_I ( 
-    .clk(clk),
-    .rst_n(rst_n),
-
-    .in_x_data    (in_x_data), 
-    .in_x_valid   (in_x_valid), 
-    .x_ready      (in_x_ready),
-    .x_end        (in_x_tlast),
-
-    .in_y_data    (in_y_data), 
-    .in_y_valid   (in_y_valid), 
-    .y_ready      (in_y_ready),
-    .y_end        (in_y_tlast),
-
-    .out_data     (vector_out.data), 
-    .out_valid    (vector_out.valid), 
-    .out_ready    (vector_out.ready),
-    .out_end      (vector_out.last)
-  );
-
-  s2mm #(
-    .DATA_WIDTH(AXI_VECTOR_WIDTH) 
-  ) s2mm_ddr_I (
-
-    .clk(clk),
-    .rst_n(rst_n),
-    .ps_i(ps_m_i),
-    .din_i(vector_out),
-    .dout_i(axil_ram_if)
-  );
+//  dma_read dma_read_x_I (
+//    .clk    (clk),
+//    .rst_n  (rst_n)
+//
+//  );
+//
+//  ps_if #(
+//    .ADDR_WIDTH(axil_ps_if.ADDR_WIDTH),
+//    .DATA_WIDTH(axil_ps_if.DATA_WIDTH)
+//  ) ps_m_i ();
+//  
+//   axl_ps_adapter  #(
+//    .FIFO_DEPTH(128)
+//  ) axl_ps_top_adapter_I (
+//    .clk(clk),
+//    .rst_n(rst_n),
+//    .axl_m_i(axil_ps_if),
+//    .ps_m_i(ps_m_i)
+//  );
+//
+//  fl_vadd # (
+//    .DATA_WIDTH(32) 
+//  ) fl_v_add_I ( 
+//    .clk(clk),
+//    .rst_n(rst_n),
+//
+//    .in_x_data    (in_x_data), 
+//    .in_x_valid   (in_x_valid), 
+//    .x_ready      (in_x_ready),
+//    .x_end        (in_x_tlast),
+//
+//    .in_y_data    (in_y_data), 
+//    .in_y_valid   (in_y_valid), 
+//    .y_ready      (in_y_ready),
+//    .y_end        (in_y_tlast),
+//
+//    .out_data     (vector_out.data), 
+//    .out_valid    (vector_out.valid), 
+//    .out_ready    (vector_out.ready),
+//    .out_end      (vector_out.last)
+//  );
+//
+//  s2mm #(
+//    .DATA_WIDTH(AXI_VECTOR_WIDTH) 
+//  ) s2mm_ddr_I (
+//
+//    .clk(clk),
+//    .rst_n(rst_n),
+//    .ps_i(ps_m_i),
+//    .din_i(vector_out),
+//    .dout_i(axil_ram_if)
+//  );
 
 endmodule

@@ -1,70 +1,246 @@
 #pragma once
 
-#include "ControllerBase.hpp"
-#include "Signal.hpp"
-#include "xsi_loader.h"
-#include "Global.hpp"
-#include <cstring>
+#include <cassert>
+#include <cstdint>
 #include <functional>
-#include <iostream>
-#include <vector>
-#include <xsi.h>
+#include <memory>
+#include <string>
+#include "ControllerBase.hpp"
+#include "verilated.h"
+#include "verilated_fst_c.h"
 
-namespace xvl
+namespace sim 
 {
+
+typedef uint64_t SimTimeT;
 
 static const auto theDefaultWaitSim = [](){return true;};
 
+enum class ResetType 
+{
+  RANDOM_RESET  = 2,
+  ONE_RESET     = 1,
+  ZERO_RESET    = 0
+};
+
+enum class RunType 
+{
+  Debug         = 1, 
+  Release       = 0
+};
+
+enum class TraceOption 
+{
+  TraceOn       = 1, 
+  TraceOff      = 0
+};
+
+
+template <DeviceT DutT> 
 class Simulation
 {
-  enum class SIMULATION_STATE
-  {
-    NOT_INITIALISED = 0,
-    INITIALISED = 1
-  };
-
-  using ControllerT = ControllerBase;
 public:
+  using ControllerT = ControllerBase<DutT>;
 
-  Simulation() = delete;
-  Simulation(std::string_view aDesignLib, std::string_view aSimLib);
+  Simulation(
+    std::string aWaveName = "dump",
+    RunType aRunOption = RunType::Debug, 
+    TraceOption aTraceOption = TraceOption::TraceOn, 
+    ResetType aResetOption = ResetType::RANDOM_RESET
+  );
+
+  Simulation(
+    int argc, char *argv[],
+    std::string aWaveName = "dump",
+    RunType aRunOption = RunType::Debug, 
+    TraceOption aTraceOption = TraceOption::TraceOn, 
+    ResetType aResetOption = ResetType::RANDOM_RESET
+  );
 
   void simulate(std::function<bool()> aPredicate = theDefaultWaitSim, size_t aWaitValue = 1, size_t anIncrement = 1);
-  void resetDrivers();
 
+  void resetDrivers();
   void addDriver(std::shared_ptr<ControllerT> aController);
   void addMonitor(std::shared_ptr<ControllerT> aController);
 
   bool getStatus() const;
   std::string getErrorInfo() const;
 
-  virtual ~Simulation()
-  {
-    std::cout << "Simulation Info: \n";
-    std::cout << theSimulation->get_error_info() << "\n";
-    theSimulation->close();
-  };
+  virtual ~Simulation(){};
 
   void restartSim();
 
 private:
 
   void run_cycle(int aCycles);
-  void run_half_cycle(const XsiBit & aClkValue);
-
+  void run_half_cycle();
   bool isSimulationOver(std::function<bool()> aPredicate = theDefaultWaitSim);
   void initialiseSimulation();
+  void dump();
 
   std::vector<std::shared_ptr<ControllerT>> theMonitors;
   std::vector<std::shared_ptr<ControllerT>> theDrivers;
-  std::shared_ptr<Xsi::Loader> theSimulation;
-
-  PortNumber theClk;
-  PortNumber theReset;
-
-  s_xsi_setup_info theDeviceInfo;
-
-  SIMULATION_STATE theSimulationState;
+  std::shared_ptr<VerilatedContext> theVerilatedContext;
+  std::shared_ptr<DutT> theDut;
+  std::shared_ptr<VerilatedFstC> theTrace;
+  SimTimeT theSimTime;
 };
 
+template<DeviceT DutT> 
+Simulation<DutT>::Simulation(std::string aWaveName, RunType aRunOption, TraceOption aTraceOption, ResetType aResetOption)
+  : theMonitors{},
+    theDrivers{},
+    theVerilatedContext{},
+    theDut(
+      new DutT,
+      [&](DutT* aDut)
+      {
+        aDut->final();
+        delete aDut;
+      }
+    ),
+    theTrace(
+      new VerilatedFstC,
+      [&](VerilatedFstC* aTrace)
+      {
+        aTrace->close();
+        delete aTrace;
+      }
+    ),
+    theSimTime{0}
+{
+    Verilated::debug(static_cast<int>(aRunOption));
+    Verilated::randReset(static_cast<int>(aResetOption));
+    Verilated::traceEverOn(static_cast<bool>(aTraceOption));
+    Verilated::mkdir("waves");
+      
+    theDut->trace(theTrace.get(), 5);
+    theTrace->open(("waves/" + aWaveName + ".fst").c_str());
+
+    theDut->rst_n = 1;
 }
+
+template<DeviceT DutT> 
+Simulation<DutT>::Simulation(int argc, char *argv[], std::string aWaveName, RunType aRunOption,TraceOption aTraceOption, ResetType aResetOption)
+  : sim::Simulation<DutT>(aWaveName, aRunOption, aTraceOption, aResetOption)
+{
+   Verilated::commandArgs(argc, argv);
+}
+
+template<DeviceT DutT> 
+bool Simulation<DutT>::isSimulationOver(std::function<bool()> aPredicate)
+{
+  bool myAnsr = true;
+
+  for (auto & myDriver : theDrivers)
+  {
+    myAnsr &= myDriver->isControllerEmpty();
+  }
+
+  return myAnsr && aPredicate();
+}
+
+template<DeviceT DutT>
+void Simulation<DutT>::dump()
+{
+  theTrace->dump(theSimTime);
+  theSimTime++;
+}
+
+template<DeviceT DutT>
+void Simulation<DutT>::run_half_cycle()
+{
+  theDut->clk ^= 1;
+  theDut->eval();
+}
+
+template<DeviceT DutT>
+void Simulation<DutT>::resetDrivers()
+{
+    for (auto & myDriver : theDrivers)
+    {
+      myDriver->reset();
+    }
+}
+
+template<DeviceT DutT>
+void Simulation<DutT>::addDriver(std::shared_ptr<ControllerT> aController)
+{
+  theDrivers.push_back(aController);
+  aController->init(theDut);
+}
+
+template<DeviceT DutT>
+void Simulation<DutT>::addMonitor(std::shared_ptr<ControllerT> aController)
+{
+  theMonitors.push_back(aController);
+  aController->init(theDut);
+}
+
+template<DeviceT DutT> 
+void Simulation<DutT>::Simulation::initialiseSimulation() 
+{
+  run_cycle(1);
+
+  for (int i = 0; i < 4; i++)
+  {
+    theDut->rst_n = 0;
+    resetDrivers();
+    run_half_cycle();
+    dump();
+  }
+
+  theDut->rst_n = 1;
+  run_cycle(1);
+}
+
+template<DeviceT DutT> 
+void Simulation<DutT>::run_cycle(int aCycles)
+{
+  for (int i = 0 ; i < aCycles; i++)
+  {
+    run_half_cycle();
+    dump();
+    run_half_cycle();
+    dump();
+  }
+}
+
+template<DeviceT DutT> 
+void Simulation<DutT>::simulate(std::function<bool()> aPredicate, size_t aWaitValue, size_t anIncrement)
+{
+  initialiseSimulation();
+  
+  bool myStopSimulation = !isSimulationOver(aPredicate);
+  while (myStopSimulation || (aWaitValue > 0))
+  {
+     
+    run_half_cycle();
+    if (theDut->clk)
+    {
+
+      aWaitValue -= !myStopSimulation;
+
+      for (auto & myDriver : theDrivers)
+      {
+        myDriver->next();
+      }
+      
+      theDut->eval();
+
+      for (auto & myMonitor : theMonitors)
+      {
+        myMonitor->next();
+      }
+
+    }
+    
+    dump();
+    
+    myStopSimulation = !isSimulationOver(aPredicate);
+  }
+
+}
+
+}
+

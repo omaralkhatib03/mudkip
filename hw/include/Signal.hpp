@@ -1,20 +1,14 @@
 #pragma once
 
-#include <algorithm>
 #include <cstddef>
 #include <cstdint>
 #include <array>
 #include <cstring>
 #include <initializer_list>
 #include <iostream>
-#include <vector>
-#include <xsi.h>
 
-namespace xvl
+namespace sim 
 {
-
-using XsiBit = s_xsi_vlog_logicval;
-using XsiSignal = std::vector<XsiBit>;
 
 static constexpr uint32_t UINT32_BITS = 32;
 
@@ -33,13 +27,10 @@ public:
   using std::array<uint32_t, getWords(Width)>::array;
 
   Signal();
-  explicit Signal(XsiSignal anXsiSignal);
   Signal(std::initializer_list<uint32_t> anInitList);
 
-  operator XsiSignal() const;
-
+  Signal(const uint32_t aValue); 
   virtual ~Signal(){};
-
 };
 
 template<size_t Width>
@@ -65,31 +56,22 @@ Signal<Width>::Signal(std::initializer_list<uint32_t> anInitList)
 }
 
 template<size_t Width>
+Signal<Width>::Signal(uint32_t aValue)
+  : Signal()
+{
+    static_assert(getWords(Width) > 0, "Signal must have at least one word.");
+
+    (*this)[0] = aValue;  
+    for (size_t i = 1; i < getWords(Width); ++i) 
+    {
+      (*this)[i] = 0;    
+    }
+  }
+
+
+template<size_t Width>
 Signal<Width>::Signal()
   : std::array<uint32_t, getWords(Width)>{}
 {}
-
-template<size_t Width>
-Signal<Width>::Signal(XsiSignal anXsiSignal)
-  : Signal()
-{
-  std::transform(anXsiSignal.begin(), anXsiSignal.end(), this->begin(), [](XsiBit aBit){
-    if (aBit.bVal)
-    {
-      std::cerr << "Non two-state value being casted to signal" << std::endl;
-    }
-    return aBit.aVal;
-  });
-}
-
-template<size_t Width>
-Signal<Width>::operator XsiSignal() const
-{
-  auto myReturnSignal = XsiSignal(this->size(), {0, 0});
-  std::transform(this->begin(), this->end(), myReturnSignal.begin(), [](uint32_t aUint32){
-    return XsiBit({aUint32, 0});
-  });
-  return myReturnSignal;
-}
 
 }

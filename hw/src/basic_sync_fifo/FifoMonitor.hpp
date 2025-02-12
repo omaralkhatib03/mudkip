@@ -1,67 +1,56 @@
 #pragma once
 
-#include "Monitor.hpp"
+#include "Controller.hpp"
+#include "Defintions.hpp"
+#include "Signal.hpp"
 #include <cassert>
 
-namespace xvl
+namespace sim 
 {
 
 struct FifoMonitorIntf
 {
-  xvl::Signal<32> dout{};
-  xvl::Signal<1>  overflow;
-  xvl::Signal<1>  underflow;
-  xvl::Signal<1>  full;
-  xvl::Signal<1>  empty;
-  xvl::Signal<1>  valid{};
+  sim::Signal<32> dout{};
+  bool overflow;
+  bool underflow;
+  bool full;
+  bool empty;
+  bool valid{};
 };
 
-class FifoMonitor : public Monitor<FifoMonitorIntf>
+template <DeviceT DutT>
+class FifoMonitor : public Controller<DutT, FifoMonitorIntf>
 {
+public:  
+  using Controller<DutT, FifoMonitorIntf>::Controller;
+  
+  void reset() override {}
 
-public:
-  using Monitor<FifoMonitorIntf>::Monitor;
-
-  void reset() override {};
-
-  FifoMonitorIntf getCurrent() override
+  FifoMonitorIntf getCurrent()
   {
     return theCurrentIntf;
   }
 
   void next() override
   {
-    this->get("dout", theCurrentIntf.dout);
-    this->get("valid", theCurrentIntf.valid);
-    this->get("overflow", theCurrentIntf.overflow);
-    this->get("underflow", theCurrentIntf.underflow);
+    theCurrentIntf.dout = this->theDevice->dout;
+    theCurrentIntf.valid = this->theDevice->valid;
 
-    if (theCurrentIntf.valid[0])
-    {
-      aCounter++;
-      return;
-    }
+    theCurrentIntf.overflow = this->theDevice->overflow;
+    theCurrentIntf.underflow = this->theDevice->underflow;
+  
 
-    if (aCounter % 2)
+    if (theCurrentIntf.valid)
     {
       this->add(theCurrentIntf);
-      aCounter++;
     }
 
-    assert(theCurrentIntf.underflow[0] == 0);
-    assert(theCurrentIntf.overflow[0] == 0);
-  };
-
-  FifoMonitorIntf & getCurrentIntf()
-  {
-      return theCurrentIntf;
+    assert(!theCurrentIntf.underflow);
+    assert(!theCurrentIntf.overflow);
   }
 
-private:
   FifoMonitorIntf theCurrentIntf{};
-  int aCounter = 0;
 };
-
 
 
 }

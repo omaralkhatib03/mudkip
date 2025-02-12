@@ -1,35 +1,37 @@
 #pragma once
 
-#include "Driver.hpp"
+#include "Controller.hpp"
+#include "Defintions.hpp"
 #include "Signal.hpp"
 
-namespace xvl
+namespace sim 
 {
 
 struct FifoDriverIntf
 {
-  xvl::Signal<32> din;
-  xvl::Signal<1>  shift_in;
-  xvl::Signal<1>  shift_out;
+  sim::Signal<32> din;
+  bool  shift_in;
+  bool  shift_out;
 };
 
-class FifoDriver : public Driver<FifoDriverIntf>
+template <DeviceT DutT>
+class FifoDriver : public Controller<DutT, FifoDriverIntf>
 {
-
-public:
-
-  using Driver<FifoDriverIntf>::Driver;
+public:  
+  using Controller<DutT, FifoDriverIntf>::Controller;
 
   void driveFifoIntf(FifoDriverIntf aFifoIntf)
   {
-    this->drive("din", aFifoIntf.din);
-    this->drive("shift_in", aFifoIntf.shift_in);
-    this->drive("shift_out", aFifoIntf.shift_out);
+    this->theDevice->din          =   *aFifoIntf.din.data();
+    this->theDevice->shift_in     =   aFifoIntf.shift_in;
+    this->theDevice->shift_out    =   aFifoIntf.shift_out;
   }
 
   void reset() override
   {
-    driveFifoIntf({{0}, {0}, {0}});
+    this->theDevice->din = 0;
+    this->theDevice->shift_in = 0;
+    this->theDevice->shift_out = 0;
   }
 
   void next() override
@@ -41,7 +43,7 @@ public:
       return;
     }
     reset();
-  };
+  }
 
 };
 

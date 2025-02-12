@@ -1,11 +1,10 @@
-`uselib lib = xpm
-`timescale 1 ps/1 ps
+`timescale 1 ns/1 ps
+
 
 module basic_sync_fifo #(
-  parameter DATA_WIDTH        = 32,
-  parameter DEPTH             = 16,
-  parameter READ_LATENCY      = 0,
-  localparam DATA_COUNT_WDITH = $clog2(DEPTH)
+  parameter DATA_WIDTH        = 32,  /*DATA_WIDTH verilator public */
+  parameter DEPTH             = 16,  /* DEPTH verilator public  */
+  parameter READ_LATENCY      = 0    /* READ_LATENCY verilator public  */
 ) (
   input wire                    clk,
   input wire                    rst_n,
@@ -23,48 +22,72 @@ module basic_sync_fifo #(
   output logic                  underflow 
   
 );
+  
+  localparam PTR_WIDTH = $clog2(DEPTH);
 
-  logic valid_inter; 
+  logic [DATA_WIDTH-1:0] mem [DEPTH-1:0];
+  
+  logic [DATA_WIDTH-1:0] fifo_out;
+  
+  logic [PTR_WIDTH-1:0] rd_ptr_r;
+  logic [PTR_WIDTH-1:0] rd_ptr_b;
 
+  logic [PTR_WIDTH-1:0] wr_ptr_r;
+  logic [PTR_WIDTH-1:0] wr_ptr_b;
+
+  logic valid_i;
+  
+  assign empty      = rd_ptr_r == wr_ptr_r;
+  assign full       = 32'(wr_ptr_r) == DEPTH-1;
+  assign underflow  = shift_out && empty;   
+  assign overflow   = shift_in && full;
+
+  always_comb
+  begin
+    rd_ptr_b = rd_ptr_r;
+    wr_ptr_b = wr_ptr_r;
+    fifo_out = mem[rd_ptr_r];
+
+    if (shift_in && !full)
+    begin
+      wr_ptr_b = wr_ptr_r + 1;
+    end
+    
+    if (shift_out && !empty)
+    begin
+      rd_ptr_b = rd_ptr_r + 1;       
+    end
+
+  end
+
+  always_ff @(posedge clk) 
+  begin 
+    if (!rst_n)    
+    begin
+      wr_ptr_r      <= '0;
+      rd_ptr_r      <= '0;   
+    end
+    else 
+    begin
+      rd_ptr_r      <= rd_ptr_b;   
+      wr_ptr_r      <= wr_ptr_b;
+      mem[wr_ptr_r] <= din;
+      valid_i       <= shift_out;
+    end
+  end
+  
   generate
-  if (READ_LATENCY == 0)
-  begin
-    assign valid = !empty; 
-  end
-  else 
-  begin
-    assign valid = valid_inter;   
-  end
+    if (READ_LATENCY == 0)
+    begin : fifo_0_latency
+      assign dout   = shift_in && empty ? din : fifo_out;
+      assign valid  = shift_out; 
+    end
+    else 
+    begin : fifo_1_latency
+      assign dout   = fifo_out; 
+      assign valid  = valid_i;
+    end
   endgenerate
 
-  xpm_fifo_sync #(
-      .FIFO_MEMORY_TYPE         ("auto"), // String
-      .FIFO_READ_LATENCY        (1),     // DECIMAL
-      .FIFO_WRITE_DEPTH         (DEPTH),   // DECIMAL
-      .READ_DATA_WIDTH          (DATA_WIDTH),      // DECIMAL
-      .WRITE_DATA_WIDTH         (DATA_WIDTH),     // DECIMAL
-      .RD_DATA_COUNT_WIDTH      (DATA_COUNT_WDITH),   // DECIMAL
-      .READ_MODE                ("std"),         // String
-      .WR_DATA_COUNT_WIDTH      (DATA_COUNT_WDITH),   // DECIMAL
-      .FULL_RESET_VALUE         (0),
-      .WAKEUP_TIME              (0),
-      .USE_ADV_FEATURES         ("1101")
-   ) xpm_fifo_sync_inst (
-      .dout                 (dout),                  
-      .empty                (empty),                
-      .full                 (full),                  
-      .overflow             (overflow),          
-      .rd_data_count        (),
-      .wr_data_count        (),
-      .underflow            (underflow),        
-      .din                  (din),                    
-      .rd_en                (shift_out),                
-      .rst                  (!rst_n),                    
-      .wr_clk               (clk),             
-      .wr_en                (shift_in),
-      .data_valid           (valid_inter)
-   );    
-
-  
 endmodule;
 

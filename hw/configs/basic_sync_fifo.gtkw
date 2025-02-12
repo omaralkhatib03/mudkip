@@ -1,0 +1,66 @@
+[*]
+[*] GTKWave Analyzer v3.3.116 (w)1999-2023 BSI
+[*] Wed Feb 12 17:25:47 2025
+[*]
+[dumpfile] "/home/omar/Documents/year-4/FYP/mudkip/hw/waves/basic_sync_fifo.fst"
+[dumpfile_mtime] "Wed Feb 12 17:21:40 2025"
+[dumpfile_size] 1006
+[savefile] "/home/omar/Documents/year-4/FYP/mudkip/hw/configs/basic_sync_fifo.gtkw"
+[timestart] 10
+[size] 1920 1033
+[pos] -1 -1
+*-1.500000 21 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] TOP.
+[sst_width] 355
+[signals_width] 186
+[sst_expanded] 1
+[sst_vpaned_height] 307
+@28
+TOP.basic_sync_fifo.clk
+TOP.basic_sync_fifo.rst_n
+@800200
+-Ctrl
+@28
+TOP.basic_sync_fifo.shift_in
+TOP.basic_sync_fifo.shift_out
+TOP.basic_sync_fifo.valid
+TOP.basic_sync_fifo.underflow
+TOP.basic_sync_fifo.overflow
+TOP.basic_sync_fifo.full
+TOP.basic_sync_fifo.empty
+@1000200
+-Ctrl
+@800200
+-Data
+@22
+TOP.basic_sync_fifo.dout[31:0]
+TOP.basic_sync_fifo.din[31:0]
+@1000200
+-Data
+@800200
+-Mem
+@22
+TOP.basic_sync_fifo.mem[0][31:0]
+TOP.basic_sync_fifo.mem[1][31:0]
+TOP.basic_sync_fifo.mem[2][31:0]
+TOP.basic_sync_fifo.mem[3][31:0]
+TOP.basic_sync_fifo.mem[4][31:0]
+TOP.basic_sync_fifo.mem[5][31:0]
+TOP.basic_sync_fifo.mem[6][31:0]
+@1000200
+-Mem
+@800200
+-Ptr
+@22
+TOP.basic_sync_fifo.rd_ptr_r[3:0]
+TOP.basic_sync_fifo.wr_ptr_r[3:0]
+@1000200
+-Ptr
+@800200
+-Interim
+@23
+TOP.basic_sync_fifo.fifo_out[31:0]
+@1000200
+-Interim
+[pattern_trace] 1
+[pattern_trace] 0
