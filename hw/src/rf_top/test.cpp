@@ -7,7 +7,7 @@
 #include "AxiMasterMonitor.hpp"
 #include "Simulation.hpp"
 #include <cstddef>
-#include <ostream>
+#include "TestUtils.hpp"
 #include <queue>
 #include <verilated.h>
 #include "Vrf_top.h"
@@ -53,20 +53,11 @@ TEST(RfTopTests, SimpleRW) {
 }
 
 TEST(RfTopTests, RandomRW) {
-  const ::testing::TestInfo* test_info =
-      ::testing::UnitTest::GetInstance()->current_test_info();
-
-  if (test_info) {
-      std::string test_suite_name = test_info->test_suite_name();  // Test suite name
-      std::string test_name = test_info->name();                  // Test name
-
-      std::cout << "Running test: " << test_suite_name << "." << test_name << std::endl;
-  }
-  std::string test_name = test_info->name();                  // Test name
   
+  std::string myTestName = sim::getTestName();
   static constexpr size_t MAX_TEST_LENGTH = 50;
 
-  auto mySimulation   = sim::Simulation<DeviceT>("rf_top_"+test_name, sim::RunType::Release, sim::TraceOption::TraceOn, sim::ResetType::RANDOM_RESET, 500);
+  auto mySimulation   = sim::Simulation<DeviceT>("rf_top_"+myTestName, sim::RunType::Release, sim::TraceOption::TraceOn, sim::ResetType::RANDOM_RESET, 500);
   auto myRfDriver     = std::make_shared<RfDriverT>(sim::ReadyTestType::RANDOM_READY);
   auto myRfMonitor    = std::make_shared<RfMonitorT>();
 

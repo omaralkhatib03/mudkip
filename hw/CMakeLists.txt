@@ -35,7 +35,7 @@ file(GLOB_RECURSE VHD_FILES "rtl/*.vhd" "rtl/*.vhdl")
 file(GLOB_RECURSE IP_FILES "rtl/ips/*stub.v")
 
 file(GLOB_RECURSE SIM_HEADER_FILES)
-file(GLOB SIM_SRC_FILES "${CMAKE_SOURCE_DIR}/lib/*" "${CMAKE_SOURCE_DIR}/src/*") 
+file(GLOB SIM_SRC_FILES "${CMAKE_SOURCE_DIR}/lib/*") 
 file(GLOB SIM_HEADER_FILES "${CMAKE_SOURCE_DIR}/include/*.h" "${CMAKE_SOURCE_DIR}/include/*.hpp}")
 
 add_library(sim OBJECT "${SIM_SRC_FILES}")
