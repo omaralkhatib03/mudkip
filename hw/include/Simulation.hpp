@@ -46,7 +46,8 @@ public:
     std::string aWaveName = "dump",
     RunType aRunOption = RunType::Debug, 
     TraceOption aTraceOption = TraceOption::TraceOn, 
-    ResetType aResetOption = ResetType::RANDOM_RESET
+    ResetType aResetOption = ResetType::RANDOM_RESET,
+    uint32_t aMaxSimTime = 100
   );
 
   Simulation(
@@ -54,7 +55,8 @@ public:
     std::string aWaveName = "dump",
     RunType aRunOption = RunType::Debug, 
     TraceOption aTraceOption = TraceOption::TraceOn, 
-    ResetType aResetOption = ResetType::RANDOM_RESET
+    ResetType aResetOption = ResetType::RANDOM_RESET,
+    uint32_t aMaxSimTime = 100
   );
 
   void simulate(std::function<bool()> aPredicate = theDefaultWaitSim, size_t aWaitValue = 1, size_t anIncrement = 1);
@@ -84,19 +86,25 @@ private:
   std::shared_ptr<DutT> theDut;
   std::shared_ptr<VerilatedFstC> theTrace;
   SimTimeT theSimTime;
+  uint32_t theMaxSimTime;
 };
 
 template<DeviceT DutT> 
-Simulation<DutT>::Simulation(std::string aWaveName, RunType aRunOption, TraceOption aTraceOption, ResetType aResetOption)
+Simulation<DutT>::Simulation(std::string aWaveName, RunType aRunOption, TraceOption aTraceOption, ResetType aResetOption, uint32_t aMaxSimTime)
   : theMonitors{},
     theDrivers{},
-    theVerilatedContext{},
+    theVerilatedContext(
+      new VerilatedContext, 
+      [&](VerilatedContext * aContext)
+      {
+        delete aContext;
+      }
+    ),
     theDut(
       new DutT,
       [&](DutT* aDut)
       {
         aDut->final();
-        delete aDut;
       }
     ),
     theTrace(
@@ -107,22 +115,24 @@ Simulation<DutT>::Simulation(std::string aWaveName, RunType aRunOption, TraceOpt
         delete aTrace;
       }
     ),
-    theSimTime{0}
+    theSimTime{0},
+    theMaxSimTime{aMaxSimTime}
 {
-    Verilated::debug(static_cast<int>(aRunOption));
-    Verilated::randReset(static_cast<int>(aResetOption));
-    Verilated::traceEverOn(static_cast<bool>(aTraceOption));
+    theVerilatedContext->debug(static_cast<int>(aRunOption));
+    theVerilatedContext->randReset(static_cast<int>(aResetOption));
+    theVerilatedContext->traceEverOn(static_cast<bool>(aTraceOption));
+
     Verilated::mkdir("waves");
       
-    theDut->trace(theTrace.get(), 5);
+    theDut->trace(theTrace.get(), 99);
     theTrace->open(("waves/" + aWaveName + ".fst").c_str());
 
     theDut->rst_n = 1;
 }
 
 template<DeviceT DutT> 
-Simulation<DutT>::Simulation(int argc, char *argv[], std::string aWaveName, RunType aRunOption,TraceOption aTraceOption, ResetType aResetOption)
-  : sim::Simulation<DutT>(aWaveName, aRunOption, aTraceOption, aResetOption)
+Simulation<DutT>::Simulation(int argc, char *argv[], std::string aWaveName, RunType aRunOption,TraceOption aTraceOption, ResetType aResetOption, uint32_t aMaxCycles)
+  : sim::Simulation<DutT>(aWaveName, aRunOption, aTraceOption, aResetOption, aMaxCycles)
 {
    Verilated::commandArgs(argc, argv);
 }
@@ -212,7 +222,7 @@ void Simulation<DutT>::simulate(std::function<bool()> aPredicate, size_t aWaitVa
   initialiseSimulation();
   
   bool myStopSimulation = !isSimulationOver(aPredicate);
-  while (myStopSimulation || (aWaitValue > 0))
+  while ((myStopSimulation || (aWaitValue > 0)) && theSimTime < theMaxSimTime)
   {
      
     run_half_cycle();

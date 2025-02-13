@@ -4,7 +4,7 @@
 module basic_sync_fifo #(
   parameter DATA_WIDTH        = 32,  /* DATA_WIDTH verilator public */
   parameter DEPTH             = 16,  /* DEPTH verilator public  */
-  parameter READ_LATENCY      = 1    /* READ_LATENCY verilator public  */
+  parameter READ_LATENCY      = 0    /* READ_LATENCY verilator public  */
 ) (
   input wire                    clk,
   input wire                    rst_n,
@@ -37,8 +37,6 @@ module basic_sync_fifo #(
 
   logic valid_i;
   
-  assign empty      = rd_ptr_r == wr_ptr_r;
-  assign full       = 32'(wr_ptr_r) == DEPTH-1;
   assign underflow  = shift_out && empty;   
   assign overflow   = shift_in && full;
 
@@ -47,20 +45,12 @@ module basic_sync_fifo #(
     rd_ptr_b = rd_ptr_r;
     wr_ptr_b = wr_ptr_r;
     fifo_out = mem[rd_ptr_r];
-
-    if (shift_in && !full)
-    begin
-      wr_ptr_b = wr_ptr_r + 1;
-    end
-    else if (shift_out && !empty)
-    begin
-      wr_ptr_b = wr_ptr_r - 1;
-    end
     
-    if (shift_out && rd_ptr_r != 0)
-    begin
-      rd_ptr_b = rd_ptr_r - 1;       
-    end
+    if (shift_in && !full)
+      wr_ptr_b = wr_ptr_r + 1;
+
+    if (shift_out && !empty)
+      rd_ptr_b = rd_ptr_r + 1;  
 
   end
 
@@ -70,6 +60,7 @@ module basic_sync_fifo #(
     begin
       wr_ptr_r      <= '0;
       rd_ptr_r      <= '0;   
+      valid_i       <= '0;
     end
     else 
     begin
@@ -83,13 +74,22 @@ module basic_sync_fifo #(
   generate
     if (READ_LATENCY == 0)
     begin : fifo_0_latency
-      assign dout   = shift_in && empty ? din : fifo_out;
+      assign dout   = shift_in ? din : fifo_out;
       assign valid  = shift_out; 
+      assign empty  = rd_ptr_r == wr_ptr_r && !shift_in;
+      assign full   = 32'(wr_ptr_r) == DEPTH-1 && !shift_in;
     end
     else 
     begin : fifo_1_latency
-      assign dout   = fifo_out; 
+
+      always_ff @(posedge clk) 
+      begin 
+        dout   <= fifo_out; 
+      end
+
       assign valid  = valid_i;
+      assign full   = 32'(wr_ptr_r) == DEPTH-1;
+      assign empty  = rd_ptr_r == wr_ptr_r;
     end
   endgenerate
 

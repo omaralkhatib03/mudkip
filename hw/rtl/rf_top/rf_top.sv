@@ -1,8 +1,8 @@
 `timescale 1ns/1ps
 
 module rf_top  #(
-  parameter DATA_WIDTH   = 32,
-  parameter ADDR_WIDTH   = 4
+  parameter DATA_WIDTH   /* verilator public */ = 32,  
+  parameter ADDR_WIDTH   /* verilator public */ = 4    
 ) ( 
   input                   clk,
   input                   rst_n,
@@ -27,7 +27,7 @@ module rf_top  #(
   output                   wready,
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if BRESP" *) 
-  output                   wresp, 
+  output [DATA_WIDTH-1:0]  wresp, 
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 axil_ps_if BVALID" *) 
   output                   bvalid, 
@@ -63,15 +63,19 @@ module rf_top  #(
   assign axil_ps_if.waddr = waddr; 
   assign axil_ps_if.wavalid = wavalid;
   assign waready = axil_ps_if.waready;
+
   assign axil_ps_if.wdata = wdata;
   assign axil_ps_if.wvalid = wvalid;
   assign wready = axil_ps_if.wready;
-  assign wresp = axil_ps_if.wresp;
+
+  assign wresp = axil_ps_if.bdata;
   assign bvalid = axil_ps_if.bvalid;
   assign axil_ps_if.bready = bready;
+
   assign axil_ps_if.raddr = raddr;
   assign axil_ps_if.arvalid = arvalid;
   assign arready = axil_ps_if.arready;
+
   assign rdata = axil_ps_if.rdata;
   assign rvalid = axil_ps_if.rvalid;
   assign axil_ps_if.rready = rready;
@@ -82,7 +86,7 @@ module rf_top  #(
   ) ps_m_i ();
   
    axl_ps_adapter  #(
-    .FIFO_DEPTH(128)
+    .FIFO_DEPTH(64)
   ) axl_ps_top_adapter_I (
     .clk        (clk),
     .rst_n      (rst_n),

@@ -26,11 +26,6 @@ public:
   
   void reset() override {}
 
-  FifoMonitorIntf getCurrent()
-  {
-    return theCurrentIntf;
-  }
-
   void next() override
   {
     theCurrentIntf.dout = this->theDevice->dout;
@@ -49,7 +44,7 @@ public:
   }
 
   FifoMonitorIntf theCurrentIntf{};
-  int theLatencyCounter;
+
 };
 
 

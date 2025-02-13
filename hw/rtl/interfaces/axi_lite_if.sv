@@ -1,10 +1,8 @@
-
 interface axi_lite_if #(
   parameter ADDR_WIDTH  = 5,
   parameter DATA_WIDTH  = 32
 );
  
-
 logic [ADDR_WIDTH-1:0]  waddr;  // Address to write to
 logic                   wavalid;
 logic                   waready;
@@ -13,7 +11,7 @@ logic [DATA_WIDTH-1:0]  wdata;  // Data to write
 logic                   wvalid; // Data valid
 logic                   wready; // Ready to Write 
 
-logic                   wresp;  // done writing (optional)
+logic  [DATA_WIDTH-1:0] bdata;  // done writing (optional)
 logic                   bvalid;
 logic                   bready;
 
@@ -25,8 +23,6 @@ logic [DATA_WIDTH-1:0]  rdata;    // data read
 logic                   rvalid;   // valid data out
 logic                   rready;   // hold on cant accept a read req 
 
-logic                   tuser;
-
   modport slave (
     input waddr,
     input wavalid,
@@ -36,7 +32,7 @@ logic                   tuser;
     input wvalid,
     output wready,
 
-    output wresp,
+    output bdata,
     output bvalid,
     input bready,
 
@@ -58,7 +54,7 @@ logic                   tuser;
     output wvalid,
     input wready,
     
-    input wresp,
+    input bdata,
     input bvalid,
     output bready,
 

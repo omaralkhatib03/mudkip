@@ -1,65 +1,50 @@
 `timescale 1ns/1ps
 
 module rf_node (
-
   input clk,
   input rst_n,
 
   ps_if.slave ps_i
 );
 
-  localparam NUMBER_OF_PS_REGISTERS = 3;
-  localparam dma_axi_addr = 0, dma_axi_valid = 1, error = 2;
+  localparam NUMBER_OF_PS_REGISTERS = 2**ps_i.ADDR_WIDTH;
+  localparam dma_axi_addr = 0, dma_axi_valid = 1;
 
   logic  [31:0] mem[NUMBER_OF_PS_REGISTERS-1:0]; 
+  logic  [31:0] mem_b[NUMBER_OF_PS_REGISTERS-1:0]; 
+  
+  always_comb 
+  begin 
+    for (int i = 0; i < NUMBER_OF_PS_REGISTERS; i++) 
+    begin
+      mem_b[i] = mem[i];
+    end
+
+    if (ps_i.wvalid)
+    begin
+      mem_b[ps_i.waddr] = ps_i.wdata;
+    end
+
+  end
 
   // Write logic   
   always_ff @(posedge clk)
   begin
     if (!rst_n)
     begin
-      mem[dma_axi_valid] <= '0;   
+      mem[dma_axi_valid] <= '0; // Reset important registers, not all of them
     end
     else 
     begin
-      if (ps_i.wvalid)
-      begin
-        case (ps_i.waddr)
-          dma_axi_addr:
-          begin
-              mem[dma_axi_addr]   <= ps_i.wdata; 
-              mem[dma_axi_valid]  <= '1; 
-          end
-          default: 
-          begin
-              mem[dma_axi_valid]  <= '0; // Refuse Write if otherwise; 
-          end
-        endcase   
-      end
-      else 
-      begin
-        mem[dma_axi_addr]   <= mem[dma_axi_addr];
-        mem[dma_axi_valid]  <= mem[dma_axi_valid];
-      end
+      mem <= mem_b;
+      ps_i.bvalid <= ps_i.wvalid;
     end
-    ps_i.wresp <= ps_i.wvalid;
   end
 
-  // Read logic
-  always_ff @(*)
-  begin
-      if (ps_i.arvalid)
-      begin
-        case (ps_i.raddr)
-          dma_axi_addr: ps_i.rdata   = mem[dma_axi_addr];
-          dma_axi_valid: ps_i.rdata  = mem[dma_axi_addr];
-          default: ps_i.rdata        = mem[error];
-        endcase   
-      end
-  end
-
-  assign ps_i.wready = '1;
-  assign ps_i.rvalid = ps_i.arvalid;
+  assign ps_i.wready  = '1;
+  assign ps_i.aready  = '1;
+  assign ps_i.rvalid  = ps_i.arvalid;
+  assign ps_i.rdata   = ps_i.arvalid ? mem[ps_i.raddr] : '0;
 
 endmodule;
 

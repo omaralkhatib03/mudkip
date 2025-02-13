@@ -6,6 +6,7 @@
 #include <cstring>
 #include <initializer_list>
 #include <iostream>
+#include <ostream>
 
 namespace sim 
 {
@@ -30,6 +31,26 @@ public:
   Signal(std::initializer_list<uint32_t> anInitList);
 
   Signal(const uint32_t aValue); 
+
+  explicit operator uint32_t() const {
+      // Use the first element for the conversion
+      if (this->size() > 1)
+        std::cerr << "Warning: Casing Signal which is larger than 32 bits, Signal is " << this->size() << " bits";
+
+      return (*this)[0];
+  }
+
+  friend std::ostream& operator<<(std::ostream& os, const Signal<Width>& signal) {
+    os << std::hex;
+    os << "{ ";
+    for (size_t i = 0; i < signal.size(); ++i) {
+      os << signal[i];
+      if (i < signal.size() - 1) os << ", ";
+    }
+    os << " }";
+    return os;
+  }
+
   virtual ~Signal(){};
 };
 

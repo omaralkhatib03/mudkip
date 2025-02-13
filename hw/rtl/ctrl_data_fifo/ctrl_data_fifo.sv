@@ -6,38 +6,31 @@ module ctrl_data_fifo #(
   parameter DEPTH             = 16,
   parameter READ_LATENCY      = 1
 ) (
-  input wire                    clk,
-  input wire                    rst_n,
+  input wire                                    clk,
+  input wire                                    rst_n,
 
-  input wire [DATA_WIDTH-1:0]   din_data,
-  input wire                    data_valid,
-  output                        data_ready,
+  input wire [DATA_WIDTH-1:0]                   din_data,
+  input wire                                    data_valid,
+  output                                        data_ready,
 
-  input wire [CTRL_WIDTH-1:0]   ctrl_data,
-  input wire                    ctrl_valid,
-  output logic                  ctrl_ready,
+  input wire [CTRL_WIDTH-1:0]                   ctrl_data,
+  input wire                                    ctrl_valid,
+  output logic                                  ctrl_ready,
   
-  output logic [DATA_WIDTH+CTRL_WIDTH-1:0]   dout,
-  output logic                    valid,
+  output logic [DATA_WIDTH+CTRL_WIDTH-1:0]      dout,
+  output logic                                  valid,
+  input wire                                    shift_out,
 
-  input wire                      ready,
+  output logic                                  empty,
 
-  input wire                      shift_out,
+  output logic                                  ctrl_overflow,
+  output logic                                  ctrl_underflow,
 
-  output logic                    empty,
-
-  output logic                    ctrl_overflow,
-  output logic                    ctrl_underflow,
-
-  output logic                    data_overflow,
-  output logic                    data_underflow
+  output logic                                  data_overflow,
+  output logic                                  data_underflow
 
 );
   
-  localparam DATA_COUNT_WDITH = $clog2(DEPTH);
-
-  // logic shift_out;
-
   logic ctrl_empty;
   logic data_empty;
 
@@ -93,11 +86,10 @@ module ctrl_data_fifo #(
     .underflow(ctrl_underflow)
   );
 
-  // assign shift_out  = (!data_empty && !ctrl_empty) && (ready);
-  assign valid      = ctrl_valid && data_valid;
+  assign valid      = data_fifo_valid && ctrl_fifo_valid;
   assign dout       = {ctrl_out, data_out};
-  assign data_ready = data_full;
-  assign ctrl_ready = ctrl_full;
+  assign data_ready = !data_full;
+  assign ctrl_ready = !ctrl_full;
   assign empty      = ctrl_empty && data_empty;
 
 endmodule

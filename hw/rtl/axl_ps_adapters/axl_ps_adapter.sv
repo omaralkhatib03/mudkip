@@ -1,9 +1,11 @@
+
 `timescale 1 ns/1 ps
 
 // Ensure that the input and output have the same data width and depth (address bits) targets.
 
 module axl_ps_adapter  #(
-  parameter FIFO_DEPTH = 256
+  parameter FIFO_DEPTH    = 16,
+  parameter READ_LATENCY  = 1 
 ) (
   input wire clk,
   input wire rst_n,
@@ -28,52 +30,111 @@ module axl_ps_adapter  #(
   logic   shift_out_w;
   logic   shift_out_r;
 
-  logic   r_empty;
   logic   w_empty;
+  logic   r_empty;
+  logic   b_empty;
+  logic   res_empty;
 
+  logic ax_full;
+  logic ps_full;
+
+  /* verilator lint_off PINMISSING */ // (Over/Under) Pins
   ctrl_data_fifo #(
     .DATA_WIDTH(axl_m_i.DATA_WIDTH),
     .CTRL_WIDTH(ADDR_WIDTH),
     .DEPTH(FIFO_DEPTH),
-    .READ_LATENCY(1)      
+    .READ_LATENCY(READ_LATENCY)      
   ) w_adapter_fifo_I (
-    .clk(clk),
-    .rst_n(rst_n),
+    .clk                  (clk),
+    .rst_n                (rst_n),
 
-    .din_data(axl_m_i.wdata),
-    .data_valid(axl_m_i.wvalid),
-    .data_ready(axl_m_i.wready),
+    .din_data             (axl_m_i.wdata),
+    .data_valid           (axl_m_i.wvalid),
+    .data_ready           (axl_m_i.wready),
 
-    .ctrl_data(axl_m_i.waddr),
-    .ctrl_valid(axl_m_i.wavalid),
-    .ctrl_ready(axl_m_i.waready),
+    .ctrl_data            (axl_m_i.waddr),
+    .ctrl_valid           (axl_m_i.wavalid),
+    .ctrl_ready           (axl_m_i.waready),
 
-    .dout({ps_m_i.waddr, ps_m_i.wdata}),
-    .valid(ps_m_i.wvalid),
-    .ready(ps_m_i.wready),
+    .dout                 ({ps_m_i.waddr, ps_m_i.wdata}),
+    .valid                (ps_m_i.wvalid),
 
-    .shift_out(shift_out_w),
+    .shift_out            (shift_out_w),
 
-    .empty(w_empty),
-
-    .data_overflow(), 
-    .data_underflow(), 
-
-    .ctrl_overflow(),
-    .ctrl_underflow() 
+    .empty                (w_empty)
   );
+  /* verilator lint_off PINMISSING */ // (Over/Under) Pins
 
-  assign shift_out_w    = !w_empty && ps_m_i.wready;
-  assign shift_out_r    = !r_empty && ps_m_i.rready;
+  /* verilator lint_off PINMISSING */ // (Over/Under) Pins
+  basic_sync_fifo #(
+    .DEPTH          (FIFO_DEPTH),
+    .DATA_WIDTH     (axl_m_i.ADDR_WIDTH),
+    .READ_LATENCY   (READ_LATENCY)      
+  ) r_adapter_fifo_I (
+    .clk            (clk),
+    .rst_n          (rst_n),
 
-  assign axl_m_i.wresp  = ps_m_i.wresp;  
+    .din            (axl_m_i.raddr),
+    .shift_in       (axl_m_i.arvalid),
 
-  assign ps_m_i.raddr   = axl_m_i.raddr;
-  assign ps_m_i.arvalid = axl_m_i.arvalid;
+    .full           (ax_full),
+    .dout           (ps_m_i.raddr),
+    .valid          (ps_m_i.arvalid),
+    .shift_out      (shift_out_r),
+    .empty          (r_empty)
+  );
+  /* verilator lint_off PINMISSING */ // (Over/Under) Pins
 
-  assign axl_m_i.rdata  = ps_m_i.rdata;
+  assign shift_out_w      = !w_empty && ps_m_i.wready;
+  assign shift_out_r      = !r_empty && ps_m_i.aready;
 
-  assign axl_m_i.rvalid = ps_m_i.rvalid;
-  assign ps_m_i.rready  = axl_m_i.rready;
-  
+  assign axl_m_i.arready  = !ax_full; 
+  assign ps_m_i.rready    = !ps_full; 
+
+  /* verilator lint_off PINMISSING */ // (Over/Under) Pins
+  basic_sync_fifo #(
+    .DEPTH          (FIFO_DEPTH),
+    .DATA_WIDTH     (axl_m_i.DATA_WIDTH),
+    .READ_LATENCY   (READ_LATENCY)      
+  ) res_adapter_fifo_I (
+    .clk            (clk),
+    .rst_n          (rst_n),
+
+    .din            (ps_m_i.rdata),
+    .shift_in       (ps_m_i.rvalid),
+
+    .full           (ps_full),
+
+    .dout           (axl_m_i.rdata),
+    .valid          (axl_m_i.rvalid),
+    .shift_out      (axl_m_i.rready && !res_empty),
+    .empty          (res_empty)
+  );
+  /* verilator lint_off PINMISSING */ // (Over/Under) Pins
+
+
+  /* verilator lint_off PINMISSING */ // (Over/Under) Pins
+  basic_sync_fifo #(
+    .DEPTH          (FIFO_DEPTH),
+    .DATA_WIDTH     (axl_m_i.DATA_WIDTH),
+    .READ_LATENCY   (READ_LATENCY)      
+  ) b_adapter_fifo_I (
+    .clk            (clk),
+    .rst_n          (rst_n),
+
+    .din            (ps_m_i.bdata),
+    .shift_in       (ps_m_i.bvalid),
+
+    .full           (ps_m_i.bready),
+
+    .dout           (axl_m_i.bdata),
+    .valid          (axl_m_i.bvalid),
+    .shift_out      (axl_m_i.bready && !b_empty),
+    .empty          (b_empty)
+  );
+  /* verilator lint_off PINMISSING */ // (Over/Under) Pins
+
+
+
 endmodule
+

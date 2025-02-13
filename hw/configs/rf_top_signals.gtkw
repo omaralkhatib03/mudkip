@@ -1,0 +1,108 @@
+[*]
+[*] GTKWave Analyzer v3.3.116 (w)1999-2023 BSI
+[*] Thu Feb 13 00:09:29 2025
+[*]
+[dumpfile] "/home/omar/Documents/year-4/FYP/mudkip/hw/waves/rf_top_RandomRW.fst"
+[dumpfile_mtime] "Thu Feb 13 00:07:09 2025"
+[dumpfile_size] 4068
+[savefile] "/home/omar/Documents/year-4/FYP/mudkip/hw/configs/rf_top_signals.gtkw"
+[timestart] 0
+[size] 1920 1080
+[pos] -1 -1
+*-2.421863 18 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] TOP.
+[treeopen] TOP.rf_top.
+[treeopen] TOP.rf_top.axl_ps_top_adapter_I.
+[treeopen] TOP.rf_top.axl_ps_top_adapter_I.w_adapter_fifo_I.
+[treeopen] TOP.rf_top.dut_I.
+[sst_width] 273
+[signals_width] 228
+[sst_expanded] 1
+[sst_vpaned_height] 323
+@28
+TOP.clk
+TOP.rst_n
+@800200
+-axl_m_i
+@28
+TOP.rf_top.axl_ps_top_adapter_I.axl_m_i.wavalid
+TOP.rf_top.axl_ps_top_adapter_I.axl_m_i.wvalid
+@22
+TOP.rf_top.axl_ps_top_adapter_I.axl_m_i.wdata[31:0]
+TOP.rf_top.axl_ps_top_adapter_I.axl_m_i.waddr[3:0]
+@28
+TOP.rf_top.axl_ps_top_adapter_I.axl_m_i.arvalid
+@c00022
+TOP.rf_top.axl_ps_top_adapter_I.axl_m_i.raddr[3:0]
+@28
+(0)TOP.rf_top.axl_ps_top_adapter_I.axl_m_i.raddr[3:0]
+(1)TOP.rf_top.axl_ps_top_adapter_I.axl_m_i.raddr[3:0]
+(2)TOP.rf_top.axl_ps_top_adapter_I.axl_m_i.raddr[3:0]
+(3)TOP.rf_top.axl_ps_top_adapter_I.axl_m_i.raddr[3:0]
+@1401200
+-group_end
+@28
+TOP.rf_top.axil_ps_if.rvalid
+@22
+TOP.rf_top.axl_ps_top_adapter_I.axl_m_i.rdata[31:0]
+@28
+TOP.rf_top.axil_ps_if.rready
+TOP.rf_top.axil_ps_if.bready
+@1000200
+-axl_m_i
+@800201
+-w_adapter_fifo_I
+@23
+TOP.rf_top.axl_ps_top_adapter_I.w_adapter_fifo_I.din_data[31:0]
+TOP.rf_top.axl_ps_top_adapter_I.w_adapter_fifo_I.ctrl_data[3:0]
+@29
+TOP.rf_top.axl_ps_top_adapter_I.w_adapter_fifo_I.ctrl_valid
+@23
+TOP.rf_top.axl_ps_top_adapter_I.w_adapter_fifo_I.dout[35:0]
+@29
+TOP.rf_top.axl_ps_top_adapter_I.w_adapter_fifo_I.shift_out
+@1000201
+-w_adapter_fifo_I
+@c00200
+-r_fifo
+@28
+TOP.rf_top.axl_ps_top_adapter_I.r_adapter_fifo_I.shift_in
+@22
+TOP.rf_top.axl_ps_top_adapter_I.r_adapter_fifo_I.din[3:0]
+@28
+TOP.rf_top.axl_ps_top_adapter_I.r_adapter_fifo_I.shift_out
+@22
+TOP.rf_top.axl_ps_top_adapter_I.r_adapter_fifo_I.dout[3:0]
+@28
+TOP.rf_top.axl_ps_top_adapter_I.r_adapter_fifo_I.valid
+TOP.rf_top.axl_ps_top_adapter_I.r_adapter_fifo_I.empty
+@1401200
+-r_fifo
+@800200
+-ps_m_i
+@28
+[color] 2
+TOP.rf_top.axl_ps_top_adapter_I.ps_m_i.wvalid
+@22
+[color] 2
+TOP.rf_top.axl_ps_top_adapter_I.ps_m_i.wdata[31:0]
+[color] 2
+TOP.rf_top.axl_ps_top_adapter_I.ps_m_i.waddr[3:0]
+@28
+[color] 2
+TOP.rf_top.axl_ps_top_adapter_I.ps_m_i.arvalid
+@22
+[color] 2
+TOP.rf_top.axl_ps_top_adapter_I.ps_m_i.raddr[3:0]
+@28
+[color] 2
+TOP.rf_top.axl_ps_top_adapter_I.ps_m_i.rready
+[color] 2
+TOP.rf_top.axl_ps_top_adapter_I.ps_m_i.rvalid
+@22
+[color] 2
+TOP.rf_top.axl_ps_top_adapter_I.ps_m_i.rdata[31:0]
+@1000200
+-ps_m_i
+[pattern_trace] 1
+[pattern_trace] 0
