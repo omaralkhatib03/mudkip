@@ -2,12 +2,14 @@
 solution-sum.json
 solution.json
 data 
-Makefile
+# Makefile
 # results
-*.whl
+# *.whl
 # notes
 # release*
 # debug*
+vivado
+vivado/*
 __pycache__
 .vscode
 .cache/
