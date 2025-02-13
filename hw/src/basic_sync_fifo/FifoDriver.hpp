@@ -3,6 +3,7 @@
 #include "Controller.hpp"
 #include "Defintions.hpp"
 #include "Signal.hpp"
+#include <cstring>
 
 namespace sim 
 {
@@ -22,7 +23,7 @@ public:
 
   void driveFifoIntf(FifoDriverIntf aFifoIntf)
   {
-    this->theDevice->din          =   *aFifoIntf.din.data();
+    memcpy(&this->theDevice->din, aFifoIntf.din.data(), 4);
     this->theDevice->shift_in     =   aFifoIntf.shift_in;
     this->theDevice->shift_out    =   aFifoIntf.shift_out;
   }

@@ -35,7 +35,6 @@ enum class TraceOption
   TraceOff      = 0
 };
 
-
 template <DeviceT DutT> 
 class Simulation
 {
@@ -90,7 +89,13 @@ private:
 };
 
 template<DeviceT DutT> 
-Simulation<DutT>::Simulation(std::string aWaveName, RunType aRunOption, TraceOption aTraceOption, ResetType aResetOption, uint32_t aMaxSimTime)
+Simulation<DutT>::Simulation(
+  std::string aWaveName, 
+  RunType aRunOption, 
+  TraceOption aTraceOption, 
+  ResetType aResetOption, 
+  uint32_t aMaxSimTime
+)
   : theMonitors{},
     theDrivers{},
     theVerilatedContext(
@@ -126,12 +131,22 @@ Simulation<DutT>::Simulation(std::string aWaveName, RunType aRunOption, TraceOpt
       
     theDut->trace(theTrace.get(), 99);
     theTrace->open(("waves/" + aWaveName + ".fst").c_str());
-
+    
+  #ifndef COMBINATIONAL
     theDut->rst_n = 1;
+  #endif // !COMBINATIONAL
 }
 
 template<DeviceT DutT> 
-Simulation<DutT>::Simulation(int argc, char *argv[], std::string aWaveName, RunType aRunOption,TraceOption aTraceOption, ResetType aResetOption, uint32_t aMaxCycles)
+Simulation<DutT>::Simulation(
+  int argc, 
+  char *argv[], 
+  std::string aWaveName, 
+  RunType aRunOption,
+  TraceOption aTraceOption, 
+  ResetType aResetOption, 
+  uint32_t aMaxCycles
+)
   : sim::Simulation<DutT>(aWaveName, aRunOption, aTraceOption, aResetOption, aMaxCycles)
 {
    Verilated::commandArgs(argc, argv);
@@ -160,7 +175,9 @@ void Simulation<DutT>::dump()
 template<DeviceT DutT>
 void Simulation<DutT>::run_half_cycle()
 {
+  #ifndef COMBINATIONAL
   theDut->clk ^= 1;
+  #endif // !COMBINATIONAL
   theDut->eval();
 }
 
@@ -194,13 +211,18 @@ void Simulation<DutT>::Simulation::initialiseSimulation()
 
   for (int i = 0; i < 4; i++)
   {
-    theDut->rst_n = 0;
+    #ifndef COMBINATIONAL
+      theDut->rst_n = 0;
+    #endif // !COMBINATIONAL
     resetDrivers();
     run_half_cycle();
     dump();
   }
 
+  #ifndef COMBINATIONAL
   theDut->rst_n = 1;
+  #endif // !COMBINATIONAL
+  
   run_cycle(1);
 }
 
@@ -224,18 +246,22 @@ void Simulation<DutT>::simulate(std::function<bool()> aPredicate, size_t aWaitVa
   bool myStopSimulation = !isSimulationOver(aPredicate);
   while ((myStopSimulation || (aWaitValue > 0)) && theSimTime < theMaxSimTime)
   {
-     
     run_half_cycle();
-    if (theDut->clk)
-    {
 
+    #ifdef COMBINATIONAL
+      if (1)
+    #endif // COMBINATIONAL
+    #ifndef COMBINATIONAL
+      if (theDut->clk)
+    #endif // !COMBINATIONAL
+    {
       aWaitValue -= !myStopSimulation;
 
       for (auto & myDriver : theDrivers)
       {
         myDriver->next();
       }
-      
+
       theDut->eval();
 
       for (auto & myMonitor : theMonitors)

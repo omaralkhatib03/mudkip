@@ -18,6 +18,7 @@ static constexpr uint32_t getWords(int aWidth)
   return (aWidth + UINT32_BITS - 1) / UINT32_BITS;
 }
 
+#pragma pack(push, 1) 
 template<size_t Width>
 class Signal
 : public std::array<uint32_t, getWords(Width)>
@@ -33,7 +34,6 @@ public:
   Signal(const uint32_t aValue); 
 
   explicit operator uint32_t() const {
-      // Use the first element for the conversion
       if (this->size() > 1)
         std::cerr << "Warning: Casing Signal which is larger than 32 bits, Signal is " << this->size() << " bits";
 
@@ -53,6 +53,7 @@ public:
 
   virtual ~Signal(){};
 };
+#pragma pack(pop) 
 
 template<size_t Width>
 Signal<Width>::Signal(std::initializer_list<uint32_t> anInitList)
@@ -87,8 +88,7 @@ Signal<Width>::Signal(uint32_t aValue)
     {
       (*this)[i] = 0;    
     }
-  }
-
+}
 
 template<size_t Width>
 Signal<Width>::Signal()

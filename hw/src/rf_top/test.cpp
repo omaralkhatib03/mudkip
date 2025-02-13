@@ -48,12 +48,12 @@ TEST(RfTopTests, SimpleRW) {
 
   MonitorIfT aCapturedData = myRfMonitor->getQueue().front();
 
-  EXPECT_EQ(static_cast<uint32_t>(aCapturedData.rdata), 32); 
+  EXPECT_EQ(static_cast<uint32_t>(aCapturedData.rdata), 32);
 
 }
 
 TEST(RfTopTests, RandomRW) {
-  
+
   std::string myTestName = sim::getTestName();
   static constexpr size_t MAX_TEST_LENGTH = 50;
 
@@ -80,7 +80,7 @@ TEST(RfTopTests, RandomRW) {
       sim::writeToAddress<RfDriverT, DATA_WIDTH, ADDR_WIDTH>(myRfDriver, myAddress, myData);
       mySimpleModel[myAddress] = myData;
     }
-    else 
+    else
     {
       sim::readAddress<RfDriverT, DATA_WIDTH, ADDR_WIDTH>(myRfDriver, myAddress);
       myExpectedQueue.push(mySimpleModel[myAddress]);
@@ -95,11 +95,25 @@ TEST(RfTopTests, RandomRW) {
 
   EXPECT_EQ(aCapturedQ.size(), myExpectedQueue.size());
 
-  while (!aCapturedQ.empty()) 
+  while (!aCapturedQ.empty())
   {
-    EXPECT_EQ(static_cast<uint32_t>(aCapturedQ.front().rdata), myExpectedQueue.front()); 
+    EXPECT_EQ(static_cast<uint32_t>(aCapturedQ.front().rdata), myExpectedQueue.front());
     aCapturedQ.pop();
     myExpectedQueue.pop();
   }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

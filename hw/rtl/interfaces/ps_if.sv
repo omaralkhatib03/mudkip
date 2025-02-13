@@ -4,22 +4,22 @@ interface ps_if #(
   parameter DATA_WIDTH  = 32
 );
 
-logic [ADDR_WIDTH-1:0]  waddr;  // Address to write to
-logic [DATA_WIDTH-1:0]  wdata;  // Data to write
-logic                   wvalid; // Data valid
-logic                   wready; // Ready to Write
+  wire [ADDR_WIDTH-1:0]  waddr;  // Address to write to
+  wire [DATA_WIDTH-1:0]  wdata;  // Data to write
+  wire                   wvalid; // Data valid
+  wire                   wready; // Ready to Write
 
-logic                   bready; // Ready to Write
-logic  [DATA_WIDTH-1:0] bdata;  // done writing (optional)
-logic                   bvalid;  // done writing (optional)
+  wire                   bready; // Ready to Write
+  wire  [DATA_WIDTH-1:0] bdata;  // done writing (optional)
+  wire                   bvalid;  // done writing (optional)
 
-logic [ADDR_WIDTH-1:0]  raddr;    // Address to read from
-logic                   arvalid;  // Address valid
-logic                   aready;  // Address valid
+  wire [ADDR_WIDTH-1:0]  raddr;    // Address to read from
+  wire                   arvalid;  // Address valid
+  wire                   aready;  // Address valid
 
-logic [DATA_WIDTH-1:0]  rdata;    // data read
-logic                   rvalid;   // valid data out
-logic                   rready;   // hold on cant accept a read req
+  wire [DATA_WIDTH-1:0]  rdata;    // data read
+  wire                   rvalid;   // valid data out
+  wire                   rready;   // hold on cant accept a read req
 
   modport slave (
     input waddr,

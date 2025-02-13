@@ -7,7 +7,8 @@ if { $argc != 1 } {
 
 set ip_dir [lindex $argv 0]
 
-create_project -in_memory
+create_project -in_memory -part xcvc1902-vsva2197-2MP-e-S
+set_property board_part xilinx.com:vck190:part0:3.3 [current_project]
 
 ########################################################
 #################### ADD IP's Here #####################

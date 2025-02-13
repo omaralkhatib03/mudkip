@@ -15,19 +15,19 @@ module ctrl_data_fifo #(
 
   input wire [CTRL_WIDTH-1:0]                   ctrl_data,
   input wire                                    ctrl_valid,
-  output logic                                  ctrl_ready,
-  
-  output logic [DATA_WIDTH+CTRL_WIDTH-1:0]      dout,
-  output logic                                  valid,
+  output wire                                  ctrl_ready,
+
+  output wire [DATA_WIDTH+CTRL_WIDTH-1:0]      dout,
+  output wire                                   valid,
   input wire                                    shift_out,
 
-  output logic                                  empty,
+  output wire                                  empty,
 
-  output logic                                  ctrl_overflow,
-  output logic                                  ctrl_underflow,
+  output wire                                  ctrl_overflow,
+  output wire                                  ctrl_underflow,
 
-  output logic                                  data_overflow,
-  output logic                                  data_underflow
+  output wire                                  data_overflow,
+  output wire                                  data_underflow
 
 );
   

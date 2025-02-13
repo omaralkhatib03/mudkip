@@ -3,11 +3,13 @@
 namespace sim 
 {
 
+// Yeah I forgot about combinational circuits, here for shits and giggles
 template<typename DutT>
 concept DeviceT = requires (DutT aDut)
 {
-  {aDut.rst_n};
-  {aDut.clk};
+    {aDut};
+  /*{aDut.rst_n};*/
+  /*{aDut.clk};*/
 };
 
 }

@@ -13,6 +13,8 @@ module rf_node (
   logic  [31:0] mem[NUMBER_OF_PS_REGISTERS-1:0]; 
   logic  [31:0] mem_b[NUMBER_OF_PS_REGISTERS-1:0]; 
   
+  logic bvalid;
+
   always_comb 
   begin 
     for (int i = 0; i < NUMBER_OF_PS_REGISTERS; i++) 
@@ -36,8 +38,8 @@ module rf_node (
     end
     else 
     begin
-      mem <= mem_b;
-      ps_i.bvalid <= ps_i.wvalid;
+      mem         <= mem_b;
+      bvalid      <= ps_i.wvalid;
     end
   end
 
@@ -45,6 +47,7 @@ module rf_node (
   assign ps_i.aready  = '1;
   assign ps_i.rvalid  = ps_i.arvalid;
   assign ps_i.rdata   = ps_i.arvalid ? mem[ps_i.raddr] : '0;
+  assign ps_i.bvalid  = bvalid; 
 
 endmodule;
 
