@@ -22,11 +22,10 @@ static constexpr size_t DATA_IN_WIDTH                 =  Vfixed_rrelu_fixed_rrel
 static constexpr size_t DATA_OUT_WIDTH                =  Vfixed_rrelu_fixed_rrelu::DATA_OUT_0_PRECISION_0;
 
 static constexpr size_t DIN_WIDTH                     = DATA_IN_WIDTH * DATA_IN_0_PARALLELISM_DIM_1 * DATA_IN_0_PARALLELISM_DIM_0;
-// static constexpr size_t DIN_MASK                      = (1 << DIN_WIDTH) - 1;
-static constexpr size_t DIN_MASK                      = 0xFFFFFFFF;
+static constexpr long long DIN_MASK                      = (1 << DIN_WIDTH) - 1;
+
 static constexpr size_t DOUT_WIDTH                    = DATA_OUT_WIDTH * DATA_OUT_0_PARALLELISM_DIM_1 * DATA_OUT_0_PARALLELISM_DIM_0;
-/*static constexpr size_t DOUT_MASK                      = (1 << DOUT_WIDTH) - 1;*/
-static constexpr size_t DOUT_MASK                      = 0xFFFFFFFF;
+static constexpr long long DOUT_MASK                      = (1 << DOUT_WIDTH) - 1;
 
 static constexpr size_t MC_SIMULATION_LENGTH          = 1000;
 
@@ -95,9 +94,14 @@ public:
   FixedRReluIntfT theCurrentIntf{};
 };
 
-float uint32ToFixedPoint(uint32_t value) {
-    float scaleFactor = 1 << Vfixed_rrelu_fixed_rrelu::DATA_IN_0_PRECISION_1; // 2^Fractional bits
-    return static_cast<float>(value) / scaleFactor;
+double fixed_point_to_float(int32_t num, int total_width, int fractional_width) {
+    int32_t max_value = (1 << (total_width - 1)) - 1;
+    int32_t min_value = -1 * (1 << (total_width - 1));
+    
+    if (num > max_value) {  // Handle signed overflow
+        num -= (1 << total_width);
+    }
+    return num / std::pow(2, fractional_width);
 }
 
 int main (int argc, char *argv[])
@@ -113,13 +117,13 @@ int main (int argc, char *argv[])
 
   for (int i = 0; i < MC_SIMULATION_LENGTH; i++)
   {
-    auto myValue = rand() & DIN_MASK;
+    auto myValue = rand();
 
     if (rand() % 2)
       myValue *= -1;
 
     myDriver->add({myValue & DIN_MASK, 1});     // Feeds in -1 * rand()
-    myInputQueue.push(myValue);
+    myInputQueue.push(myValue & DIN_MASK);
   }
 
   mySimulation.simulate([&](){
@@ -134,8 +138,9 @@ int main (int argc, char *argv[])
 
   while (!aCapturedQueue.empty())
   {
-    /*std::cout << uint32ToFixedPoint(myInputQueue.front()) << "," << uint32ToFixedPoint((uint32_t) (aCapturedQueue.front().DataOut[0] & DOUT_MASK)) << std::endl;*/
-    std::cout << myInputQueue.front() << "," << (aCapturedQueue.front().DataOut[0] & DOUT_MASK) << std::endl;
+    std::cout << fixed_point_to_float(myInputQueue.front() & DIN_MASK, Vfixed_rrelu_fixed_rrelu::DATA_IN_0_PRECISION_0, Vfixed_rrelu_fixed_rrelu::DATA_IN_0_PRECISION_1) << "," << 
+      fixed_point_to_float((aCapturedQueue.front().DataOut[0] & DOUT_MASK), Vfixed_rrelu_fixed_rrelu::DATA_OUT_0_PRECISION_0, Vfixed_rrelu_fixed_rrelu::DATA_OUT_0_PRECISION_1) << std::endl;
+    // std::cout << (myInputQueue.front() & DIN_MASK) << "," << (aCapturedQueue.front().DataOut[0] & DOUT_MASK) << std::endl;
     aCapturedQueue.pop();
     myInputQueue.pop();
   }
