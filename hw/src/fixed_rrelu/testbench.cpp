@@ -1,5 +1,6 @@
 #include "Signal.hpp"
 #include "Controller.hpp"
+#include <cassert>
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
@@ -21,7 +22,13 @@ static constexpr size_t DATA_IN_WIDTH                 =  Vfixed_rrelu_fixed_rrel
 static constexpr size_t DATA_OUT_WIDTH                =  Vfixed_rrelu_fixed_rrelu::DATA_OUT_0_PRECISION_0;
 
 static constexpr size_t DIN_WIDTH                     = DATA_IN_WIDTH * DATA_IN_0_PARALLELISM_DIM_1 * DATA_IN_0_PARALLELISM_DIM_0;
+// static constexpr size_t DIN_MASK                      = (1 << DIN_WIDTH) - 1;
+static constexpr size_t DIN_MASK                      = 0xFFFFFFFF;
 static constexpr size_t DOUT_WIDTH                    = DATA_OUT_WIDTH * DATA_OUT_0_PARALLELISM_DIM_1 * DATA_OUT_0_PARALLELISM_DIM_0;
+/*static constexpr size_t DOUT_MASK                      = (1 << DOUT_WIDTH) - 1;*/
+static constexpr size_t DOUT_MASK                      = 0xFFFFFFFF;
+
+static constexpr size_t MC_SIMULATION_LENGTH          = 1000;
 
 #pragma pack(push, 1) 
 template<size_t DinWidth, size_t DoutWidth>
@@ -90,35 +97,39 @@ public:
 
 int main (int argc, char *argv[])
 {
-  auto mySimulation   = sim::Simulation<DeviceT>(argc, argv, "fixed_rrelu", sim::RunType::Release, sim::TraceOption::TraceOn, sim::ResetType::RANDOM_RESET, 500);
+  auto mySimulation   = sim::Simulation<DeviceT>(argc, argv, "fixed_rrelu", sim::RunType::Release, sim::TraceOption::TraceOn, sim::ResetType::RANDOM_RESET, 2500);
   auto myDriver       = std::make_shared<FixedRreluDriver>();
   auto myMonitor      = std::make_shared<FixedRreluMonitor>();
 
   mySimulation.addDriver(myDriver);
   mySimulation.addDriver(myMonitor);
   
-  std::queue<uint8_t> myInputQueue = {};
+  std::queue<int32_t> myInputQueue = {};
 
-  for (int i = 0; i < 50; i++)
+  for (int i = 0; i < MC_SIMULATION_LENGTH; i++)
   {
-    auto myValue = -1 * (rand() % 255);
-    myDriver->add({myValue, 1});     // Feeds in -1 * rand()
+    auto myValue = rand() & DIN_MASK;
+
+    if (rand() % 2)
+      myValue *= -1;
+
+    myDriver->add({myValue & DIN_MASK, 1});     // Feeds in -1 * rand()
     myInputQueue.push(myValue);
   }
 
   mySimulation.simulate([&](){
-    return myMonitor->getQueue().size() >= 50;
+    return myMonitor->getQueue().size() >= MC_SIMULATION_LENGTH;
   }, 10);
   
   auto aCapturedQueue = myMonitor->getQueue();
 
-  /*assert(aCapturedQueue.size() == myInputQueue.size());  */
-  std::cout << "in, out" << std::endl;
+  std::cout << "x,y" << std::endl;
+  assert(aCapturedQueue.size() == myInputQueue.size());  
   std::cout << std::hex;
 
   while (!aCapturedQueue.empty())
   {
-    std::cout << (uint32_t) myInputQueue.front() << "," << aCapturedQueue.front().DataOut[0] << std::endl;
+    std::cout << (uint32_t) myInputQueue.front() << "," << (aCapturedQueue.front().DataOut[0] & DOUT_MASK) << std::endl;
     aCapturedQueue.pop();
     myInputQueue.pop();
   }

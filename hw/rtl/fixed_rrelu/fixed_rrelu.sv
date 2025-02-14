@@ -2,8 +2,8 @@
 
 module fixed_rrelu #(
     /* verilator lint_off UNUSEDPARAM */
-    parameter DATA_IN_0_PRECISION_0 /*verilator public*/ = 8,
-    parameter DATA_IN_0_PRECISION_1 /*verilator public*/ = 4,
+    parameter DATA_IN_0_PRECISION_0 /*verilator public*/ = 32,
+    parameter DATA_IN_0_PRECISION_1 /*verilator public*/ = 16,
 
     parameter DATA_IN_0_TENSOR_SIZE_DIM_0 = 8,
     parameter DATA_IN_0_TENSOR_SIZE_DIM_1 = 4,
@@ -11,8 +11,8 @@ module fixed_rrelu #(
     parameter DATA_IN_0_PARALLELISM_DIM_0 /*verilator public*/ = 1,
     parameter DATA_IN_0_PARALLELISM_DIM_1 /*verilator public*/ = 1,
 
-    parameter DATA_OUT_0_PRECISION_0 /*verilator public*/ = 8,
-    parameter DATA_OUT_0_PRECISION_1 /*verilator public*/ = 4,
+    parameter DATA_OUT_0_PRECISION_0 /*verilator public*/ = 32,
+    parameter DATA_OUT_0_PRECISION_1 /*verilator public*/ = 16,
 
     parameter DATA_OUT_0_TENSOR_SIZE_DIM_0 = 0,
     parameter DATA_OUT_0_TENSOR_SIZE_DIM_1 = 0,
@@ -21,8 +21,10 @@ module fixed_rrelu #(
     parameter DATA_OUT_0_PARALLELISM_DIM_1 /*verilator public*/ = 1,
 
     parameter INPLACE     = 0,
-    parameter LOWER       = 2, 
-    parameter UPPER       = 8,
+
+    parameter UPPER       = 1, // from 1/2
+    parameter LOWER       = 4, // to 1/16
+
     parameter LFSR_POLY   = 32'h04c11db7  // Default is Ethernet FCS Polynomial
     /* verilator lint_on UNUSEDPARAM */
 ) (
@@ -41,26 +43,13 @@ module fixed_rrelu #(
     input  logic data_out_0_ready
 );
 
-  `define ASSERT_POWER_OF_TWO(param) \
-      initial begin \
-          if ((((param - 1) & (param)) != 0) || (param == 0)) begin \
-              $error("Assertion failed: Parameters %s (%0d) is not power of two", `"param`", param); \
-          end \
-      end
-
-  `ASSERT_POWER_OF_TWO(LOWER)
-  `ASSERT_POWER_OF_TWO(UPPER)
-
-  initial 
-  begin
-    if (LOWER >= UPPER)
-    begin
-        $error("Assertion failed: Lower is not Lower that Upper. Lower (%0d), Upper (%0d)", LOWER, UPPER); 
-    end
-  end
-
+  localparam TOP_PREC   = 1 << DATA_IN_0_PRECISION_1;
+  localparam UPPER_I    = TOP_PREC >> UPPER;
+  localparam LOWER_I    = TOP_PREC >> LOWER;
   localparam LFSR_WIDTH = DATA_IN_0_PRECISION_0;
-  localparam LFSR_MASK  = LFSR_WIDTH'({1'b1, UPPER'((UPPER - 1))});
+  localparam FRACTIONAL = DATA_OUT_0_PRECISION_0 - DATA_IN_0_PRECISION_1 - 1;
+  localparam VALID_MASK = {1'b1, DATA_IN_0_PRECISION_1'(UPPER_I - 1)} & ~{1'b1, DATA_IN_0_PRECISION_1'(LOWER_I - 1)};
+  localparam LFSR_MASK  = {{FRACTIONAL{1'b0}}, VALID_MASK};
 
   for (
       genvar i = 0; i < DATA_IN_0_PARALLELISM_DIM_0 * DATA_IN_0_PARALLELISM_DIM_1; i++
@@ -73,7 +62,8 @@ module fixed_rrelu #(
     logic [2*DATA_IN_0_PRECISION_0-1:0] dout; 
     /* verilator lint_on UNUSEDSIGNAL */
 
-    logic [LFSR_WIDTH-1:0] multiplier = (next_state | LOWER) & LFSR_MASK;
+    logic [DATA_IN_0_PRECISION_0-1:0] multiplier = next_state & LFSR_MASK;
+    logic [DATA_OUT_0_PRECISION_0-1:0] adjusted_out = DATA_OUT_0_PRECISION_0'($signed(dout) >>> (1 << LOWER));
 
     always @(posedge clk) 
     begin
@@ -96,41 +86,23 @@ module fixed_rrelu #(
 
         .state_out(next_state)
     );
-      
-    fixed_mult #(
-        .IN_A_WIDTH(DATA_IN_0_PRECISION_0),
-        .IN_B_WIDTH(DATA_IN_0_PRECISION_0)
-    ) fixed_mult_inst (
-        .data_a (data_in_0[i]),
-        .data_b (multiplier), 
-        .product(dout)
-    );       
+
+    assign dout = $signed(multiplier) * $signed(data_in_0[i]);
     
-    always_ff @(posedge clk) 
+    always_comb
     begin : RReluOutput 
       if ($signed(data_in_0[i]) < 0)
       begin
-        data_out_0[i] <= DATA_OUT_0_PRECISION_0'(dout); 
+        data_out_0[i] = adjusted_out; 
       end
       else 
       begin
-        data_out_0[i] <= data_in_0[i]; 
+        data_out_0[i] = data_in_0[i]; 
       end
     end
   end
   
-  always_ff @(posedge clk) 
-  begin 
-    if (!rst_n)
-    begin
-      data_out_0_valid <= '0;
-    end
-    else
-    begin
-      data_out_0_valid <= data_in_0_valid;
-    end
-  end
-
+  assign data_out_0_valid = data_in_0_valid;  
   assign data_in_0_ready  = data_out_0_ready;
 
 endmodule
