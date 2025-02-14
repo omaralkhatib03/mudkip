@@ -95,6 +95,11 @@ public:
   FixedRReluIntfT theCurrentIntf{};
 };
 
+float uint32ToFixedPoint(uint32_t value) {
+    float scaleFactor = 1 << Vfixed_rrelu_fixed_rrelu::DATA_IN_0_PRECISION_1; // 2^Fractional bits
+    return static_cast<float>(value) / scaleFactor;
+}
+
 int main (int argc, char *argv[])
 {
   auto mySimulation   = sim::Simulation<DeviceT>(argc, argv, "fixed_rrelu", sim::RunType::Release, sim::TraceOption::TraceOn, sim::ResetType::RANDOM_RESET, 2500);
@@ -129,7 +134,8 @@ int main (int argc, char *argv[])
 
   while (!aCapturedQueue.empty())
   {
-    std::cout << (uint32_t) myInputQueue.front() << "," << (aCapturedQueue.front().DataOut[0] & DOUT_MASK) << std::endl;
+    /*std::cout << uint32ToFixedPoint(myInputQueue.front()) << "," << uint32ToFixedPoint((uint32_t) (aCapturedQueue.front().DataOut[0] & DOUT_MASK)) << std::endl;*/
+    std::cout << myInputQueue.front() << "," << (aCapturedQueue.front().DataOut[0] & DOUT_MASK) << std::endl;
     aCapturedQueue.pop();
     myInputQueue.pop();
   }

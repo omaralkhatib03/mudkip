@@ -23,7 +23,7 @@ module fixed_rrelu #(
     parameter INPLACE     = 0,
 
     parameter UPPER       = 1, // from 1/2
-    parameter LOWER       = 4, // to 1/16
+    parameter LOWER       = 6, // to 1/16
 
     parameter LFSR_POLY   = 32'h04c11db7  // Default is Ethernet FCS Polynomial
     /* verilator lint_on UNUSEDPARAM */
@@ -63,7 +63,7 @@ module fixed_rrelu #(
     /* verilator lint_on UNUSEDSIGNAL */
 
     logic [DATA_IN_0_PRECISION_0-1:0] multiplier = next_state & LFSR_MASK;
-    logic [DATA_OUT_0_PRECISION_0-1:0] adjusted_out = DATA_OUT_0_PRECISION_0'($signed(dout) >>> (1 << LOWER));
+    logic [DATA_OUT_0_PRECISION_0-1:0] adjusted_out = DATA_OUT_0_PRECISION_0'($signed(dout) >>> DATA_IN_0_PRECISION_1);
 
     always @(posedge clk) 
     begin
