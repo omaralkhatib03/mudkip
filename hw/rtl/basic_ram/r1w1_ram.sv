@@ -1,68 +1,46 @@
 `timescale 1 ns/1 ps
 
-module r1w1_ram 
+module r1w1_ram
 #(
   parameter ADDR_WIDTH = 32,
   parameter DATA_WIDTH = 32,
   parameter RDELAY = 0
 ) (
   input wire                    clk,
-  input wire                    rst_n,
+  input wire                    en,
+  input wire                    we,
+  input wire [ADDR_WIDTH-1:0]   addr,
+  input wire [DATA_WIDTH-1:0]   wdata,
 
-  input wire                    arvalid,
-  input wire [ADDR_WIDTH-1:0]   raddr,
-
-  output logic [DATA_WIDTH-1:0] rdata,
-  output logic                  rvalid,
-
-  input wire                    wvalid,
-  input wire [ADDR_WIDTH-1:0]   waddr,
-  input wire [DATA_WIDTH-1:0]   wdata
+  output logic [DATA_WIDTH-1:0] data,
+  output logic                  valid
 
 );
     localparam MEMS = 1 << ADDR_WIDTH;
 
-    logic [DATA_WIDTH-1:0] mem_r [MEMS-1:0];
-    logic [DATA_WIDTH-1:0] mem_b [MEMS-1:0];
-
-    always_comb
-    begin
-        mem_b = mem_r;
-
-        if (wvalid)
-        begin
-            mem_b[waddr] = wdata;
-        end
-    end
+    logic [DATA_WIDTH-1:0] mem [MEMS-1:0];
 
     always_ff @(posedge clk)
     begin
-        if (!rst_n)
+        if (we && en)
         begin
-            for (int i = 0; i < MEMS; i++)
-            begin
-                mem_r[i] <= '0;
-            end
-        end
-        else
-        begin
-            mem_r <= mem_b;
+            mem[addr] <= wdata;
         end
     end
-    
+
     generate
         if (RDELAY == 0)
         begin : delay_0_ram
-            assign rdata    = mem_r[raddr];
-            assign rvalid   = arvalid; 
+            assign data    = mem[addr];
+            assign valid   = en && !we;
         end
-        else 
+        else
         begin : delay_1_ram
-           always_ff @(posedge clk) 
+           always_ff @(posedge clk)
            begin : delay_1_ram_reg
-                rdata   <= mem_r[raddr]; 
-                rvalid  <= arvalid;
-           end 
+                data   <= mem[addr];
+                valid  <= en && !we;
+           end
         end
     endgenerate
 
@@ -83,5 +61,6 @@ endmodule
 //   .waddr(),
 //   .wdata()
 // );
+
 
 

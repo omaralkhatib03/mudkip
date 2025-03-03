@@ -90,7 +90,7 @@ mudkip_verilate("basic_sync_fifo")
 mudkip_verilate("lfsr")
 mudkip_verilate("rf_top")
 mudkip_verilate("fixed_rrelu")
-# mudkip_verilate("vector_ram")
+mudkip_verilate("vector_ram_tb")
 
 mudkip_gtest("rf_top")
 
