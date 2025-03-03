@@ -9,7 +9,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_FLAGS "-O0 -g -DVL_DEBUG")
 
 if(POLICY CMP0144)
-  cmake_policy(SET CMP0144 NEW)
+    cmake_policy(SET CMP0144 NEW)
 endif()
 
 project(mudkip)
@@ -23,9 +23,9 @@ set(TB_SRC "${CMAKE_SOURCE_DIR}/src")
 set(RTL_DIR "${CMAKE_SOURCE_DIR}/rtl")
 
 file(GLOB_RECURSE
-        VERILATOR_HEADER_FILES
-        "${VERILATOR_INCLUDE}/*.h"
-        "${VERILATOR_INCLUDE}/*.hpp"
+                VERILATOR_HEADER_FILES
+                "${VERILATOR_INCLUDE}/*.h"
+                "${VERILATOR_INCLUDE}/*.hpp"
 )
 
 find_package(verilator)
@@ -43,26 +43,26 @@ target_include_directories(sim PUBLIC ${SIM_HEADER_DIR} ${VERILATOR_INCLUDE})
 target_link_libraries(sim PRIVATE GTest::gtest_main)
 
 function(verilate_command TARGET_NAME TOP_MODULE)
-  verilate(
-    ${TARGET_NAME}
-    SOURCES ${RTL_FILES}
-    TOP_MODULE "${TOP_MODULE}"
-    PREFIX "V${TOP_MODULE}"
-    TRACE_FST
-    TRACE_THREADS 4
-    INCLUDE_DIRS ${RTL_DIR}
-    VL_DEBUG
-  )
+    verilate(
+        ${TARGET_NAME}
+        SOURCES ${RTL_FILES}
+        TOP_MODULE "${TOP_MODULE}"
+        PREFIX "V${TOP_MODULE}"
+        TRACE_FST
+        TRACE_THREADS 4
+        INCLUDE_DIRS ${RTL_DIR}
+        VL_DEBUG
+    )
 endfunction()
 
 function(mudkip_verilate TOP_MODULE)
-  message ("Verilating ${TOP_MODULE}...")
-  file(GLOB ${TOP_MODULE}_files "${CMAKE_SOURCE_DIR}/src/${TOP_MODULE}/testbench.cpp" "${TB_SRC}/*/*.hpp")
-  add_executable(${TOP_MODULE} ${${TOP_MODULE}_files})
-  target_include_directories(${TOP_MODULE} PUBLIC ${SIM_HEADER_DIR})
-  target_link_libraries(${TOP_MODULE} PRIVATE sim)
+    message ("Verilating ${TOP_MODULE}...")
+    file(GLOB ${TOP_MODULE}_files "${CMAKE_SOURCE_DIR}/src/${TOP_MODULE}/testbench.cpp" "${TB_SRC}/*/*.hpp")
+    add_executable(${TOP_MODULE} ${${TOP_MODULE}_files})
+    target_include_directories(${TOP_MODULE} PUBLIC ${SIM_HEADER_DIR})
+    target_link_libraries(${TOP_MODULE} PRIVATE sim)
 
-  verilate_command(${TOP_MODULE} ${TOP_MODULE})
+    verilate_command(${TOP_MODULE} ${TOP_MODULE})
 endfunction()
 
 include(GetGtest.cmake)
@@ -70,19 +70,19 @@ include(GoogleTest)
 
 function(mudkip_gtest TOP_MODULE)
 
-  message ("Creating Gtests for ${TOP_MODULE}...")
-  file(GLOB ${TOP_MODULE}_files "${CMAKE_SOURCE_DIR}/src/${TOP_MODULE}/test.cpp" "${TB_SRC}/*/*.hpp")
-  add_executable(${TOP_MODULE}_test ${${TOP_MODULE}_files})
-  target_include_directories(${TOP_MODULE}_test PUBLIC ${SIM_HEADER_DIR})
+    message ("Creating Gtests for ${TOP_MODULE}...")
+    file(GLOB ${TOP_MODULE}_files "${CMAKE_SOURCE_DIR}/src/${TOP_MODULE}/test.cpp" "${TB_SRC}/*/*.hpp")
+    add_executable(${TOP_MODULE}_test ${${TOP_MODULE}_files})
+    target_include_directories(${TOP_MODULE}_test PUBLIC ${SIM_HEADER_DIR})
 
-  target_link_libraries(
-    ${TOP_MODULE}_test
-    PRIVATE
-    GTest::gtest_main
-    sim
-  )
+    target_link_libraries(
+        ${TOP_MODULE}_test
+        PRIVATE
+        GTest::gtest_main
+        sim
+    )
 
-  verilate_command(${TOP_MODULE}_test ${TOP_MODULE})
+    verilate_command(${TOP_MODULE}_test ${TOP_MODULE})
 
 endfunction()
 
@@ -90,9 +90,8 @@ mudkip_verilate("basic_sync_fifo")
 mudkip_verilate("lfsr")
 mudkip_verilate("rf_top")
 mudkip_verilate("fixed_rrelu")
+# mudkip_verilate("vector_ram")
 
 mudkip_gtest("rf_top")
 
-
-# gtest_discover_tests(rf_top_test)
-
+gtest_discover_tests(rf_top_test)

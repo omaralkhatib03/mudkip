@@ -23,7 +23,7 @@ module fixed_rrelu #(
     parameter INPLACE     = 0,
 
     parameter UPPER       = 1, // from 1/2
-    parameter LOWER       = 4, // to 1/16
+    parameter LOWER       = 6, // to 1/16
 
     parameter LFSR_POLY   = 32'h04c11db7  // Default is Ethernet FCS Polynomial
     /* verilator lint_on UNUSEDPARAM */

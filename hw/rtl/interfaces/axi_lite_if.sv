@@ -1,3 +1,5 @@
+
+
 interface axi_lite_if #(
   parameter ADDR_WIDTH  = 5,
   parameter DATA_WIDTH  = 32
@@ -9,24 +11,24 @@ interface axi_lite_if #(
 
   wire [DATA_WIDTH-1:0]  wdata;  // Data to write
   wire                   wvalid; // Data valid
-  wire                   wready; // Ready to Write 
+  wire                   wready; // Ready to Write
 
   wire  [DATA_WIDTH-1:0] bdata;  // done writing (optional)
   wire                   bvalid;
   wire                   bready;
 
-  wire [ADDR_WIDTH-1:0]  raddr;    // Address to read from 
-  wire                   arvalid;  // Address valid
+  wire [ADDR_WIDTH-1:0]  raddr;  // Address to read from
+  wire                   arvalid;// Address valid
   wire                   arready;
 
-  wire [DATA_WIDTH-1:0]  rdata;    // data read
-  wire                   rvalid;   // valid data out
-  wire                   rready;   // hold on cant accept a read req 
+  wire [DATA_WIDTH-1:0]  rdata;  // data read
+  wire                   rvalid; // valid data out
+  wire                   rready; // hold on cant accept a read req
 
   modport slave (
     input waddr,
     input wavalid,
-    output waready, 
+    output waready,
 
     input wdata,
     input wvalid,
@@ -42,7 +44,7 @@ interface axi_lite_if #(
 
     output rdata,
     output rvalid,
-    input rready // When the slave is responding, it should wait till its master is ready 
+    input rready // When the slave is responding, it should wait till its master is ready
   );
 
   modport master (
@@ -53,7 +55,7 @@ interface axi_lite_if #(
     output wdata,
     output wvalid,
     input wready,
-    
+
     input bdata,
     input bvalid,
     output bready,

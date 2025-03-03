@@ -1,6 +1,5 @@
 `timescale 1ns/1ps
 
-// TODO: Add PARALLELISM
 module fl_vadd # (
   parameter PARALLELISM = 1,
   parameter DATA_WIDTH = 32 
@@ -8,47 +7,69 @@ module fl_vadd # (
   input wire                          clk,
   input wire                          rst_n,
 
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 vector_x TDATA" *)
   input wire [DATA_WIDTH-1:0]         in_x_data, 
-  input wire                          in_x_valid, 
-  output logic                        x_ready,
-  input wire                         x_end,
 
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 vector_x TVALID" *)
+  input wire                          in_x_valid, 
+
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 vector_x TREADY" *)
+  output wire                        x_ready,
+
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 vector_x TLAST" *)
+  input wire                          x_end,
+
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 vector_y TDATA" *)
   input wire [DATA_WIDTH-1:0]         in_y_data, 
+
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 vector_y TVALID" *)
   input wire                          in_y_valid, 
-  output logic                        y_ready,
-  input wire                         y_end,
+
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 vector_y TREADY" *)
+  output wire                        y_ready,
+
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 vector_y TLAST" *)
+  input wire                          y_end,
   
-  output logic [DATA_WIDTH-1:0]       out_data, 
-  output logic                        out_valid, 
-  input logic                         out_ready,
-  output logic                        out_end
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 vector_out TDATA" *)
+  output wire [DATA_WIDTH-1:0]       out_data, 
+
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 vector_out TVALID" *)
+  output wire                        out_valid, 
+
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 vector_out TREADY" *)
+  input wire                         out_ready,
+
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 vector_out TLAST" *)
+  output wire                        out_end
 );
   
-  logic [DATA_WIDTH-1:0] x_data;
-  logic x_eop;
-  logic x_valid;
+  wire [DATA_WIDTH-1:0] x_data;
+  wire x_eop;
+  wire x_valid;
 
-  logic [DATA_WIDTH-1:0] y_data;
+  wire [DATA_WIDTH-1:0] y_data;
 
-  logic y_eop;
-  logic y_valid;
+  wire y_eop;
+  wire y_valid;
 
-  logic out_fifo_full;
-  logic empty;
+  wire out_fifo_full;
+  wire empty;
 
-  logic x_empty;
-  logic y_empty;
-  logic shift_out;
+  wire x_empty;
+  wire y_empty;
+  wire shift_out;
 
-  logic [DATA_WIDTH-1:0] fifo_in;
+  wire [DATA_WIDTH-1:0] fifo_in;
 
-  logic shift_in;
-  logic s_axis_y_tready;
-  logic s_axis_x_tready;
-  logic out_eop;
+  wire shift_in;
+  wire s_axis_y_tready;
+  wire s_axis_x_tready;
+  wire out_eop;
   
   assign shift_out  = !x_empty && !y_empty && s_axis_x_tready && s_axis_y_tready;
   
+  /* verilator lint_off PINMISSING */
   ctrl_data_fifo #(
     .DATA_WIDTH     (DATA_WIDTH),
     .CTRL_WIDTH     (1),
@@ -63,21 +84,16 @@ module fl_vadd # (
 
     .ctrl_data      (x_end),
     .ctrl_valid     (x_valid),
-    .ctrl_ready     (),
 
     .dout           ({x_eop, x_data}),
     .valid          (x_valid),
-    .ready          (out_fifo_full),
     .shift_out      (shift_out),
-    .empty          (x_empty),
+    .empty          (x_empty)
 
-    .ctrl_overflow  (),
-    .ctrl_underflow (),
-
-    .data_overflow  (),
-    .data_underflow ()
   );
+  /* verilator lint_on PINMISSING */
 
+  /* verilator lint_off PINMISSING */
   ctrl_data_fifo #(
     .DATA_WIDTH     (DATA_WIDTH),
     .CTRL_WIDTH     (1),
@@ -92,22 +108,16 @@ module fl_vadd # (
 
     .ctrl_data      (y_end),
     .ctrl_valid     (y_valid),
-    .ctrl_ready     (),
 
     .dout           ({y_eop, y_data}),
     .valid          (y_valid),
-    .ready          (out_fifo_full),
 
     .shift_out      (shift_out),
-    .empty          (y_empty),
+    .empty          (y_empty)
 
-    .ctrl_overflow  (),
-    .ctrl_underflow (),
-
-    .data_overflow  (),
-    .data_underflow ()
   );
- 
+  /* verilator lint_on PINMISSING */
+
   fp_add_s fp_add_s_I (
     .aclk(clk),                                  // input wire aclk
     .s_axis_a_tvalid      (x_valid),            // input wire s_axis_a_tvalid
@@ -122,10 +132,11 @@ module fl_vadd # (
 
     .m_axis_result_tvalid (shift_in),  // output wire m_axis_result_tvalid
     .m_axis_result_tready (!out_fifo_full),  // input wire m_axis_result_tready
-    .m_axis_result_tdata  (out_data),    // output wire [31 : 0] m_axis_result_tdata
+    .m_axis_result_tdata  (fifo_in),    // output wire [31 : 0] m_axis_result_tdata
     .m_axis_result_tlast  (out_eop)    // output wire m_axis_result_tlast
   ); 
 
+  /* verilator lint_off PINMISSING */
   basic_sync_fifo #(
     .DATA_WIDTH   (DATA_WIDTH + 1),
     .DEPTH        (256),
@@ -141,10 +152,9 @@ module fl_vadd # (
     .valid        (out_valid),
     .dout         ({out_end, out_data}),
     .empty        (empty),
-    .full         (out_fifo_full),
+    .full         (out_fifo_full)
 
-    .underflow    (),
-    .overflow     ()
   );
+  /* verilator lint_on PINMISSING */
 
 endmodule
