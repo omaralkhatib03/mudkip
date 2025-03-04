@@ -3,6 +3,7 @@
 #include <cassert>
 #include <cstdint>
 #include <functional>
+#include <iostream>
 #include <memory>
 #include <string>
 #include "ControllerBase.hpp"
@@ -18,14 +19,14 @@ static const auto theDefaultWaitSim = [](){return true;};
 
 enum class ResetType
 {
-    RANDOM_RESET    = 2,
-    ONE_RESET         = 1,
-    ZERO_RESET        = 0
+    RANDOM_RESET        = 2,
+    ONE_RESET           = 1,
+    ZERO_RESET          = 0
 };
 
 enum class RunType
 {
-    Debug                 = 1,
+    Debug               = 1,
     Release             = 0
 };
 
@@ -40,6 +41,12 @@ class Simulation
 {
 public:
     using ControllerT = ControllerBase<DutT>;
+
+    enum class SimulationStateEnum 
+    {
+        Initialised     = 1,
+        NotInitialised  = 0
+    };
 
     Simulation(
         std::string aWaveName = "dump",
@@ -86,6 +93,7 @@ private:
     std::shared_ptr<VerilatedFstC> theTrace;
     SimTimeT theSimTime;
     uint32_t theMaxSimTime;
+    SimulationStateEnum theSimulationState;
 };
 
 template<DeviceT DutT>
@@ -121,7 +129,8 @@ Simulation<DutT>::Simulation(
             }
         ),
         theSimTime{0},
-        theMaxSimTime{aMaxSimTime}
+        theMaxSimTime{aMaxSimTime},
+        theSimulationState{SimulationStateEnum::NotInitialised}
 {
         theVerilatedContext->debug(static_cast<int>(aRunOption));
         theVerilatedContext->randReset(static_cast<int>(aResetOption));
@@ -147,7 +156,7 @@ Simulation<DutT>::Simulation(
     ResetType aResetOption,
     uint32_t aMaxCycles
 )
-    : sim::Simulation<DutT>(aWaveName, aRunOption, aTraceOption, aResetOption, aMaxCycles)
+    : sim::Simulation<DutT>(aWaveName, aRunOption, aTraceOption, aResetOption, aMaxCycles, SimulationStateEnum::NotInitialised)
 {
      Verilated::commandArgs(argc, argv);
 }
@@ -224,6 +233,7 @@ void Simulation<DutT>::Simulation::initialiseSimulation()
     #endif // !COMBINATIONAL
 
     run_cycle(1);
+    theSimulationState = SimulationStateEnum::Initialised;
 }
 
 template<DeviceT DutT>
@@ -241,7 +251,10 @@ void Simulation<DutT>::run_cycle(int aCycles)
 template<DeviceT DutT>
 void Simulation<DutT>::simulate(std::function<bool()> aPredicate, size_t aWaitValue, size_t anIncrement)
 {
-    initialiseSimulation();
+    if (theSimulationState == SimulationStateEnum::NotInitialised)
+    {
+        initialiseSimulation();
+    }
 
     bool myStopSimulation = !isSimulationOver(aPredicate);
     while ((myStopSimulation || (aWaitValue > 0)) && theSimTime < theMaxSimTime)
@@ -276,6 +289,10 @@ void Simulation<DutT>::simulate(std::function<bool()> aPredicate, size_t aWaitVa
         myStopSimulation = !isSimulationOver(aPredicate);
     }
 
+    if (theSimTime >= theMaxSimTime)
+    {
+        std::cerr << "Warning: Simulation reached theMaxSimTime (" << theMaxSimTime << ")" << std::endl;
+    }
 }
 
 }

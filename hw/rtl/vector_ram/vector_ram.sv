@@ -35,114 +35,51 @@ module vector_ram
     localparam DATA_WIDTH           = req.DATA_WIDTH;
     localparam ADDR_WIDTH           = req.ADDR_WIDTH;
     localparam PORT_PTR_WIDTH       = $clog2(PORTS);
-    localparam FIFO_WIDTH           = 2 + DATA_WIDTH + 2*ADDR_WIDTH + PORT_PTR_WIDTH;
+    localparam FIFO_WIDTH           = 1 + DATA_WIDTH + ADDR_WIDTH + PORT_PTR_WIDTH;
     localparam RAM_DEPTH            = $rtoi($ceil(VECTOR_LENGTH / NUMBER_OF_RAMS));
     localparam RAM_INDEX_WIDTH      = $clog2(NUMBER_OF_RAMS);
     localparam RAM_ADDRESS_WIDTH    = $clog2(RAM_DEPTH);
 
-    /* verilator lint_off UNUSED */
-    logic [PORTS-1:0]               fifo_valid;
-    /* verilator lint_on UNUSED */
-
-    logic [PORTS-1:0]               fifo_empty;
-    logic [PORTS-1:0]               fifo_full;
-    logic                           shift_in;
-    logic [PORTS-1:0]               shift_out;
-
-    logic                           write_req;
-    logic                           read_req;
-    logic [ADDR_WIDTH-1:0]          raddr[PORTS-1:0];
-    logic [ADDR_WIDTH-1:0]          waddr[PORTS-1:0];
-    logic [DATA_WIDTH-1:0]          wdata[PORTS-1:0];
-    logic [PORT_PTR_WIDTH-1:0]      tags[PORTS-1:0];
-
     logic [RAM_INDEX_WIDTH-1:0]     ram_index[PORTS-1:0];
-
-    logic                           ram_fifo_write_req;
-    logic                           ram_fifo_read_req;
-    logic [ADDR_WIDTH-1:0]          ram_fifo_raddr[NUMBER_OF_RAMS-1:0];
-    logic [ADDR_WIDTH-1:0]          ram_fifo_waddr[NUMBER_OF_RAMS-1:0];
-    logic [DATA_WIDTH-1:0]          ram_fifo_wdata[NUMBER_OF_RAMS-1:0];
-    logic [PORT_PTR_WIDTH-1:0]      ram_fifo_tags[NUMBER_OF_RAMS-1:0];
-    logic [NUMBER_OF_RAMS-1:0]      ram_fifo_shiftin;
-    logic [NUMBER_OF_RAMS-1:0]      ram_fifo_full;
-
     logic                           ram_write_req;
-    logic                           ram_read_req;
-    logic [ADDR_WIDTH-1:0]          ram_raddr[NUMBER_OF_RAMS-1:0];
-    logic [ADDR_WIDTH-1:0]          ram_waddr[NUMBER_OF_RAMS-1:0];
+    logic [ADDR_WIDTH-1:0]          ram_addr[NUMBER_OF_RAMS-1:0];
     logic [DATA_WIDTH-1:0]          ram_wdata[NUMBER_OF_RAMS-1:0];
     logic [PORT_PTR_WIDTH-1:0]      ram_tags[NUMBER_OF_RAMS-1:0];
     logic [NUMBER_OF_RAMS-1:0]      ram_valid;
-
     logic [DATA_WIDTH-1:0]          din[NUMBER_OF_RAMS-1:0];
     logic [NUMBER_OF_RAMS-1:0]      rvalids;
-
     logic [PORTS-1:0]               current_valid;
     logic [DATA_WIDTH-1:0]          dout[PORTS-1:0];
-
     logic                           flow_ready;
-    logic [NUMBER_OF_RAMS-1:0]      ram_shiftout;
-
-    logic [PORTS-1:0]               port_valid_b;
+    logic [NUMBER_OF_RAMS-1:0]      rr_ready;
     logic [PORTS-1:0]               port_valid_r;
     logic [PORTS-1:0]               combined_port_valid;
+    logic [PORTS-1:0]               rr_req[NUMBER_OF_RAMS-1:0];
+    logic [FIFO_WIDTH-1:0]          rr_din[PORTS-1:0]; 
+    logic [PORTS-1:0] in_ready;
 
-    /* verilator lint_off UNUSED */
-    logic [NUMBER_OF_RAMS-1:0]      ram_fifo_empty;
-    /* verilator lint_on UNUSED */
-
-    assign shift_in                 = req.wvalid || req.rvalid;
-    assign req.arready              = |fifo_full;
-    assign req.wready               = |fifo_full;
-
-    genvar i;
     genvar j;
 
-    generate
-        for (i = 0; i < PORTS; i++)
+    assign req.ready = &in_ready;
+
+    always_comb 
+    begin
+
+        for (int i = 0; i < PORTS; i++)
         begin : input_fifo_gen
-
-            assign ram_index[i] = (read_req) ? raddr[i][RAM_INDEX_WIDTH-1:0] : waddr[i][RAM_INDEX_WIDTH-1:0];
-            assign shift_out[i] = !ram_fifo_full[ram_index[i]] && !fifo_empty[i];
-
-            /* verilator lint_off PINMISSING */ // (Over/Under)flow Pins
-            basic_sync_fifo #(
-              .DEPTH            (RAM_FIFO_DEPTH),
-              .DATA_WIDTH       (FIFO_WIDTH),
-              .READ_LATENCY     (0)
-            ) input_fifo_I (
-              .clk              (clk),
-              .rst_n            (rst_n),
-
-              .din              ({req.rvalid, req.wvalid, req.wdata[i], req.waddr[i], req.raddr[i], PORT_PTR_WIDTH'(i)}),
-              .shift_in         (shift_in),
-
-              .full             (fifo_full[i]),
-
-              .dout             ({read_req, write_req, wdata[i], waddr[i], raddr[i], tags[i]}),
-              .valid            (fifo_valid[i]),
-              .shift_out        (shift_out[i]),
-              .empty            (fifo_empty[i])
-            );
-            /* verilator lint_on PINMISSING */ // (Over/Under)flow Pins
-
-            always_ff @(posedge clk)
-            begin : move_to_ram_fifo
-                ram_fifo_read_req                   <= read_req;
-                ram_fifo_write_req                  <= write_req;
-                ram_fifo_wdata[ram_index[i]]        <= wdata[i];
-                ram_fifo_waddr[ram_index[i]]        <= waddr[i];
-                ram_fifo_raddr[ram_index[i]]        <= raddr[i];
-                ram_fifo_tags[ram_index[i]]         <= tags[i];
-                ram_fifo_shiftin[ram_index[i]]      <= shift_out[i];
+            ram_index[i]            = req.addr[i][RAM_INDEX_WIDTH-1:0];
+            rr_din[i]               = {req.write, req.wdata[i], PORT_PTR_WIDTH'(i), req.addr[i]};
+            for (int k = 0; k < NUMBER_OF_RAMS; k++)
+            begin
+                rr_req[k][i]        = (ram_index[i] == RAM_INDEX_WIDTH'(k));
             end
         end
-    endgenerate
-    
+    end
+
     generate
         for (j = 0; j < NUMBER_OF_RAMS; j++)
         begin : ram_gen
+
             always_ff @(posedge clk)
             begin
                 if (~rst_n)
@@ -151,32 +88,28 @@ module vector_ram
                 end
                 else
                 begin
-                    port_valid_r[ram_tags[j]]   <= ram_valid[j] && ram_shiftout[j];
+                    port_valid_r[ram_tags[j]]   <= ram_valid[j] && rr_ready[j];
                 end
             end
 
-            assign ram_shiftout[j]              = !combined_port_valid[ram_tags[j]] && flow_ready;
+            assign rr_ready[j]                  = !combined_port_valid[ram_tags[j]] && flow_ready;
 
-            /* verilator lint_off PINMISSING */ // (Over/Under)flow Pins
-            basic_sync_fifo #(
-              .DEPTH            (4),
-              .DATA_WIDTH       (FIFO_WIDTH),
-              .READ_LATENCY     (0)
-            ) ram_fifo_I  (
-              .clk              (clk),
-              .rst_n            (rst_n),
-
-              .din              ({ram_fifo_read_req, ram_fifo_write_req, ram_fifo_wdata[j], ram_fifo_waddr[j], ram_fifo_raddr[j], ram_fifo_tags[j]}),
-              .shift_in         (ram_fifo_shiftin[j]),
-
-              .full             (ram_fifo_full[j]),
-
-              .dout             ({ram_read_req, ram_write_req, ram_wdata[j], ram_waddr[j], ram_raddr[j], ram_tags[j]}),
-              .valid            (ram_valid[j]),
-              .shift_out        (ram_shiftout[j]),
-              .empty            (ram_fifo_empty[j])
+            so_rr_arbiter #(
+                .NUM_INPUTS(PORTS),
+                .DATA_WIDTH(FIFO_WIDTH),
+                .FIFO_DEPTH(RAM_FIFO_DEPTH)
+            ) rr_arbiters_I (
+                .clk        (clk),
+                .rst_n      (rst_n),
+            
+                .req        (rr_req[j]),
+                .in         (rr_din),
+                .in_ready   (in_ready),
+            
+                .valid      (ram_valid[j]),
+                .dout       ({ram_write_req, ram_wdata[j], ram_tags[j], ram_addr[j]}),
+                .ready      (rr_ready[j]) 
             );
-            /* verilator lint_on PINMISSING */ // (Over/Under)flow Pins
 
             r1w1_ram  #(
               .ADDR_WIDTH   (RAM_ADDRESS_WIDTH),
@@ -187,7 +120,7 @@ module vector_ram
 
               .en           (ram_valid[j]),
               .we           (ram_write_req),
-              .addr         ((ram_write_req) ? ram_waddr[j][ADDR_WIDTH-1:RAM_INDEX_WIDTH] : ram_raddr[j][ADDR_WIDTH-1:RAM_INDEX_WIDTH]),
+              .addr         (ram_addr[j][ADDR_WIDTH-1:RAM_INDEX_WIDTH]),
               .wdata        (ram_wdata[j]),
 
               .data         (din[j]),
@@ -214,6 +147,7 @@ module vector_ram
 
         .dout           (dout),
         .current_valid  (current_valid),
+
         .valid          (req.rvalid),
         .shift_out      (req.rready)
     );

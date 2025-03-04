@@ -28,8 +28,8 @@ public:
 
     void driveFifoIntf(LfsrIntf anLfsrIntf)
     {
-        this->theDevice->state_in     =     *anLfsrIntf.theState.data();
-        this->theDevice->data_in        =     *anLfsrIntf.theData.data();
+        this->theDevice->state_in   =     *anLfsrIntf.theState.data();
+        this->theDevice->data_in    =     *anLfsrIntf.theData.data();
     }
 
     void reset() override

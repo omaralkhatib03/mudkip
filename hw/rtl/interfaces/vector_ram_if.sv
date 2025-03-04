@@ -4,36 +4,30 @@ interface vector_ram_if #(
     parameter PARALLELISM = 3
 );
 
-    logic [ADDR_WIDTH-1:0]  waddr[PARALLELISM-1:0];  // Address to write to
+    logic [ADDR_WIDTH-1:0]  addr[PARALLELISM-1:0];  // Address to read from
     logic [DATA_WIDTH-1:0]  wdata[PARALLELISM-1:0];  // Data to write
-    logic                   wvalid; // Data valid
-    logic                   wready; // Ready to Write
+    logic                   write;
+    logic                   valid; // Data valid
+    logic                   ready; // Ready to Write
 
     logic  [DATA_WIDTH-1:0] bdata;  // done writing (optional)
     logic                   bvalid;
     logic                   bready;
-
-    logic [ADDR_WIDTH-1:0]  raddr[PARALLELISM-1:0];  // Address to read from
-    logic                   arvalid;// Address valid
-    logic                   arready;
 
     logic [DATA_WIDTH-1:0]  rdata[PARALLELISM-1:0];  // data read
     logic                   rvalid; // valid data out
     logic                   rready; // hold on cant accept a read req
 
     modport slave (
-        input waddr,
+        input addr,
         input wdata,
-        input wvalid,
-        output wready,
+        input write,
+        output ready,
+        input valid,
 
         output bdata,
         output bvalid,
         input bready,
-
-        input raddr,
-        input arvalid,
-        output arready,
 
         output rdata,
         output rvalid,
@@ -41,18 +35,15 @@ interface vector_ram_if #(
     );
 
     modport master (
-        output waddr,
+        output addr,
         output wdata,
-        output wvalid,
-        input wready,
+        output write,
+        output valid,
+        input ready,
 
         input bdata,
         input bvalid,
         output bready,
-
-        output raddr,
-        output arvalid,
-        input arready,
 
         input rdata,
         input rvalid,

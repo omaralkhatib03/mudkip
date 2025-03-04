@@ -2,9 +2,9 @@
 
 
 module basic_sync_fifo #(
-  parameter DATA_WIDTH        = 32,  /* DATA_WIDTH verilator public */
-  parameter DEPTH             = 64,  /* DEPTH verilator public  */
-  parameter READ_LATENCY      = 0    /* READ_LATENCY verilator public  */
+  parameter DATA_WIDTH        = 32,
+  parameter DEPTH             = 64,
+  parameter READ_LATENCY      = 0  
 ) (
   input wire                    clk,
   input wire                    rst_n,

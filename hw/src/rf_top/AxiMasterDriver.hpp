@@ -13,18 +13,18 @@ template <size_t DataWidth, size_t AddrWidth>
 struct AxiMasterDriverIntf
 {
 
-    sim::Signal<AddrWidth>    waddr;
-    bool                                        wavalid;
+    sim::Signal<AddrWidth>  waddr;
+    bool                    wavalid;
 
-    sim::Signal<DataWidth>    wdata;
-    bool                                        wvalid;
+    sim::Signal<DataWidth>  wdata;
+    bool                    wvalid;
 
-    bool                                        bready;
+    bool                    bready;
 
-    sim::Signal<AddrWidth>    raddr;
-    bool                                        arvalid;
+    sim::Signal<AddrWidth>  raddr;
+    bool                    arvalid;
 
-    bool                                        rready;
+    bool                    rready;
 };
 
 enum class ReadyTestType {

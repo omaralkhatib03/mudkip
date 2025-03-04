@@ -12,22 +12,17 @@
 
 using DeviceT = Vfixed_rrelu;
 
-static constexpr size_t DATA_IN_0_PARALLELISM_DIM_0     =    Vfixed_rrelu_fixed_rrelu::DATA_IN_0_PARALLELISM_DIM_0;
-static constexpr size_t DATA_IN_0_PARALLELISM_DIM_1     =    Vfixed_rrelu_fixed_rrelu::DATA_IN_0_PARALLELISM_DIM_1;
-
-static constexpr size_t DATA_OUT_0_PARALLELISM_DIM_0    =    Vfixed_rrelu_fixed_rrelu::DATA_OUT_0_PARALLELISM_DIM_0;
-static constexpr size_t DATA_OUT_0_PARALLELISM_DIM_1    =    Vfixed_rrelu_fixed_rrelu::DATA_OUT_0_PARALLELISM_DIM_1;
-
-static constexpr size_t DATA_IN_WIDTH                                 =    Vfixed_rrelu_fixed_rrelu::DATA_IN_0_PRECISION_0;
-static constexpr size_t DATA_OUT_WIDTH                                =    Vfixed_rrelu_fixed_rrelu::DATA_OUT_0_PRECISION_0;
-
-static constexpr size_t DIN_WIDTH                                         = DATA_IN_WIDTH * DATA_IN_0_PARALLELISM_DIM_1 * DATA_IN_0_PARALLELISM_DIM_0;
-static constexpr long long DIN_MASK                                     = (1 << DIN_WIDTH) - 1;
-
-static constexpr size_t DOUT_WIDTH                                        = DATA_OUT_WIDTH * DATA_OUT_0_PARALLELISM_DIM_1 * DATA_OUT_0_PARALLELISM_DIM_0;
-static constexpr long long DOUT_MASK                                    = (1 << DOUT_WIDTH) - 1;
-
-static constexpr size_t MC_SIMULATION_LENGTH                    = 1000;
+static constexpr size_t DATA_IN_0_PARALLELISM_DIM_0     = Vfixed_rrelu_fixed_rrelu::DATA_IN_0_PARALLELISM_DIM_0;
+static constexpr size_t DATA_IN_0_PARALLELISM_DIM_1     = Vfixed_rrelu_fixed_rrelu::DATA_IN_0_PARALLELISM_DIM_1;
+static constexpr size_t DATA_OUT_0_PARALLELISM_DIM_0    = Vfixed_rrelu_fixed_rrelu::DATA_OUT_0_PARALLELISM_DIM_0;
+static constexpr size_t DATA_OUT_0_PARALLELISM_DIM_1    = Vfixed_rrelu_fixed_rrelu::DATA_OUT_0_PARALLELISM_DIM_1;
+static constexpr size_t DATA_IN_WIDTH                   = Vfixed_rrelu_fixed_rrelu::DATA_IN_0_PRECISION_0;
+static constexpr size_t DATA_OUT_WIDTH                  = Vfixed_rrelu_fixed_rrelu::DATA_OUT_0_PRECISION_0;
+static constexpr size_t DIN_WIDTH                       = DATA_IN_WIDTH * DATA_IN_0_PARALLELISM_DIM_1 * DATA_IN_0_PARALLELISM_DIM_0;
+static constexpr long long DIN_MASK                     = (1 << DIN_WIDTH) - 1;
+static constexpr size_t DOUT_WIDTH                      = DATA_OUT_WIDTH * DATA_OUT_0_PARALLELISM_DIM_1 * DATA_OUT_0_PARALLELISM_DIM_0;
+static constexpr long long DOUT_MASK                    = (1 << DOUT_WIDTH) - 1;
+static constexpr size_t MC_SIMULATION_LENGTH            = 1000;
 
 #pragma pack(push, 1)
 template<size_t DinWidth, size_t DoutWidth>
