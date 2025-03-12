@@ -1,10 +1,10 @@
 `timescale 1ns/1ps
 
 module flow_controller #(
-    parameter DATA_WIDTH    = 32,
-    parameter INPUT_PORTS   = 3,
-    parameter OUTPUT_PORTS  = 3,
-    localparam PORT_POINTER = $clog2(OUTPUT_PORTS)
+    parameter   DATA_WIDTH    = 32,
+    parameter   INPUT_PORTS   = 3,
+    parameter   OUTPUT_PORTS  = 3,
+    localparam  PORT_POINTER = $clog2(OUTPUT_PORTS)
 ) (
     input wire                      clk,
     input wire                      rst_n,

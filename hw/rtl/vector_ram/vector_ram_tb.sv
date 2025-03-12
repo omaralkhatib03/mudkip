@@ -1,12 +1,12 @@
 `timescale 1ns/1ps
 
 module vector_ram_tb  #(
-    parameter   NUMBER_OF_RAMS /*verilator public*/ = 2, // Must be a power of 2, or equal to vector parrallelism
+    parameter   NUMBER_OF_RAMS /*verilator public*/ = 4, // Must be a power of 2, or equal to vector parrallelism
     parameter   RAM_FIFO_DEPTH /*verilator public*/ = 4,
     parameter   VECTOR_LENGTH  /*verilator public*/ = 32, // I think this was afiro. This is only needed to figure out how big the rams need to be
-    localparam  ADDR_WIDTH     /*verilator public*/ = $clog2(VECTOR_LENGTH),
     parameter   DATA_WIDTH     /*verilator public*/ = 32,
-    parameter   PARALLELISM    /*verilator public*/ = 4
+    parameter   PARALLELISM    /*verilator public*/ = 4,
+    localparam  ADDR_WIDTH     /*verilator public*/ = $clog2(VECTOR_LENGTH)
 ) (
     input wire                      clk,
     input wire                      rst_n,

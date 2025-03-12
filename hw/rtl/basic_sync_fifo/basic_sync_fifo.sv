@@ -4,7 +4,7 @@
 module basic_sync_fifo #(
   parameter DATA_WIDTH        = 32,
   parameter DEPTH             = 64,
-  parameter READ_LATENCY      = 0  
+  parameter READ_LATENCY      = 1  
 ) (
   input wire                    clk,
   input wire                    rst_n,
@@ -34,8 +34,8 @@ module basic_sync_fifo #(
   logic [PTR_WIDTH-1:0] wr_ptr_b;
   
   // verilator lint_off UNUSED
-  logic valid_i;
-  logic [DATA_WIDTH-1:0] fifo_out;
+  logic                     valid_i;
+  logic [DATA_WIDTH-1:0]    fifo_out;
   // verilator lint_on UNUSED
   
   assign underflow  = shift_out && empty;   
@@ -68,26 +68,26 @@ module basic_sync_fifo #(
       wr_ptr_r      <= wr_ptr_b;
       mem[wr_ptr_r] <= din;
       valid_i       <= shift_out;
-      fifo_out      <= mem[rd_ptr_r];
+      fifo_out      <= shift_in && empty ? din : mem[rd_ptr_r];
     end
   end
   
   generate
     if (READ_LATENCY == 0)
     begin : fifo_0_latency
-      assign dout   = shift_in ? din : mem[rd_ptr_r];
+      assign dout   = shift_in && empty ? din : mem[rd_ptr_r];
       assign valid  = shift_out; 
       assign empty  = rd_ptr_r == wr_ptr_r && !shift_in;
-      assign full   = 32'(wr_ptr_r) == DEPTH-1 && !shift_in;
+      assign full   = (wr_ptr_r + 1 == rd_ptr_r) && !shift_in;
     end
     else 
     begin : fifo_1_latency
       assign dout   = fifo_out;
       assign valid  = valid_i;
-      assign full   = 32'(wr_ptr_r) == DEPTH-1;
+      assign full   = wr_ptr_r + 1 == rd_ptr_r;
       assign empty  = rd_ptr_r == wr_ptr_r;
     end
   endgenerate
 
 endmodule;
-
+// fifo_out      <= shift_in && empty ? din : mem[rd_ptr_r];

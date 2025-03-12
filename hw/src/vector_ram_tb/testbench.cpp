@@ -88,6 +88,7 @@ class VectorDriver : public sim::Controller<DeviceT, VectorRamT>
     void reset() override
     {
         VectorRamT aResetStim  = {0};
+        aResetStim.rready   = 1;
         driveFifoIntf(aResetStim);
     }
 

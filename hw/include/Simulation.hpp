@@ -135,6 +135,7 @@ Simulation<DutT>::Simulation(
         theVerilatedContext->debug(static_cast<int>(aRunOption));
         theVerilatedContext->randReset(static_cast<int>(aResetOption));
         theVerilatedContext->traceEverOn(static_cast<bool>(aTraceOption));
+        theVerilatedContext->timeprecision(-9);
 
         Verilated::mkdir("waves");
 
