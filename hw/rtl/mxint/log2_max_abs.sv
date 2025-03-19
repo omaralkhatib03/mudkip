@@ -35,7 +35,7 @@ module log2_max_abs #(
 
   or_tree #(
       .IN_SIZE (IN_SIZE),
-      .IN_WIDTH(IN_WIDTH),
+      .IN_WIDTH(IN_WIDTH)
   ) max_bas_i (
       .clk,
       .rst,
@@ -47,7 +47,7 @@ module log2_max_abs #(
       .data_out_ready(data_out_ready)
   );
   log2_value #(
-      .IN_WIDTH(IN_WIDTH),
+      .IN_WIDTH(IN_WIDTH)
   ) log2_i (
       .data_in (or_result),
       .data_out(data_out)

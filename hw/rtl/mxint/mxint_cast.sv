@@ -46,7 +46,7 @@ module mxint_cast #(
   logic [LOSSLESSS_EDATA_WIDTH - 1:0] edata_out_full;
   log2_max_abs #(
       .IN_SIZE (BLOCK_SIZE),
-      .IN_WIDTH(IN_MAN_WIDTH),
+      .IN_WIDTH(IN_MAN_WIDTH)
   ) max_bas_i (
       .clk,
       .rst,

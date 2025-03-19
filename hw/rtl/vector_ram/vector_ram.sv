@@ -9,9 +9,7 @@
 *  increased if we require more memory. I.e does not fit in one BRAM.
 *
 *  A single BRAM configured for 32 bit width stores 1Kb, which is 512 numbers.
-*/
-
-/*
+*
 *   Design:
 *   If I want to actually utilise the parallelsim function on chip, I need to store vectors efficiently.
 *   A vector ram allows for reading and writing vectors into off-chip memory. The main feature is seperating
@@ -22,174 +20,42 @@
 
 module vector_ram
 #(
+    // verilator lint_off unused
     parameter NUMBER_OF_RAMS        = 2, // Must be a power of 2, or equal to vectot parrallelism
-    parameter RAM_FIFO_DEPTH        = 4,
-    parameter VECTOR_LENGTH         = 32 // I think this was afiro
+    parameter RAM_FIFO_DEPTH        = 4
+    // verilator lint_on unused
 ) (
     input         wire              clk,
+    // verilator lint_off unused
     input         wire              rst_n,
-    vector_ram_if.slave             req
+    // verilator lint_on unused
+    vector_ram_if.slave             req,
+    vector_ram_if.slave             rom // Read only
 );
 
     localparam PORTS                = req.PARALLELISM; // Virtual Ports
     localparam DATA_WIDTH           = req.DATA_WIDTH;
-    localparam ADDR_WIDTH           = req.ADDR_WIDTH;
-    localparam PORT_PTR_WIDTH       = $clog2(PORTS);
-    localparam FIFO_WIDTH           = 1 + DATA_WIDTH + ADDR_WIDTH + PORT_PTR_WIDTH;
-    localparam RAM_DEPTH            = $rtoi($ceil(VECTOR_LENGTH / NUMBER_OF_RAMS));
-    localparam RAM_INDEX_WIDTH      = $clog2(NUMBER_OF_RAMS);
-    localparam RAM_ADDRESS_WIDTH    = $clog2(RAM_DEPTH);
+    localparam LENGTH               = req.LENGTH;
 
-generate
-    if (NUMBER_OF_RAMS != PORTS)
-    begin : folded
+    logic [DATA_WIDTH-1:0] mem [LENGTH-1:0];
 
-        logic [RAM_INDEX_WIDTH-1:0]     ram_index[PORTS-1:0];
-        logic                           ram_write_req;
-        logic [ADDR_WIDTH-1:0]          ram_addr[NUMBER_OF_RAMS-1:0];
-        logic [DATA_WIDTH-1:0]          ram_wdata[NUMBER_OF_RAMS-1:0];
-        logic [PORT_PTR_WIDTH-1:0]      ram_tags[NUMBER_OF_RAMS-1:0];
-        logic [NUMBER_OF_RAMS-1:0]      ram_valid;
-        logic [DATA_WIDTH-1:0]          din[NUMBER_OF_RAMS-1:0];
-        logic [NUMBER_OF_RAMS-1:0]      rvalids;
-        logic [PORTS-1:0]               current_valid;
-        logic [DATA_WIDTH-1:0]          dout[PORTS-1:0];
-        logic                           flow_ready;
-        logic [NUMBER_OF_RAMS-1:0]      rr_ready;
-        logic [PORTS-1:0]               port_valid_r;
-        logic [PORTS-1:0]               combined_port_valid;
-        logic [PORTS-1:0]               rr_req[NUMBER_OF_RAMS-1:0];
-        logic [FIFO_WIDTH-1:0]          rr_din[PORTS-1:0]; 
-        logic [PORTS-1:0]               in_ready[NUMBER_OF_RAMS-1:0];
-        logic [PORTS-1:0]               result;
-
-        assign req.ready = &result;
-
-        always_comb 
+    always_ff @(posedge clk)
+    begin
+        for (int j = 0; j < PORTS; j++)
         begin
-            for (int i = 0; i < PORTS; i++)
-            begin : input_fifo_gen
-                ram_index[i]            = req.addr[i][RAM_INDEX_WIDTH-1:0];
-                rr_din[i]               = {req.write, req.wdata[i], PORT_PTR_WIDTH'(i), req.addr[i]};
-                for (int k = 0; k < NUMBER_OF_RAMS; k++)
-                begin
-                    rr_req[k][i]        = (ram_index[i] == RAM_INDEX_WIDTH'(k)) && req.valid;
-                end
-            end
-        end
-
-        always_comb 
-        begin
-            result = '1;         
-            for (int i = 0; i < NUMBER_OF_RAMS; i = i + 1) 
+            if (req.write[j] && req.valid[j])
             begin
-                result &= in_ready[i]; 
+                mem[req.addr[j]] <= req.wdata[j];
             end
+            req.rdata[j]    <= mem[req.addr[j]];
+            rom.rdata[j]    <= mem[rom.addr[j]];
         end
 
-        for (genvar j = 0; j < NUMBER_OF_RAMS; j++)
-        begin : ram_gen
-            always_ff @(posedge clk)
-            begin : shift_out_logic_gen
-            if (~rst_n)
-                begin
-                    port_valid_r                <= '0;
-                end
-                else
-                begin
-                    port_valid_r[ram_tags[j]]   <= ram_valid[j] && rr_ready[j];
-                    rr_ready[j]                 <= (!combined_port_valid[ram_tags[j]]);
-                end
-            end
+        rom.rvalid      <= rom.valid & ~rom.write;
+        req.rvalid      <= req.valid & ~req.write;
 
-            so_rr_arbiter #(
-                .NUM_INPUTS(PORTS),
-                .DATA_WIDTH(FIFO_WIDTH),
-                .FIFO_DEPTH(RAM_FIFO_DEPTH)
-            ) rr_arbiters_I (
-                .clk        (clk),
-                .rst_n      (rst_n),
-            
-                .req        (rr_req[j]),
-                .in         (rr_din),
-                .in_ready   (in_ready[j]),
-            
-                .valid      (ram_valid[j]),
-                .dout       ({ram_write_req, ram_wdata[j], ram_tags[j], ram_addr[j]}),
-                .ready      ('1) 
-            );
-
-            r1w1_ram  #(
-              .ADDR_WIDTH   (RAM_ADDRESS_WIDTH),
-              .DATA_WIDTH   (DATA_WIDTH),
-              .RDELAY       (1)
-            ) r1w1_ram_I    (
-              .clk          (clk),
-
-              .en           (ram_valid[j]),
-              .we           (ram_write_req),
-              .addr         (ram_addr[j][ADDR_WIDTH-1:RAM_INDEX_WIDTH]),
-              .wdata        (ram_wdata[j]),
-
-              .data         (din[j]),
-              .valid        (rvalids[j])
-            );
-        end    
-
-        assign combined_port_valid = current_valid | port_valid_r;
-
-        flow_controller #(
-            .DATA_WIDTH     (DATA_WIDTH),
-            .INPUT_PORTS    (NUMBER_OF_RAMS),
-            .OUTPUT_PORTS   (PORTS)
-        ) flow_controller_I (
-            .clk            (clk),
-            .rst_n          (rst_n),
-
-            .din            (din),
-            .addr           (ram_tags),
-            .valid_in       (rvalids),
-            .ready          (flow_ready),
-
-            .dout           (dout),
-            .current_valid  (current_valid),
-
-            .valid          (req.rvalid),
-            .shift_out      (req.rready)
-        );
-
-        always_comb
-        begin
-            for (int k = 0; k < PORTS; k++)
-            begin
-                req.rdata[k]    = dout[k];
-                req.bdata[k]    = '0;
-            end
-        end
-
+        rom.ready       <= {(PORTS){1'b1}};
+        req.ready       <= {(PORTS){1'b1}};
     end
-    else 
-    begin : unfolded
-        for (genvar j = 0; j < PORTS; j++)
-        begin : ram_gen
-
-             r1w1_ram  #(
-              .ADDR_WIDTH   (RAM_ADDRESS_WIDTH),
-              .DATA_WIDTH   (DATA_WIDTH),
-              .RDELAY       (1)
-            ) r1w1_ram_I    (
-              .clk          (clk),
-              .en           (req.valid),
-              .we           (req.write),
-              .addr         (req.addr[j]),
-              .wdata        (req.wdata[j]),
-              .data         (req.rdata[j]),
-              .valid        (req.rvalid[j])
-            );               
-
-            assign req.rready = 1;
-        end
-    end
-endgenerate
 
 endmodule

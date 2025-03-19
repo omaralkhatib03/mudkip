@@ -21,40 +21,40 @@ module vector_ram_tb  #(
     input wire                      rready
 );
 
-    vector_ram_if #(
-        .ADDR_WIDTH(ADDR_WIDTH),
-        .DATA_WIDTH(DATA_WIDTH),
-        .PARALLELISM(PARALLELISM)
-    ) vec_i();
-
-    always_comb
-    begin
-        vec_i.write     = write;
-        vec_i.rready    = rready;
-
-        vec_i.valid     = valid;
-        ready           = vec_i.ready;
-
-        rvalid          = vec_i.rvalid;
-
-        for (int i = 0; i < PARALLELISM; i++)
-        begin
-            rdata[i]        = vec_i.rdata[i];
-            vec_i.wdata[i]  = wdata[i];
-            vec_i.addr[i]   = addr[i];
-        end
-
-    end
-
-    vector_ram
-    #(
-        .NUMBER_OF_RAMS(NUMBER_OF_RAMS),
-        .RAM_FIFO_DEPTH(RAM_FIFO_DEPTH),
-        .VECTOR_LENGTH(VECTOR_LENGTH)
-    ) dut_I (
-        .clk(clk),
-        .rst_n(rst_n),
-        .req(vec_i)
-    );
+//    vector_ram_if #(
+//        .LENGTH(VECTOR_LENGTH),
+//        .DATA_WIDTH(DATA_WIDTH),
+//        .PARALLELISM(PARALLELISM)
+//    ) vec_i();
+//
+//    always_comb
+//    begin
+//        vec_i.write     = write;
+//        vec_i.rready    = rready;
+//
+//        vec_i.valid     = valid;
+//        ready           = vec_i.ready;
+//
+//        rvalid          = vec_i.rvalid;
+//
+//        for (int i = 0; i < PARALLELISM; i++)
+//        begin
+//            rdata[i]        = vec_i.rdata[i];
+//            vec_i.wdata[i]  = wdata[i];
+//            vec_i.addr[i]   = addr[i];
+//        end
+//
+//    end
+//
+//    vector_ram
+//    #(
+//        .NUMBER_OF_RAMS(NUMBER_OF_RAMS),
+//        .RAM_FIFO_DEPTH(RAM_FIFO_DEPTH)
+//    ) dut_I (
+//        .clk(clk),
+//        .rst_n(rst_n),
+//        .req(vec_i),
+//        .rom(vec_i)
+//    );
 
 endmodule

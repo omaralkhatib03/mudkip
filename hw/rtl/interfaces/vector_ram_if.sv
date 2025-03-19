@@ -1,22 +1,23 @@
 interface vector_ram_if #(
-    parameter ADDR_WIDTH  = 5,
-    parameter DATA_WIDTH  = 32,
-    parameter PARALLELISM = 3
+    parameter LENGTH        = 32,
+    localparam ADDR_WIDTH   = $clog2(LENGTH),
+    parameter DATA_WIDTH    = 32,
+    parameter PARALLELISM   = 4
 );
 
-    logic [ADDR_WIDTH-1:0]  addr[PARALLELISM-1:0];  // Address to read from
-    logic [DATA_WIDTH-1:0]  wdata[PARALLELISM-1:0];  // Data to write
-    logic                   write;
-    logic                   valid; // Data valid
-    logic                   ready; // Ready to Write
+    logic [ADDR_WIDTH-1:0]      addr [PARALLELISM-1:0];  // Address to read from
+    logic [DATA_WIDTH-1:0]      wdata[PARALLELISM-1:0];  // Data to write
+    logic [PARALLELISM-1:0]     write;
+    logic [PARALLELISM-1:0]     valid; // Data valid
+    logic [PARALLELISM-1:0]     ready; // Ready to Write
 
-    logic  [DATA_WIDTH-1:0] bdata;  // done writing (optional)
-    logic                   bvalid;
-    logic                   bready;
+    logic  [DATA_WIDTH-1:0]     bdata;  // done writing (optional)
+    logic  [PARALLELISM-1:0]    bvalid;
+    logic  [PARALLELISM-1:0]    bready;
 
-    logic [DATA_WIDTH-1:0]  rdata[PARALLELISM-1:0];  // data read
-    logic                   rvalid; // valid data out
-    logic                   rready; // hold on cant accept a read req
+    logic [DATA_WIDTH-1:0]      rdata [PARALLELISM-1:0];  // data read
+    logic [PARALLELISM-1:0]     rvalid; // valid data out
+    logic [PARALLELISM-1:0]     rready; // hold on cant accept a read req
 
     modport slave (
         input addr,
@@ -31,7 +32,7 @@ interface vector_ram_if #(
 
         output rdata,
         output rvalid,
-        input rready // When the slave is responding, it should wait till its master is ready
+        input rready
     );
 
     modport master (
@@ -47,7 +48,7 @@ interface vector_ram_if #(
 
         input rdata,
         input rvalid,
-        output rready // When the slave is responding, I can tell it to give me a sec
+        output rready
     );
 
 endinterface

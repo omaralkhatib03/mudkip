@@ -21,11 +21,11 @@ module so_rr_arbiter #(
     logic [NUM_INPUTS-1:0]          fifo_full;
     logic [NUM_INPUTS-1:0]          fifo_valid;
     logic [NUM_INPUTS-1:0]          fifo_req;
-    
+
     logic [NUM_INPUTS-1:0]          fifo_shift_out;
     logic [NUM_INPUTS-1:0]          shift_in;
 
-    // verilator lint_off UNUSED    
+    // verilator lint_off UNUSED
     logic [NUM_INPUTS-1:0]          fifo_empty;
     // verilator lint_on UNUSED
 
@@ -39,7 +39,7 @@ module so_rr_arbiter #(
     logic [2*NUM_INPUTS-1:0]        double_grant;
 
     assign fifo_req                 = ~fifo_empty;
-    assign double_req               = {fifo_req, fifo_req}; 
+    assign double_req               = {fifo_req, fifo_req};
     assign in_ready                 = ~fifo_full;
     assign idle                     = fifo_req == 0;
     assign double_grant             = idle ? 0 : double_req & ~(double_req - {{(NUM_INPUTS){1'b0}}, base_r});
@@ -49,7 +49,7 @@ module so_rr_arbiter #(
     begin
         base_b                      = base_r;
 
-        if (|grant) 
+        if (|grant)
         begin
             base_b = {base_r[NUM_INPUTS-2:0], base_r[NUM_INPUTS-1]}; // Rotate left instead of shifting up
         end
@@ -58,11 +58,11 @@ module so_rr_arbiter #(
 
     always_ff @(posedge clk)
     begin
-        if (!rst_n) 
+        if (!rst_n)
         begin
             base_r          <= 1;
         end
-        else 
+        else
         begin
             prev_req        <= fifo_req;
             base_r          <= base_b;
@@ -72,7 +72,7 @@ module so_rr_arbiter #(
     genvar i;
     generate
 
-        for (i = 0; i < NUM_INPUTS; i = i + 1) 
+        for (i = 0; i < NUM_INPUTS; i = i + 1)
         begin : input_fifo_gen
             assign shift_in[i] = req[i] && in_ready[i];
 
@@ -99,16 +99,16 @@ module so_rr_arbiter #(
     endgenerate
 
 
-    always_comb 
+    always_comb
     begin
         valid = 0;
         dout = '0;
 
-        for (int j = 0; j < NUM_INPUTS; j++) 
+        for (int j = 0; j < NUM_INPUTS; j++)
         begin
             fifo_shift_out[j] = grant[j] && ready && !fifo_empty[j];
 
-            if (fifo_shift_out[j]) 
+            if (fifo_shift_out[j])
             begin
                 valid   = 1;
                 dout    = fifo_out[j];

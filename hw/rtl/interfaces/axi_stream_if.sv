@@ -1,11 +1,12 @@
 
 interface axi_stream_if #(
-  parameter DATA_WIDTH  = 32
+  parameter DATA_WIDTH  = 32,
+  parameter PARALLELISM = 4
 );
- 
-  logic [DATA_WIDTH-1:0]  data;    // data read
-  logic                   valid;   // valid data out
-  logic                   ready;   // hold on cant accept a read req 
+
+  logic [DATA_WIDTH-1:0]  data[PARALLELISM-1:0];
+  logic                   valid;
+  logic                   ready;
   logic                   last;
 
   modport slave (
