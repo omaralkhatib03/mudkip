@@ -18,13 +18,20 @@
 *   This affects throughput of course but we can uses FIFO's to virtually 'maintain' a throughput of one on the input side.
 */
 
+
+// TODO: Currently this is a functional model, working on a synthesiable model in mudkip/vector-ram-dev
 module vector_ram
 #(
     // verilator lint_off unused
-    parameter NUMBER_OF_RAMS        = 2, // Must be a power of 2, or equal to vectot parrallelism
-    parameter RAM_FIFO_DEPTH        = 4
+    parameter NUMBER_OF_RAMS        = 2, // Must be a power of 2, or equal to vector parrallelism
+    parameter RAM_FIFO_DEPTH        = 4,
+    parameter LENGTH                = 32,
+    parameter DATA_WIDTH            = 32,
+    parameter PARALLELISM           = 4,
+    localparam ADDR_WIDTH           = $clog2(LENGTH)
     // verilator lint_on unused
 ) (
+
     input         wire              clk,
     // verilator lint_off unused
     input         wire              rst_n,
@@ -33,17 +40,13 @@ module vector_ram
     vector_ram_if.slave             rom // Read only
 );
 
-    localparam PORTS                = req.PARALLELISM; // Virtual Ports
-    localparam DATA_WIDTH           = req.DATA_WIDTH;
-    localparam LENGTH               = req.LENGTH;
-
     logic [DATA_WIDTH-1:0] mem [LENGTH-1:0];
 
     always_ff @(posedge clk)
     begin
-        for (int j = 0; j < PORTS; j++)
+        for (int j = 0; j < PARALLELISM; j++)
         begin
-            if (req.write[j] && req.valid[j])
+            if (req.write && req.valid)
             begin
                 mem[req.addr[j]] <= req.wdata[j];
             end
@@ -54,8 +57,8 @@ module vector_ram
         rom.rvalid      <= rom.valid & ~rom.write;
         req.rvalid      <= req.valid & ~req.write;
 
-        rom.ready       <= {(PORTS){1'b1}};
-        req.ready       <= {(PORTS){1'b1}};
+        rom.ready       <= 1'b1;
+        req.ready       <= 1'b1;
     end
 
 endmodule

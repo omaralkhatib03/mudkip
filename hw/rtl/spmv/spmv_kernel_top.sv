@@ -1,10 +1,20 @@
 `timescale 1ns/1ps
 
+// TODO: Add fifos
+
 module spmv_kernel_top #(
     parameter   VECTOR_LENGTH  /*verilator public*/ = 32,
     parameter   DATA_WIDTH     /*verilator public*/ = 32,
     parameter   PARALLELISM    /*verilator public*/ = 4,
-    parameter   RELEASE_MODE   /*verilator public*/ = 0
+    parameter   RELEASE_MODE   /*verilator public*/ = 0,
+    parameter   FLOAT                               = 0,
+    parameter   E_WIDTH                             = 8,
+    parameter   FRAC_WIDTH                          = 23,
+    parameter   NUMBER_OF_RAMS                      = 4,
+    parameter   RAM_FIFO_DEPTH                      = 4,
+    // verilator lint_off UNUSEDPARAM
+    localparam  ADDR_WIDTH                          = $clog2(VECTOR_LENGTH)
+    // verilator lint_on UNUSEDPARAM
 ) (
     input wire      clk,
     input wire      rst_n,
@@ -28,18 +38,32 @@ module spmv_kernel_top #(
 );
 
     vector_ram_if #(
-        .LENGTH(VECTOR_LENGTH),
-        .DATA_WIDTH(DATA_WIDTH),
-        .PARALLELISM(PARALLELISM)
+        .LENGTH         (VECTOR_LENGTH),
+        .DATA_WIDTH     (DATA_WIDTH),
+        .PARALLELISM    (PARALLELISM),
+        .FLOAT          (FLOAT),
+        .E_WIDTH        (E_WIDTH),
+        .FRAC_WIDTH     (FRAC_WIDTH) // + implicit 1
     ) x_i();
 
     vector_ram_if #(
         .LENGTH         (VECTOR_LENGTH),
         .DATA_WIDTH     (DATA_WIDTH),
-        .PARALLELISM    (PARALLELISM)
+        .PARALLELISM    (PARALLELISM),
+        .FLOAT          (FLOAT),
+        .E_WIDTH        (E_WIDTH),
+        .FRAC_WIDTH     (FRAC_WIDTH) // + implicit 1
+
     ) x_n_i();
 
-    spmv_kernel spmv_k_I (
+    spmv_kernel #(
+        .LENGTH         (VECTOR_LENGTH),
+        .DATA_WIDTH     (DATA_WIDTH),
+        .PARALLELISM    (PARALLELISM),
+        .FLOAT          (FLOAT),
+        .E_WIDTH        (E_WIDTH),
+        .FRAC_WIDTH     (FRAC_WIDTH) // + implicit 1
+    ) spmv_k_I (
         .clk    (clk),
         .rst_n  (rst_n),
         .en     (en),
@@ -54,22 +78,34 @@ module spmv_kernel_top #(
     );
 
     vector_ram_if #(
-        .LENGTH(VECTOR_LENGTH),
-        .DATA_WIDTH(DATA_WIDTH),
-        .PARALLELISM(PARALLELISM)
+        .LENGTH         (VECTOR_LENGTH),
+        .DATA_WIDTH     (DATA_WIDTH),
+        .PARALLELISM    (PARALLELISM),
+        .FLOAT          (FLOAT),
+        .E_WIDTH        (E_WIDTH),
+        .FRAC_WIDTH     (FRAC_WIDTH) // + implicit 1
     ) ping_vec_i();
 
     vector_ram_if #(
-        .LENGTH(VECTOR_LENGTH),
-        .DATA_WIDTH(DATA_WIDTH),
-        .PARALLELISM(PARALLELISM)
+        .LENGTH         (VECTOR_LENGTH),
+        .DATA_WIDTH     (DATA_WIDTH),
+        .PARALLELISM    (PARALLELISM),
+        .FLOAT          (FLOAT),
+        .E_WIDTH        (E_WIDTH),
+        .FRAC_WIDTH     (FRAC_WIDTH) // + implicit 1
     ) pong_vec_i();
 
     generate
         if (RELEASE_MODE)
         begin : release_mode_gen
 
-            vector_ping_pong iterates_ping_pong_I (
+            vector_ping_pong #(
+                .NUMBER_OF_RAMS (NUMBER_OF_RAMS),
+                .RAM_FIFO_DEPTH (RAM_FIFO_DEPTH),
+                .LENGTH         (VECTOR_LENGTH),
+                .DATA_WIDTH     (DATA_WIDTH),
+                .PARALLELISM    (PARALLELISM)
+            ) iterates_ping_pong_I (
                 .clk        (clk),
                 .rst_n      (rst_n),
 
@@ -88,7 +124,13 @@ module spmv_kernel_top #(
         else
         begin : test_mode_gen
 
-            vector_ping_pong_ld_wrapper iterates_ping_pong_I (
+            vector_ping_pong_ld_wrapper #(
+                .NUMBER_OF_RAMS (NUMBER_OF_RAMS),
+                .RAM_FIFO_DEPTH (RAM_FIFO_DEPTH),
+                .LENGTH         (VECTOR_LENGTH),
+                .DATA_WIDTH     (DATA_WIDTH),
+                .PARALLELISM    (PARALLELISM)
+            ) iterates_ping_pong_I (
                 .clk        (clk),
                 .rst_n      (rst_n),
                 .cfg_en     (cfg_en),

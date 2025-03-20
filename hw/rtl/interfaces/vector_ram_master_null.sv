@@ -5,8 +5,8 @@ module vector_ram_master_null #() (
 );
     assign ram_if.addr   = '{default:0};
     assign ram_if.wdata  = '{default:0};
-    assign ram_if.write  = '{default:0};
-    assign ram_if.valid  = '{default:0};
-    assign ram_if.bready = '{default:0};
-    assign ram_if.rready = '{default:0};
+    assign ram_if.write  = 0;
+    assign ram_if.valid  = 0;
+    assign ram_if.bready = 0;
+    assign ram_if.rready = 0;
 endmodule

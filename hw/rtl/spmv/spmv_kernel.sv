@@ -2,45 +2,99 @@
 
 // Ista5dim il ready signal ka shiftout
 
-module spmv_kernel (
+module spmv_kernel #(
+    parameter   LENGTH         /*verilator public*/ = 32,
+    parameter   DATA_WIDTH     /*verilator public*/ = 32,
+    parameter   PARALLELISM    /*verilator public*/ = 4,
+    parameter   FLOAT                               = 0,
+    // verilator lint_off UNUSEDPARAM
+    parameter   E_WIDTH                             = 8,
+    parameter   FRAC_WIDTH                          = 23, // + implicit 1
+    // verilator lint_on UNUSEDPARAM
+    localparam  ADDR_WIDTH                          = $clog2(LENGTH)
+) (
     input wire          clk,
     input wire          rst_n,
 
     input wire          en,
     output logic        done,
 
-    axi_stream_if.slave r_beg,
-    axi_stream_if.slave val,
-    axi_stream_if.slave c_idx,
+    axi_stream_if.slave r_beg,  // DMA From Memory
+    axi_stream_if.slave val,    // DMA From Memory
+    axi_stream_if.slave c_idx,  // DMA From Memory
 
     vector_ram_if.master x,
     vector_ram_if.master x_n
 );
 
-    localparam LENGTH       = x.LENGTH;
-    localparam DATA_WDITH   = x.DATA_WIDTH;
-    localparam PARALLELISM  = x.PARALLELISM;
+    localparam ACC_WIDTH        = FLOAT ? DATA_WIDTH : 2*DATA_WIDTH;
 
     typedef enum integer {
-        IDLE,   // Wait for enable
-        BUSY    // Computing
+        IDLE,       // Wait for enable
+        BUSY        // Busy computing
     } spmv_kernel_state_enum;
 
     spmv_kernel_state_enum      state_b;
     spmv_kernel_state_enum      state_r;
 
-    logic [2*DATA_WDITH-1:0]    acc[PARALLELISM-1:0];
+    logic [DATA_WIDTH-1:0] current_rows_r[PARALLELISM-1:0];
+    logic [DATA_WIDTH-1:0] current_rows_b[PARALLELISM-1:0];
+
+    logic [DATA_WIDTH-1:0] row_diff[PARALLELISM-1:1];
+
+    logic multiplicand_valid;
+    logic product_ready;
+
+    logic acc_in_valid;
+
+    logic [prod_I.OUT_WIDTH-1:0] acc_data_in[PARALLELISM-1:0];
+
+    assign x.write      = '0;
+    assign x_n.write    = 1'b1;
+
+    product #(
+        .FLOAT          (1),
+        .DATA_WIDTH     (32),
+        .E_WIDTH        (8),
+        .FRAC_WIDTH     (23),
+        .PARALLELISM    (PARALLELISM),
+        .DELAY          (2)
+    ) prod_I (
+
+        .clk            (clk),
+
+        .in_valid       (multiplicand_valid),
+        .in_ready       (product_ready),
+
+        .a              (x.rdata),
+        .b              (val.data),
+
+        .out            (acc_data_in), // This goes into the row reduction tree
+        .valid          (acc_in_valid)
+    );
 
     always_comb
     begin
         state_b = state_r;
 
+        for (int i = 1; i < PARALLELISM; i++)
+        begin
+            row_diff[i] = current_rows_r[i] - current_rows_r[i - 1];
+        end
+
+        for (int i = 0; i < PARALLELISM; i++)
+        begin
+            x.addr[i] = ADDR_WIDTH'(c_idx.data[i]);
+            current_rows_b[i] = current_rows_r[i];
+        end
+
         case (state_r)
             IDLE:
             begin
-                if (en)
+                if (en && r_beg.valid && r_beg.ready)
                 begin
                     state_b = BUSY;
+                    x.valid = c_idx.valid && x.ready;
                 end
             end
             BUSY:
@@ -49,9 +103,25 @@ module spmv_kernel (
                 begin
                     state_b = IDLE;
                 end
+                else if (x.rvalid && product_ready) // Got Everything
+                begin
+                    // Got multiplicands
+                end
+                else if (!x.ready)
+                begin
+                    // Do nothing and wait
+                end
             end
         endcase
 
+    end
+
+    always_ff @(posedge clk)
+    begin
+        for (int i = 0 ; i < PARALLELISM; i++)
+        begin
+            current_rows_r[i] <= current_rows_b[i];
+        end
     end
 
     always_ff @(posedge clk)
@@ -66,35 +136,14 @@ module spmv_kernel (
         end
     end
 
+    always_comb
+    begin
+        r_beg.ready = 0;
 
-    generate
-        for (genvar i = 0; i < x.PARALLELISM; i++)
-        begin : fmac_gen
-
-            fmac #(
-                .FLOAT          (1),
-                .EXP_WIDTH      (8),
-                .MANTISSA_WIDTH (23),
-                .DATA_WIDTH     (DATA_WDITH)
-            ) fmac_I (
-                .clk            (clk),
-                .rst_n          (rst_n),
-
-                .val            (acc[i]),
-                .multiplicand   (val.data[i]),
-
-                .in_valid       (),
-                .reset          (),
-                .in_ready       (),
-
-                .acc            (acc[i]),
-
-                .valid          (),
-                .ready          (),
-                .done           ()
-            );
-
+        for (int i = 0; i < PARALLELISM - 1; i++)
+        begin
+            r_beg.ready &= (row_diff[i] == 0);
         end
-    endgenerate
+    end
 
 endmodule;

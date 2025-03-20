@@ -93,6 +93,7 @@ mudkip_verilate("fixed_rrelu")
 mudkip_verilate("mxint_cast")
 mudkip_verilate("vector_ram_tb")
 mudkip_verilate("matrix_cat")
+mudkip_verilate("spmv_tb")
 
 mudkip_gtest("rf_top")
 mudkip_gtest("so_rr_arbiter")

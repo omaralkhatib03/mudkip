@@ -1,2 +1,32 @@
+# Bazel output directories
+bazel-*
+bazel-out/
+bazel-bin/
+bazel-genfiles/
+bazel-testlogs/
+
+# Bazel sandbox and cache
+*.runfiles/
+*.runfiles_manifest
+*.params
+*.log
+*.log.*
+bazel-cache/
+bazel-execroot/
+
+# Build artifacts
+*.o
+*.d
+*.obj
+*.a
+*.so
+*.dll
+*.dylib
+*.exe
+*.gcda
+*.gcno
+*.gcov
+
+# Mine
 waves/*
 playground

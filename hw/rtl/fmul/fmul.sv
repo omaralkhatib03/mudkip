@@ -4,18 +4,18 @@ module fmul #(
     parameter PARALLELISM = 3,
     parameter DELAY = 3,
     parameter BIT_SIZE = 32,
-    parameter FRACTION_SIZE_OR = 23,
-    parameter EXPONENT_SIZE_OR = 8,
+    parameter FRAC_WIDTH = 23,
+    parameter E_WIDTH = 8,
     parameter CUSTOM_FORMAT = 0
 ) (
   input wire clk,
   input wire rst_n,
-  
+
   input wire [BIT_SIZE-1:0]   a[PARALLELISM-1:0],
   input wire                  valid_a,
   output wire                 ready_a,
   input wire                  tlast_a,
-  
+
   input wire [BIT_SIZE-1:0]   b[PARALLELISM-1:0],
   input wire                  valid_b,
   output wire                 ready_b,
@@ -47,7 +47,7 @@ module fmul #(
 
   logic [BIT_SIZE-1:0] fifo_b[PARALLELISM-1:0];
   logic fifo_last_b;
-  
+
   assign shift_out = !(empty_b && empty_a);
 
   /* verilator lint_off PINMISSING */
@@ -90,7 +90,7 @@ module fmul #(
 
   genvar i;
   generate
-    
+
     for (i = 0; i < PARALLELISM; i++)
     begin : fifos_module
       /* verilator lint_off PINMISSING */
@@ -130,30 +130,31 @@ module fmul #(
         // .full         ()
       );
       /* verilator lint_on PINMISSING */
-      
+
       `ifdef  VERILATOR
       /* verilator lint_off PINMISSING */
         fp_mult #(
-        .BIT_SIZE(32),
-        .EXPONENT(8),
-        .MANITSSA(23) 
+            .BIT_SIZE(BIT_SIZE),
+            .EXPONENT(E_WIDTH),
+            .MANITSSA(FRAC_WIDTH)
         ) fp_mult_I (
 	      .a_operand(fifo_a[i]),
 	      .b_operand(fifo_b[i]),
 	      .result(res[i])
-        );      
+        );
       /* verilator lint_on PINMISSING */
       `endif
       `ifndef VERILATOR // I.e HW
-      // TODO: ADD IP INST, Manually for now  
+      // TODO: ADD IP INST, Manually for now
       `endif
 
 
     end
+
   endgenerate
-  
+
   generate
-    `ifdef VERILATOR 
+    `ifdef VERILATOR
     if (DELAY == 0)
     `endif
     `ifndef VERILATOR // I.e HW
@@ -161,10 +162,10 @@ module fmul #(
     `endif
     begin : combinational_fadd
       assign out    = res;
-      assign valid  = fifo_valid_b && fifo_valid_a; 
+      assign valid  = fifo_valid_b && fifo_valid_a;
       assign tlast  = fifo_last_a && fifo_last_b;
     end
-    else 
+    else
     begin : delay_fadd
 
         delay #(

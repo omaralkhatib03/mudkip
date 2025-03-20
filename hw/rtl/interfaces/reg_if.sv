@@ -1,63 +1,53 @@
-
-interface reg_if #(
-    parameter ADDR_WIDTH  = 5,
-    parameter DATA_WIDTH  = 32
+interface ref_if #(
+    localparam ADDR_WIDTH   = $clog2(LENGTH),
+    parameter DATA_WIDTH    = 32
 );
 
-    wire [ADDR_WIDTH-1:0]  waddr;  // Address to write to
-    wire [DATA_WIDTH-1:0]  wdata;  // Data to write
-    wire                   wvalid; // Data valid
-    wire                   wready; // Ready to Write
+    logic [ADDR_WIDTH-1:0]  addr;  // Address to read from
+    logic [DATA_WIDTH-1:0]  wdata;  // Data to write
+    logic                   write;
+    logic                   valid; // Data valid
+    logic                   ready; // Ready to Write
 
-    wire                   bready; // Ready to Write
-    wire  [DATA_WIDTH-1:0] bdata;  // done writing (optional)
-    wire                   bvalid; // done writing (optional)
+    logic  [DATA_WIDTH-1:0] bdata;  // done writing (optional)
+    logic                   bvalid;
+    logic                   bready;
 
-    wire [ADDR_WIDTH-1:0]  raddr;   // Address to read from
-    wire                   arvalid; // Address valid
-    wire                   aready;  // Address valid
+    logic [DATA_WIDTH-1:0]  rdata;  // data read
+    logic                   rvalid; // valid data out
+    logic                   rready; // hold on cant accept a read req
 
-    wire [DATA_WIDTH-1:0]  rdata;   // data read
-    wire                   rvalid;  // valid data out
-    wire                   rready;  // hold on cant accept a read req
+    modport slave (
+        input addr,
+        input wdata,
+        input write,
+        output ready,
+        input valid,
 
-  modport slave (
-      input waddr,
-      input wdata,
-      input wvalid,
-      output wready,
+        output bdata,
+        output bvalid,
+        input bready,
 
-      input bready,
-      output bdata,
-      output bvalid,
-
-      input raddr,
-      input arvalid,
-      output aready,
-
-      output rdata,
-      output rvalid,
-      input rready // When the slave is responding, it should wait till its master is ready
+        output rdata,
+        output rvalid,
+        input rready
     );
 
     modport master (
-      output waddr,
-      output wdata,
-      output wvalid,
-      input wready,
+        output addr,
+        output wdata,
+        output write,
+        output valid,
+        input ready,
 
-      output bready,
-      input bdata,
-      input bvalid,
+        input bdata,
+        input bvalid,
+        output bready,
 
-      output raddr,
-      output arvalid,
-      input aready,
+        input rdata,
+        input rvalid,
+        output rready
+    );
 
-      input rdata,
-      input rvalid,
-      output rready // When the slave is responding, I can tell it to give me a sec
-      );
-
-    endinterface
+endinterface
 
