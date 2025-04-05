@@ -18,7 +18,8 @@ module product #(
     input wire [DATA_WIDTH-1:0]     b[PARALLELISM-1:0],
 
     output logic [OUT_WIDTH-1:0]    out[PARALLELISM-1:0],
-    output logic                    valid
+    output logic                    valid,
+    input logic                     ready
 
 );
 
@@ -85,6 +86,6 @@ module product #(
         // TODO: Add IP Instance
     `endif
 
-    assign in_ready = 1;
+    assign in_ready = ready;
 
 endmodule

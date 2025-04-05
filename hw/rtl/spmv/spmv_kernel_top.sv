@@ -15,6 +15,7 @@ module spmv_kernel_top #(
     // verilator lint_off UNUSEDPARAM
     localparam  ADDR_WIDTH                          = $clog2(VECTOR_LENGTH)
     // verilator lint_on UNUSEDPARAM
+    
 ) (
     input wire      clk,
     input wire      rst_n,

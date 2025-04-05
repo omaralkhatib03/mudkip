@@ -157,7 +157,7 @@ Simulation<DutT>::Simulation(
     ResetType aResetOption,
     uint32_t aMaxCycles
 )
-    : sim::Simulation<DutT>(aWaveName, aRunOption, aTraceOption, aResetOption, aMaxCycles, SimulationStateEnum::NotInitialised)
+    : sim::Simulation<DutT>(aWaveName, aRunOption, aTraceOption, aResetOption, aMaxCycles)
 {
      Verilated::commandArgs(argc, argv);
 }

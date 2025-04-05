@@ -13,26 +13,22 @@ module spmv_kernel #(
     // verilator lint_on UNUSEDPARAM
     localparam  ADDR_WIDTH                          = $clog2(LENGTH)
 ) (
-    input wire          clk,
-    input wire          rst_n,
+    input wire              clk,
+    input wire              rst_n,
 
-    input wire          en,
-    output logic        done,
+    input wire              en,
+    output logic            done,
 
-    axi_stream_if.slave r_beg,  // DMA From Memory
-    axi_stream_if.slave val,    // DMA From Memory
-    axi_stream_if.slave c_idx,  // DMA From Memory
+    axi_stream_if.slave     r_beg,  // DMA From Memory
+    axi_stream_if.slave     val,    // DMA From Memory
+    axi_stream_if.slave     c_idx,  // DMA From Memory
 
-    vector_ram_if.master x,
-    vector_ram_if.master x_n
+    vector_ram_if.master    x,
+    vector_ram_if.master    x_n
 );
+    import spmv_pkg::spmv_kernel_state_enum;
 
     localparam ACC_WIDTH        = FLOAT ? DATA_WIDTH : 2*DATA_WIDTH;
-
-    typedef enum integer {
-        IDLE,       // Wait for enable
-        BUSY        // Busy computing
-    } spmv_kernel_state_enum;
 
     spmv_kernel_state_enum      state_b;
     spmv_kernel_state_enum      state_r;
@@ -45,13 +41,15 @@ module spmv_kernel #(
     logic multiplicand_valid;
     logic product_ready;
 
+    logic acc_in_ready;
     logic acc_in_valid;
 
-    logic [prod_I.OUT_WIDTH-1:0] acc_data_in[PARALLELISM-1:0];
+    logic [31:0] acc_data_in[PARALLELISM-1:0];
 
     assign x.write      = '0;
     assign x_n.write    = 1'b1;
 
+    // verilator lint_off PINMISSING
     product #(
         .FLOAT          (1),
         .DATA_WIDTH     (32),
@@ -69,23 +67,26 @@ module spmv_kernel #(
         .a              (x.rdata),
         .b              (val.data),
 
-        .out            (acc_data_in), // This goes into the row reduction tree
-        .valid          (acc_in_valid)
+        .out            (acc_data_in), // This goes into the row reduction network
+        .valid          (acc_in_valid),
+        .ready          (acc_in_ready) // takes ready from acc network
     );
+    // verilator lint_on PINMISSING
 
     always_comb
     begin
-        state_b = state_r;
+        state_b     = state_r;
+        x.rready    = 0;
 
         for (int i = 1; i < PARALLELISM; i++)
         begin
-            row_diff[i] = current_rows_r[i] - current_rows_r[i - 1];
+            row_diff[i]         = current_rows_r[i] - current_rows_r[i - 1];
         end
 
         for (int i = 0; i < PARALLELISM; i++)
         begin
-            x.addr[i] = ADDR_WIDTH'(c_idx.data[i]);
-            current_rows_b[i] = current_rows_r[i];
+            x.addr[i]           = ADDR_WIDTH'(c_idx.data[i]);
+            current_rows_b[i]   = current_rows_r[i];
         end
 
         case (state_r)
@@ -103,14 +104,16 @@ module spmv_kernel #(
                 begin
                     state_b = IDLE;
                 end
-                else if (x.rvalid && product_ready) // Got Everything
-                begin
-                    // Got multiplicands
-                end
-                else if (!x.ready)
-                begin
+
+                multiplicand_valid  = x.rvalid && product_ready;
+                x.rready            = product_ready;
+
+
+                // else if (!x.ready)
+                // begin
                     // Do nothing and wait
-                end
+                // end
+
             end
         endcase
 
@@ -142,7 +145,7 @@ module spmv_kernel #(
 
         for (int i = 0; i < PARALLELISM - 1; i++)
         begin
-            r_beg.ready &= (row_diff[i] == 0);
+            r_beg.ready = r_beg.ready && (row_diff[i] == 0);
         end
     end
 

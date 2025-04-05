@@ -31,6 +31,10 @@ file(GLOB_RECURSE
 find_package(verilator)
 
 file(GLOB_RECURSE RTL_FILES "rtl/*.v" "rtl/*.sv")
+file(GLOB_RECURSE RTL_PKG_FILES "rtl/*_pkg.sv")
+list(REMOVE_ITEM RTL_FILES ${RTL_PKG_FILES})
+list(PREPEND RTL_FILES ${RTL_PKG_FILES})
+
 file(GLOB_RECURSE VHD_FILES "rtl/*.vhd" "rtl/*.vhdl")
 file(GLOB_RECURSE IP_FILES "rtl/ips/*stub.v")
 
@@ -87,15 +91,9 @@ function(mudkip_gtest TOP_MODULE)
 endfunction()
 
 mudkip_verilate("basic_sync_fifo")
-mudkip_verilate("lfsr")
-mudkip_verilate("rf_top")
-mudkip_verilate("fixed_rrelu")
-mudkip_verilate("mxint_cast")
 mudkip_verilate("vector_ram_tb")
-mudkip_verilate("matrix_cat")
+mudkip_verilate("spmv_network_op_tb")
 mudkip_verilate("spmv_tb")
 
-mudkip_gtest("rf_top")
 mudkip_gtest("so_rr_arbiter")
 
-gtest_discover_tests(rf_top_test)

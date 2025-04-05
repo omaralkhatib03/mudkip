@@ -13,7 +13,8 @@ using FifoDriverT = sim::FifoDriver<DeviceT>;
 
 int main (int argc, char *argv[])
 {
-    auto mySimulation     = sim::Simulation<DeviceT>(argc, argv, "basic_sync_fifo", sim::RunType::Release, sim::TraceOption::TraceOn, sim::ResetType::RANDOM_RESET, 10000);
+    auto mySimulation     = sim::Simulation<DeviceT>(argc, argv, "basic_sync_fifo", sim::RunType::Release, 
+                                                        sim::TraceOption::TraceOn, sim::ResetType::RANDOM_RESET, 10000);
 
     auto myFifoDriver     = std::make_shared<FifoDriverT>();
     auto myFifoMonitor    = std::make_shared<FifoMonitorT>();
