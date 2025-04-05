@@ -1,18 +1,6 @@
 `timescale 1ns/1ps
 
-// Ista5dim il ready signal ka shiftout
-
-module spmv_kernel #(
-    parameter   LENGTH         /*verilator public*/ = 32,
-    parameter   DATA_WIDTH     /*verilator public*/ = 32,
-    parameter   PARALLELISM    /*verilator public*/ = 4,
-    parameter   FLOAT                               = 0,
-    // verilator lint_off UNUSEDPARAM
-    parameter   E_WIDTH                             = 8,
-    parameter   FRAC_WIDTH                          = 23, // + implicit 1
-    // verilator lint_on UNUSEDPARAM
-    localparam  ADDR_WIDTH                          = $clog2(LENGTH)
-) (
+module spmv_kernel (
     input wire              clk,
     input wire              rst_n,
 
@@ -26,37 +14,51 @@ module spmv_kernel #(
     vector_ram_if.master    x,
     vector_ram_if.master    x_n
 );
-    import spmv_pkg::spmv_kernel_state_enum;
 
-    localparam ACC_WIDTH        = FLOAT ? DATA_WIDTH : 2*DATA_WIDTH;
+    typedef enum integer {
+        IDLE,       // Wait for enable
+        BUSY        // Busy computing
+    } spmv_kernel_state_enum;
 
-    spmv_kernel_state_enum      state_b;
-    spmv_kernel_state_enum      state_r;
+    // verilator lint_off UNUSEDPARAM
+    localparam E_WIDTH      = x.E_WIDTH;
+    localparam FRAC_WIDTH   = x.FRAC_WIDTH; // + implicit 1
+    // verilator lint_on UNUSEDPARAM
+    
+    localparam LENGTH       = x.LENGTH;
+    localparam DATA_WIDTH   = x.DATA_WIDTH;
+    localparam PARALLELISM  = x.PARALLELISM;
+    localparam FLOAT        = x.FLOAT;
+    localparam ADDR_WIDTH   = x.ADDR_WIDTH;
+    localparam ACC_WIDTH    = FLOAT ? DATA_WIDTH : 2*DATA_WIDTH;
+
+    spmv_kernel_state_enum state_b;
+    spmv_kernel_state_enum state_r;
 
     logic [DATA_WIDTH-1:0] current_rows_r[PARALLELISM-1:0];
     logic [DATA_WIDTH-1:0] current_rows_b[PARALLELISM-1:0];
 
     logic [DATA_WIDTH-1:0] row_diff[PARALLELISM-1:1];
 
-    logic multiplicand_valid;
-    logic product_ready;
+    logic                   multiplicand_valid;
+    logic                   product_ready;
 
-    logic acc_in_ready;
-    logic acc_in_valid;
+    logic                   acc_in_ready;
+    logic                   acc_in_valid;
 
-    logic [31:0] acc_data_in[PARALLELISM-1:0];
+    logic [DATA_WIDTH-1:0]  acc_data_in[PARALLELISM-1:0];
 
     assign x.write      = '0;
     assign x_n.write    = 1'b1;
 
     // verilator lint_off PINMISSING
     product #(
-        .FLOAT          (1),
-        .DATA_WIDTH     (32),
-        .E_WIDTH        (8),
-        .FRAC_WIDTH     (23),
+        .FLOAT          (FLOAT),
+        .DATA_WIDTH     (DATA_WIDTH),
+        .E_WIDTH        (E_WIDTH),
+        .FRAC_WIDTH     (FRAC_WIDTH),
         .PARALLELISM    (PARALLELISM),
-        .DELAY          (2)
+        .DELAY          (3)
     ) prod_I (
 
         .clk            (clk),
@@ -108,7 +110,6 @@ module spmv_kernel #(
                 multiplicand_valid  = x.rvalid && product_ready;
                 x.rready            = product_ready;
 
-
                 // else if (!x.ready)
                 // begin
                     // Do nothing and wait
@@ -149,4 +150,4 @@ module spmv_kernel #(
         end
     end
 
-endmodule;
+endmodule

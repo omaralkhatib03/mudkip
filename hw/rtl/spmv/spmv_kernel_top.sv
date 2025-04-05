@@ -15,7 +15,6 @@ module spmv_kernel_top #(
     // verilator lint_off UNUSEDPARAM
     localparam  ADDR_WIDTH                          = $clog2(VECTOR_LENGTH)
     // verilator lint_on UNUSEDPARAM
-    
 ) (
     input wire      clk,
     input wire      rst_n,
@@ -57,14 +56,7 @@ module spmv_kernel_top #(
 
     ) x_n_i();
 
-    spmv_kernel #(
-        .LENGTH         (VECTOR_LENGTH),
-        .DATA_WIDTH     (DATA_WIDTH),
-        .PARALLELISM    (PARALLELISM),
-        .FLOAT          (FLOAT),
-        .E_WIDTH        (E_WIDTH),
-        .FRAC_WIDTH     (FRAC_WIDTH) // + implicit 1
-    ) spmv_k_I (
+    spmv_kernel spmv_k_I (
         .clk    (clk),
         .rst_n  (rst_n),
         .en     (en),
@@ -102,10 +94,7 @@ module spmv_kernel_top #(
 
             vector_ping_pong #(
                 .NUMBER_OF_RAMS (NUMBER_OF_RAMS),
-                .RAM_FIFO_DEPTH (RAM_FIFO_DEPTH),
-                .LENGTH         (VECTOR_LENGTH),
-                .DATA_WIDTH     (DATA_WIDTH),
-                .PARALLELISM    (PARALLELISM)
+                .RAM_FIFO_DEPTH (RAM_FIFO_DEPTH)
             ) iterates_ping_pong_I (
                 .clk        (clk),
                 .rst_n      (rst_n),
@@ -127,10 +116,7 @@ module spmv_kernel_top #(
 
             vector_ping_pong_ld_wrapper #(
                 .NUMBER_OF_RAMS (NUMBER_OF_RAMS),
-                .RAM_FIFO_DEPTH (RAM_FIFO_DEPTH),
-                .LENGTH         (VECTOR_LENGTH),
-                .DATA_WIDTH     (DATA_WIDTH),
-                .PARALLELISM    (PARALLELISM)
+                .RAM_FIFO_DEPTH (RAM_FIFO_DEPTH)
             ) iterates_ping_pong_I (
                 .clk        (clk),
                 .rst_n      (rst_n),
@@ -151,5 +137,5 @@ module spmv_kernel_top #(
     endgenerate
 
 
-endmodule;
+endmodule
 

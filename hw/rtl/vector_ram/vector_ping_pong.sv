@@ -2,11 +2,7 @@
 
 module vector_ping_pong #(
     parameter NUMBER_OF_RAMS        = 2, // Must be a power of 2, or equal to vector parrallelism
-    parameter RAM_FIFO_DEPTH        = 4,
-    parameter LENGTH                = 32,
-    parameter DATA_WIDTH            = 32,
-    parameter PARALLELISM           = 4,
-    localparam ADDR_WIDTH           = $clog2(LENGTH)
+    parameter RAM_FIFO_DEPTH        = 4
 ) (
     input wire clk,
     input wire rst_n,
@@ -20,6 +16,11 @@ module vector_ping_pong #(
     vector_ram_if.slave rom_x_n
 
 );
+
+    localparam LENGTH       = x.LENGTH;
+    localparam DATA_WIDTH   = x.DATA_WIDTH;
+    localparam PARALLELISM  = x.PARALLELISM;
+    localparam ADDR_WIDTH   = x.ADDR_WIDTH;
 
     function automatic void copy_vector_ram_signals(
         input logic                         src_write,
@@ -128,10 +129,7 @@ module vector_ping_pong #(
 
     vector_ram #(
         .NUMBER_OF_RAMS (NUMBER_OF_RAMS),
-        .RAM_FIFO_DEPTH (RAM_FIFO_DEPTH),
-        .LENGTH         (LENGTH),
-        .DATA_WIDTH     (DATA_WIDTH),
-        .PARALLELISM    (PARALLELISM)
+        .RAM_FIFO_DEPTH (RAM_FIFO_DEPTH)
     ) ping_ram_I ( // 0th
         .clk    (clk),
         .rst_n  (rst_n),
@@ -141,10 +139,7 @@ module vector_ping_pong #(
 
     vector_ram #(
         .NUMBER_OF_RAMS (NUMBER_OF_RAMS),
-        .RAM_FIFO_DEPTH (RAM_FIFO_DEPTH),
-        .LENGTH         (LENGTH),
-        .DATA_WIDTH     (DATA_WIDTH),
-        .PARALLELISM    (PARALLELISM)
+        .RAM_FIFO_DEPTH (RAM_FIFO_DEPTH)
     ) pong_ram_I ( // 1th
         .clk    (clk),
         .rst_n  (rst_n),
