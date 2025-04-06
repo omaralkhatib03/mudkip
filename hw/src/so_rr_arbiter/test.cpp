@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include "Test.hpp"
-#include "TestUtils.hpp"
+#include "Utils.hpp"
 
 TEST(SoRrArbTest, CasesTest) 
 {

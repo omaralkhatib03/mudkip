@@ -4,7 +4,12 @@
 #include <gtest/gtest.h>
 #include <iostream>
 #include <queue>
+#include <gtest/gtest.h>
+#include <stdexcept>
+#include <string>
 
+namespace sim
+{
 
 constexpr unsigned flog2(unsigned x)
 {
@@ -61,4 +66,20 @@ void compareQueues(std::queue<T>& aExpected, std::queue<T>& aActual, bool aCheck
     EXPECT_EQ(aActual.size(), 0);
 }
 
+inline std::string getTestName()
+{
+    const ::testing::TestInfo* myTestInfo =
+            ::testing::UnitTest::GetInstance()->current_test_info();
 
+    if (myTestInfo)
+    {
+            return myTestInfo->name();
+    }
+    else
+    {
+        throw std::runtime_error("What ? Could not get test name");
+    }
+}
+
+
+};

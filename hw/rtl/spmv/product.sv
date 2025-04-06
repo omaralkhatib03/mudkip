@@ -1,15 +1,18 @@
 `timescale 1ns/1ps
 
+import spmv_pkg::*;
+import "DPI-C" function byte dpi_fmul(input int exp_prec, input int mant_prec, input long a, input long b,  input long result);
+
 module product #(
     parameter FLOAT         = 1,
-    parameter DATA_WIDTH    = 32,
+    parameter DATA_WIDTH    = 32, // [4, 64]
     parameter E_WIDTH       = 8,
-    parameter FRAC_WIDTH    = 23,
+    parameter FRAC_WIDTH    = 24, 
     parameter PARALLELISM   = 4,
-    parameter DELAY         = 2,
-    localparam OUT_WIDTH    = FLOAT ? DATA_WIDTH : 2*DATA_WIDTH
+    parameter DELAY         = 2
 ) (
     input wire                      clk,
+    input wire                      rst_n,
 
     input wire                      in_valid,
     output logic                    in_ready,
@@ -17,54 +20,29 @@ module product #(
     input wire [DATA_WIDTH-1:0]     a[PARALLELISM-1:0],
     input wire [DATA_WIDTH-1:0]     b[PARALLELISM-1:0],
 
-    output logic [OUT_WIDTH-1:0]    out[PARALLELISM-1:0],
+    output logic [DATA_WIDTH-1:0]   out[PARALLELISM-1:0],
     output logic                    valid,
     input logic                     ready
 
 );
-
-    logic [OUT_WIDTH-1:0]                   out_inter[PARALLELISM-1:0];
-
-    logic [PARALLELISM-1:0][OUT_WIDTH-1:0]  out_flat_b;
-    logic [PARALLELISM-1:0][OUT_WIDTH-1:0]  out_flat_r;
-
-    always_comb
-    begin
-        for (int i = 0; i < PARALLELISM; i++)
-        begin
-            out_flat_b[i] = out_inter[i];
-        end
-    end
-
-    generate
-      for (genvar i = 0; i < PARALLELISM; i++)
-      begin : fp_mult_gen
-
-        `ifdef  VERILATOR
-
-            /* verilator lint_off PINMISSING */
-            fp_mult #(
-                .BIT_SIZE(DATA_WIDTH),
-                .EXPONENT(E_WIDTH),
-                .MANITSSA(FRAC_WIDTH)
-            ) fp_mult_I (
-                .a_operand(a[i]),
-                .b_operand(b[i]),
-                .result(out_inter[i])
-            );
-            /* verilator lint_on PINMISSING */
-
-        `endif
-        `ifndef VERILATOR // I.e HW
-            // TODO: ADD IP INST, Manually for now
-        `endif
-
-      end
-
-    endgenerate
-
+    
     `ifdef VERILATOR
+           
+        logic [DATA_WIDTH-1:0]                  out_inter[PARALLELISM-1:0];
+        byte                                    ret_value[PARALLELISM-1:0];
 
+        logic [PARALLELISM-1:0][DATA_WIDTH-1:0] out_flat_b;
+        logic [PARALLELISM-1:0][DATA_WIDTH-1:0] out_flat_r;
+
+        always_comb
+        begin
+            for (int i = 0; i < PARALLELISM; i++)
+            begin
+                out_flat_b[i]   = out_inter[i];
+                ret_value[i]    = dpi_fmul(E_WIDTH, FRAC_WIDTH, $bits(long)'(a[i]), $bits(long)'(b[i]), $bits(long)'(out_inter[i]));
+            end
+        end
+        
         delay #(
             .DATAWIDTH(PARALLELISM*DATA_WIDTH + 1),
             .DELAY(DELAY)
@@ -81,11 +59,12 @@ module product #(
                 out[i] = out_flat_r[i];
             end
         end
+        
+        assign in_ready = ready;
 
-    `else
-        // TODO: Add IP Instance
-    `endif
-
-    assign in_ready = ready;
+    `else // !VERILATOR
+        
+    `endif // VERILATOR
 
 endmodule
+

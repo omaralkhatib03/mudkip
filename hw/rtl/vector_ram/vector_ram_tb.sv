@@ -1,6 +1,8 @@
 `timescale 1ns/1ps
 
 module vector_ram_tb  #(
+    parameter   NUMBER_OF_RAMS /*verilator public*/ =  2,
+    parameter   RAM_FIFO_DEPTH /*verilator public*/ =  4,
     parameter   VECTOR_LENGTH  /*verilator public*/ = 32, 
     parameter   DATA_WIDTH     /*verilator public*/ = 32,
     parameter   PARALLELISM    /*verilator public*/ = 4,

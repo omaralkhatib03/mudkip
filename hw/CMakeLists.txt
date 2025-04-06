@@ -19,6 +19,7 @@ enable_testing()
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(SIM_HEADER_DIR "${CMAKE_SOURCE_DIR}/include/")
 set(VERILATOR_INCLUDE "/usr/local/share/verilator/include/")
+set(SVDPI_INCLUDE "/usr/local/share/verilator/include/vltstd/")
 set(TB_SRC "${CMAKE_SOURCE_DIR}/src")
 set(RTL_DIR "${CMAKE_SOURCE_DIR}/rtl")
 
@@ -39,12 +40,19 @@ file(GLOB_RECURSE VHD_FILES "rtl/*.vhd" "rtl/*.vhdl")
 file(GLOB_RECURSE IP_FILES "rtl/ips/*stub.v")
 
 file(GLOB_RECURSE SIM_HEADER_FILES)
-file(GLOB SIM_SRC_FILES "${CMAKE_SOURCE_DIR}/lib/*")
 file(GLOB SIM_HEADER_FILES "${CMAKE_SOURCE_DIR}/include/*.h" "${CMAKE_SOURCE_DIR}/include/*.hpp}")
+set(SIM_SRC_FILES "${CMAKE_SOURCE_DIR}/src/Sim.cpp")
 
 add_library(sim OBJECT "${SIM_SRC_FILES}")
-target_include_directories(sim PUBLIC ${SIM_HEADER_DIR} ${VERILATOR_INCLUDE})
-target_link_libraries(sim PRIVATE GTest::gtest_main)
+target_include_directories(sim PUBLIC ${SIM_HEADER_DIR} ${VERILATOR_INCLUDE} ${SVDPI_INCLUDE})
+target_link_libraries(sim 
+    PRIVATE 
+    GTest::gtest_main 
+    -L. 
+    "${CMAKE_SOURCE_DIR}/lib/libgmp.so.11" 
+    "${CMAKE_SOURCE_DIR}/lib/libmpfr.so.4" 
+    "${CMAKE_SOURCE_DIR}/lib/libIp_floating_point_v7_1_bitacc_cmodel.so"
+)
 
 function(verilate_command TARGET_NAME TOP_MODULE)
     verilate(
@@ -94,6 +102,7 @@ mudkip_verilate("basic_sync_fifo")
 mudkip_verilate("vector_ram_tb")
 mudkip_verilate("spmv_network_op_tb")
 mudkip_verilate("spmv_tb")
+mudkip_verilate("product")
 
 mudkip_gtest("so_rr_arbiter")
 

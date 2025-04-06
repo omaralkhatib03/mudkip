@@ -1,6 +1,5 @@
 
 #include "Controller.hpp"
-#include "Signal.hpp"
 #include "Simulation.hpp"
 #include "Vvector_ram_tb.h"
 #include "Vvector_ram_tb_vector_ram_tb.h"
@@ -71,14 +70,8 @@ class VectorDriver : public sim::Controller<DeviceT, VectorRamT>
     
     void driveFifoIntf(VectorRamT aStim)
     {
-        /*memcpy(&this->theDevice->addr, aStim.addr.data(), ceil_deiv(ADDR_WIDTH * PARALLELISM, 8));*/
-        /*memcpy(&this->theDevice->wdata, aStim.wdata.data(), ceil_deiv(DATA_WIDTH * PARALLELISM, 8));*/
-
-        for (int i = 0; i < PARALLELISM; i++)
-        {
-            this->theDevice->addr[i]    = aStim.addr[i];
-            this->theDevice->wdata[i]   = aStim.wdata[i];
-        }
+        memcpy(&this->theDevice->addr, aStim.addr.data(), ceil_deiv(ADDR_WIDTH * PARALLELISM, 8));
+        memcpy(&this->theDevice->wdata, aStim.wdata.data(), ceil_deiv(DATA_WIDTH * PARALLELISM, 8));
 
         this->theDevice->valid  = aStim.valid;
         this->theDevice->write  = aStim.write;
@@ -274,8 +267,6 @@ int main (int argc, char *argv[])
     }
 
     VL_PRINTF("\n");
-
-
 
     return 0;
 }

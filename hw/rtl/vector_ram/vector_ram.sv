@@ -22,8 +22,8 @@
 
 module vector_ram #(
     //verilator lint_off unused
-    parameter NUMBER_OF_RAMS = 2,
-    parameter RAM_FIFO_DEPTH = 4
+    parameter NUMBER_OF_RAMS /*verilator public*/ =  2,
+    parameter RAM_FIFO_DEPTH /*verilator public*/ =  4
     //verilator lint_on unused
 )(
     input         wire              clk,
