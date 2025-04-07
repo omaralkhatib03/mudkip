@@ -30,3 +30,6 @@ bazel-execroot/
 # Mine
 waves/*
 playground
+
+libgmp.so.11
+libmpfr.so.4

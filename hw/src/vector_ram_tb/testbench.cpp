@@ -12,37 +12,16 @@
 #include <format>
 #include <memory>
 #include <gtest/gtest.h>
+#include "Utils.hpp"
 
 using DeviceT = Vvector_ram_tb;
-
-constexpr unsigned flog2(unsigned x)
-{
-    return x == 1 ? 0 : 1+flog2(x >> 1);
-}
-
-constexpr unsigned clog2(unsigned x)
-{
-    return x == 1 ? 0 : flog2(x - 1) + 1;
-}
-
-constexpr int ceil(float num)
-{
-    return (static_cast<float>(static_cast<int32_t>(num)) == num)
-        ? static_cast<int32_t>(num)
-        : static_cast<int32_t>(num) + ((num > 0) ? 1 : 0);
-}
-
-constexpr int ceil_deiv(float a, float b)
-{
-    return ceil(a / b);
-}
 
 static constexpr int NUMBER_OF_RAMS = Vvector_ram_tb_vector_ram_tb::NUMBER_OF_RAMS; 
 static constexpr int RAM_FIFO_DEPTH = Vvector_ram_tb_vector_ram_tb::RAM_FIFO_DEPTH;
 static constexpr int VECTOR_LENGTH  = Vvector_ram_tb_vector_ram_tb::VECTOR_LENGTH;
 static constexpr int DATA_WIDTH     = Vvector_ram_tb_vector_ram_tb::DATA_WIDTH;
 static constexpr int PARALLELISM    = Vvector_ram_tb_vector_ram_tb::PARALLELISM;
-static constexpr int ADDR_WIDTH     = clog2(VECTOR_LENGTH);
+static constexpr int ADDR_WIDTH     = sim::clog2(VECTOR_LENGTH);
 
 #pragma pack(push, 1)
 template<size_t DataWidth, size_t AddressWidth, size_t Parallelism>
@@ -70,8 +49,8 @@ class VectorDriver : public sim::Controller<DeviceT, VectorRamT>
     
     void driveFifoIntf(VectorRamT aStim)
     {
-        memcpy(&this->theDevice->addr, aStim.addr.data(), ceil_deiv(ADDR_WIDTH * PARALLELISM, 8));
-        memcpy(&this->theDevice->wdata, aStim.wdata.data(), ceil_deiv(DATA_WIDTH * PARALLELISM, 8));
+        memcpy(&this->theDevice->addr, aStim.addr.data(), sim::ceil_deiv(ADDR_WIDTH * PARALLELISM, 8));
+        memcpy(&this->theDevice->wdata, aStim.wdata.data(), sim::ceil_deiv(DATA_WIDTH * PARALLELISM, 8));
 
         this->theDevice->valid  = aStim.valid;
         this->theDevice->write  = aStim.write;
@@ -270,14 +249,4 @@ int main (int argc, char *argv[])
 
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
 

@@ -2,7 +2,7 @@
 
 package spmv_pkg;
 
-typedef logic [63:0] long;
+typedef bit [63:0] long;
 
 
 endpackage : spmv_pkg

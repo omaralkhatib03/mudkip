@@ -1,15 +1,15 @@
 `timescale 1ns/1ps
 
 import spmv_pkg::*;
-import "DPI-C" function byte dpi_fmul(input int exp_prec, input int mant_prec, input long a, input long b,  input long result);
+import "DPI-C" function byte dpi_fmul(input int exp_prec, input int mant_prec, input longint a, input longint b, output longint result);
 
 module product #(
-    parameter FLOAT         = 1,
-    parameter DATA_WIDTH    = 32, // [4, 64]
-    parameter E_WIDTH       = 8,
-    parameter FRAC_WIDTH    = 24, 
-    parameter PARALLELISM   = 4,
-    parameter DELAY         = 2
+    parameter FLOAT         /* verilator public */ =  1,
+    parameter DATA_WIDTH    /* verilator public */ =  32, // [4, 64]
+    parameter E_WIDTH       /* verilator public */ =  8,
+    parameter FRAC_WIDTH    /* verilator public */ =  24, 
+    parameter PARALLELISM   /* verilator public */ =  4,
+    parameter DELAY         /* verilator public */ =  2
 ) (
     input wire                      clk,
     input wire                      rst_n,
@@ -29,6 +29,8 @@ module product #(
     `ifdef VERILATOR
            
         logic [DATA_WIDTH-1:0]                  out_inter[PARALLELISM-1:0];
+        logic                                   valid_inter;
+
         byte                                    ret_value[PARALLELISM-1:0];
 
         logic [PARALLELISM-1:0][DATA_WIDTH-1:0] out_flat_b;
@@ -38,11 +40,13 @@ module product #(
         begin
             for (int i = 0; i < PARALLELISM; i++)
             begin
+                // verilator lint_off width                                                    
+                ret_value[i]    = dpi_fmul(E_WIDTH, FRAC_WIDTH, a[i], b[i], out_inter[i]);
+                // verilator lint_on width
                 out_flat_b[i]   = out_inter[i];
-                ret_value[i]    = dpi_fmul(E_WIDTH, FRAC_WIDTH, $bits(long)'(a[i]), $bits(long)'(b[i]), $bits(long)'(out_inter[i]));
             end
         end
-        
+
         delay #(
             .DATAWIDTH(PARALLELISM*DATA_WIDTH + 1),
             .DELAY(DELAY)
@@ -61,6 +65,11 @@ module product #(
         end
         
         assign in_ready = ready;
+        
+        // always_ff @(posedge clk) 
+        // begin 
+        //     $display("A: %h", a[0], " A_P: %h", $bits(long)'(a[0])); 
+        // end
 
     `else // !VERILATOR
         

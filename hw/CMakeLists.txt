@@ -48,7 +48,7 @@ target_include_directories(sim PUBLIC ${SIM_HEADER_DIR} ${VERILATOR_INCLUDE} ${S
 target_link_libraries(sim 
     PRIVATE 
     GTest::gtest_main 
-    -L. 
+    -L"${CMAKE_SOURCE_DIR}/lib" 
     "${CMAKE_SOURCE_DIR}/lib/libgmp.so.11" 
     "${CMAKE_SOURCE_DIR}/lib/libmpfr.so.4" 
     "${CMAKE_SOURCE_DIR}/lib/libIp_floating_point_v7_1_bitacc_cmodel.so"
