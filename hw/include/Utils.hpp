@@ -33,6 +33,24 @@ constexpr int ceil_deiv(float a, float b)
     return ceil(a / b);
 }
 
+constexpr int nearest_to_P(int n, int P) 
+{
+
+    if (n % P == 0) 
+    {
+        return n;
+    }
+
+    return static_cast<int>(ceil(static_cast<double>(n) / P)) * P;
+}
+
+static inline unsigned int initialize_rng() 
+{
+    unsigned int seed = static_cast<unsigned int>(std::chrono::system_clock::now().time_since_epoch().count());
+    std::cout << "Random Seed for this run: " << seed << std::endl;  // Print the seed
+    return seed; 
+}
+
 template <typename T>
 void compareQueues(std::queue<T>& aExpected, std::queue<T>& aActual, bool aCheckEquality = true) {
     

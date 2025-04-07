@@ -9,7 +9,7 @@ module product #(
     parameter E_WIDTH       /* verilator public */ =  5,
     parameter FRAC_WIDTH    /* verilator public */ =  11, 
     parameter PARALLELISM   /* verilator public */ =  4,
-    parameter DELAY         /* verilator public */ =  2
+    parameter DELAY         /* verilator public */ =  4
 ) (
     input wire                      clk,
     input wire                      rst_n,

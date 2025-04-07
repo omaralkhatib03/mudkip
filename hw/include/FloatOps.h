@@ -17,9 +17,8 @@ union Dlong
     unsigned long l;
 };
 
-unsigned long mpfr_to_unsigned_long(const mpfr_t value);
 unsigned long xfpo_to_unsigned_long(xip_fpo_t value);
-void unsigned_long_to_mpfr(mpfr_t result, unsigned long bits);
+void unsigned_long_to_xfpo(xip_fpo_t result, unsigned long bits);
 void getStringRepr(const unsigned long a, char * a_str);
 
 extern "C" uint8_t dpi_fmul(int exp_prec, int mant_prec,

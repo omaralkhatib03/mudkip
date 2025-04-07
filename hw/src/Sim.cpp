@@ -68,32 +68,24 @@ unsigned long xfpo_to_unsigned_long(xip_fpo_t value)
     return ret;
 }
 
-unsigned long mpfr_to_unsigned_long(const mpfr_t value) 
-{
-    float f_value = mpfr_get_flt(value, MPFR_RNDN);
-    unsigned long bits;
-    memcpy(&bits, &f_value, sizeof(float));
-    return bits;
-}
-
 void unsigned_long_to_xfpo(xip_fpo_t result, unsigned long bits) 
 {
-    unsigned long e_prec             = xip_fpo_get_prec_exp(result); 
-    unsigned long m_prec             = xip_fpo_get_prec_mant(result);
-    auto m_imp              = bits & ((1 << (m_prec - 1)) - 1);
-    auto m_no_imp           = (1 << (m_prec - 1)) | m_imp;
-    double shifted_up       =  m_no_imp << (64 - m_prec);
-    auto bias               = (1 << (e_prec - 1)) - 1;
-    auto biased             = bits >> (m_prec - 1);
-    unsigned long exp       = biased - bias + 1; 
-    *result[0]._xip_fpo_d   = shifted_up;
-    result[0]._xip_fpo_exp  = exp;
-    result[0]._xip_fpo_sign = (bits >> (e_prec + m_prec - 1));
+    unsigned long e_prec                = xip_fpo_get_prec_exp(result); 
+    unsigned long m_prec                = xip_fpo_get_prec_mant(result);
+    auto m_imp                          = bits & ((1 << (m_prec - 1)) - 1);
+    auto m_no_imp                       = (1 << (m_prec - 1)) | m_imp;
+    double shifted_up                   =  m_no_imp << (64 - m_prec);
+    auto bias                           = (1 << (e_prec - 1)) - 1;
+    auto biased                         = bits >> (m_prec - 1);
+    unsigned long exp                   = biased - bias + 1; 
+    *result[0]._xip_fpo_d               = shifted_up;
+    result[0]._xip_fpo_exp              = exp;
+    result[0]._xip_fpo_sign             = (bits >> (e_prec + m_prec - 1));
 
-    printf("------------------------------ unsigned_long_to_xfpo --------------------------\n"); 
-    printf("Exp Prec: %ld Mant Prec: %ld, Bias: %d\n", xip_fpo_get_prec_exp(result), xip_fpo_get_prec_mant(result), bias); 
-    printf("Biased Exp: %lx, Exp: %lx, Mant: %lx, Bits: %lx \n", biased, exp, (unsigned long) shifted_up, bits);
-    printf("Sign: %x \n", result[0]._xip_fpo_sign);
+    // printf("------------------------------ unsigned_long_to_xfpo --------------------------\n"); 
+    // printf("Exp Prec: %ld Mant Prec: %ld, Bias: %d\n", xip_fpo_get_prec_exp(result), xip_fpo_get_prec_mant(result), bias); 
+    // printf("Biased Exp: %lx, Exp: %lx, Mant: %lx, Bits: %lx \n", biased, exp, (unsigned long) shifted_up, bits);
+    // printf("Sign: %x \n", result[0]._xip_fpo_sign);
 }
 
 void getStringRepr(const unsigned long a, char * a_str)
@@ -126,8 +118,8 @@ extern "C" uint8_t dpi_fmul(int exp_prec, int mant_prec,
     result[0] = static_cast<svBitVecVal>(res & 0xFFFFFFFF);         // lower 32 bits
     result[1] = static_cast<svBitVecVal>((res >> 32) & 0xFFFFFFFF); // upper 32 bits
 
-    printf("A: %lx, B: %lx Res: %lx\n", a, b, res);
-    printf("A: %f, B: %f, C: %lf\n", xip_fpo_get_flt(ax), xip_fpo_get_flt(bx), xip_fpo_get_flt(c));
+    // printf("A: %lx, B: %lx Res: %lx\n", a, b, res);
+    // printf("A: %f, B: %f, C: %lf\n", xip_fpo_get_flt(ax), xip_fpo_get_flt(bx), xip_fpo_get_flt(c));
 
     xip_fpo_clears(ax, bx, c, NULL);
     
