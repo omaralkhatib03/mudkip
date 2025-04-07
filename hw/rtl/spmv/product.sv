@@ -5,9 +5,9 @@ import "DPI-C" function byte dpi_fmul(input int exp_prec, input int mant_prec, i
 
 module product #(
     parameter FLOAT         /* verilator public */ =  1,
-    parameter DATA_WIDTH    /* verilator public */ =  32, // [4, 64]
-    parameter E_WIDTH       /* verilator public */ =  8,
-    parameter FRAC_WIDTH    /* verilator public */ =  24, 
+    parameter DATA_WIDTH    /* verilator public */ =  16, // [4, 64]
+    parameter E_WIDTH       /* verilator public */ =  5,
+    parameter FRAC_WIDTH    /* verilator public */ =  11, 
     parameter PARALLELISM   /* verilator public */ =  4,
     parameter DELAY         /* verilator public */ =  2
 ) (

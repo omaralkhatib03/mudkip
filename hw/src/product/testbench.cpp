@@ -165,7 +165,7 @@ std::vector<T> getRandomVector(size_t aVectorSize = -1)
 
     for (int i = 0; i < aRandomVectorSize; i++)
     {
-        aOut[i] = 872; 
+        aOut[i] = 72; 
     }
 
     return aOut;
