@@ -44,6 +44,14 @@ constexpr int nearest_to_P(int n, int P)
     return static_cast<int>(ceil(static_cast<double>(n) / P)) * P;
 }
 
+inline uint32_t set_bit(uint32_t aNumber, size_t anIndex) {
+    return aNumber | (1U << anIndex);
+}
+
+inline bool get_bit(uint32_t aNumber, size_t anIndex) {
+    return (aNumber >> anIndex) & 1U;
+}
+
 static inline unsigned int initialize_rng() 
 {
     unsigned int seed = static_cast<unsigned int>(std::chrono::system_clock::now().time_since_epoch().count());

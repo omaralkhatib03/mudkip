@@ -1,9 +1,12 @@
 #include "Simulation.hpp"
 #include <cassert>
+#include <cmath>
 #include <cstddef>
+#include <cstdint>
 #include <cstdlib>
 #include <cstring>
 #include <format>
+#include <functional>
 #include <gtest/gtest.h>
 #include <memory>
 #include <vector>
@@ -22,7 +25,9 @@ static constexpr int E_WIDTH        = Vproduct_product::E_WIDTH;
 static constexpr int FRAC_WIDTH     = Vproduct_product::FRAC_WIDTH;
 static constexpr int PARALLELISM    = Vproduct_product::PARALLELISM;
 static constexpr int TEST_SIZE      = 10;
-static std::mt19937 rng(839602695);
+static constexpr double MAX_VALUE   = static_cast<double>((1ULL << (E_WIDTH + FRAC_WIDTH)) - 1);
+static                              std::mt19937 rng(sim::initialize_rng());
+static                              std::uniform_real_distribution<> dis(.0, MAX_VALUE);
 
 #pragma pack(push, 1)
 template<size_t DATA_WIDTH, size_t E_WIDTH, size_t FRAC_WIDTH, size_t PARALLELISM>
@@ -33,12 +38,15 @@ struct FloatOpIf
     std::array<unsigned long, PARALLELISM>  a;
     std::array<unsigned long, PARALLELISM>  b;
     bool                                    ready;
+    std::array<bool, PARALLELISM>           in_mask;
+    bool                                    in_tlast;
 
     // Output 
     bool                                    in_ready;
     std::array<unsigned long, PARALLELISM>  out;
     bool                                    valid;
-
+    std::array<bool, PARALLELISM>           tkeep;
+    bool                                    tlast;
 };
 #pragma pack(pop)
 
@@ -52,12 +60,14 @@ class FloatOpDriver : public sim::Controller<DeviceT, FloatOpT>
     {
         for (int i = 0; i < aStim.a.size(); i++)
         {
-            this->theDevice->a[i] = aStim.a[i];
-            this->theDevice->b[i] = aStim.b[i];
+            this->theDevice->a[i]       = aStim.a[i];
+            this->theDevice->b[i]       = aStim.b[i];
+            this->theDevice->in_mask    |= (0x1 & aStim.in_mask[i]) << i; 
         }
 
-        this->theDevice->in_valid  = aStim.in_valid;
-        this->theDevice->ready = aStim.ready;
+        this->theDevice->in_valid   = aStim.in_valid;
+        this->theDevice->ready      = aStim.ready;
+        this->theDevice->in_tlast   = aStim.in_tlast;
     }
 
     void reset() override
@@ -95,9 +105,11 @@ public:
             {
                 theCurrentIntf.out[i] = this->theDevice->out[i];
                 VL_PRINTF("Seein: %x\n", this->theDevice->out[i]);
+                theCurrentIntf.tkeep[i] = sim::get_bit(this->theDevice->tkeep, i);
             }
 
             theCurrentIntf.valid = this->theDevice->valid;
+            theCurrentIntf.tlast = this->theDevice->tlast;
             this->add(theCurrentIntf);
             return;
         }
@@ -106,13 +118,15 @@ public:
 FloatOpT theCurrentIntf{};
 };
 
-template<typename StimT, typename anOp>
+
+template<typename StimT>
 struct FloatOpTest 
 {
-    using DriverT   = FloatOpDriver;
-    using MonitorT  = FloatOpMonitor; 
+    using DriverT       = FloatOpDriver;
+    using MonitorT      = FloatOpMonitor; 
+    using FloatFuncT    = std::function<void(StimT, const StimT, const StimT)>;
     
-    FloatOpTest(const std::string & aTestName = "") :
+    FloatOpTest(FloatFuncT aFloatOp, const std::string & aTestName = "") :
         theSimulation {  
             std::format("product{}{}", ((aTestName != "") ? "_" : ""), aTestName),
             sim::RunType::Release, 
@@ -120,26 +134,37 @@ struct FloatOpTest
             sim::ResetType::RANDOM_RESET, 
             10000
         },
-        theVectorDriver{std::make_shared<DriverT>()},
-        theVectorMonitor{std::make_shared<MonitorT>()}
+        theFloatOpDriver{std::make_shared<DriverT>()},
+        theFloatOpMonitor{std::make_shared<MonitorT>()},
+        theFloatOp{aFloatOp}
     {
-        theSimulation.addDriver(theVectorDriver);
-        theSimulation.addMonitor(theVectorMonitor);
+        theSimulation.addDriver(theFloatOpDriver);
+        theSimulation.addMonitor(theFloatOpMonitor);
     }
     
-    std::vector<StimT> getExpectedData(const std::vector<StimT> & aVectorA, const std::vector<StimT> & aVectorB)
+    std::vector<StimT> getExpectedData(std::vector<StimT> & aVectorA,std::vector<StimT> & aVectorB)
     {
         std::vector<StimT> myOut(aVectorA.size());
 
         for (int i = 0; i < aVectorA.size(); i++)
         {
             xip_fpo_init2(myOut[i], E_WIDTH, FRAC_WIDTH);
-            xip_fpo_mul(myOut[i], aVectorA[i], aVectorB[i]);
+            theFloatOp(myOut[i], aVectorA[i], aVectorB[i]);
         }
+
+        VL_PRINTF("Expectation Vectors : \n");
+        for (int i = 0; i < aVectorA.size(); i++)
+        {
+            VL_PRINTF("i: %d, A: %lx, B: %lx, C: %lx\n", 
+                      i, 
+                      xfpo_to_unsigned_long(aVectorA[i]), 
+                      xfpo_to_unsigned_long(aVectorB[i]), 
+                      xfpo_to_unsigned_long(myOut[i]));
+        }
+        VL_PRINTF("\n");
 
         return myOut;
     }
-
 
     FloatOpT getWriteVectorChunk(std::vector<StimT> & aVectorA, std::vector<StimT> & aVectorB, int anIndex) // Chunk starting from anIndex
     {
@@ -151,14 +176,20 @@ struct FloatOpTest
             myStim.a[i - anIndex]   = xfpo_to_unsigned_long(aVectorA[i]);
             myStim.b[i - anIndex]   = xfpo_to_unsigned_long(aVectorB[i]);
         }
-        myStim.ready = 1;
+        myStim.ready        = 1;
+        myStim.in_tlast     = (anIndex + PARALLELISM) >= TEST_SIZE;
+        uint32_t in_mask    = (1UL << (aVectorA.size() - TEST_SIZE)) - 1;
+
+        for (int i = 0; i < PARALLELISM; i++)
+            myStim.in_mask[i] = sim::get_bit(in_mask, i);
+
         return myStim;
     }
     
     void compareData(std::vector<StimT> & aVectorA, std::vector<StimT> & aVectorB)
     {
         std::vector<StimT> myExpectedOut = getExpectedData(aVectorA, aVectorB);
-        auto myCapturedData = theVectorMonitor->getQueue();
+        auto myCapturedData = theFloatOpMonitor->getQueue();
         
         xip_fpo_t myXfpo;
         xip_fpo_init2(myXfpo, E_WIDTH, FRAC_WIDTH);
@@ -168,107 +199,128 @@ struct FloatOpTest
         {
             for (int i = 0; i < PARALLELISM; i++)
             {
-                // auto myExpectedLong = xfpo_to_unsigned_long(myExpectedOut[myChunkCounter*PARALLELISM+i]);
-                // ASSERT_EQ(myExpectedLong, myCapturedData.front().out[i]) 
-                //     << "i: " << std::hex << i
-                //     << ", Expected: 0x" << std::hex << myExpectedLong 
-                //     << ", Got: 0x" << std::hex << myCapturedData.front().out[i];
+                if (myCapturedData.front().tlast && !(myCapturedData.front().tkeep[i])) // Data not valid
+                    continue;
+
+                auto myExpectedLong = xfpo_to_unsigned_long(myExpectedOut[myChunkCounter*PARALLELISM+i]);
+                ASSERT_EQ(myExpectedLong, myCapturedData.front().out[i]) 
+                    << "Chunk: " << std::hex << myChunkCounter
+                    << ", i: " << std::hex << i
+                    << ", index: " << myChunkCounter*PARALLELISM+i
+                    << ", Expected: 0x" << std::hex << myExpectedLong 
+                    << ", Got: 0x" << std::hex << myCapturedData.front().out[i];
                 
                 unsigned_long_to_xfpo(myXfpo, myCapturedData.front().out[i]);
 
+                ASSERT_EQ(xip_fpo_get_flt(myXfpo), xip_fpo_get_flt(myExpectedOut[myChunkCounter*PARALLELISM+i]))
+                    << "Chunk: " << myChunkCounter
+                    << ", i: " << i
+                    << ", index: " << myChunkCounter*PARALLELISM+i;
+
+                float myTempValue = xip_fpo_get_flt(myExpectedOut[myChunkCounter*PARALLELISM+i]); 
+
+                ASSERT_EQ(myXfpo[0]._xip_fpo_exp, myExpectedOut[myChunkCounter*PARALLELISM+i][0]._xip_fpo_exp)
+                    << "Chunk: " << std::hex << myChunkCounter
+                    << ", i: " << std::hex << i
+                    << ", index: " <<myChunkCounter*PARALLELISM+i
+                    << ", Expected: 0x" << std::hex << myExpectedOut[myChunkCounter*PARALLELISM+i][0]._xip_fpo_exp 
+                    << ", Got: 0x" << std::hex << myXfpo[0]._xip_fpo_exp;
+
+                if (std::abs(myTempValue) == INFINITY || myTempValue == NAN)
+                    continue;
+
                 ASSERT_EQ(*myXfpo[0]._xip_fpo_d, *myExpectedOut[myChunkCounter*PARALLELISM+i][0]._xip_fpo_d)
-                    << "i: " << std::hex << i
+                    << "Chunk: " << std::hex << myChunkCounter
+                    << ", i: " << std::hex << i
+                    << ", index: " << myChunkCounter*PARALLELISM+i
                     << ", Expected: 0x" << std::hex << *myExpectedOut[myChunkCounter*PARALLELISM+i][0]._xip_fpo_d 
                     << ", Got: 0x" << std::hex << *myXfpo[0]._xip_fpo_d;
 
-                ASSERT_EQ(myXfpo[0]._xip_fpo_exp, myExpectedOut[myChunkCounter*PARALLELISM+i][0]._xip_fpo_exp)
-                    << "i: " << std::hex << i
-                    << ", Expected: 0x" << std::hex << myExpectedOut[myChunkCounter*PARALLELISM+i][0]._xip_fpo_exp 
-                    << ", Got: 0x" << std::hex << myXfpo[0]._xip_fpo_exp;
+
             }
             myCapturedData.pop();
+            myChunkCounter++;
         }
 
         xip_fpo_clear(myXfpo);
     }
 
-    void feedSimulation(std::vector<StimT> & aVectorA, std::vector<StimT> & aVectorB)
+    void run(std::vector<StimT> & aVectorA, std::vector<StimT> & aVectorB)
     {
         for (int i = 0; i < aVectorA.size(); i += PARALLELISM)
         { 
             auto myStim = getWriteVectorChunk(aVectorA, aVectorB, i);
-            theVectorDriver->add(myStim);
+            theFloatOpDriver->add(myStim);
         }
 
         theSimulation.simulate([&]() {
-            return theVectorDriver->getQueue().size() == 0;
+            return theFloatOpMonitor->getQueue().size() >= ceil(static_cast<float>(aVectorA.size()) / PARALLELISM);
         }, 10);
+        
+        EXPECT_EQ(theFloatOpMonitor->getQueue().size(), ceil(static_cast<float>(aVectorA.size()) / PARALLELISM));
 
         compareData(aVectorA, aVectorB);
     }
 
+    template <typename T>
+    static std::vector<T> getRandomVector(size_t aVectorSize = -1)
+    {
+        auto myTestSize = sim::nearest_to_P(TEST_SIZE, PARALLELISM);
+        std::vector<T> aOut(myTestSize, 0);
+
+        for (int i = 0; i < TEST_SIZE; i++)
+        {
+            aOut[i] = dis(rng); 
+        }
+
+        return aOut;
+    }
+
+    static std::vector<xip_fpo_t> floatToDFUINT (const std::vector<float> & aFloatVector) 
+    {
+        std::vector<xip_fpo_t> out(aFloatVector.size());
+
+        for (int i = 0; i < aFloatVector.size(); i++)
+        {
+            xip_fpo_init2(out[i], E_WIDTH, FRAC_WIDTH);
+            xip_fpo_set_flt(out[i], aFloatVector[i]);
+        }
+        
+        return out;
+    }
+
     virtual ~FloatOpTest() = default;
-    
-    sim::Simulation<DeviceT> theSimulation;
-    std::shared_ptr<DriverT> theVectorDriver;
-    std::shared_ptr<MonitorT> theVectorMonitor;
+
+private: 
+    sim::Simulation<DeviceT>    theSimulation;
+    std::shared_ptr<DriverT>    theFloatOpDriver;
+    std::shared_ptr<MonitorT>   theFloatOpMonitor;
+    FloatFuncT                  theFloatOp;
 };
-
-template <typename T>
-std::vector<T> getRandomVector(size_t aVectorSize = -1)
-{
-    auto myTestSize = sim::nearest_to_P(TEST_SIZE, PARALLELISM);
-    std::vector<T> aOut(myTestSize, 0);
-    constexpr double max_value = static_cast<double>((1ULL << (E_WIDTH + FRAC_WIDTH - 1)) - 1);
-
-    for (int i = 0; i < TEST_SIZE; i++)
-    {
-        // aOut[i] = std::generate_canonical<double, 128>(rng) * max_value; 
-        aOut[i] = 3.14239; 
-    }
-
-    return aOut;
-}
-
-std::vector<xip_fpo_t> floatToDFUINT (const std::vector<float> & aFloatVector) 
-{
-    std::vector<xip_fpo_t> out(aFloatVector.size());
-
-    for (int i = 0; i < aFloatVector.size(); i++)
-    {
-        xip_fpo_init2(out[i], E_WIDTH, FRAC_WIDTH);
-        xip_fpo_set_flt(out[i], aFloatVector[i]);
-    }
-    
-    return out;
-}
 
 int main (int argc, char *argv[]) 
 {
-    using VectorFloatTestT = FloatOpTest<xip_fpo_t, decltype(xip_fpo_mul)>; 
+    using VectorFloatTestT = FloatOpTest<xip_fpo_t>; 
 
-    auto theTest = VectorFloatTestT();
+    auto theTest = VectorFloatTestT(xip_fpo_mul);
     
-    std::vector<float> aVectorA = getRandomVector<float>();
-    std::vector<float> aVectorB = getRandomVector<float>(aVectorA.size());
+    VL_PRINTF("Test Size: %d\n", TEST_SIZE);
 
-    auto aVectorUnionisedA = floatToDFUINT(aVectorA);
-    auto aVectorUnionisedB = floatToDFUINT(aVectorB);
+    std::vector<float> aVectorA = VectorFloatTestT::getRandomVector<float>();
+    std::vector<float> aVectorB = VectorFloatTestT::getRandomVector<float>(aVectorA.size());
 
-    xip_fpo_t myXfpo;
-    xip_fpo_init2(myXfpo, E_WIDTH, FRAC_WIDTH);
+    auto aVectorUnionisedA = VectorFloatTestT::floatToDFUINT(aVectorA);
+    auto aVectorUnionisedB = VectorFloatTestT::floatToDFUINT(aVectorB);
     auto myChunkCounter = 0;
+    
+    xip_fpo_t x;
+    xip_fpo_init2(x, E_WIDTH, FRAC_WIDTH);
+    xip_fpo_set_inf(x, 0);
+    xip_fpo_set_nan(x);
+    xip_fpo_set_inf(x, 1);
+    xip_fpo_clear(x);
 
-    VL_PRINTF("Input Vectors : \n");
-    for (int i = 0; i < aVectorA.size(); i++)
-    {
-        xip_fpo_mul(myXfpo, aVectorUnionisedA[i], aVectorUnionisedB[i]);
-        VL_PRINTF("i: %d, A: %lx, B: %lx, C: %lx\n", i, xfpo_to_unsigned_long(aVectorUnionisedA[i]), xfpo_to_unsigned_long(aVectorUnionisedB[i]), xfpo_to_unsigned_long(myXfpo));
-    }
-    VL_PRINTF("\n");
-    xip_fpo_clear(myXfpo); 
-
-    theTest.feedSimulation(aVectorUnionisedA, aVectorUnionisedB);
+    theTest.run(aVectorUnionisedA, aVectorUnionisedB);
 
     return 0;
 }

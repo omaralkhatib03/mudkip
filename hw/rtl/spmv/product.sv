@@ -5,24 +5,28 @@ import "DPI-C" function byte dpi_fmul(input int exp_prec, input int mant_prec, i
 
 module product #(
     parameter FLOAT         /* verilator public */ =  1,
-    parameter DATA_WIDTH    /* verilator public */ =  16, // [4, 64]
-    parameter E_WIDTH       /* verilator public */ =  5,
-    parameter FRAC_WIDTH    /* verilator public */ =  11, 
+    parameter DATA_WIDTH    /* verilator public */ =  20, // [4, 64]
+    parameter E_WIDTH       /* verilator public */ =  8,
+    parameter FRAC_WIDTH    /* verilator public */ =  12, 
     parameter PARALLELISM   /* verilator public */ =  4,
-    parameter DELAY         /* verilator public */ =  4
+    parameter DELAY         /* verilator public */ =  2
 ) (
     input wire                      clk,
     input wire                      rst_n,
 
     input wire                      in_valid,
     output logic                    in_ready,
+    input wire                      in_tlast,
+    input wire [PARALLELISM-1:0]    in_mask,
 
     input wire [DATA_WIDTH-1:0]     a[PARALLELISM-1:0],
     input wire [DATA_WIDTH-1:0]     b[PARALLELISM-1:0],
 
     output logic [DATA_WIDTH-1:0]   out[PARALLELISM-1:0],
     output logic                    valid,
-    input logic                     ready
+    input logic                     ready,
+    output logic                    tlast,
+    output logic [PARALLELISM-1:0]  tkeep
 
 );
     
@@ -48,12 +52,12 @@ module product #(
         end
 
         delay #(
-            .DATAWIDTH(PARALLELISM*DATA_WIDTH + 1),
+            .DATAWIDTH(PARALLELISM*DATA_WIDTH + 2 + PARALLELISM),
             .DELAY(DELAY)
         ) delay_I (
             .clk(clk),
-            .in({out_flat_b, in_valid}),
-            .out({out_flat_r, valid})
+            .in({out_flat_b, in_valid, in_tlast, in_mask}),
+            .out({out_flat_r, valid, tlast, tkeep})
         );
 
         always_comb
@@ -65,11 +69,6 @@ module product #(
         end
         
         assign in_ready = ready;
-        
-        // always_ff @(posedge clk) 
-        // begin 
-        //     $display("A: %h", a[0], " A_P: %h", $bits(long)'(a[0])); 
-        // end
 
     `else // !VERILATOR
         
