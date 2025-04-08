@@ -74,7 +74,7 @@ public:
             myTmp.pop();
         }
 
-        compareQueues<DataT>(this->theExpectedOutput, myTmpQueue);
+        sim::compareQueues<DataT>(this->theExpectedOutput, myTmpQueue);
     }
 
 private:

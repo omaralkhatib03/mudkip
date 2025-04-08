@@ -7,7 +7,7 @@ module product #(
     parameter FLOAT         /* verilator public */ =  1,
     parameter DATA_WIDTH    /* verilator public */ =  20, // [4, 64]
     parameter E_WIDTH       /* verilator public */ =  8,
-    parameter FRAC_WIDTH    /* verilator public */ =  12, 
+    parameter FRAC_WIDTH    /* verilator public */ =  12,
     parameter PARALLELISM   /* verilator public */ =  4,
     parameter DELAY         /* verilator public */ =  2
 ) (
@@ -29,9 +29,9 @@ module product #(
     output logic [PARALLELISM-1:0]  tkeep
 
 );
-    
+
     `ifdef VERILATOR
-           
+
         logic [DATA_WIDTH-1:0]                  out_inter[PARALLELISM-1:0];
         logic                                   valid_inter;
 
@@ -44,7 +44,7 @@ module product #(
         begin
             for (int i = 0; i < PARALLELISM; i++)
             begin
-                // verilator lint_off width                                                    
+                // verilator lint_off width
                 ret_value[i]    = dpi_fmul(E_WIDTH, FRAC_WIDTH, a[i], b[i], out_inter[i]);
                 // verilator lint_on width
                 out_flat_b[i]   = out_inter[i];
@@ -67,11 +67,11 @@ module product #(
                 out[i] = out_flat_r[i];
             end
         end
-        
+
         assign in_ready = ready;
 
     `else // !VERILATOR
-        
+
     `endif // VERILATOR
 
 endmodule

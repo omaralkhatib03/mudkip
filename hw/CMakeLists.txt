@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_FLAGS "-O0 -g -DVL_DEBUG")
+set(OVERRIDES "" CACHE STRING "Override Verilator Aruguments")
 
 if(POLICY CMP0144)
     cmake_policy(SET CMP0144 NEW)
@@ -64,6 +65,7 @@ function(verilate_command TARGET_NAME TOP_MODULE)
         TRACE_THREADS 4
         INCLUDE_DIRS ${RTL_DIR}
         VL_DEBUG
+        VERILATOR_ARGS ${OVERRIDES}
     )
 endfunction()
 
@@ -73,36 +75,15 @@ function(mudkip_verilate TOP_MODULE)
     add_executable(${TOP_MODULE} ${${TOP_MODULE}_files})
     target_include_directories(${TOP_MODULE} PUBLIC ${SIM_HEADER_DIR})
     target_link_libraries(${TOP_MODULE} PRIVATE sim)
-
     verilate_command(${TOP_MODULE} ${TOP_MODULE})
 endfunction()
 
 include(GetGtest.cmake)
 include(GoogleTest)
 
-function(mudkip_gtest TOP_MODULE)
-
-    message ("Creating Gtests for ${TOP_MODULE}...")
-    file(GLOB ${TOP_MODULE}_files "${CMAKE_SOURCE_DIR}/src/${TOP_MODULE}/test.cpp" "${TB_SRC}/*/*.hpp")
-    add_executable(${TOP_MODULE}_test ${${TOP_MODULE}_files})
-    target_include_directories(${TOP_MODULE}_test PUBLIC ${SIM_HEADER_DIR})
-
-    target_link_libraries(
-        ${TOP_MODULE}_test
-        PRIVATE
-        GTest::gtest_main
-        sim
-    )
-
-    verilate_command(${TOP_MODULE}_test ${TOP_MODULE})
-
-endfunction()
-
 mudkip_verilate("basic_sync_fifo")
-mudkip_verilate("vector_ram_tb")
 mudkip_verilate("spmv_network_op_tb")
 mudkip_verilate("spmv_tb")
 mudkip_verilate("product")
-
-mudkip_gtest("so_rr_arbiter")
-
+mudkip_verilate("vector_ram_tb")
+mudkip_verilate("so_rr_arbiter")
