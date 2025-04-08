@@ -25,7 +25,7 @@ static constexpr int E_WIDTH        = Vproduct_product::E_WIDTH;
 static constexpr int FRAC_WIDTH     = Vproduct_product::FRAC_WIDTH;
 static constexpr int PARALLELISM    = Vproduct_product::PARALLELISM;
 static constexpr int TEST_SIZE      = 10e4;
-static constexpr double MAX_VALUE   = static_cast<double>((1ULL << (E_WIDTH + FRAC_WIDTH)) - 1);
+static constexpr unsigned long long MAX_VALUE   = (1ULL << (E_WIDTH + FRAC_WIDTH)) - 1;
 static                              std::mt19937 rng(sim::initialize_rng());
 static                              std::uniform_real_distribution<> dis(.0, MAX_VALUE);
 

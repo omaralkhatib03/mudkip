@@ -1,4 +1,4 @@
-from src.mudkip_pytest import paralell_runner
+from mudkip_pytest import paralell_runner
 import logging, random
 
 template = {
@@ -24,6 +24,7 @@ def get_config(seed = None) -> dict[str, str]:
     config["FRAC_WIDTH"] = config["DATA_WIDTH"] - config["E_WIDTH"]
     config["PARALLELISM"] = random.randint(1, 64)
     config["DELAY"] = random.randint(1, 16)
+    config["SEED"] = seed
 
     return config
 
