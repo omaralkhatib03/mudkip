@@ -52,7 +52,7 @@ module spmv_kernel (
     assign x_n.write    = 1'b1;
 
     // verilator lint_off PINMISSING
-    product #(
+    fproduct #(
         .FLOAT          (FLOAT),
         .DATA_WIDTH     (DATA_WIDTH),
         .E_WIDTH        (E_WIDTH),

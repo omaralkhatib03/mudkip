@@ -1,9 +1,8 @@
 `timescale 1ns/1ps
 
-import spmv_pkg::*;
 import "DPI-C" function byte dpi_fmul(input int exp_prec, input int mant_prec, input longint a, input longint b, output longint result);
 
-module product #(
+module fproduct #(
     parameter FLOAT         /* verilator public */ =  1,
     parameter DATA_WIDTH    /* verilator public */ =  20, // [4, 64]
     parameter E_WIDTH       /* verilator public */ =  8,
@@ -12,7 +11,9 @@ module product #(
     parameter DELAY         /* verilator public */ =  2
 ) (
     input wire                      clk,
+    // verilator lint_off unused 
     input wire                      rst_n,
+    // verilator lint_on unused
 
     input wire                      in_valid,
     output logic                    in_ready,
@@ -33,8 +34,6 @@ module product #(
     `ifdef VERILATOR
 
         logic [DATA_WIDTH-1:0]                  out_inter[PARALLELISM-1:0];
-        logic                                   valid_inter;
-
         byte                                    ret_value[PARALLELISM-1:0];
 
         logic [PARALLELISM-1:0][DATA_WIDTH-1:0] out_flat_b;

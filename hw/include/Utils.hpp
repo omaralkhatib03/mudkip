@@ -72,7 +72,7 @@ void compareQueues(std::queue<T>& aExpected, std::queue<T>& aActual, bool aCheck
         myWhileFunction = [](const T & aExpected, const T & aActual)
         {
             std::cout << std::hex;
-            std::cout << "Expected: " << (uint32_t) aExpected << " Recieved: " << (uint32_t) aActual << std::endl;
+            std::cout << "Expected: " << aExpected << " Recieved: " << aActual << std::endl;
         };
     }
 
@@ -87,9 +87,8 @@ void compareQueues(std::queue<T>& aExpected, std::queue<T>& aActual, bool aCheck
         aActual.pop();
     }
 
-    EXPECT_EQ(aExpected.size(), 0);
-    EXPECT_EQ(aActual.size(), 0);
-    EXPECT_EQ(aActual.size(), 0);
+    EXPECT_EQ(0, aExpected.size());
+    EXPECT_EQ(aExpected.size(), aActual.size());
 }
 
 inline std::string getTestName()

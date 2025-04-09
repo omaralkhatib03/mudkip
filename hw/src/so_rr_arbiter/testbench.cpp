@@ -18,6 +18,7 @@ TEST(SoRrArbTest, CasesTest)
                        false); // Case 5: Request with ready = false
     myTest.addTestCase(0x0110, { 0x11, 0x22, },
                        true); // Case 6: Requests at 1,2
+    myTest.simulate();
 }
 
 TEST(SoRrArbTest, VectorRamLikeAccessTest) 

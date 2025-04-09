@@ -8,6 +8,32 @@ import subprocess, random
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
+def run_command(cmd: str, show_output: bool = False) -> int:
+    logger.debug(f"Executing: {cmd}")
+    try:
+        process = subprocess.Popen(
+            cmd,
+            shell=True,
+            stdout=None if show_output else subprocess.PIPE,
+            stderr=None if show_output else subprocess.PIPE,
+            text=True
+        )
+
+        _, stderr = process.communicate()  # Waits for process to finish
+
+        logger.debug(f"Process Return Code : {process.returncode}")
+
+        if process.returncode != 0:
+            if stderr:
+                logger.error("Command failed with stderr:\n%s", stderr)
+            else:
+                logger.error("Command failed (no stderr).")
+
+        return process.returncode if process.returncode is not None else -1
+
+    except Exception as e:
+        logger.exception("Command failed to run: %s", e)
+        return -1
 
 def add_verilator_args(build_command: str, config: dict[str, Any]) -> str:
     """
@@ -35,7 +61,7 @@ def configure_mudkip(build_dir: str, config: dict[str, Any]) -> int:
 
     mudkip_command = f"cmake -S . -B ./{build_dir} -DCMAKE_BUILD_TYPE=Release"
     mudkip_command = add_verilator_args(mudkip_command, config)
-    ret = os.system(mudkip_command)
+    ret = run_command(mudkip_command)
 
     if ret != 0:
         logger.error("Build failed with error code %d", ret)
@@ -51,14 +77,14 @@ def run_build(work_dir: str, build_dir: str, target: str, config: dict[str, Any]
     os.makedirs(work_dir + "/" + build_dir, exist_ok=True)
     ret = configure_mudkip(work_dir + "/" + build_dir, config)
 
-    mudkip_binary_build = f"cmake --build {work_dir}/{build_dir} --target {target} --parallel"
+    mudkip_binary_build = f"cmake --build {work_dir}/{build_dir} --target {target} -- -j 12"
     mudkip_binary = f"{work_dir}/{build_dir}/bin/{target}"
 
     logger.info("Running build command: %s", mudkip_binary_build)
-    ret = os.system(mudkip_binary_build)
+    ret = run_command(mudkip_binary_build)
 
     logger.info("Running target: %s", mudkip_binary)
-    ret = os.system(mudkip_binary)
+    ret = run_command(mudkip_binary, True)
 
     if ret != 0:
         logger.error("Build failed with error code %d", ret)
@@ -89,26 +115,45 @@ def paralell_runner(
     config_ids = [i for i in range(num_configs)]
     work_list = zip(configs, config_ids)
 
-    with ThreadPoolExecutor(max_workers=jobs) as executor:
-        futures = [
-            executor.submit(run_build, work_dir, f"build_{config_id}", target, config)
-            for config, config_id in work_list
-        ]
+    if seed is None:
 
-        # if the future is done, check result
-        # success means ret = 0, and append seed to passing_seeds
-        # failure means ret != 0, and append seed to failing_seeds
-        for future in as_completed(futures):
-            ret = future.result()
-            cfg = configs[futures.index(future)]
-            if ret == 0:
-                passing_seeds.append(cfg["SEED"])
-            else:
-                failing_seeds.append(cfg["SEED"])
-                logger.error("Build failed for config ID %d", config_id)
+        with ThreadPoolExecutor(max_workers=jobs) as executor:
+            futures = [
+                executor.submit(run_build, work_dir, f"build_{config_id}", target, config)
+                for config, config_id in work_list
+            ]
 
-    logger.info("Total seeds: %d", len(passing_seeds) + len(failing_seeds))
-    logger.info("Passing seeds: %s", passing_seeds)
-    logger.info("Failing seeds: %s", failing_seeds)
+            # if the future is done, check result
+            # success means ret = 0, and append seed to passing_seeds
+            # failure means ret != 0, and append seed to failing_seeds
+            for future in as_completed(futures):
+                ret = future.result()
+                cfg = configs[futures.index(future)]
+                if ret == 0:
+                    passing_seeds.append(cfg["SEED"])
+                else:
+                    failing_seeds.append(cfg["SEED"])
+                    logger.error("Build failed for config ID %d", cfg["SEED"])
+
+        logger.info("Total seeds: %d", len(passing_seeds) + len(failing_seeds))
+        logger.info("Passing seeds: %s", passing_seeds)
+        logger.info("Failing seeds: %s", failing_seeds)
+
+    else:
+
+        config = get_config(seed=seed)
+
+        # Run only the seed that is passed
+        ret = run_build(work_dir, f"build_seeded", target, config)
+
+        if ret == 0:
+            passing_seeds.append(config["SEED"])
+        else:
+            failing_seeds.append(config["SEED"])
+            logger.error("Build failed for config ID %d", config["SEED"])
+
+        logger.info("Total seeds: %d", len(passing_seeds) + len(failing_seeds))
+        logger.info("Passing seeds: %s", passing_seeds)
+        logger.info("Failing seeds: %s", failing_seeds)
 
     return len(failing_seeds), len(passing_seeds)

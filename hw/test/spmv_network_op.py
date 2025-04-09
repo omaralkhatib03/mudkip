@@ -1,14 +1,6 @@
 from mudkip_pytest import paralell_runner
 import logging, random
 
-template = {
-    "DATA_WIDTH" : 32,
-    "E_WIDTH" : 8,
-    "FRAC_WIDTH" : 23,
-    "PARALLELISM" : 1,
-    "DELAY" : 1,
-}
-
 def get_config(seed = None) -> dict[str, str]:
     """
     Get the configuration for the build.
@@ -18,12 +10,11 @@ def get_config(seed = None) -> dict[str, str]:
         # Set the seed for reproducibility
         random.seed(seed)
 
-    config = template.copy()
-    config["DATA_WIDTH"] = random.randint(8, 64)
-    config["E_WIDTH"] = random.randint(4, config["DATA_WIDTH"])
-    config["FRAC_WIDTH"] = config["DATA_WIDTH"] - config["E_WIDTH"]
+    config = {}
+    config["IN_WIDTH"] = random.randint(1, 64)
+    config["ID_WIDTH"] = random.randint(1, 16)
+    config["LOCATION"] = random.randint(1, 64)
     config["PARALLELISM"] = random.randint(1, 64)
-    config["DELAY"] = random.randint(1, 16)
     config["SEED"] = seed
 
     return config
@@ -47,7 +38,7 @@ def main():
         get_config=get_config,
         jobs=jobs,
         num_configs=num_configs,
-        target="fproduct"
+        target="spmv_network_op_tb",
     )
 
 if __name__ == "__main__":

@@ -44,14 +44,16 @@ file(GLOB_RECURSE SIM_HEADER_FILES)
 file(GLOB SIM_HEADER_FILES "${CMAKE_SOURCE_DIR}/include/*.h" "${CMAKE_SOURCE_DIR}/include/*.hpp}")
 set(SIM_SRC_FILES "${CMAKE_SOURCE_DIR}/src/Sim.cpp")
 
+find_package(GTest REQUIRED)
+
 add_library(sim OBJECT "${SIM_SRC_FILES}")
 target_include_directories(sim PUBLIC ${SIM_HEADER_DIR} ${VERILATOR_INCLUDE} ${SVDPI_INCLUDE})
-target_link_libraries(sim 
-    PRIVATE 
-    GTest::gtest_main 
-    -L"${CMAKE_SOURCE_DIR}/lib" 
-    "${CMAKE_SOURCE_DIR}/lib/libgmp.so.11" 
-    "${CMAKE_SOURCE_DIR}/lib/libmpfr.so.4" 
+target_link_libraries(sim
+    PRIVATE
+    GTest::gtest_main
+    -L"${CMAKE_SOURCE_DIR}/lib"
+    "${CMAKE_SOURCE_DIR}/lib/libgmp.so.11"
+    "${CMAKE_SOURCE_DIR}/lib/libmpfr.so.4"
     "${CMAKE_SOURCE_DIR}/lib/libIp_floating_point_v7_1_bitacc_cmodel.so"
 )
 
@@ -78,12 +80,9 @@ function(mudkip_verilate TOP_MODULE)
     verilate_command(${TOP_MODULE} ${TOP_MODULE})
 endfunction()
 
-include(GetGtest.cmake)
-include(GoogleTest)
-
 mudkip_verilate("basic_sync_fifo")
 mudkip_verilate("spmv_network_op_tb")
 mudkip_verilate("spmv_tb")
-mudkip_verilate("product")
+mudkip_verilate("fproduct")
 mudkip_verilate("vector_ram_tb")
 mudkip_verilate("so_rr_arbiter")
