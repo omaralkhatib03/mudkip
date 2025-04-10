@@ -38,6 +38,7 @@
 * utilisation. Using T processors in paralell, (i.e T partitions) means that
 * the resource estimate is O(Tn^2), which is better than just increasing n.
 */
+
 module spmv_reduction_network
 #(
     parameter NETWORK_WIDTH                 = 4 // Must be even
@@ -107,9 +108,6 @@ module spmv_reduction_network
                             .out(current_lanes[((j + 1)*NETWORK_WIDTH) + k])
                         );
                         
-                        // assign current_lanes[(j*NETWORK_WIDTH) + k].ready = current_lanes[((j + 1)*NETWORK_WIDTH) + k].ready;
-                        // assign current_lanes[(j*NETWORK_WIDTH) + k+1].ready = current_lanes[((j + 1)*NETWORK_WIDTH) + k+1].ready;
-
                         network_if_copier #(
                             .DELAY(0)
                         ) identity_prop_k_1_I (
@@ -168,7 +166,6 @@ module spmv_reduction_network
 
         end
     endgenerate
-
 
 endmodule
 
