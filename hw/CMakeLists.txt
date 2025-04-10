@@ -2,6 +2,8 @@ Cmake_minimum_required(VERSION 3.24)
 
 enable_language(C CXX)
 
+set(CMAKE_C_COMPILER_LAUNCHER ccache)
+set(CMAKE_CXX_COMPILER_LAUNCHER ccache)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -46,7 +48,7 @@ set(SIM_SRC_FILES "${CMAKE_SOURCE_DIR}/src/Sim.cpp")
 
 find_package(GTest REQUIRED)
 
-add_library(sim OBJECT "${SIM_SRC_FILES}")
+add_library(sim STATIC "${SIM_SRC_FILES}")
 target_include_directories(sim PUBLIC ${SIM_HEADER_DIR} ${VERILATOR_INCLUDE} ${SVDPI_INCLUDE})
 target_link_libraries(sim
     PRIVATE
@@ -82,6 +84,7 @@ endfunction()
 
 mudkip_verilate("basic_sync_fifo")
 mudkip_verilate("spmv_network_op_tb")
+mudkip_verilate("spmv_network_tb")
 mudkip_verilate("spmv_tb")
 mudkip_verilate("fproduct")
 mudkip_verilate("vector_ram_tb")

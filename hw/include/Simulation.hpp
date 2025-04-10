@@ -36,7 +36,7 @@ enum class TraceOption
     TraceOff            = 0
 };
 
-template <DeviceT DutT>
+template <typename DutT>
 class Simulation
 {
 public:
@@ -96,7 +96,7 @@ private:
     SimulationStateEnum theSimulationState;
 };
 
-template<DeviceT DutT>
+template<typename DutT>
 Simulation<DutT>::Simulation(
     std::string aWaveName,
     RunType aRunOption,
@@ -147,7 +147,7 @@ Simulation<DutT>::Simulation(
     #endif // !COMBINATIONAL
 }
 
-template<DeviceT DutT>
+template<typename DutT>
 Simulation<DutT>::Simulation(
     int argc,
     char *argv[],
@@ -162,7 +162,7 @@ Simulation<DutT>::Simulation(
      Verilated::commandArgs(argc, argv);
 }
 
-template<DeviceT DutT>
+template<typename DutT>
 bool Simulation<DutT>::isSimulationOver(std::function<bool()> aPredicate)
 {
     bool myAnsr = true;
@@ -175,14 +175,14 @@ bool Simulation<DutT>::isSimulationOver(std::function<bool()> aPredicate)
     return myAnsr && aPredicate();
 }
 
-template<DeviceT DutT>
+template<typename DutT>
 void Simulation<DutT>::dump()
 {
     theTrace->dump(theSimTime);
     theSimTime++;
 }
 
-template<DeviceT DutT>
+template<typename DutT>
 void Simulation<DutT>::run_half_cycle()
 {
     #ifndef COMBINATIONAL
@@ -191,7 +191,7 @@ void Simulation<DutT>::run_half_cycle()
     theDut->eval();
 }
 
-template<DeviceT DutT>
+template<typename DutT>
 void Simulation<DutT>::resetDrivers()
 {
         for (auto & myDriver : theDrivers)
@@ -200,21 +200,21 @@ void Simulation<DutT>::resetDrivers()
         }
 }
 
-template<DeviceT DutT>
+template<typename DutT>
 void Simulation<DutT>::addDriver(std::shared_ptr<ControllerT> aController)
 {
     theDrivers.push_back(aController);
     aController->init(theDut);
 }
 
-template<DeviceT DutT>
+template<typename DutT>
 void Simulation<DutT>::addMonitor(std::shared_ptr<ControllerT> aController)
 {
     theMonitors.push_back(aController);
     aController->init(theDut);
 }
 
-template<DeviceT DutT>
+template<typename DutT>
 void Simulation<DutT>::Simulation::initialiseSimulation()
 {
     run_cycle(1);
@@ -237,7 +237,7 @@ void Simulation<DutT>::Simulation::initialiseSimulation()
     theSimulationState = SimulationStateEnum::Initialised;
 }
 
-template<DeviceT DutT>
+template<typename DutT>
 void Simulation<DutT>::run_cycle(int aCycles)
 {
     for (int i = 0 ; i < aCycles; i++)
@@ -249,7 +249,7 @@ void Simulation<DutT>::run_cycle(int aCycles)
     }
 }
 
-template<DeviceT DutT>
+template<typename DutT>
 void Simulation<DutT>::simulate(std::function<bool()> aPredicate, size_t aWaitValue, size_t anIncrement)
 {
     if (theSimulationState == SimulationStateEnum::NotInitialised)

@@ -4,14 +4,17 @@ module spmv_network_op #(
     parameter LOCATION      = 3,
     parameter PARALLELISM   = 50
 ) (
-    network_if.slave    in,
-    network_if.master   out
+    network_if.slave    in_a,
+    network_if.slave    in_b,
+
+    network_if.master   out_a,
+    network_if.master   out_b
 );
     
     /*
     * If this TOWARDS_CENTER is 1, then the output is on A otherwise the output is
     * on B. 
-    * To illustrate the idea, the network is laid out as follows 
+    * To illustrate the idea, the network is laid out_as follows 
     *
     *               a       a       a 
     *               b       b       b 
@@ -24,45 +27,46 @@ module spmv_network_op #(
     * of the network.
     */
 
-    localparam TOWARDS_CENTER = LOCATION > $ceil(PARALLELISM / 2); 
+    localparam TOWARDS_CENTER = LOCATION >= $ceil(PARALLELISM / 2); 
 
     logic calc;
     
-    assign calc = in.a.valid && in.b.valid && out.ready;
+    assign calc = in_a.valid && in_b.valid && out_a.ready && out_b.ready;
 
     always_comb
     begin
-        out.b.id    = in.b.id;             
-        out.a.id    = in.a.id;             
+        out_b.id    = in_b.id;             
+        out_a.id    = in_a.id;             
 
-        if ((in.a.id == in.b.id) && calc)
+        if ((in_a.id == in_b.id) && calc)
         begin
 
-            out.a.val   = in.a.val + in.b.val; 
+            out_a.val   = in_a.val + in_b.val; 
 
             if (TOWARDS_CENTER)
             begin
-                out.a.valid = in.a.valid;
-                out.b.valid = '0;
+                out_a.valid = in_a.valid;
+                out_b.valid = '0;
             end
             else
             begin
-                out.b.valid = in.b.valid;
-                out.b.val   = out.a.val; 
-                out.a.valid = '0; 
+                out_b.valid = in_b.valid;
+                out_b.val   = out_a.val; 
+                out_a.valid = '0; 
             end
         end
         else 
         begin
-            out.a.val   = out.IN_WIDTH'(in.a.val);
+            out_a.val   = out_a.IN_WIDTH'(in_a.val);
 
-            out.b.val   = out.IN_WIDTH'(in.b.val);
+            out_b.val   = out_b.IN_WIDTH'(in_b.val);
 
-            out.a.valid = in.a.valid;
-            out.b.valid = in.b.valid;
+            out_a.valid = in_a.valid;
+            out_b.valid = in_b.valid;
         end
 
-        in.ready    = out.ready;
+        in_a.ready    = out_a.ready && out_b.ready;
+        in_b.ready    = in_a.ready;
     end
 
 endmodule

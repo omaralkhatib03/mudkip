@@ -300,6 +300,6 @@ private:
 TEST(SpMvNetworkOpTest, CasesTest)
 {
     auto myTest = SpMvNetworkOpTest(sim::getTestName());
-    myTest.addTestCase(23, 3471345171);
+    myTest.addTestCase(1e4);
     myTest.simulate();
 }

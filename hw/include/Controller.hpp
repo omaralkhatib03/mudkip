@@ -1,14 +1,13 @@
 #pragma once
 
 #include "ControllerBase.hpp"
-#include "Defintions.hpp"
 #include <memory>
 #include <queue>
 
 namespace sim
 {
 
-template<DeviceT DutT, typename StimulusT = int>
+template<typename DutT, typename StimulusT = int>
 class Controller : public ControllerBase<DutT>
 {
 public:

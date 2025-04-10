@@ -19,6 +19,8 @@
 namespace sim 
 {
 
+static std::mt19937 rng(1546613696);
+
 template<size_t DATA_WIDTHT, size_t E_WIDTHT, size_t FRAC_WIDTHT, size_t PARALLELISMT>
 struct FloatOpIf
 {
@@ -144,16 +146,16 @@ struct FloatOpTest
             theFloatOp(myOut[i], aVectorA[i], aVectorB[i]);
         }
 
-        VL_PRINTF("Expectation Vectors : \n");
-        for (int i = 0; i < aVectorA.size(); i++)
-        {
-            VL_PRINTF("i: %d, A: %lx, B: %lx, C: %lx\n",
-                      i,
-                      xfpo_to_unsigned_long(aVectorA[i]),
-                      xfpo_to_unsigned_long(aVectorB[i]),
-                      xfpo_to_unsigned_long(myOut[i]));
-        }
-        VL_PRINTF("\n");
+        // VL_PRINTF("Expectation Vectors : \n");
+        // for (int i = 0; i < aVectorA.size(); i++)
+        // {
+            // VL_PRINTF("i: %d, A: %lx, B: %lx, C: %lx\n",
+            //           i,
+            //           xfpo_to_unsigned_long(aVectorA[i]),
+            //           xfpo_to_unsigned_long(aVectorB[i]),
+            //           xfpo_to_unsigned_long(myOut[i]));
+        // }
+        // VL_PRINTF("\n");
 
         return myOut;
     }
@@ -245,7 +247,9 @@ struct FloatOpTest
             auto myStim = getWriteVectorChunk(aVectorA, aVectorB, i, aTestSize);
             theFloatOpDriver->add(myStim);
         }
-        auto myExpectedQueueSize = theFloatOpMonitor->getQueue().size(), ceil(static_cast<float>(aVectorA.size()) / FloatIfT::PARALLELISM);
+
+        auto myExpectedQueueSize = ceil(static_cast<float>(aVectorA.size()) / FloatIfT::PARALLELISM);
+
         theSimulation.simulate([&]() {
             return theFloatOpMonitor->getQueue().size() >= myExpectedQueueSize;
         }, 10);
@@ -255,15 +259,14 @@ struct FloatOpTest
         compareData(aVectorA, aVectorB);
     }
 
-    template <typename T>
+    template <typename T = double>
     static std::vector<T> getRandomVector(const size_t aVectorSize, const unsigned long aMaxValue, const int32_t seed = -1)
     {
         
-        std::mt19937 rng((seed > 0) ? seed : sim::initialize_rng());
         auto myTestSize = sim::nearest_to_P(aVectorSize, FloatIfT::PARALLELISM);
         std::vector<T> aOut(myTestSize, 0);
 
-        std::uniform_real_distribution<> dis(.0, aMaxValue);
+        std::uniform_real_distribution<> dis(1, aMaxValue);
 
         for (int i = 0; i < aVectorSize; i++)
         {

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Controller.hpp"
-#include "Defintions.hpp"
 #include "Signal.hpp"
 #include <cstring>
 
@@ -15,7 +14,7 @@ struct FifoDriverIntf
     bool    shift_out;
 };
 
-template <DeviceT DutT>
+template <typename DutT>
 class FifoDriver : public Controller<DutT, FifoDriverIntf>
 {
 public:

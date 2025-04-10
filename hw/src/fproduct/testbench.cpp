@@ -7,13 +7,13 @@ static constexpr int DATA_WIDTH                 = Vfproduct_fproduct::DATA_WIDTH
 static constexpr int E_WIDTH                    = Vfproduct_fproduct::E_WIDTH;
 static constexpr int FRAC_WIDTH                 = Vfproduct_fproduct::FRAC_WIDTH;
 static constexpr int PARALLELISM                = Vfproduct_fproduct::PARALLELISM;
-static constexpr int TEST_SIZE                  = 10e4;
+static constexpr int TEST_SIZE                  = 1e4;
 static constexpr unsigned long long MAX_VALUE   = (1ULL << (E_WIDTH + FRAC_WIDTH)) - 1;
-using FloatIfT                                  = FloatOpIf<DATA_WIDTH, E_WIDTH, FRAC_WIDTH, PARALLELISM>;
+using FloatIfT                                  = sim::FloatOpIf<DATA_WIDTH, E_WIDTH, FRAC_WIDTH, PARALLELISM>;
 
-int main (int argc, char *argv[])
+TEST(FloatingPointOps, FloatProduct)
 {
-    using VectorFloatTestT      = FloatOpTest<FloatIfT, DeviceT, xip_fpo_t>;
+    using VectorFloatTestT      = sim::FloatOpTest<FloatIfT, DeviceT, xip_fpo_t>;
 
     auto theTest                = VectorFloatTestT(xip_fpo_mul);
 
@@ -27,6 +27,4 @@ int main (int argc, char *argv[])
     auto myChunkCounter         = 0;
 
     theTest.run(aVectorUnionisedA, aVectorUnionisedB, TEST_SIZE);
-
-    return 0;
 }

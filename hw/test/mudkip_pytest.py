@@ -59,7 +59,7 @@ def configure_mudkip(build_dir: str, config: dict[str, Any]) -> int:
     Build a mudkip based on the provided configuration.
     """
 
-    mudkip_command = f"cmake -S . -B ./{build_dir} -DCMAKE_BUILD_TYPE=Release"
+    mudkip_command = f"cmake -G Ninja -S . -B ./{build_dir} -DCMAKE_BUILD_TYPE=Release"
     mudkip_command = add_verilator_args(mudkip_command, config)
     ret = run_command(mudkip_command)
 
@@ -77,7 +77,7 @@ def run_build(work_dir: str, build_dir: str, target: str, config: dict[str, Any]
     os.makedirs(work_dir + "/" + build_dir, exist_ok=True)
     ret = configure_mudkip(work_dir + "/" + build_dir, config)
 
-    mudkip_binary_build = f"cmake --build {work_dir}/{build_dir} --target {target} -- -j 12"
+    mudkip_binary_build = f"cmake --build {work_dir}/{build_dir} --target {target} -- -j 4"
     mudkip_binary = f"{work_dir}/{build_dir}/bin/{target}"
 
     logger.info("Running build command: %s", mudkip_binary_build)

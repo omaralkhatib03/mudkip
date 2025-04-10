@@ -1,12 +1,11 @@
 #pragma once
 
-#include "Defintions.hpp"
 #include <memory>
 
 namespace sim
 {
 
-template <DeviceT DutT>
+template <typename DutT>
 class ControllerBase
 {
 public:

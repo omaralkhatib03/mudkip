@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Controller.hpp"
-#include "Defintions.hpp"
 #include "Signal.hpp"
 #include <cassert>
 
@@ -18,7 +17,7 @@ struct FifoMonitorIntf
     bool valid{};
 };
 
-template <DeviceT DutT>
+template <typename DutT>
 class FifoMonitor : public Controller<DutT, FifoMonitorIntf>
 {
 public:

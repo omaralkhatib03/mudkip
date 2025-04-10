@@ -14,8 +14,10 @@ module spmv_network_op_tb  #(
 
     input wire [ID_WIDTH-1:0]       in_a_id,
     input wire [IN_WIDTH-1:0]       in_a_val,
+
     input wire [ID_WIDTH-1:0]       in_b_id,
     input wire [IN_WIDTH-1:0]       in_b_val,
+
     input wire                      in_valid,
     output logic                    in_ready,
 
@@ -33,42 +35,55 @@ module spmv_network_op_tb  #(
     network_if #(
         .IN_WIDTH(IN_WIDTH),
         .ID_WIDTH(ID_WIDTH)
-    ) net_if_in();
+    ) net_if_in_a();
+
+    network_if #(
+        .IN_WIDTH(IN_WIDTH),
+        .ID_WIDTH(ID_WIDTH)
+    ) net_if_in_b();
 
     network_if #(
         .IN_WIDTH(OUT_WIDTH),
         .ID_WIDTH(ID_WIDTH)
-    ) net_if_out();
+    ) net_if_out_a();
+
+    network_if #(
+        .IN_WIDTH(OUT_WIDTH),
+        .ID_WIDTH(ID_WIDTH)
+    ) net_if_out_b();
 
     always_comb
     begin
-        net_if_in.a.id      = in_a_id;
-        net_if_in.a.val     = in_a_val;
-        net_if_in.a.valid   = in_valid;
+        net_if_in_a.id      = in_a_id;
+        net_if_in_a.val     = in_a_val;
+        net_if_in_a.valid   = in_valid;
 
-        net_if_in.b.id      = in_b_id;
-        net_if_in.b.val     = in_b_val;
-        net_if_in.b.valid   = in_valid;
+        net_if_in_b.id      = in_b_id;
+        net_if_in_b.val     = in_b_val;
+        net_if_in_b.valid   = in_valid;
 
-        in_ready            = net_if_in.ready;
+        in_ready            = net_if_in_a.ready && net_if_in_b.ready;
 
-        a_id                = net_if_out.a.id;
-        a_val               = net_if_out.a.val;
-        a_valid             = net_if_out.a.valid;
+        a_id                = net_if_out_a.id;
+        a_val               = net_if_out_a.val;
+        a_valid             = net_if_out_a.valid;
 
-        b_id                = net_if_out.b.id;
-        b_val               = net_if_out.b.val;
-        b_valid             = net_if_out.b.valid;
+        b_id                = net_if_out_b.id;
+        b_val               = net_if_out_b.val;
+        b_valid             = net_if_out_b.valid;
 
-        net_if_out.ready    = ready;
+        net_if_out_a.ready  = ready;
+        net_if_out_b.ready  = ready;
     end
 
     spmv_network_op #(
         .LOCATION(LOCATION),
         .PARALLELISM(PARALLELISM)
     ) dut_I (
-        .in(net_if_in),
-        .out(net_if_out)
+        .in_a(net_if_in_a),
+        .in_b(net_if_in_b),
+        .out_a(net_if_out_a),
+        .out_b(net_if_out_b)
     );
 
 endmodule
