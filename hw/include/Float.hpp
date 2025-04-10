@@ -266,7 +266,7 @@ struct FloatOpTest
         auto myTestSize = sim::nearest_to_P(aVectorSize, FloatIfT::PARALLELISM);
         std::vector<T> aOut(myTestSize, 0);
 
-        std::uniform_real_distribution<> dis(1, aMaxValue);
+        std::uniform_real_distribution<> dis(0., aMaxValue);
 
         for (int i = 0; i < aVectorSize; i++)
         {

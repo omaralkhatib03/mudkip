@@ -50,10 +50,8 @@ module spmv_reduction_network
 
     localparam N_2                          = NETWORK_WIDTH / 2;
     localparam PIPELINE_STAGES              = 4;
-    // localparam PIPELINE_STAGES              = 2;
 
     localparam [PIPELINE_STAGES-1:0][31:0] PIPELINE  = {32'(N_2), 32'd2, 32'd1, 32'd0};
-    // localparam [PIPELINE_STAGES-1:0][31:0] PIPELINE  = {32'(N_2), 32'd0};
 
     localparam OUTPUT_WIDTH     = out[0].IN_WIDTH;
     localparam OUTPUT_ID_WIDTH  = out[0].ID_WIDTH;
