@@ -41,17 +41,19 @@
 
 module spmv_reduction_network
 #(
-    parameter NETWORK_WIDTH                 = 4 // Must be even
+    parameter NETWORK_WIDTH                 = 4, // Must be even
+    parameter FIFO_DEPTH                    = 2
 ) (
     input wire clk,
+    input wire rst_n,
     network_if.slave    in[NETWORK_WIDTH-1:0],
     network_if.master   out[NETWORK_WIDTH-1:0]
 );
 
-    localparam N_2                          = NETWORK_WIDTH / 2;
-    localparam PIPELINE_STAGES              = 4;
+    localparam N_2                                      = NETWORK_WIDTH / 2;
+    localparam PIPELINE_STAGES                          = 3;
 
-    localparam [PIPELINE_STAGES-1:0][31:0] PIPELINE  = {32'(N_2), 32'd2, 32'd1, 32'd0};
+    localparam [PIPELINE_STAGES-1:0][31:0] PIPELINE     = {32'(N_2), 32'd1, 32'd0};
 
     localparam OUTPUT_WIDTH     = out[0].IN_WIDTH;
     localparam OUTPUT_ID_WIDTH  = out[0].ID_WIDTH;
@@ -61,30 +63,24 @@ module spmv_reduction_network
         .ID_WIDTH(OUTPUT_ID_WIDTH)
     ) lanes [(PIPELINE_STAGES * NETWORK_WIDTH) - 1:0] ();
 
-    // --------------------------------------------------- //
-    // --------------   Reduction Network  --------------- //
-    // --------------------------------------------------- //
-
     generate
         for (genvar i = 'd0; i < PIPELINE_STAGES - 1; i++)                            // For all the pipeline stages
         begin : spmv_pipeline_gen
 
-            localparam int currStage    = PIPELINE[i];
-            localparam int nextStage    = PIPELINE[i+1];
             localparam int LAYERSPERPIPE = PIPELINE[i+1] - PIPELINE[i];
 
             network_if #(
                 .IN_WIDTH(OUTPUT_WIDTH),
                 .ID_WIDTH(OUTPUT_ID_WIDTH)
-            ) current_lanes [((LAYERSPERPIPE +1)*NETWORK_WIDTH) - 1:0] ();
+            ) current_lanes [((LAYERSPERPIPE+1)*NETWORK_WIDTH)-1:0] ();
 
-            for (genvar j = 'd0; j < (nextStage - currStage); j = j + 1)             
+            for (genvar j = 'd0; j < LAYERSPERPIPE; j = j + 1)
             begin : layer_engines_gen
-                localparam int iter = j + currStage;
+                localparam int iter = j + PIPELINE[i];
 
                 for (genvar k = 0; k < NETWORK_WIDTH - 1; k = k + 1)
                 begin : layer_gen
-                    if ((k % 2 == iter % 2) && (k >= iter) && (k < NETWORK_WIDTH - iter)) 
+                    if ((k % 2 == iter % 2) && (k >= iter) && (k < NETWORK_WIDTH - iter))
                     begin : op_gen
                         spmv_network_op     #(
                             .LOCATION       (k),
@@ -94,29 +90,30 @@ module spmv_reduction_network
                             .in_b           (current_lanes[(j*NETWORK_WIDTH) + k + 1]),
                             .out_a          (current_lanes[((j + 1)*NETWORK_WIDTH) + k]),
                             .out_b          (current_lanes[((j + 1)*NETWORK_WIDTH) + k + 1])
-                        );    
+                        );
                     end
-                    else 
+                    else
                     begin : prop_gen
+
                         network_if_copier #(
                             .DELAY(0)
                         ) identity_prop_k_I (
                             .clk(clk),
+                            .rst_n(rst_n),
                             .in(current_lanes[(j*NETWORK_WIDTH) + k]),
                             .out(current_lanes[((j + 1)*NETWORK_WIDTH) + k])
                         );
-                        
+
                         network_if_copier #(
                             .DELAY(0)
                         ) identity_prop_k_1_I (
                             .clk(clk),
+                            .rst_n(rst_n),
                             .in(current_lanes[(j*NETWORK_WIDTH) + k + 1]),
                             .out(current_lanes[((j + 1)*NETWORK_WIDTH) + k + 1])
-                        );     
-
+                        );
                     end
                 end
-
             end
 
             for (genvar j = 0; j < NETWORK_WIDTH; j++)
@@ -126,14 +123,17 @@ module spmv_reduction_network
                     .DELAY(0)
                 ) pipe_to_curr_copier_I (
                     .clk(clk),
+                    .rst_n(rst_n),
                     .in(lanes[(i*NETWORK_WIDTH)+j]),
                     .out(current_lanes[j])
                 );
 
                 network_if_copier #(
-                    .DELAY(1)
+                    .DELAY(1),
+                    .FIFO_DEPTH(FIFO_DEPTH)
                 ) pipe_copier_I (
                     .clk(clk),
+                    .rst_n(rst_n),
                     .in(current_lanes[((LAYERSPERPIPE) * NETWORK_WIDTH)+j]),
                     .out(lanes[((i+1)*NETWORK_WIDTH)+j])
                 );
@@ -150,14 +150,17 @@ module spmv_reduction_network
     generate
         for (genvar i = 0; i < NETWORK_WIDTH; i++)
         begin : pipe_copy_gen
-            network_if_copier #(.DELAY(0)) pipe_init_copier_I (
+
+            network_if_copier #(.DELAY(1)) pipe_init_copier_I (
                 .clk(clk),
+                .rst_n(rst_n),
                 .in(in[i]),
                 .out(lanes[i])
             );
 
             network_if_copier #(.DELAY(0)) pipe_out_copier_I (
                 .clk(clk),
+                .rst_n(rst_n),
                 .in(lanes[((PIPELINE_STAGES - 1) * NETWORK_WIDTH) + i]),
                 .out(out[i])
             );

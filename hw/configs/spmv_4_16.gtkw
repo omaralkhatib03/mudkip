@@ -1,0 +1,406 @@
+[*]
+[*] GTKWave Analyzer v3.3.116 (w)1999-2023 BSI
+[*] Mon Apr 14 17:25:53 2025
+[*]
+[dumpfile] "/home/omar/Documents/year-4/FYP/mudkip/hw/waves/SpMvNetworkTest_BasicTest.fst"
+[dumpfile_mtime] "Mon Apr 14 17:25:45 2025"
+[dumpfile_size] 142639
+[savefile] "/home/omar/Documents/year-4/FYP/mudkip/hw/configs/spmv_4_16.gtkw"
+[timestart] 0
+[size] 1920 1033
+[pos] -1 -1
+*-2.876133 19 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] TOP.
+[treeopen] TOP.spmv_network_tb.
+[treeopen] TOP.spmv_network_tb.dut_I.
+[treeopen] TOP.spmv_network_tb.dut_I.pipe_copy_gen[0].
+[treeopen] TOP.spmv_network_tb.dut_I.pipe_copy_gen[0].pipe_init_copier_I.
+[treeopen] TOP.spmv_network_tb.dut_I.pipe_copy_gen[0].pipe_init_copier_I.delay_gen.
+[treeopen] TOP.spmv_network_tb.dut_I.pipe_copy_gen[0].pipe_out_copier_I.
+[treeopen] TOP.spmv_network_tb.dut_I.pipe_copy_gen[1].
+[treeopen] TOP.spmv_network_tb.dut_I.pipe_copy_gen[1].pipe_out_copier_I.
+[treeopen] TOP.spmv_network_tb.dut_I.pipe_copy_gen[2].
+[treeopen] TOP.spmv_network_tb.dut_I.pipe_copy_gen[2].pipe_out_copier_I.
+[treeopen] TOP.spmv_network_tb.dut_I.pipe_copy_gen[3].
+[treeopen] TOP.spmv_network_tb.dut_I.pipe_copy_gen[3].pipe_out_copier_I.
+[treeopen] TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].pipeline_prop_gen[0].pipe_copier_I.
+[treeopen] TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].pipeline_prop_gen[3].pipe_copier_I.
+[treeopen] TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].pipeline_prop_gen[3].pipe_to_curr_copier_I.
+[treeopen] TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].
+[treeopen] TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].layer_engines_gen[0].
+[treeopen] TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].layer_engines_gen[0].layer_gen[1].op_gen.spmv_net_op_I.
+[treeopen] TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[1].
+[treeopen] TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[1].pipe_copier_I.
+[treeopen] TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[1].pipe_copier_I.delay_gen.
+[treeopen] TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[1].pipe_to_curr_copier_I.
+[treeopen] TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[2].
+[treeopen] TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[2].pipe_copier_I.
+[treeopen] TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[2].pipe_copier_I.delay_gen.
+[treeopen] TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[3].
+[treeopen] TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[3].pipe_copier_I.
+[sst_width] 287
+[signals_width] 376
+[sst_expanded] 1
+[sst_vpaned_height] 559
+@28
+TOP.clk
+TOP.rst_n
+@800200
+-p0
+@22
+TOP.spmv_network_tb.dut_I.in[0].id[4:0]
+TOP.spmv_network_tb.dut_I.in[1].id[4:0]
+TOP.spmv_network_tb.dut_I.in[2].id[4:0]
+TOP.spmv_network_tb.dut_I.in[3].id[4:0]
+TOP.spmv_network_tb.in_val[0][15:0]
+TOP.spmv_network_tb.in_val[1][15:0]
+TOP.spmv_network_tb.in_val[2][15:0]
+TOP.spmv_network_tb.in_val[3][15:0]
+@c00022
+TOP.spmv_network_tb.in_valid[3:0]
+@28
+(3)TOP.spmv_network_tb.in_valid[3:0]
+(2)TOP.spmv_network_tb.in_valid[3:0]
+(1)TOP.spmv_network_tb.in_valid[3:0]
+(0)TOP.spmv_network_tb.in_valid[3:0]
+@1401200
+-group_end
+@c00022
+TOP.spmv_network_tb.in_ready[3:0]
+@28
+(3)TOP.spmv_network_tb.in_ready[3:0]
+(2)TOP.spmv_network_tb.in_ready[3:0]
+(1)TOP.spmv_network_tb.in_ready[3:0]
+(0)TOP.spmv_network_tb.in_ready[3:0]
+@1401200
+-group_end
+@c00200
+-in_fifo_lane0
+@22
+[color] 5
+TOP.spmv_network_tb.dut_I.pipe_copy_gen[0].pipe_init_copier_I.in.id[4:0]
+[color] 5
+TOP.spmv_network_tb.dut_I.pipe_copy_gen[0].pipe_init_copier_I.delay_gen.input_fifo_I.din[25:0]
+@28
+[color] 5
+TOP.spmv_network_tb.dut_I.pipe_copy_gen[0].pipe_init_copier_I.delay_gen.input_fifo_I.shift_in
+[color] 5
+TOP.spmv_network_tb.dut_I.pipe_copy_gen[0].pipe_init_copier_I.delay_gen.input_fifo_I.shift_out
+[color] 5
+TOP.spmv_network_tb.dut_I.pipe_copy_gen[0].pipe_init_copier_I.delay_gen.input_fifo_I.empty
+[color] 5
+TOP.spmv_network_tb.dut_I.pipe_copy_gen[0].pipe_init_copier_I.delay_gen.input_fifo_I.overflow
+[color] 5
+TOP.spmv_network_tb.dut_I.pipe_copy_gen[0].pipe_init_copier_I.delay_gen.input_fifo_I.full
+@22
+[color] 5
+TOP.spmv_network_tb.dut_I.pipe_copy_gen[0].pipe_init_copier_I.delay_gen.input_fifo_I.dout[25:0]
+[color] 5
+TOP.spmv_network_tb.dut_I.pipe_copy_gen[0].pipe_out_copier_I.out.val[20:0]
+@28
+[color] 5
+TOP.spmv_network_tb.dut_I.pipe_copy_gen[0].pipe_out_copier_I.out.valid
+[color] 5
+TOP.spmv_network_tb.dut_I.pipe_copy_gen[0].pipe_init_copier_I.delay_gen.input_fifo_I.valid
+@1401200
+-in_fifo_lane0
+@1000200
+-p0
+@22
+TOP.spmv_network_tb.dut_I.lanes[0].id[4:0]
+TOP.spmv_network_tb.dut_I.lanes[1].id[4:0]
+TOP.spmv_network_tb.dut_I.lanes[2].id[4:0]
+TOP.spmv_network_tb.dut_I.lanes[3].id[4:0]
+TOP.spmv_network_tb.dut_I.lanes[0].val[20:0]
+TOP.spmv_network_tb.dut_I.lanes[1].val[20:0]
+TOP.spmv_network_tb.dut_I.lanes[2].val[20:0]
+TOP.spmv_network_tb.dut_I.lanes[3].val[20:0]
+@28
+[color] 4
+TOP.spmv_network_tb.dut_I.lanes[0].valid
+TOP.spmv_network_tb.dut_I.lanes[1].valid
+TOP.spmv_network_tb.dut_I.lanes[2].valid
+TOP.spmv_network_tb.dut_I.lanes[3].valid
+[color] 1
+TOP.spmv_network_tb.dut_I.lanes[0].ready
+[color] 1
+TOP.spmv_network_tb.dut_I.lanes[1].ready
+[color] 1
+TOP.spmv_network_tb.dut_I.lanes[2].ready
+[color] 1
+TOP.spmv_network_tb.dut_I.lanes[3].ready
+@800200
+-cr0
+-dbg
+@22
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[0].id[4:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[1].id[4:0]
+@c00022
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[2].id[4:0]
+@28
+(0)TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[2].id[4:0]
+(1)TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[2].id[4:0]
+(2)TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[2].id[4:0]
+(3)TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[2].id[4:0]
+(4)TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[2].id[4:0]
+@1401200
+-group_end
+@22
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[3].id[4:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[0].val[20:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[1].val[20:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[2].val[20:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[3].val[20:0]
+@28
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[0].valid
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[1].valid
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[2].valid
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[3].valid
+[color] 1
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[0].ready
+[color] 1
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[1].ready
+[color] 1
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[2].ready
+[color] 1
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[3].ready
+@1000200
+-dbg
+@22
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[4].id[4:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[5].id[4:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[6].id[4:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[7].id[4:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[4].val[20:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[5].val[20:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[6].val[20:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[7].val[20:0]
+@28
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[4].valid
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[5].valid
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[6].valid
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[7].valid
+[color] 1
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[4].ready
+[color] 1
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[5].ready
+[color] 1
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[6].ready
+[color] 1
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].current_lanes[7].ready
+@1000200
+-cr0
+@800200
+-p1
+@22
+TOP.spmv_network_tb.dut_I.lanes[4].id[4:0]
+TOP.spmv_network_tb.dut_I.lanes[5].id[4:0]
+TOP.spmv_network_tb.dut_I.lanes[6].id[4:0]
+TOP.spmv_network_tb.dut_I.lanes[7].id[4:0]
+TOP.spmv_network_tb.dut_I.lanes[4].val[20:0]
+TOP.spmv_network_tb.dut_I.lanes[5].val[20:0]
+TOP.spmv_network_tb.dut_I.lanes[6].val[20:0]
+TOP.spmv_network_tb.dut_I.lanes[7].val[20:0]
+@28
+TOP.spmv_network_tb.dut_I.lanes[4].valid
+TOP.spmv_network_tb.dut_I.lanes[5].valid
+TOP.spmv_network_tb.dut_I.lanes[6].valid
+TOP.spmv_network_tb.dut_I.lanes[7].valid
+[color] 1
+TOP.spmv_network_tb.dut_I.lanes[4].ready
+[color] 1
+TOP.spmv_network_tb.dut_I.lanes[5].ready
+[color] 1
+TOP.spmv_network_tb.dut_I.lanes[6].ready
+[color] 1
+TOP.spmv_network_tb.dut_I.lanes[7].ready
+@800200
+-cl
+@22
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[0].id[4:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[1].id[4:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[2].id[4:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[3].id[4:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[0].val[20:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[1].val[20:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[2].val[20:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[3].val[20:0]
+@28
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[0].valid
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[1].valid
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[2].valid
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[3].valid
+[color] 1
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[0].ready
+[color] 1
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[1].ready
+[color] 1
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[2].ready
+[color] 1
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[3].ready
+@1000200
+-cl
+@800200
+-cr1
+@22
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[4].id[4:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[5].id[4:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[6].id[4:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[7].id[4:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[4].val[20:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[5].val[20:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[6].val[20:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[7].val[20:0]
+@28
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[4].valid
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[5].valid
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[6].valid
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[7].valid
+[color] 1
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[4].ready
+[color] 1
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[5].ready
+[color] 1
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[6].ready
+[color] 1
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].current_lanes[7].ready
+@1000200
+-cr1
+@c00200
+-TOP_FIFO
+@22
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[2].pipe_copier_I.delay_gen.input_fifo_I.din[25:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[2].pipe_copier_I.delay_gen.input_fifo_I.dout[25:0]
+@28
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[2].pipe_copier_I.delay_gen.input_fifo_I.empty
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[2].pipe_copier_I.delay_gen.input_fifo_I.full
+@1401200
+-TOP_FIFO
+@1000200
+-p1
+@800200
+-fifo_lane_9
+@22
+[color] 5
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[1].pipe_copier_I.in.id[4:0]
+[color] 5
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[1].pipe_copier_I.delay_gen.input_fifo_I.din[25:0]
+@28
+[color] 5
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[1].pipe_copier_I.delay_gen.input_fifo_I.shift_in
+[color] 5
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[1].pipe_copier_I.delay_gen.input_fifo_I.shift_out
+@22
+[color] 5
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[1].pipe_copier_I.delay_gen.input_fifo_I.dout[25:0]
+@28
+[color] 5
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[1].pipe_copier_I.delay_gen.input_fifo_I.empty
+[color] 5
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[1].pipe_copier_I.delay_gen.input_fifo_I.full
+[color] 5
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[1].pipe_copier_I.delay_gen.input_fifo_I.underflow
+[color] 5
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[1].pipe_copier_I.delay_gen.input_fifo_I.valid
+@22
+[color] 2
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[1].pipe_copier_I.delay_gen.input_fifo_I.wr_ptr_r[1:0]
+[color] 2
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[1].pipe_copier_I.delay_gen.input_fifo_I.rd_ptr_r[1:0]
+@1000200
+-fifo_lane_9
+@c00200
+-fifo_lane_10
+@22
+[color] 5
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[2].pipe_copier_I.delay_gen.input_fifo_I.din[25:0]
+@28
+[color] 5
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[2].pipe_copier_I.delay_gen.input_fifo_I.shift_in
+[color] 5
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[2].pipe_copier_I.delay_gen.input_fifo_I.shift_out
+@22
+[color] 5
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[2].pipe_copier_I.delay_gen.input_fifo_I.dout[25:0]
+@28
+[color] 5
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[2].pipe_copier_I.delay_gen.input_fifo_I.empty
+[color] 5
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[2].pipe_copier_I.delay_gen.input_fifo_I.full
+[color] 5
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[2].pipe_copier_I.delay_gen.input_fifo_I.overflow
+[color] 5
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[2].pipe_copier_I.delay_gen.input_fifo_I.underflow
+[color] 5
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].pipeline_prop_gen[2].pipe_copier_I.delay_gen.input_fifo_I.valid
+@1401200
+-fifo_lane_10
+@800200
+-p2
+@22
+TOP.spmv_network_tb.dut_I.lanes[8].id[4:0]
+@c00022
+TOP.spmv_network_tb.dut_I.lanes[9].id[4:0]
+@28
+(0)TOP.spmv_network_tb.dut_I.lanes[9].id[4:0]
+(1)TOP.spmv_network_tb.dut_I.lanes[9].id[4:0]
+(2)TOP.spmv_network_tb.dut_I.lanes[9].id[4:0]
+(3)TOP.spmv_network_tb.dut_I.lanes[9].id[4:0]
+(4)TOP.spmv_network_tb.dut_I.lanes[9].id[4:0]
+@1401200
+-group_end
+@22
+TOP.spmv_network_tb.dut_I.lanes[10].id[4:0]
+TOP.spmv_network_tb.dut_I.lanes[11].id[4:0]
+TOP.spmv_network_tb.dut_I.lanes[8].val[20:0]
+TOP.spmv_network_tb.dut_I.lanes[9].val[20:0]
+TOP.spmv_network_tb.dut_I.lanes[10].val[20:0]
+TOP.spmv_network_tb.dut_I.lanes[11].val[20:0]
+@28
+TOP.spmv_network_tb.dut_I.lanes[8].valid
+TOP.spmv_network_tb.dut_I.lanes[9].valid
+TOP.spmv_network_tb.dut_I.lanes[10].valid
+TOP.spmv_network_tb.dut_I.lanes[11].valid
+[color] 1
+TOP.spmv_network_tb.dut_I.lanes[8].ready
+[color] 1
+TOP.spmv_network_tb.dut_I.lanes[9].ready
+[color] 1
+TOP.spmv_network_tb.dut_I.lanes[10].ready
+[color] 1
+TOP.spmv_network_tb.dut_I.lanes[11].ready
+@1000200
+-p2
+@22
+TOP.spmv_network_tb.out_id[0][4:0]
+TOP.spmv_network_tb.out_id[1][4:0]
+TOP.spmv_network_tb.out_id[2][4:0]
+TOP.spmv_network_tb.out_id[3][4:0]
+TOP.spmv_network_tb.out_val[0][20:0]
+TOP.spmv_network_tb.out_val[1][20:0]
+TOP.spmv_network_tb.out_val[2][20:0]
+TOP.spmv_network_tb.out_val[3][20:0]
+@800022
+TOP.spmv_network_tb.out_valid[3:0]
+@28
+(3)TOP.spmv_network_tb.out_valid[3:0]
+(2)TOP.spmv_network_tb.out_valid[3:0]
+(1)TOP.spmv_network_tb.out_valid[3:0]
+(0)TOP.spmv_network_tb.out_valid[3:0]
+@1001200
+-group_end
+@800022
+TOP.spmv_network_tb.out_ready[3:0]
+@28
+[color] 1
+(3)TOP.spmv_network_tb.out_ready[3:0]
+[color] 1
+(2)TOP.spmv_network_tb.out_ready[3:0]
+[color] 1
+(1)TOP.spmv_network_tb.out_ready[3:0]
+[color] 1
+(0)TOP.spmv_network_tb.out_ready[3:0]
+@1001200
+-group_end
+[pattern_trace] 1
+[pattern_trace] 0

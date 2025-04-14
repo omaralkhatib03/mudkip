@@ -59,7 +59,7 @@ def configure_mudkip(build_dir: str, config: dict[str, Any]) -> int:
     Build a mudkip based on the provided configuration.
     """
 
-    mudkip_command = f"cmake -G Ninja -S . -B ./{build_dir} -DCMAKE_BUILD_TYPE=Release"
+    mudkip_command = f"cmake -S . -B ./{build_dir} -DCMAKE_BUILD_TYPE=Release"
     mudkip_command = add_verilator_args(mudkip_command, config)
     ret = run_command(mudkip_command)
 

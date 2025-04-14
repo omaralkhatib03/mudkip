@@ -4,17 +4,19 @@
 #include "Vspmv_network_tb_spmv_network_tb.h"
 #include <algorithm>
 #include <cstdint>
+#include <cstdlib>
 #include <format>
 #include <gtest/gtest.h>
-#include <random>
 #include "Controller.hpp"
 #include "Simulation.hpp"
 #include "Utils.hpp"
 #include "Float.hpp"
+#include "algorithm"
 
 using DeviceT = Vspmv_network_tb;
 
 static constexpr uint64_t TESTED_NET_WIDTH_MAX  = 64;
+static constexpr uint64_t TEST_SIZE             = 1e2;
 static constexpr uint64_t NETWORK_WIDTH         = Vspmv_network_tb_spmv_network_tb::NETWORK_WIDTH;
 static constexpr uint64_t IN_WIDTH              = Vspmv_network_tb_spmv_network_tb::IN_WIDTH;
 static constexpr uint64_t ID_WIDTH              = Vspmv_network_tb_spmv_network_tb::ID_WIDTH;
@@ -25,13 +27,13 @@ struct SpMvNetworkIf
     static constexpr uint64_t PARALLELISM  = NETWORK_WIDTH;
 
     std::array<uint32_t, NETWORK_WIDTH>     in_id;
-    std::array<uint32_t, NETWORK_WIDTH>     in_val;
+    std::array<uint64_t, NETWORK_WIDTH>     in_val;
 
     uint64_t                                in_valid : NETWORK_WIDTH;
     uint64_t                                in_ready : NETWORK_WIDTH;
 
     std::array<uint32_t, NETWORK_WIDTH>     out_id;
-    std::array<uint32_t, NETWORK_WIDTH>     out_val;
+    std::array<uint64_t, NETWORK_WIDTH>     out_val;
 
     uint64_t                                out_valid : NETWORK_WIDTH;
     uint64_t                                out_ready : NETWORK_WIDTH;
@@ -39,8 +41,7 @@ struct SpMvNetworkIf
     friend bool operator==(const SpMvNetworkIf &lhs, const SpMvNetworkIf &rhs)
     {
         return lhs.out_id == rhs.out_id &&
-               lhs.out_val == rhs.out_val &&
-               lhs.out_valid == rhs.out_valid;
+               lhs.out_val == rhs.out_val;
     }
 
     friend std::ostream& operator<<(std::ostream& out, const SpMvNetworkIf& f)
@@ -57,13 +58,19 @@ struct SpMvNetworkIf
         out << "}";
         return out;
     }
-
 };
+
 
 class SpMvNetworkDriver : public sim::Controller<DeviceT, SpMvNetworkIf>
 {
 public:
     using sim::Controller<DeviceT, SpMvNetworkIf>::Controller;
+
+    SpMvNetworkDriver()
+        : sim::Controller<DeviceT, SpMvNetworkIf>()
+
+    {
+    }
 
     void driveIntf(SpMvNetworkIf aStim)
     {
@@ -74,12 +81,14 @@ public:
         }
 
         theDevice->in_valid = aStim.in_valid;
+
+        theDevice->out_ready = aStim.out_ready;
     }
 
     void reset() override
     {
-        SpMvNetworkIf resetStim = {};
-        resetStim.out_ready = 0x3f;
+        SpMvNetworkIf resetStim = {0};
+        resetStim.out_ready = 0x0;
         theDevice->out_ready = resetStim.out_ready;
         driveIntf(resetStim);
     }
@@ -88,15 +97,23 @@ public:
     {
         if (!isControllerEmpty())
         {
+            this->getQueue().front().out_ready = this->theRandomDist(sim::rng);
+
             driveIntf(front());
-            if (theDevice->in_ready)
+
+            this->getQueue().front().in_valid &= ~theDevice->in_ready;
+
+            if (this->getQueue().front().in_valid == 0)
                 pop();
+
+            return;
         }
-        else
-        {
-            reset();
-        }
+        SpMvNetworkIf aStim{0};
+        aStim.out_ready = this->theRandomDist(sim::rng);
+        driveIntf(aStim);
     }
+
+    std::uniform_int_distribution<uint64_t> theRandomDist{0, (1ULL << NETWORK_WIDTH) - 1};
 };
 
 class SpMvNetworkMonitor : public sim::Controller<DeviceT, SpMvNetworkIf>
@@ -108,19 +125,18 @@ public:
 
     void next() override
     {
-
         if (theDevice->out_valid)
         {
             for (int i = 0; i < NETWORK_WIDTH; i++)
             {
-                theCurrentIntf.out_val[i] = theDevice->out_val[i];        
-                theCurrentIntf.out_id[i] = theDevice->out_id[i];        
+                theCurrentIntf.out_val[i] = theDevice->out_val[i];
+                theCurrentIntf.out_id[i] = theDevice->out_id[i];
             }
 
             theCurrentIntf.out_valid = theDevice->out_valid;
             theCurrentIntf.out_ready = theDevice->out_ready;
 
-            add(theCurrentIntf);
+            this->add(theCurrentIntf);
         }
     }
 
@@ -147,58 +163,129 @@ public:
 
     void addTestCase(int numCases = 1000, long seed = -1)
     {
-        auto aRandomIdVector    = RandomVecFuncT::getRandomVector<uint64_t>(numCases, 10, seed);
-        auto aRandomValueVector = RandomVecFuncT::getRandomVector<uint64_t>(numCases, 2, seed);
+        auto aRandomIdVector    = RandomVecFuncT::getRandomVector<uint64_t>(numCases, (1ULL << ID_WIDTH)-1 , seed);
+        auto aRandomValueVector = RandomVecFuncT::getRandomVector<uint64_t>(numCases, (1ULL << (IN_WIDTH - 5))-1, seed);
         std::sort(aRandomIdVector.begin(), aRandomIdVector.end());
-        writeVector(aRandomIdVector, aRandomValueVector);
+        writeVector(aRandomIdVector, aRandomValueVector, numCases);
     }
-    
-    void writeVector(const std::vector<uint64_t> & anIdVectorA, const std::vector<uint64_t> & aValueVectorA)
+
+    void writeVector(const std::vector<uint64_t> & anIdVectorA, const std::vector<uint64_t> & aValueVectorA, const uint64_t aTestSize)
     {
         ASSERT_EQ(anIdVectorA.size(), aValueVectorA.size());
-        
+
         SpMvNetworkIf aStim{};
+        std::uniform_int_distribution<uint64_t> aRandomDist{0, (1ULL << NETWORK_WIDTH) - 1};
 
         for (int i = 0; i < anIdVectorA.size(); i+=NETWORK_WIDTH)
         {
             for (int j = i; j < i + NETWORK_WIDTH; j++)
             {
-                aStim.in_val[j - i] = aValueVectorA[j];  
-                aStim.in_id[j - i] = anIdVectorA[j];  
+                aStim.in_val[j - i] = aValueVectorA[j];
+                aStim.in_id[j - i] = anIdVectorA[j];
             }
 
-            #pragma clang diagnostic push
-            #pragma clang diagnostic ignored "-Wbitfield-constant-conversion"
-            #pragma clang diagnostic ignored "-Woverflow"
-            aStim.in_valid = (1UL << IN_WIDTH) - 1UL;
-            #pragma clang diagnostic pop
+            if (i + NETWORK_WIDTH > aTestSize)
+            {
+                aStim.in_valid = aRandomDist(sim::rng) & ((1ULL << (aTestSize - i)) - 1);
+            }
+            else
+            {
+                aStim.in_valid = aRandomDist(sim::rng);
+            }
+
             theDriver->add(aStim);
         }
+
+        computeExpectedOutput();
     }
 
-    void simulate()
+    std::map<uint64_t, uint64_t> idToSum(std::queue<SpMvNetworkIf> aQueue, bool aFromOutput = false)
     {
-        // theSimulation.simulate(
-        //     [&]() { return theMonitor->getQueue().size() >= theExpectedOutput.size(); }, 10);
+        std::map<uint64_t, uint64_t> id_to_sum;
 
+        while (!aQueue.empty())
+        {
+            auto myFrontStim = aQueue.front();
+
+            for (int i = 0; i < NETWORK_WIDTH; i++)
+            {
+                if (aFromOutput)
+                {
+                    if (sim::get_bit(myFrontStim.out_valid, i) && sim::get_bit(myFrontStim.out_ready, i))
+                        id_to_sum[myFrontStim.out_id[i]] += myFrontStim.out_val[i];
+
+                    continue;
+                }
+
+                if (sim::get_bit(myFrontStim.in_valid, i))
+                    id_to_sum[myFrontStim.in_id[i]] += myFrontStim.in_val[i];
+            }
+
+            aQueue.pop();
+        }
+
+        return id_to_sum;
+    }
+
+    void computeExpectedOutput()
+    {
+        theExpectedOutput = idToSum(theDriver->getQueue());
+    }
+
+    void simulate(uint64_t aTestSize)
+    {
+        int counter = 0;
         theSimulation.simulate(
-            [&]() { return theDriver->getQueue().size() == 0; }, 10);
+            [&]() { return counter++ >= aTestSize*5; }, 10
+        );
 
-        // sim::compareQueues<SpMvNetworkIf>(theExpectedOutput, theMonitor->getQueue());
+        std::vector<uint64_t> theRecievedIds;
+        std::vector<uint64_t> theRecievedElements;
+
+        auto theRecievedSums = idToSum(theMonitor->getQueue(), true);
+
+        while (!theMonitor->getQueue().empty())
+        {
+            auto theFrontIf = theMonitor->getQueue().front();
+
+            std::cout << theFrontIf << std::endl;
+
+            for (int i = 0; i < NETWORK_WIDTH; i++) // Incredibly efficient ik, please clap for me
+            {
+                if (sim::get_bit(theFrontIf.out_valid, i) && sim::get_bit(theFrontIf.out_ready, i))
+                {
+                    theRecievedIds.push_back(theFrontIf.out_id[i]);
+                    theRecievedElements.push_back(theFrontIf.out_val[i]);
+                }
+            }
+
+            theMonitor->getQueue().pop();
+        }
+
+        EXPECT_EQ(theExpectedOutput, theRecievedSums)
+            << "The Expected Output: "
+            << sim::MapToHexString(theExpectedOutput)
+            << std::endl
+            << "The Recieved Output: "
+            << sim::MapToHexString(theRecievedSums);
+
+        for (int i = 0; i < theRecievedIds.size(); i++)
+        {
+            std::cout << "i: " << i << " RcvdId: " << theRecievedIds[i] << " RcvdOut: " << theRecievedElements[i] << std::endl;
+        }
     }
 
 private:
     sim::Simulation<DeviceT> theSimulation;
     std::shared_ptr<DriverT> theDriver;
     std::shared_ptr<MonitorT> theMonitor;
-    std::queue<SpMvNetworkIf> theExpectedOutput;
+    std::map<uint64_t, uint64_t> theExpectedOutput;
 };
 
 TEST(SpMvNetworkTest, BasicTest)
 {
     auto tmp = sim::getTestName();
     auto test = SpMvNetworkTest(tmp);
-    test.addTestCase(10);
-    test.simulate();
+    test.addTestCase(TEST_SIZE);
+    test.simulate(TEST_SIZE);
 }
-

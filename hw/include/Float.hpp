@@ -16,10 +16,20 @@
 #include "FloatOps.h"
 #include "Controller.hpp"
 
-namespace sim 
+namespace sim
 {
 
-static std::mt19937 rng(1546613696);
+static std::mt19937 rng(1069295940);
+
+inline std::string MapToHexString(const std::map<uint64_t, uint64_t>& m) {
+    std::ostringstream oss;
+    oss << "{\n";
+    for (const auto& [key, value] : m) {
+        oss << "  [0x" << std::hex << key << "] = 0x" << value << "\n";
+    }
+    oss << "}";
+    return oss.str();
+}
 
 template<size_t DATA_WIDTHT, size_t E_WIDTHT, size_t FRAC_WIDTHT, size_t PARALLELISMT>
 struct FloatOpIf
@@ -262,7 +272,7 @@ struct FloatOpTest
     template <typename T = double>
     static std::vector<T> getRandomVector(const size_t aVectorSize, const unsigned long aMaxValue, const int32_t seed = -1)
     {
-        
+
         auto myTestSize = sim::nearest_to_P(aVectorSize, FloatIfT::PARALLELISM);
         std::vector<T> aOut(myTestSize, 0);
 

@@ -1,12 +1,13 @@
 `timescale 1ns / 1ps
 
-module spmv_network_tb 
+module spmv_network_tb
 #(
-    parameter NETWORK_WIDTH /*verilator public */ = 6,
-    parameter IN_WIDTH      /*verilator public */ = 32,
+    parameter NETWORK_WIDTH /*verilator public */ = 32, // Cant test super large values
+    parameter IN_WIDTH      /*verilator public */ = 59,
     parameter ID_WIDTH      /*verilator public */ = 5,
-    parameter OUT_WIDTH     /*verilator public */ = IN_WIDTH + $clog2(IN_WIDTH)
-)(                          
+    parameter OUT_WIDTH     /*verilator public */ = IN_WIDTH + $clog2(NETWORK_WIDTH),
+    parameter FIFO_DEPTH                          = 16
+) (
     input  wire                         clk,
 
     // verilator lint_off unused
@@ -47,11 +48,14 @@ module spmv_network_tb
     endgenerate
 
     spmv_reduction_network #(
-        .NETWORK_WIDTH(NETWORK_WIDTH)
+        .NETWORK_WIDTH  (NETWORK_WIDTH),
+        .FIFO_DEPTH     (FIFO_DEPTH)
     ) dut_I (
         .clk(clk),
+        .rst_n(rst_n),
         .in(net_if_in),
         .out(net_if_out)
     );
 
 endmodule
+

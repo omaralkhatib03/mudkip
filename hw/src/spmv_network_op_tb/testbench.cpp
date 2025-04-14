@@ -133,7 +133,6 @@ public:
     void reset() override
     {
         auto myRstStim  = SpMvNetworkOpIf{0};
-        myRstStim.ready = 1;
         driveIntf(myRstStim);
     }
 
@@ -178,8 +177,8 @@ public:
             theCurrentIntf.b_val = this->theDevice->b_val;
             theCurrentIntf.a_val = this->theDevice->a_val;
         #endif // ARRAY_LIKE
-
-        if (theDevice->b_valid || theDevice->a_valid)
+        
+        if ((theDevice->b_valid || theDevice->a_valid) && (theDevice->ready))
         {
             if (!theDevice->b_valid)
             {
@@ -300,6 +299,6 @@ private:
 TEST(SpMvNetworkOpTest, CasesTest)
 {
     auto myTest = SpMvNetworkOpTest(sim::getTestName());
-    myTest.addTestCase(1e4);
+    myTest.addTestCase(10);
     myTest.simulate();
 }

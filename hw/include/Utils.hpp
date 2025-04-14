@@ -72,7 +72,7 @@ void compareQueues(std::queue<T>& aExpected, std::queue<T>& aActual, bool aCheck
         myWhileFunction = [](const T & aExpected, const T & aActual)
         {
             std::cout << std::hex;
-            std::cout << "Expected: " << aExpected << " Recieved: " << aActual << std::endl;
+            std::cout << "Expected: " << aExpected << "\nRecieved: " << aActual << std::endl;
         };
     }
 

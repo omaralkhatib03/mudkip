@@ -11,16 +11,14 @@ module basic_sync_fifo #(
 
   input wire [DATA_WIDTH-1:0]   din,
   input wire                    shift_in,
-
   input wire                    shift_out,
-  output wire [DATA_WIDTH-1:0] dout,
-  output wire                  valid,
+  output logic [DATA_WIDTH-1:0] dout,
+  output logic                  valid,
 
-  output wire                  full,
-  output wire                  empty,
-  output wire                  overflow,
-  output wire                  underflow
-
+  output logic                  full,
+  output logic                  empty,
+  output logic                  overflow,
+  output logic                  underflow
 );
 
   localparam PTR_WIDTH = $clog2(DEPTH);
@@ -40,17 +38,33 @@ module basic_sync_fifo #(
 
   assign underflow  = shift_out && empty;
   assign overflow   = shift_in && full;
-
+    
   always_comb
   begin
     rd_ptr_b = rd_ptr_r;
     wr_ptr_b = wr_ptr_r;
-
-    if (shift_in && !full)
-      wr_ptr_b = wr_ptr_r + 1;
-
-    if (shift_out && !empty)
-      rd_ptr_b = rd_ptr_r + 1;
+    
+    if (READ_LATENCY)
+    begin
+        if (shift_in && !full)
+          wr_ptr_b = wr_ptr_r + 1;
+    end
+    else 
+    begin
+        if (shift_in && !full && !shift_out)
+          wr_ptr_b = wr_ptr_r + 1;
+    end
+    
+    if (READ_LATENCY)
+    begin
+        if (shift_out && !empty)
+          rd_ptr_b = rd_ptr_r + 1;
+    end
+    else 
+    begin
+        if (!shift_out && shift_in && !empty)
+          rd_ptr_b = rd_ptr_r + 1;
+    end
 
   end
 
@@ -67,27 +81,25 @@ module basic_sync_fifo #(
       rd_ptr_r      <= rd_ptr_b;
       wr_ptr_r      <= wr_ptr_b;
       mem[wr_ptr_r] <= din;
-      valid_i       <= shift_out;
-      fifo_out      <= shift_in && empty ? din : mem[rd_ptr_r];
     end
   end
 
   generate
     if (READ_LATENCY == 0)
     begin : fifo_0_latency
-      assign dout   = shift_in && empty ? din : mem[rd_ptr_r];
-      assign valid  = shift_out;
-      assign empty  = rd_ptr_r == wr_ptr_r && !shift_in;
-      assign full   = (wr_ptr_r + 1 == rd_ptr_r) && !shift_in;
+      assign dout     = shift_in && empty ? din : mem[rd_ptr_r];
+      assign valid    = shift_in || !empty;
+      assign empty    = rd_ptr_r == wr_ptr_r;
+      assign full     = (wr_ptr_r + 1'b1 == rd_ptr_r) && !shift_in;
     end
     else
     begin : fifo_1_latency
-      assign dout   = fifo_out;
-      assign valid  = valid_i;
-      assign full   = wr_ptr_r + 1 == rd_ptr_r;
-      assign empty  = rd_ptr_r == wr_ptr_r;
+      assign dout       = mem[rd_ptr_r];
+      assign valid      = !empty;
+      assign full       = wr_ptr_r + 1'b1 == rd_ptr_r;
+      assign empty      = (rd_ptr_r == wr_ptr_r);
     end
   endgenerate
 
 endmodule;
-// fifo_out      <= shift_in && empty ? din : mem[rd_ptr_r];
+

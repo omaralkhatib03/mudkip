@@ -56,20 +56,6 @@ module spmv_kernel_top #(
 
     ) x_n_i();
 
-    spmv_kernel spmv_k_I (
-        .clk    (clk),
-        .rst_n  (rst_n),
-        .en     (en),
-        .done   (done),
-
-        .val    (val),
-        .r_beg  (r_beg),
-        .c_idx  (c_idx),
-
-        .x      (x_i),
-        .x_n    (x_n_i)
-    );
-
     vector_ram_if #(
         .LENGTH         (VECTOR_LENGTH),
         .DATA_WIDTH     (DATA_WIDTH),
@@ -87,6 +73,20 @@ module spmv_kernel_top #(
         .E_WIDTH        (E_WIDTH),
         .FRAC_WIDTH     (FRAC_WIDTH) // + implicit 1
     ) pong_vec_i();
+
+    spmv_kernel spmv_k_I (
+        .clk    (clk),
+        .rst_n  (rst_n),
+        .en     (en),
+        .done   (done),
+
+        .val    (val),
+        .r_beg  (r_beg),
+        .c_idx  (c_idx),
+
+        .x      (x_i),
+        .x_n    (x_n_i)
+    );
 
     generate
         if (RELEASE_MODE)

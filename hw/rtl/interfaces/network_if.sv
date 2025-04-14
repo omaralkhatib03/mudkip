@@ -7,8 +7,11 @@ interface network_if;
 
     logic [ID_WIDTH-1:0]    id;
     logic [IN_WIDTH-1:0]    val;
+
+    // verilator lint_off UNOPTFLAT
     logic                   ready;
     logic                   valid;
+    // verilator lint_on UNOPTFLAT
 
     modport slave(
         input  id,
@@ -16,7 +19,7 @@ interface network_if;
         input  valid,
         output ready
     );
-    
+
     modport master(
         output  id,
         output  val,
@@ -25,5 +28,4 @@ interface network_if;
     );
 
 endinterface
-
 
