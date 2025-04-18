@@ -41,13 +41,13 @@
 
 module spmv_reduction_network
 #(
-    parameter NETWORK_WIDTH                 = 4, // Must be even
-    parameter FIFO_DEPTH                    = 2
+    parameter NETWORK_WIDTH = 4, // Must be even
+    parameter FIFO_DEPTH    = 2
 ) (
-    input wire clk,
-    input wire rst_n,
-    network_if.slave    in[NETWORK_WIDTH-1:0],
-    network_if.master   out[NETWORK_WIDTH-1:0]
+    input wire              clk,
+    input wire              rst_n,
+    network_if.slave        in[NETWORK_WIDTH-1:0],
+    network_if.master       out[NETWORK_WIDTH-1:0]
 );
 
     localparam N_2                                      = NETWORK_WIDTH / 2;

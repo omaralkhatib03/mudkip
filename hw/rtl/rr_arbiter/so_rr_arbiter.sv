@@ -15,6 +15,7 @@ module so_rr_arbiter #(
   output  logic                     valid,
   output  logic [DATA_WIDTH-1:0]    dout,
   input   wire                      ready
+
 );
 
     logic [DATA_WIDTH-1:0]          fifo_out[NUM_INPUTS-1:0];

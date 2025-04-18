@@ -1,20 +1,21 @@
 
 interface axi_stream_if #(
   parameter DATA_WIDTH  = 32,
-  parameter PARALLELISM = 4
+  parameter PARALLELISM = 4,
+  localparam TOTAL_WIDTH = DATA_WIDTH * PARALLELISM
 );
 
-    logic [DATA_WIDTH-1:0]    data[PARALLELISM-1:0];
-    logic                     valid;
-    logic                     ready;
-    logic                     last;
-    logic                     bytemask;
+    logic [PARALLELISM-1:0][DATA_WIDTH-1:0] data;
+    logic                                   valid;
+    logic                                   ready;
+    logic                                   last;
+    logic [PARALLELISM-1:0]                 mask;
 
     modport slave (
         input   data,
         input   last,
         input   valid,
-        input   bytemask,
+        input   mask,
         output  ready
     );
 
@@ -22,7 +23,7 @@ interface axi_stream_if #(
         output  data,
         output  valid,
         output  last,
-        output  bytemask,
+        output  mask,
         input   ready
     );
 

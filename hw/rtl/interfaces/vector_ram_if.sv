@@ -8,19 +8,20 @@ interface vector_ram_if #(
     parameter FRAC_WIDTH    = 22 // + implicit 1
 );
 
-    logic [ADDR_WIDTH-1:0]      addr [PARALLELISM-1:0];  // Address to read from
-    logic [DATA_WIDTH-1:0]      wdata[PARALLELISM-1:0];  // Data to write
-    logic                       write;
-    logic                       valid; // Data valid
-    logic                       ready; // Ready to Write
+    logic [PARALLELISM-1:0][ADDR_WIDTH-1:0] addr ;  // Address to read from
+    logic [PARALLELISM-1:0][DATA_WIDTH-1:0] wdata;  // Data to write
 
-    logic  [DATA_WIDTH-1:0]     bdata;  // done writing (optional)
-    logic                       bvalid;
-    logic                       bready;
+    logic                                   write;
+    logic                                   valid; // Data valid
+    logic                                   ready; // Ready to Write
 
-    logic [DATA_WIDTH-1:0]      rdata [PARALLELISM-1:0];  // data read
-    logic                       rvalid; // valid data out
-    logic                       rready; // hold on cant accept a read req
+    logic  [DATA_WIDTH-1:0]                 bdata;  // done writing (optional)
+    logic                                   bvalid;
+    logic                                   bready;
+
+    logic [PARALLELISM-1:0][DATA_WIDTH-1:0] rdata;  // data read
+    logic                                   rvalid; // valid data out
+    logic                                   rready; // hold on cant accept a read req
 
     modport slave (
         input addr,

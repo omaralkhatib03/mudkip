@@ -11,10 +11,9 @@ module spmv_kernel (
     axi_stream_if.slave     val,    // DMA From Memory
     axi_stream_if.slave     c_idx,  // DMA From Memory
 
-    vector_ram_if.master    x,
-    vector_ram_if.master    x_n
+    vector_ram_if.master    x,  // read interface
+    vector_ram_if.master    x_n // Write interface
 );
-
     typedef enum integer {
         IDLE,       // Wait for enable
         BUSY        // Busy computing
@@ -24,7 +23,7 @@ module spmv_kernel (
     localparam E_WIDTH      = x.E_WIDTH;
     localparam FRAC_WIDTH   = x.FRAC_WIDTH; // + implicit 1
     // verilator lint_on UNUSEDPARAM
-    
+
     localparam LENGTH       = x.LENGTH;
     localparam DATA_WIDTH   = x.DATA_WIDTH;
     localparam PARALLELISM  = x.PARALLELISM;
@@ -148,6 +147,7 @@ module spmv_kernel (
         begin
             r_beg.ready = r_beg.ready && (row_diff[i] == 0);
         end
+
     end
 
 endmodule

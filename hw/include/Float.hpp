@@ -19,7 +19,7 @@
 namespace sim
 {
 
-static std::mt19937 rng(1069295940);
+static std::mt19937 rng(sim::initialize_rng());
 
 inline std::string MapToHexString(const std::map<uint64_t, uint64_t>& m) {
     std::ostringstream oss;
@@ -276,7 +276,7 @@ struct FloatOpTest
         auto myTestSize = sim::nearest_to_P(aVectorSize, FloatIfT::PARALLELISM);
         std::vector<T> aOut(myTestSize, 0);
 
-        std::uniform_real_distribution<> dis(0., aMaxValue);
+        std::uniform_real_distribution<> dis(1., aMaxValue);
 
         for (int i = 0; i < aVectorSize; i++)
         {

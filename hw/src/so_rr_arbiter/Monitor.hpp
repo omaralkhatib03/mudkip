@@ -14,7 +14,7 @@ public:
 
     void next() override
     {
-        if (this->theDevice->valid)
+        if (this->theDevice->valid && this->theDevice->row_ids_ready)
         {
             theCurrentIntf.dout = this->theDevice->dout;
 

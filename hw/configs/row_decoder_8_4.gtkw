@@ -1,0 +1,89 @@
+[*]
+[*] GTKWave Analyzer v3.3.116 (w)1999-2023 BSI
+[*] Fri Apr 18 21:05:57 2025
+[*]
+[dumpfile] "/home/omar/Documents/year-4/FYP/mudkip/hw/waves/row_decoder_test_BasicTest.fst"
+[dumpfile_mtime] "Fri Apr 18 20:51:09 2025"
+[dumpfile_size] 6850
+[savefile] "/home/omar/Documents/year-4/FYP/mudkip/hw/configs/row_decoder_8_4.gtkw"
+[timestart] 1
+[size] 1920 1033
+[pos] -1 -1
+*-4.267041 28 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] TOP.
+[treeopen] TOP.row_decoder_tb.
+[treeopen] TOP.row_decoder_tb.dut_I.
+[sst_width] 273
+[signals_width] 1008
+[sst_expanded] 1
+[sst_vpaned_height] 307
+@28
+TOP.row_decoder_tb.clk
+TOP.row_decoder_tb.rst_n
+@800200
+-fifo
+@22
+TOP.row_decoder_tb.dut_I.r_beg_fifo_if.data[255:0]
+@28
+TOP.row_decoder_tb.dut_I.r_beg_fifo_if.valid
+TOP.row_decoder_tb.dut_I.r_beg_fifo_if.ready
+TOP.row_decoder_tb.dut_I.r_beg_fifo_if.last
+@22
+TOP.row_decoder_tb.dut_I.r_beg_fifo_if.mask[7:0]
+@1000200
+-fifo
+@800200
+-fsm
+@100000028
+TOP.row_decoder_tb.dut_I.state_r
+TOP.row_decoder_tb.dut_I.bias_state_r
+@24
+TOP.row_decoder_tb.dut_I.last_offset_r[31:0]
+@22
+TOP.row_decoder_tb.dut_I.curr_ids_r[287:0]
+@28
+TOP.row_decoder_tb.dut_I.current_last_r
+@22
+TOP.row_decoder_tb.dut_I.current_mask_r[1:0]
+@1000200
+-fsm
+@c00200
+-reg_p0_b
+@22
+TOP.row_decoder_tb.dut_I.r_beg_p0_b.data[287:0]
+@28
+TOP.row_decoder_tb.dut_I.r_beg_p0_b.valid
+TOP.row_decoder_tb.dut_I.r_beg_p0_b.ready
+TOP.row_decoder_tb.dut_I.r_beg_p0_b.last
+@22
+TOP.row_decoder_tb.dut_I.r_beg_p0_b.mask[8:0]
+@1401200
+-reg_p0_b
+@800200
+-reg_p0_r
+@22
+TOP.row_decoder_tb.dut_I.r_beg_p0_r.data[287:0]
+@28
+TOP.row_decoder_tb.dut_I.r_beg_p0_r.last
+@22
+TOP.row_decoder_tb.dut_I.r_beg_p0_r.mask[8:0]
+@28
+TOP.row_decoder_tb.dut_I.r_beg_p0_r.ready
+TOP.row_decoder_tb.dut_I.r_beg_p0_r.valid
+@1000200
+-reg_p0_r
+@800200
+-reg_p1_r
+@23
+TOP.row_decoder_tb.dut_I.subs_r[287:0]
+@28
+TOP.row_decoder_tb.dut_I.r_beg_p1_r.last
+@22
+TOP.row_decoder_tb.dut_I.r_beg_p1_r.mask[8:0]
+@28
+TOP.row_decoder_tb.dut_I.r_beg_p1_r.ready
+TOP.row_decoder_tb.dut_I.r_beg_p1_r.valid
+@1000200
+-reg_p1_r
+[pattern_trace] 1
+[pattern_trace] 0
