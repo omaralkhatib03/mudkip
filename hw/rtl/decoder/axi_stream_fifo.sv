@@ -2,7 +2,8 @@
 
 module axi_stream_fifo #(
     parameter FIFO_DEPTH = 4,
-    parameter PIPELINE_ONLY = 0
+    parameter PIPELINE_ONLY = 0,
+    parameter SKID          = 0
 ) (
     input wire              clk,
     input wire              rst_n,
@@ -16,7 +17,8 @@ module axi_stream_fifo #(
         begin : pipeline_gen
 
             pipeline #(
-                .DATA_WIDTH(in.TOTAL_WIDTH + 1 + in.PARALLELISM)
+                .DATA_WIDTH(in.TOTAL_WIDTH + 1 + in.PARALLELISM),
+                .PIPE_LINE(SKID)
             ) pipeline_I (
                 .clk        (clk),
                 .rst_n      (rst_n),

@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <format>
 #include <gtest/gtest.h>
+#include <random>
 #include "Controller.hpp"
 #include "Simulation.hpp"
 #include "Utils.hpp"
@@ -16,7 +17,7 @@
 using DeviceT = Vspmv_network_tb;
 
 static constexpr uint64_t TESTED_NET_WIDTH_MAX  = 64;
-static constexpr uint64_t TEST_SIZE             = 1e2;
+static constexpr uint64_t TEST_SIZE             = 10e2;
 static constexpr uint64_t NETWORK_WIDTH         = Vspmv_network_tb_spmv_network_tb::NETWORK_WIDTH;
 static constexpr uint64_t IN_WIDTH              = Vspmv_network_tb_spmv_network_tb::IN_WIDTH;
 static constexpr uint64_t ID_WIDTH              = Vspmv_network_tb_spmv_network_tb::ID_WIDTH;
@@ -95,9 +96,10 @@ public:
 
     void next() override
     {
+        auto myReady = 0xffffffffffffffff;
         if (!isControllerEmpty())
         {
-            this->getQueue().front().out_ready = this->theRandomDist(sim::rng);
+            this->getQueue().front().out_ready = myReady;
 
             driveIntf(front());
 
@@ -109,7 +111,7 @@ public:
             return;
         }
         SpMvNetworkIf aStim{0};
-        aStim.out_ready = this->theRandomDist(sim::rng);
+        aStim.out_ready = myReady;
         driveIntf(aStim);
     }
 
@@ -163,13 +165,18 @@ public:
 
     void addTestCase(int numCases = 1000, long seed = -1)
     {
-        auto aRandomIdVector    = RandomVecFuncT::getRandomVector<uint64_t>(numCases, (1ULL << ID_WIDTH)-1 , seed);
-        auto aRandomValueVector = RandomVecFuncT::getRandomVector<uint64_t>(numCases, (1ULL << (IN_WIDTH - 5))-1, seed);
+
+        std::mt19937 myEngine(seed == -1 ? sim::initialize_rng() : seed);
+        auto aRandomIdVector    = RandomVecFuncT::getRandomVector<uint64_t>(numCases, (1ULL << ID_WIDTH)-1 , myEngine);
+        auto aRandomValueVector = RandomVecFuncT::getRandomVector<uint64_t>(numCases, (1ULL << (IN_WIDTH - 5))-1, myEngine);
         std::sort(aRandomIdVector.begin(), aRandomIdVector.end());
-        writeVector(aRandomIdVector, aRandomValueVector, numCases);
+        writeVector(aRandomIdVector, aRandomValueVector, numCases, myEngine);
     }
 
-    void writeVector(const std::vector<uint64_t> & anIdVectorA, const std::vector<uint64_t> & aValueVectorA, const uint64_t aTestSize)
+    void writeVector(const std::vector<uint64_t> & anIdVectorA,
+                     const std::vector<uint64_t> & aValueVectorA,
+                     const uint64_t aTestSize,
+                     auto anEngine)
     {
         ASSERT_EQ(anIdVectorA.size(), aValueVectorA.size());
 
@@ -186,11 +193,11 @@ public:
 
             if (i + NETWORK_WIDTH > aTestSize)
             {
-                aStim.in_valid = aRandomDist(sim::rng) & ((1ULL << (aTestSize - i)) - 1);
+                aStim.in_valid = aRandomDist(anEngine) & ((1ULL << (aTestSize - i)) - 1);
             }
             else
             {
-                aStim.in_valid = aRandomDist(sim::rng);
+                aStim.in_valid = aRandomDist(anEngine);
             }
 
             theDriver->add(aStim);
@@ -236,31 +243,13 @@ public:
     {
         int counter = 0;
         theSimulation.simulate(
-            [&]() { return counter++ >= aTestSize*5; }, 10
+            [&]() { return counter++ >= aTestSize*100; }, 10
         );
 
         std::vector<uint64_t> theRecievedIds;
         std::vector<uint64_t> theRecievedElements;
 
         auto theRecievedSums = idToSum(theMonitor->getQueue(), true);
-
-        while (!theMonitor->getQueue().empty())
-        {
-            auto theFrontIf = theMonitor->getQueue().front();
-
-            std::cout << theFrontIf << std::endl;
-
-            for (int i = 0; i < NETWORK_WIDTH; i++) // Incredibly efficient ik, please clap for me
-            {
-                if (sim::get_bit(theFrontIf.out_valid, i) && sim::get_bit(theFrontIf.out_ready, i))
-                {
-                    theRecievedIds.push_back(theFrontIf.out_id[i]);
-                    theRecievedElements.push_back(theFrontIf.out_val[i]);
-                }
-            }
-
-            theMonitor->getQueue().pop();
-        }
 
         EXPECT_EQ(theExpectedOutput, theRecievedSums)
             << "The Expected Output: "
@@ -269,10 +258,10 @@ public:
             << "The Recieved Output: "
             << sim::MapToHexString(theRecievedSums);
 
-        for (int i = 0; i < theRecievedIds.size(); i++)
-        {
-            std::cout << "i: " << i << " RcvdId: " << theRecievedIds[i] << " RcvdOut: " << theRecievedElements[i] << std::endl;
-        }
+        // for (int i = 0; i < theRecievedIds.size(); i++)
+        // {
+        //     std::cout << "i: " << i << " RcvdId: " << theRecievedIds[i] << " RcvdOut: " << theRecievedElements[i] << std::endl;
+        // }
     }
 
 private:
@@ -286,6 +275,25 @@ TEST(SpMvNetworkTest, BasicTest)
 {
     auto tmp = sim::getTestName();
     auto test = SpMvNetworkTest(tmp);
+    test.addTestCase(TEST_SIZE, 3960514134);
+    test.simulate(TEST_SIZE);
+}
+
+TEST(SpMvNetworkTest, BasicTest_1)
+{
+    auto tmp = sim::getTestName();
+    auto test = SpMvNetworkTest(tmp);
     test.addTestCase(TEST_SIZE);
+    test.simulate(TEST_SIZE);
+}
+
+TEST(SpMvNetworkTest, BasicTest_2)
+{
+    auto tmp = sim::getTestName();
+    auto test = SpMvNetworkTest(tmp);
+
+    test.addTestCase(TEST_SIZE);
+    test.addTestCase(TEST_SIZE);
+
     test.simulate(TEST_SIZE);
 }

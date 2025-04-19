@@ -19,7 +19,6 @@
 namespace sim
 {
 
-static std::mt19937 rng(sim::initialize_rng());
 
 inline std::string MapToHexString(const std::map<uint64_t, uint64_t>& m) {
     std::ostringstream oss;
@@ -130,7 +129,7 @@ struct FloatOpTest
     using MonitorT      = FloatOpMonitor<DeviceT, FloatIfT>;
     using FloatFuncT    = std::function<void(StimT, const StimT, const StimT)>;
 
-    FloatOpTest(FloatFuncT aFloatOp, const std::string & aTestName = "") :
+    FloatOpTest(FloatFuncT aFloatOp, const std::string & aTestName = "", const uint64_t aSeed = -1) :
         theSimulation {
             std::format("product{}{}", ((aTestName != "") ? "_" : ""), aTestName),
             sim::RunType::Release,
@@ -270,7 +269,7 @@ struct FloatOpTest
     }
 
     template <typename T = double>
-    static std::vector<T> getRandomVector(const size_t aVectorSize, const unsigned long aMaxValue, const int32_t seed = -1)
+    static std::vector<T> getRandomVector(const size_t aVectorSize, const unsigned long aMaxValue, auto anEngine)
     {
 
         auto myTestSize = sim::nearest_to_P(aVectorSize, FloatIfT::PARALLELISM);
@@ -280,7 +279,7 @@ struct FloatOpTest
 
         for (int i = 0; i < aVectorSize; i++)
         {
-            aOut[i] = dis(rng);
+            aOut[i] = dis(anEngine);
         }
 
         return aOut;

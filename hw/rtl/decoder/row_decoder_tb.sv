@@ -3,8 +3,8 @@
 module row_decoder_tb #(
     parameter OFFSET       /*verilator public */ = 0,
     parameter DATA_WIDTH   /*verilator public */ = 32,
-    parameter IN_PARALLEL  /*verilator public */ = 8,
-    parameter OUT_PARALLEL /*verilator public */ = 4
+    parameter IN_PARALLEL  /*verilator public */ = 16,
+    parameter OUT_PARALLEL /*verilator public */ = 8
 )(
     input wire clk,
     input wire rst_n,

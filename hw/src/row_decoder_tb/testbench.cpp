@@ -1,4 +1,3 @@
-#include "Float.hpp"
 #include "Simulation.hpp"
 #include "Utils.hpp"
 #include "Vrow_decoder_tb.h"
@@ -21,32 +20,33 @@ using DeviceT = Vrow_decoder_tb;
 using InterfaceT = RowDecoderInterface<IN_PARALLEL, OUT_PARALLEL>;
 using DriverT    = RowDecoderDriver<DeviceT, InterfaceT>;
 using MonitorT   = RowDecoderMonitor<DeviceT, InterfaceT>;
-using RndmFuncClassT = sim::FloatOpTest<InterfaceT, DeviceT, uint32_t>;
 
 class RowDecoderTest
 {
 public:
-    RowDecoderTest(const std::string& testName = "")
+    RowDecoderTest(const std::string &testName = "", const uint64_t aSeed = -1)
         : theSimulation{
               std::format("row_decoder_test{}{}", ((testName != "") ? "_" : ""), testName),
               sim::RunType::Release,
               sim::TraceOption::TraceOn,
               sim::ResetType::RANDOM_RESET,
-              static_cast<uint32_t>(10e6)
-          },
-          theDriver{ std::make_shared<DriverT>() },
-          theMonitor{ std::make_shared<MonitorT>() },
-          theRandomDist{0, 0x10}
+              static_cast<uint32_t>(10e4)},
+          theMonitor{std::make_shared<MonitorT>()},
+          theRandomDist{0, 0x10},
+          theRngEngine{aSeed == -1 ? sim::initialize_rng() : aSeed},
+          theDriver{std::make_shared<DriverT>(theRngEngine)}
     {
         theSimulation.addDriver(theDriver);
         theSimulation.addMonitor(theMonitor);
+
+        if (aSeed != -1)
+            std::cout << "Row Decoder Test Seed: " << aSeed << std::endl;
     }
 
     // Not very functional of you, tom clarke would not approve
-    void addTestCase(const uint32_t aTestSize)
+    void addTestCase(const uint32_t aTestSize, uint64_t aSeed = -1)
     {
-
-        auto aRandomOffset = theRandomDist(sim::rng);
+        auto aRandomOffset = theRandomDist(theRngEngine);
         InterfaceT stimulus = {0};
 
         std::vector<uint32_t> inputData;
@@ -54,15 +54,23 @@ public:
 
         for (int i = 1; i < aTestSize; i++)
         {
-            inputData.push_back(inputData[i - 1] + theRandomDist(sim::rng));
+            inputData.push_back(inputData[i - 1] + theRandomDist(theRngEngine));
         }
 
         for (int i = 0; i < aTestSize; i++)
         {
-             std::cout << "i: " << i << " offset: " << inputData[i] << " Minus Bias: " << inputData[i] - aRandomOffset << std::endl;
+            std::cout << "i: " << i << " offset: " << inputData[i] << " Minus Bias: " << inputData[i] - aRandomOffset << std::endl;
+
         }
 
+        for (int i = 1; i < aTestSize; i++)
+        {
+            std::cout << "id: " << i - 1 << " Freq: " << inputData[i] - inputData[i - 1] << std::endl;
+        }
+
+
         size_t totalChunks = (aTestSize + IN_PARALLEL - 1) / IN_PARALLEL;
+        std::cout << "Total Chunks: " << totalChunks << std::endl;
 
         for (size_t chunk = 0; chunk < totalChunks; chunk++)
         {
@@ -106,8 +114,8 @@ public:
     void simulate()
     {
         theSimulation.simulate([&]() {
-            // return theMonitor->getQueue().size() >= sim::ceil( ( float ) theExpectedOutput.size() / OUT_PARALLEL);
-            return theDriver->getQueue().empty();
+            return theMonitor->getQueue().size() >= sim::ceil( ( float ) theExpectedOutput.size() / OUT_PARALLEL);
+            // return theDriver->getQueue().empty();
         }, 10000);
 
         std::queue<uint32_t> capturedOutput;
@@ -138,17 +146,74 @@ public:
 
 private:
     sim::Simulation<DeviceT> theSimulation;
-    std::shared_ptr<DriverT> theDriver;
     std::shared_ptr<MonitorT> theMonitor;
     std::queue<uint32_t> theExpectedOutput;
     std::uniform_int_distribution<uint32_t> theRandomDist;
+    std::mt19937 theRngEngine;
+    std::shared_ptr<DriverT> theDriver;
 };
 
 TEST(RowDecoderTest, BasicTest)
 {
-    RowDecoderTest test(sim::getTestName());
+    RowDecoderTest test(sim::getTestName(), 1117728895);
+
+    test.addTestCase(16);
+
+    test.simulate();
+};
+
+TEST(RowDecoderTest, SeededTest_0)
+{
+    RowDecoderTest test(sim::getTestName(), 3030260183);
+    test.addTestCase(10);
+
+    test.simulate();
+};
+
+TEST(RowDecoderTest, SeededTest_1)
+{
+    RowDecoderTest test(sim::getTestName(), 1175644673);
 
     test.addTestCase(10);
 
     test.simulate();
 };
+
+TEST(RowDecoderTest, RandomTest)
+{
+    RowDecoderTest test(sim::getTestName());
+    test.addTestCase(10);
+
+    test.simulate();
+};
+
+TEST(RowDecoderTest, LongerRandomTest)
+{
+    RowDecoderTest test(sim::getTestName());
+    test.addTestCase(50);
+
+    test.simulate();
+};
+
+TEST(RowDecoderTest, TwoVectorTest)
+{
+    RowDecoderTest test(sim::getTestName());
+
+    test.addTestCase(50);
+    test.addTestCase(50);
+
+    test.simulate();
+};
+
+
+TEST(RowDecoderTest, LongTwoVectorTest)
+{
+    RowDecoderTest test(sim::getTestName());
+
+    test.addTestCase(100);
+    test.addTestCase(100);
+
+    test.simulate();
+};
+
+

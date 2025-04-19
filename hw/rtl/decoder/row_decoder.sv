@@ -41,7 +41,7 @@ module row_decoder #(
     // --------------   FIFO   ----------------- //
     // ----------------------------------------- //
 
-    axi_stream_fifo input_fifo_I (
+    axi_stream_fifo #(.PIPELINE_ONLY(1), .SKID(1)) input_fifo_I (
         .clk        (clk),
         .rst_n      (rst_n),
         .in         (r_beg),
@@ -85,13 +85,14 @@ module row_decoder #(
 
     always_comb
     begin
-        state_b = state_r;
-        curr_ids_b = curr_ids_r;
-        current_last_b = current_last_r;
-        current_mask_b = current_mask_r;
-        last_offset_b  = last_offset_r;
-        r_beg_p0_b.last = 0;
-        total_ids_in_chunk_b = total_ids_in_chunk_r;
+        state_b                 = state_r;
+        curr_ids_b              = curr_ids_r;
+        current_last_b          = current_last_r;
+        current_mask_b          = current_mask_r;
+        last_offset_b           = last_offset_r;
+        r_beg_p0_b.last         = 0;
+        total_ids_in_chunk_b    = total_ids_in_chunk_r;
+        number_of_ids_b         = number_of_ids_r;
 
         case (state_r)
             IDLE:
@@ -110,77 +111,80 @@ module row_decoder #(
                     begin
                         for (int i = 0; i < IN_PAR; i++)
                             if (r_beg_fifo_if.mask[i]) begin
-                                curr_ids_b[i+1] = r_beg_fifo_if.data[i];
-                                diff_id = r_beg_fifo_if.data[i] - last_offset_b;
+                                curr_ids_b[i+1]     = r_beg_fifo_if.data[i];
+                                diff_id             = r_beg_fifo_if.data[i] - last_offset_b;
                             end else begin
-                                curr_ids_b[i+1] = {ID_WIDTH{1'b1}};
+                                curr_ids_b[i+1]     = {ID_WIDTH{1'b1}};
                             end
-                            curr_ids_b[0] = last_offset_b;
+                            curr_ids_b[0]           = last_offset_b;
                      end
                     else
                     begin
-                        curr_ids_b      = {r_beg_fifo_if.data, last_offset_b}; // Might pipeline this
+                        curr_ids_b          = {r_beg_fifo_if.data, last_offset_b}; // Might pipeline this
                         diff_id             = r_beg_fifo_if.data[IN_PAR-1] - last_offset_b;
                     end
 
-                    number_of_ids_b     = diff_id >> OUT_PAR_WIDTH;
-                    current_mask_b      = diff_id[OUT_PAR_WIDTH-1:0];
-                    total_ids_in_chunk_b = diff_id;
+                    number_of_ids_b         = diff_id >> OUT_PAR_WIDTH;
+                    current_mask_b          = diff_id[OUT_PAR_WIDTH-1:0];
+                    total_ids_in_chunk_b    = diff_id;
                 end
             end
             BUSY:
             begin
-                if (number_of_ids_r == 0 && current_last_r)
+                if (r_beg_p0_b.ready)
                 begin
-                    bias_state_b    = BIAS_0;
-                    state_b         = IDLE;
-                    last_offset_b   = r_beg_fifo_if.data[0];
-                    r_beg_p0_b.last = 1;
-                end
-                else if (number_of_ids_r == 0)
-                begin
-                    state_b         = IDLE;
-                    last_offset_b   = r_beg_fifo_if.data[IN_PAR-1];
-                    r_beg_p0_b.last = 1;
-                end
-                else if (r_beg_p0_b.ready)
-                begin
-                    number_of_ids_b = number_of_ids_r - 1;
+                    if (number_of_ids_r == 0 && current_last_r)
+                    begin
+                        bias_state_b    = BIAS_0;
+                        state_b         = IDLE;
+                        last_offset_b   = r_beg_fifo_if.data[0];
+                        r_beg_p0_b.last = 1;
+                    end
+                    else if (number_of_ids_r == 0)
+                    begin
+                        state_b         = IDLE;
+                        last_offset_b   = curr_ids_r[IN_PAR];
+                        r_beg_p0_b.last = 1;
+                    end
+                    else
+                    begin
+                        number_of_ids_b = number_of_ids_r - 1;
+                    end
                 end
             end
         endcase
     end
 
-    assign r_beg_fifo_if.ready = (state_r == IDLE) && r_beg_p0_b.ready; // IDLE and pipeline is ready ---> We output shit on IDLE to busy transition
-    assign r_beg_p0_b.ready = 1;
-    assign r_beg_p0_b.valid = (state_r == BUSY);
-    assign r_beg_p0_b.data  = curr_ids_r;
-    assign r_beg_p0_b.mask  = (1 << current_mask_r) - 1;
-    assign outputs_so_far_b = total_ids_in_chunk_r - ((number_of_ids_r << OUT_PAR_WIDTH) + ID_WIDTH'(current_mask_r));
+    assign r_beg_fifo_if.ready  = (state_r == IDLE) && r_beg_p0_b.ready;
+    assign r_beg_p0_b.valid     = (state_r == BUSY);
+    assign r_beg_p0_b.data      = curr_ids_r;
+    assign r_beg_p0_b.mask      = (1 << current_mask_r) - 1;
+    assign outputs_so_far_b     = total_ids_in_chunk_r - ((number_of_ids_r << OUT_PAR_WIDTH) + ID_WIDTH'(current_mask_r));
 
     always_ff @(posedge clk)
     begin
         if (!rst_n)
         begin
-            state_r <= IDLE;
-            bias_state_r <= BIAS_0;
-            current_last_r <= 0;
+            state_r                 <= IDLE;
+            bias_state_r            <= BIAS_0;
+            current_last_r          <= 0;
         end
         else
         begin
-            state_r <= state_b;
-            last_offset_r <= last_offset_b;
-            curr_ids_r <= curr_ids_b;
-            number_of_ids_r <= number_of_ids_b;
-            bias_state_r <= bias_state_b;
-            current_mask_r <= current_mask_b;
-            current_last_r <= current_last_b;
-            total_ids_in_chunk_r <= total_ids_in_chunk_b;
+            state_r                 <= state_b;
+            last_offset_r           <= last_offset_b;
+            curr_ids_r              <= curr_ids_b;
+            number_of_ids_r         <= number_of_ids_b;
+            bias_state_r            <= bias_state_b;
+            current_mask_r          <= current_mask_b;
+            current_last_r          <= current_last_b;
+            total_ids_in_chunk_r    <= total_ids_in_chunk_b;
         end
     end
 
     pipeline #(
-        .DATA_WIDTH(INTERNAL_PAR*ID_WIDTH + 1 + INTERNAL_PAR + (ID_WIDTH) + ID_WIDTH)
+        .DATA_WIDTH(INTERNAL_PAR*ID_WIDTH + 1 + INTERNAL_PAR + (ID_WIDTH) + ID_WIDTH),
+        .PIPE_LINE(1)
     ) pipeline_0_I (
         .clk        (clk),
         .rst_n      (rst_n),
@@ -208,12 +212,8 @@ module row_decoder #(
     // Obtain active region and subs
     always_comb
     begin
-        nw_comp_b         = nw_comp_r;
-
-        for (int i = 0; i < INTERNAL_PAR; i++)
-        begin
-            subs[i]         = {ID_WIDTH{1'b1}};
-        end
+        nw_comp_b           = nw_comp_r;
+        subs                = subs_r;
 
         if (r_beg_p0_r.valid && r_beg_p0_r.ready)
         begin
@@ -225,27 +225,20 @@ module row_decoder #(
         end
     end
 
-    always_ff @(posedge clk)
-    begin
-        for (int i = 0; i < INTERNAL_PAR; i++)
-        begin
-            subs_r[i] <= subs[i];
-        end
-    end
-
     // ----------------------------------------- //
     // --------------   PIPE1  ----------------- //
     // ----------------------------------------- //
 
     pipeline #(
-        .DATA_WIDTH(1 + 2*INTERNAL_PAR + ID_WIDTH)
+        .DATA_WIDTH(INTERNAL_PAR * ID_WIDTH + 1 + 2*INTERNAL_PAR + ID_WIDTH),
+        .PIPE_LINE(1)
     ) pipeline_1_I (
         .clk        (clk),
         .rst_n      (rst_n),
-        .in_data    ({r_beg_p0_r.last, r_beg_p0_r.mask, nw_comp_b, offset_r}),
+        .in_data    ({subs, r_beg_p0_r.last, r_beg_p0_r.mask, nw_comp_b, offset_r}),
         .in_valid   (r_beg_p0_r.valid),
         .in_ready   (r_beg_p0_r.ready),
-        .out_data   ({r_beg_p1_r.last, r_beg_p1_r.mask, nw_comp_r, offset_p0_r}),
+        .out_data   ({subs_r, r_beg_p1_r.last, r_beg_p1_r.mask, nw_comp_r, offset_p0_r}),
         .out_valid  (r_beg_p1_r.valid),
         .out_ready  (r_beg_p1_r.ready)
     );
@@ -257,46 +250,49 @@ module row_decoder #(
 
     always_comb
     begin
+
         index = 0;
+        payload_b = row_ids.data;
 
-        for (int i = 0; i < OUT_PAR; i++)
+        if (r_beg_p1_r.valid && r_beg_p1_r.ready)
         begin
-            payload_b[i] = payload_r[IN_PAR-1];
-        end
 
-        for (int i = 0; i < INTERNAL_PAR; i++)
-        begin
-            if (nw_comp_r[i])
+            for (int i = 0; i < OUT_PAR; i++)
             begin
-                index[i] = OUT_PAR_WIDTH'(subs_r[i]);
+                payload_b[i] = row_ids.data[IN_PAR-1];
+            end
 
-                for (int j = 0; j < OUT_PAR; j++)
+            for (int i = 0; i < INTERNAL_PAR; i++)
+            begin
+                if (nw_comp_r[i])
                 begin
-                    if (j >= index[i])
+                    index[i] = OUT_PAR_WIDTH'(subs_r[i]);
+
+                    for (int j = 0; j < OUT_PAR; j++)
                     begin
-                        payload_b[j] = offset_p0_r + OFFSET + i - 1;
+                        if (j >= index[i])
+                        begin
+                            payload_b[j] = offset_p0_r + OFFSET + i - 1;
+                        end
                     end
                 end
             end
         end
     end
 
-    always_ff @(posedge clk)
-    begin
-        payload_r               <= payload_b;
-    end
+    assign payload_r               = payload_b;
+    assign row_ids_b.valid         = r_beg_p1_r.valid; // I have stuff to process
+    assign row_ids_b.last          = r_beg_p1_r.last;
+    assign row_ids_b.mask          = OUT_PAR'(r_beg_p1_r.mask);
 
-    assign row_ids_b.valid  = r_beg_p1_r.valid; // I have stuff to process
-    assign row_ids_b.data   = payload_b;
-    assign row_ids_b.last   = r_beg_p1_r.last;
-    assign row_ids_b.mask   = OUT_PAR'(r_beg_p1_r.mask);
+    assign row_ids_b.data   = payload_r;
     assign r_beg_p1_r.ready = row_ids_b.ready;
 
     // ----------------------------------------- //
     // --------------  PIPE OUT  --------------- //
     // ----------------------------------------- //
 
-    axi_stream_fifo #( .PIPELINE_ONLY(1) ) pipe_out_I (
+    axi_stream_fifo #( .PIPELINE_ONLY(1), .SKID(1) ) pipe_out_I (
         .clk        (clk),
         .rst_n      (rst_n),
         .in         (row_ids_b),

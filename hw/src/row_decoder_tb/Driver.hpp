@@ -1,15 +1,21 @@
 #pragma once
 
 #include "Controller.hpp"
-#include "Float.hpp"
 #include <cstdint>
 #include <random>
 
 template <typename DeviceT, typename InterfaceT>
 class RowDecoderDriver : public sim::Controller<DeviceT, InterfaceT>
 {
-    using sim::Controller<DeviceT, InterfaceT>::Controller;
+public:
+    RowDecoderDriver(const auto & anEngine) :
+        sim::Controller<DeviceT, InterfaceT>::Controller{},
+        theRandomDist{0, INT_FAST32_MAX},
+        theRandomEngine{anEngine}
+    {
+    }
 
+private:
     void driveAxiSlave(const InterfaceT& stimulus)
     {
         for (size_t i = 0; i < stimulus.r_beg_data.size(); ++i)
@@ -37,8 +43,8 @@ class RowDecoderDriver : public sim::Controller<DeviceT, InterfaceT>
 
     void next() override
     {
-        // auto myReady = theRandomDist(sim::rng) % 2;
-        auto myReady = 1;
+        auto myReady = theRandomDist(theRandomEngine) % 2;
+        // auto myReady = 1;
 
         if (!this->isControllerEmpty())
         {
@@ -58,7 +64,8 @@ class RowDecoderDriver : public sim::Controller<DeviceT, InterfaceT>
         driveAxiSlave(aStim);
     }
 
-    std::uniform_int_distribution<uint64_t> theRandomDist{0, INT_FAST32_MAX};
+    std::uniform_int_distribution<uint64_t> theRandomDist;
+    std::mt19937 theRandomEngine;
 
 };
 

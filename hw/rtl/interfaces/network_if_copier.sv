@@ -2,14 +2,14 @@
 
 module network_if_copier #(
     parameter DELAY         = 1,
-    parameter FIFO_DEPTH    = 2 
+    parameter FIFO_DEPTH    = 2
 ) (
     input wire clk,
     input wire rst_n,
     network_if.slave  in,
     network_if.master out
 );
-    
+
     generate
         if (DELAY == 0)
         begin : comb_gen
