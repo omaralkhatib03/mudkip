@@ -1,4 +1,4 @@
-Cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.24)
 
 enable_language(C CXX)
 
@@ -27,9 +27,9 @@ set(TB_SRC "${CMAKE_SOURCE_DIR}/src")
 set(RTL_DIR "${CMAKE_SOURCE_DIR}/rtl")
 
 file(GLOB_RECURSE
-                VERILATOR_HEADER_FILES
-                "${VERILATOR_INCLUDE}/*.h"
-                "${VERILATOR_INCLUDE}/*.hpp"
+    VERILATOR_HEADER_FILES
+    "${VERILATOR_INCLUDE}/*.h"
+    "${VERILATOR_INCLUDE}/*.hpp"
 )
 
 find_package(verilator)
@@ -48,15 +48,19 @@ set(SIM_SRC_FILES "${CMAKE_SOURCE_DIR}/src/Sim.cpp")
 
 find_package(GTest REQUIRED)
 
+set(GMP_LIB "${CMAKE_SOURCE_DIR}/lib/libgmp.so.11")
+set(FLOATING_POINT_LIB "${CMAKE_SOURCE_DIR}/lib/libIp_floating_point_v7_1_bitacc_cmodel.so")
+set(MPFR_LIB "${CMAKE_SOURCE_DIR}/lib/libmpfr.so.4")
+
 add_library(sim STATIC "${SIM_SRC_FILES}")
 target_include_directories(sim PUBLIC ${SIM_HEADER_DIR} ${VERILATOR_INCLUDE} ${SVDPI_INCLUDE})
 target_link_libraries(sim
     PRIVATE
+    "-L${CMAKE_SOURCE_DIR}lib"
     GTest::gtest_main
-    -L"${CMAKE_SOURCE_DIR}/lib"
-    "${CMAKE_SOURCE_DIR}/lib/libgmp.so.11"
-    "${CMAKE_SOURCE_DIR}/lib/libmpfr.so.4"
-    "${CMAKE_SOURCE_DIR}/lib/libIp_floating_point_v7_1_bitacc_cmodel.so"
+    ${GMP_LIB}
+    ${MPFR_LIB}
+    ${FLOATING_POINT_LIB}
 )
 
 function(verilate_command TARGET_NAME TOP_MODULE)
@@ -90,3 +94,4 @@ mudkip_verilate("fproduct")
 mudkip_verilate("vector_ram_tb")
 mudkip_verilate("so_rr_arbiter")
 # mudkip_verilate("spmv_tb")
+

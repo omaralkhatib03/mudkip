@@ -1,25 +1,9 @@
-# Bazel output directories
-bazel-*
-bazel-out/
-bazel-bin/
-bazel-genfiles/
-bazel-testlogs/
-
-# Bazel sandbox and cache
-*.runfiles/
-*.runfiles_manifest
-*.params
-*.log
-*.log.*
-bazel-cache/
-bazel-execroot/
 
 # Build artifacts
 *.o
 *.d
 *.obj
 *.a
-*.so
 *.dll
 *.dylib
 *.exe
@@ -30,7 +14,7 @@ bazel-execroot/
 # Mine
 waves/*
 playground
-
+work/
+build/
 libgmp.so.11
 libmpfr.so.4
-work/
