@@ -12,20 +12,13 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: LazyPanda07/get-gtest@v1.1
 
     # Verilator setup (already in your workflow)
     - name: Install Verilator from source
       run: |
         sudo apt-get update
-        sudo apt-get install -y git perl python3 make autoconf g++ flex bison ccache
-        git clone https://github.com/verilator/verilator.git
-        cd verilator
-        git checkout stable
-        autoconf
-        ./configure
-        make -j$(nproc)
-        sudo make install
+        sudo apt-get install -y git perl python3 make autoconf g++ flex bison ccache verilator
 
     - name: Install dependencies
       run: |
