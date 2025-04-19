@@ -11,10 +11,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+    - uses: actions/checkout@v3
+    - uses: actions/checkout@master
+    - uses: v0xnihili/install-verilator-action@main
+    - run: verilator --version
       
-    - name: Checkout repository
+    - name: Get GTests
       uses: LazyPanda07/get-gtest@v1.1
 
     # Verilator setup (already in your workflow)
