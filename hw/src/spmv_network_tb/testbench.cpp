@@ -67,9 +67,10 @@ class SpMvNetworkDriver : public sim::Controller<DeviceT, SpMvNetworkIf>
 public:
     using sim::Controller<DeviceT, SpMvNetworkIf>::Controller;
 
-    SpMvNetworkDriver()
-        : sim::Controller<DeviceT, SpMvNetworkIf>()
-
+    SpMvNetworkDriver(const auto & anEngine)
+        : sim::Controller<DeviceT, SpMvNetworkIf>(),
+        theRandomDist{0, NETWORK_WIDTH},
+        theRandomEngine{anEngine}
     {
     }
 
@@ -96,7 +97,9 @@ public:
 
     void next() override
     {
-        auto myReady = 0xffffffffffffffff;
+        auto myReady = (1UL << theRandomDist(theRandomEngine)) - 1;
+        // auto myReady = 0xffffffffffffffff;
+
         if (!isControllerEmpty())
         {
             this->getQueue().front().out_ready = myReady;
@@ -115,7 +118,8 @@ public:
         driveIntf(aStim);
     }
 
-    std::uniform_int_distribution<uint64_t> theRandomDist{0, (1ULL << NETWORK_WIDTH) - 1};
+    std::uniform_int_distribution<uint64_t> theRandomDist;
+    std::mt19937 theRandomEngine;
 };
 
 class SpMvNetworkMonitor : public sim::Controller<DeviceT, SpMvNetworkIf>
@@ -151,26 +155,30 @@ public:
     using MonitorT = SpMvNetworkMonitor;
     using RandomVecFuncT = sim::FloatOpTest<SpMvNetworkIf, DeviceT, uint64_t>;
 
-    SpMvNetworkTest(const std::string& testName = "")
+    SpMvNetworkTest(const std::string& testName = "", const uint64_t aSeed = -1)
         : theSimulation{
               std::format("SpMvNetworkTest{}{}", ((testName != "") ? "_" : ""), testName),
               sim::RunType::Release, sim::TraceOption::TraceOn,
               sim::ResetType::RANDOM_RESET, 1000000 },
-          theDriver{ std::make_shared<DriverT>() },
-          theMonitor{ std::make_shared<MonitorT>() }
+            theMonitor{ std::make_shared<MonitorT>() },
+            theRandomDist{0, 0x10},
+            theRngEngine{aSeed == -1 ? sim::initialize_rng() : aSeed},
+            theDriver{ std::make_shared<DriverT>() }
     {
         theSimulation.addDriver(theDriver);
         theSimulation.addMonitor(theMonitor);
+
+        if (aSeed != -1)
+            std::cout << "SpMvNetwork Test Seed: " << aSeed << std::endl;
     }
 
     void addTestCase(int numCases = 1000, long seed = -1)
     {
 
-        std::mt19937 myEngine(seed == -1 ? sim::initialize_rng() : seed);
-        auto aRandomIdVector    = RandomVecFuncT::getRandomVector<uint64_t>(numCases, (1ULL << ID_WIDTH)-1 , myEngine);
-        auto aRandomValueVector = RandomVecFuncT::getRandomVector<uint64_t>(numCases, (1ULL << (IN_WIDTH - 5))-1, myEngine);
+        auto aRandomIdVector    = RandomVecFuncT::getRandomVector<uint64_t>(numCases, (1ULL << ID_WIDTH)-1 , theRngEngine);
+        auto aRandomValueVector = RandomVecFuncT::getRandomVector<uint64_t>(numCases, (1ULL << (IN_WIDTH - 5))-1, theRngEngine);
         std::sort(aRandomIdVector.begin(), aRandomIdVector.end());
-        writeVector(aRandomIdVector, aRandomValueVector, numCases, myEngine);
+        writeVector(aRandomIdVector, aRandomValueVector, numCases, theRngEngine);
     }
 
     void writeVector(const std::vector<uint64_t> & anIdVectorA,
@@ -257,25 +265,22 @@ public:
             << std::endl
             << "The Recieved Output: "
             << sim::MapToHexString(theRecievedSums);
-
-        // for (int i = 0; i < theRecievedIds.size(); i++)
-        // {
-        //     std::cout << "i: " << i << " RcvdId: " << theRecievedIds[i] << " RcvdOut: " << theRecievedElements[i] << std::endl;
-        // }
     }
 
 private:
     sim::Simulation<DeviceT> theSimulation;
-    std::shared_ptr<DriverT> theDriver;
     std::shared_ptr<MonitorT> theMonitor;
     std::map<uint64_t, uint64_t> theExpectedOutput;
+    std::uniform_int_distribution<uint32_t> theRandomDist;
+    std::mt19937 theRngEngine;
+    std::shared_ptr<DriverT> theDriver;
 };
 
 TEST(SpMvNetworkTest, BasicTest)
 {
     auto tmp = sim::getTestName();
     auto test = SpMvNetworkTest(tmp);
-    test.addTestCase(TEST_SIZE, 3960514134);
+    test.addTestCase(TEST_SIZE);
     test.simulate(TEST_SIZE);
 }
 
@@ -297,3 +302,16 @@ TEST(SpMvNetworkTest, BasicTest_2)
 
     test.simulate(TEST_SIZE);
 }
+
+TEST(SpMvNetworkTest, SeededTest_1)
+{
+    auto tmp = sim::getTestName();
+    auto test = SpMvNetworkTest(tmp, 39060514134);
+
+    test.addTestCase(TEST_SIZE);
+    test.addTestCase(TEST_SIZE);
+
+    test.simulate(TEST_SIZE);
+}
+
+

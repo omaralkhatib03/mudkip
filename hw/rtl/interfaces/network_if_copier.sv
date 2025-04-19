@@ -26,26 +26,20 @@ module network_if_copier #(
         else
         begin : delay_gen
 
-            logic fifo_full;
-
-            /* verilator lint_off PINMISSING */ // (Over/Under)flow Pins
-            basic_sync_fifo #(
-                .DATA_WIDTH     (out.IN_WIDTH + out.ID_WIDTH),
-                .DEPTH          (FIFO_DEPTH),
-                .READ_LATENCY   (DELAY)
-            ) input_fifo_I      (
-                .clk            (clk),
-                .rst_n          (rst_n),
-                .din            ({out.ID_WIDTH'(in.id), out.IN_WIDTH'(in.val)}),
-                .shift_in       (in.valid),
-                .shift_out      (out.ready),
-                .valid          (out.valid),
-                .dout           ({out.id, out.val}),
-                .full           (fifo_full)
+            pipeline #(
+                .DATA_WIDTH(out.IN_WIDTH + out.ID_WIDTH),
+                .PIPE_LINE(1)
+            ) pipeline_0_I (
+                .clk        (clk),
+                .rst_n      (rst_n),
+                .in_data    ({out.ID_WIDTH'(in.id), out.IN_WIDTH'(in.val)}),
+                .in_valid   (in.valid),
+                .in_ready   (in.ready),
+                .out_data   ({out.id, out.val}),
+                .out_valid  (out.valid),
+                .out_ready  (out.ready)
             );
-            /* verilator lint_on PINMISSING */ // (Over/Under)flow Pins
 
-            assign in.ready     = !fifo_full;
         end
     endgenerate
 

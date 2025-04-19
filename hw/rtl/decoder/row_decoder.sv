@@ -247,7 +247,8 @@ module row_decoder #(
     logic [OUT_PAR-1:0][ID_WIDTH-1:0] payload_b;
     logic [OUT_PAR-1:0][ID_WIDTH-1:0] payload_r;
     logic [INTERNAL_PAR-1:0][OUT_PAR_WIDTH-1:0] index;
-
+    
+    // timing go ahh loop 
     always_comb
     begin
 
