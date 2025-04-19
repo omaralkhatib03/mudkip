@@ -25,11 +25,8 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y cmake g++ make libgmp-dev libmpfr-dev
 
-    - name: Configure CMake (create build directory)
-      run: make configure
-
     - name: Build all targets
-      run: make all
+      run: make default
 
     - name: Run Google Tests
       run: make test
