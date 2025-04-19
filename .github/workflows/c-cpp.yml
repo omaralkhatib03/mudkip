@@ -34,4 +34,6 @@ jobs:
       run: make -C hw default
 
     - name: Run Google Tests
-      run: make -C hw test
+      run: | 
+        cd hw 
+        make test
