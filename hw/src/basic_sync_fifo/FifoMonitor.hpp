@@ -1,49 +1,48 @@
 #pragma once
 
 #include "Controller.hpp"
-#include "Defintions.hpp"
 #include "Signal.hpp"
 #include <cassert>
 
-namespace sim 
+namespace sim
 {
 
 struct FifoMonitorIntf
 {
-  sim::Signal<32> dout{};
-  bool overflow;
-  bool underflow;
-  bool full;
-  bool empty;
-  bool valid{};
+    sim::Signal<32> dout{};
+    bool overflow;
+    bool underflow;
+    bool full;
+    bool empty;
+    bool valid{};
 };
 
-template <DeviceT DutT>
+template <typename DutT>
 class FifoMonitor : public Controller<DutT, FifoMonitorIntf>
 {
-public:  
-  using Controller<DutT, FifoMonitorIntf>::Controller;
-  
-  void reset() override {}
+public:
+    using Controller<DutT, FifoMonitorIntf>::Controller;
 
-  void next() override
-  {
-    theCurrentIntf.dout = this->theDevice->dout;
-    theCurrentIntf.valid = this->theDevice->valid;
+    void reset() override {}
 
-    theCurrentIntf.overflow = this->theDevice->overflow;
-    theCurrentIntf.underflow = this->theDevice->underflow;
-    
-    if (theCurrentIntf.valid)
+    void next() override
     {
-      this->add(theCurrentIntf);
+        theCurrentIntf.dout = this->theDevice->dout;
+        theCurrentIntf.valid = this->theDevice->valid;
+
+        theCurrentIntf.overflow = this->theDevice->overflow;
+        theCurrentIntf.underflow = this->theDevice->underflow;
+
+        if (theCurrentIntf.valid)
+        {
+            this->add(theCurrentIntf);
+        }
+
+        assert(!theCurrentIntf.underflow);
+        assert(!theCurrentIntf.overflow);
     }
 
-    assert(!theCurrentIntf.underflow);
-    assert(!theCurrentIntf.overflow);
-  }
-
-  FifoMonitorIntf theCurrentIntf{};
+    FifoMonitorIntf theCurrentIntf{};
 
 };
 

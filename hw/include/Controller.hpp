@@ -1,61 +1,60 @@
 #pragma once
 
 #include "ControllerBase.hpp"
-#include "Defintions.hpp"
 #include <memory>
 #include <queue>
 
-namespace sim 
+namespace sim
 {
 
-template<DeviceT DutT, typename StimulusT = int>
+template<typename DutT, typename StimulusT = int>
 class Controller : public ControllerBase<DutT>
 {
 public:
 
-  using QueueT = std::queue<StimulusT>;
+    using QueueT = std::queue<StimulusT>;
 
-  Controller() : theQueue{}, theDevice{} {};
-  
-  void init(std::shared_ptr<DutT> aDevice)
-  override
-  {
-    theDevice = aDevice;
-  }
+    Controller() : theQueue{}, theDevice{} {};
 
-  bool isControllerEmpty()
-  override
-  {
-    return theQueue.empty();
-  };
-  
-  StimulusT pop()
-  {
-    auto myFront = theQueue.front();
-    theQueue.pop();
-    return myFront;
-  }
+    void init(std::shared_ptr<DutT> aDevice)
+    override
+    {
+        theDevice = aDevice;
+    }
 
-  StimulusT front() const
-  {
-    return theQueue.front();
-  }
+    bool isControllerEmpty()
+    override
+    {
+        return theQueue.empty();
+    };
 
-  void add(StimulusT anElement)
-  {
-    theQueue.push(anElement);
-  } 
+    StimulusT pop()
+    {
+        auto myFront = theQueue.front();
+        theQueue.pop();
+        return myFront;
+    }
 
-  QueueT & getQueue()
-  {
-    return this->theQueue;
-  }
+    StimulusT front() const
+    {
+        return theQueue.front();
+    }
 
-  virtual ~Controller() {};
+    void add(StimulusT anElement)
+    {
+        theQueue.push(anElement);
+    }
+
+    QueueT & getQueue()
+    {
+        return this->theQueue;
+    }
+
+    virtual ~Controller() {};
 
 protected:
-  std::shared_ptr<DutT> theDevice;
-  QueueT theQueue;
+    std::shared_ptr<DutT> theDevice;
+    QueueT theQueue;
 };
 
 

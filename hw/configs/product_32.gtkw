@@ -1,0 +1,59 @@
+[*]
+[*] GTKWave Analyzer v3.3.116 (w)1999-2023 BSI
+[*] Tue Apr  8 13:50:12 2025
+[*]
+[dumpfile] "(null)"
+[savefile] "/home/omar/Documents/year-4/FYP/mudkip/hw/configs/product_32.gtkw"
+[timestart] 0
+[size] 1920 1033
+[pos] -1 -1
+*-2.313637 9 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] TOP.
+[treeopen] TOP.product.
+[sst_width] 273
+[signals_width] 174
+[sst_expanded] 1
+[sst_vpaned_height] 307
+@28
+TOP.product.clk
+TOP.product.in_ready
+TOP.product.in_valid
+TOP.product.in_ready
+TOP.product.in_tlast
+@23
+TOP.product.in_mask[3:0]
+@800200
+-ops
+@22
+[color] 3
+TOP.product.a[0][31:0]
+[color] 3
+TOP.product.a[1][31:0]
+[color] 3
+TOP.product.a[2][31:0]
+[color] 3
+TOP.product.a[3][31:0]
+[color] 6
+TOP.product.b[0][31:0]
+[color] 6
+TOP.product.b[1][31:0]
+[color] 6
+TOP.product.b[2][31:0]
+[color] 6
+TOP.product.b[3][31:0]
+@1000200
+-ops
+@22
+[color] 2
+TOP.product.out[0][31:0]
+[color] 2
+TOP.product.out[1][31:0]
+[color] 2
+TOP.product.out[2][31:0]
+[color] 2
+TOP.product.out[3][31:0]
+@28
+TOP.product.valid
+TOP.product.ready
+[pattern_trace] 1
+[pattern_trace] 0

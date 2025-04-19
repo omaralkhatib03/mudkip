@@ -1,0 +1,177 @@
+[*]
+[*] GTKWave Analyzer v3.3.116 (w)1999-2023 BSI
+[*] Fri Apr 11 12:17:09 2025
+[*]
+[dumpfile] "/home/omar/Documents/year-4/FYP/mudkip/hw/waves/SpMvNetworkTest_BasicTest.fst"
+[dumpfile_mtime] "Fri Apr 11 12:16:26 2025"
+[dumpfile_size] 5204
+[savefile] "/home/omar/Documents/year-4/FYP/mudkip/hw/configs/spmv_net_6.gtkw"
+[timestart] 2
+[size] 1920 1033
+[pos] -1 -1
+*-2.100000 8 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] TOP.
+[treeopen] TOP.spmv_network_tb.
+[treeopen] TOP.spmv_network_tb.dut_I.
+[treeopen] TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].layer_engines_gen[0].layer_gen[0].op_gen.spmv_net_op_I.
+[treeopen] TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].layer_engines_gen[0].layer_gen[2].op_gen.spmv_net_op_I.
+[treeopen] TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].layer_engines_gen[0].layer_gen[1].op_gen.spmv_net_op_I.
+[sst_width] 273
+[signals_width] 1051
+[sst_expanded] 1
+[sst_vpaned_height] 474
+@28
+TOP.clk
+TOP.rst_n
+@800200
+-in
+@22
+TOP.spmv_network_tb.dut_I.in[0].id[4:0]
+TOP.spmv_network_tb.dut_I.in[1].id[4:0]
+TOP.spmv_network_tb.dut_I.in[2].id[4:0]
+TOP.spmv_network_tb.dut_I.in[3].id[4:0]
+TOP.spmv_network_tb.dut_I.in[4].id[4:0]
+TOP.spmv_network_tb.dut_I.in[5].id[4:0]
+TOP.spmv_network_tb.dut_I.in[0].val[31:0]
+TOP.spmv_network_tb.dut_I.in[1].val[31:0]
+TOP.spmv_network_tb.dut_I.in[2].val[31:0]
+TOP.spmv_network_tb.dut_I.in[3].val[31:0]
+TOP.spmv_network_tb.dut_I.in[4].val[31:0]
+TOP.spmv_network_tb.dut_I.in[5].val[31:0]
+TOP.spmv_network_tb.in_valid[5:0]
+@1000200
+-in
+@800200
+-outs
+@22
+TOP.spmv_network_tb.dut_I.out[0].id[4:0]
+TOP.spmv_network_tb.dut_I.out[1].id[4:0]
+TOP.spmv_network_tb.dut_I.out[2].id[4:0]
+TOP.spmv_network_tb.dut_I.out[3].id[4:0]
+TOP.spmv_network_tb.dut_I.out[4].id[4:0]
+TOP.spmv_network_tb.dut_I.out[5].id[4:0]
+TOP.spmv_network_tb.dut_I.out[0].val[36:0]
+TOP.spmv_network_tb.dut_I.out[1].val[36:0]
+@23
+TOP.spmv_network_tb.dut_I.out[2].val[36:0]
+@22
+TOP.spmv_network_tb.dut_I.out[3].val[36:0]
+TOP.spmv_network_tb.dut_I.out[4].val[36:0]
+TOP.spmv_network_tb.dut_I.out[5].val[36:0]
+@800200
+-valids
+@28
+TOP.spmv_network_tb.net_if_out[0].valid
+TOP.spmv_network_tb.net_if_out[1].valid
+TOP.spmv_network_tb.net_if_out[2].valid
+TOP.spmv_network_tb.net_if_out[3].valid
+TOP.spmv_network_tb.dut_I.out[4].valid
+TOP.spmv_network_tb.dut_I.out[5].valid
+@1000200
+-valids
+@c00200
+-readys
+@28
+TOP.spmv_network_tb.dut_I.out[0].ready
+TOP.spmv_network_tb.dut_I.out[1].ready
+TOP.spmv_network_tb.dut_I.out[2].ready
+TOP.spmv_network_tb.dut_I.out[3].ready
+@1401200
+-readys
+@1000200
+-outs
+@c00200
+-ready's
+@1401200
+-ready's
+@c00200
+-misc
+@28
+TOP.spmv_network_tb.dut_I.out[2].valid
+@420
+TOP.spmv_network_tb.dut_I.PIPELINE_STAGES
+@22
+TOP.spmv_network_tb.dut_I.PIPELINE
+@1401200
+-misc
+@c00200
+-misc_2
+@1401200
+-misc_2
+@800200
+-dbg
+@c00200
+-l0
+@22
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].layer_engines_gen[0].layer_gen[0].op_gen.spmv_net_op_I.in_a.id[4:0]
+[color] 1
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].layer_engines_gen[0].layer_gen[0].op_gen.spmv_net_op_I.in_a.val[36:0]
+@28
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].layer_engines_gen[0].layer_gen[0].op_gen.spmv_net_op_I.in_a.valid
+@22
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].layer_engines_gen[0].layer_gen[0].op_gen.spmv_net_op_I.in_b.id[4:0]
+[color] 1
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].layer_engines_gen[0].layer_gen[0].op_gen.spmv_net_op_I.in_b.val[36:0]
+@28
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].layer_engines_gen[0].layer_gen[0].op_gen.spmv_net_op_I.in_b.valid
+@22
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].layer_engines_gen[0].layer_gen[0].op_gen.spmv_net_op_I.out_a.id[4:0]
+[color] 1
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].layer_engines_gen[0].layer_gen[0].op_gen.spmv_net_op_I.out_a.val[36:0]
+@28
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].layer_engines_gen[0].layer_gen[0].op_gen.spmv_net_op_I.out_a.valid
+@22
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].layer_engines_gen[0].layer_gen[0].op_gen.spmv_net_op_I.out_b.id[4:0]
+[color] 1
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].layer_engines_gen[0].layer_gen[0].op_gen.spmv_net_op_I.out_b.val[36:0]
+@28
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].layer_engines_gen[0].layer_gen[0].op_gen.spmv_net_op_I.out_b.valid
+@1401200
+-l0
+@c00200
+-l1
+@22
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].layer_engines_gen[0].layer_gen[1].op_gen.spmv_net_op_I.in_a.id[4:0]
+[color] 1
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].layer_engines_gen[0].layer_gen[1].op_gen.spmv_net_op_I.in_a.val[36:0]
+@28
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].layer_engines_gen[0].layer_gen[1].op_gen.spmv_net_op_I.in_a.valid
+@22
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].layer_engines_gen[0].layer_gen[1].op_gen.spmv_net_op_I.in_b.id[4:0]
+[color] 1
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].layer_engines_gen[0].layer_gen[1].op_gen.spmv_net_op_I.in_b.val[36:0]
+@28
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].layer_engines_gen[0].layer_gen[1].op_gen.spmv_net_op_I.in_b.valid
+@22
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].layer_engines_gen[0].layer_gen[1].op_gen.spmv_net_op_I.out_a.id[4:0]
+[color] 1
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].layer_engines_gen[0].layer_gen[1].op_gen.spmv_net_op_I.out_a.val[36:0]
+@28
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].layer_engines_gen[0].layer_gen[1].op_gen.spmv_net_op_I.out_a.valid
+@22
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].layer_engines_gen[0].layer_gen[1].op_gen.spmv_net_op_I.out_b.id[4:0]
+[color] 1
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].layer_engines_gen[0].layer_gen[1].op_gen.spmv_net_op_I.out_b.val[36:0]
+@28
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[1].layer_engines_gen[0].layer_gen[1].op_gen.spmv_net_op_I.out_b.valid
+@1401200
+-l1
+@1000200
+-dbg
+@800200
+-misc_3
+@22
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].layer_engines_gen[0].layer_gen[2].op_gen.spmv_net_op_I.out_a.id[4:0]
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].layer_engines_gen[0].layer_gen[2].op_gen.spmv_net_op_I.out_a.val[36:0]
+@28
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].layer_engines_gen[0].layer_gen[2].op_gen.spmv_net_op_I.out_a.valid
+@22
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].layer_engines_gen[0].layer_gen[2].op_gen.spmv_net_op_I.out_b.val[36:0]
+@28
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].layer_engines_gen[0].layer_gen[2].op_gen.spmv_net_op_I.out_b.valid
+@22
+TOP.spmv_network_tb.dut_I.spmv_pipeline_gen[0].layer_engines_gen[0].layer_gen[2].op_gen.spmv_net_op_I.out_b.id[4:0]
+@1000200
+-misc_3
+[pattern_trace] 1
+[pattern_trace] 0

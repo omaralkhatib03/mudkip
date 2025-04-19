@@ -1,0 +1,53 @@
+[*]
+[*] GTKWave Analyzer v3.3.116 (w)1999-2023 BSI
+[*] Wed Mar 12 00:15:27 2025
+[*]
+[dumpfile] "/home/omar/Documents/year-4/FYP/mudkip/hw/waves/so_rr_arb_test_VectorRamLikeAccessIn4.fst"
+[dumpfile_mtime] "Tue Mar 11 23:53:05 2025"
+[dumpfile_size] 1769
+[savefile] "/home/omar/Documents/year-4/FYP/mudkip/hw/configs/so_rr_arbiter.gtkw"
+[timestart] 0
+[size] 1920 1033
+[pos] -1 -1
+*-2.410966 23 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] TOP.
+[treeopen] TOP.so_rr_arbiter.
+[sst_width] 273
+[signals_width] 182
+[sst_expanded] 1
+[sst_vpaned_height] 293
+@28
+TOP.so_rr_arbiter.clk
+TOP.so_rr_arbiter.rst_n
+@800200
+-in
+@22
+TOP.so_rr_arbiter.in[0][7:0]
+TOP.so_rr_arbiter.in[2][7:0]
+TOP.so_rr_arbiter.req[3:0]
+@1000200
+-in
+@800200
+-fifo
+@22
+TOP.so_rr_arbiter.fifo_out[0][7:0]
+TOP.so_rr_arbiter.fifo_out[2][7:0]
+@23
+TOP.so_rr_arbiter.fifo_empty[3:0]
+@1000200
+-fifo
+@800200
+-ctrl
+@28
+TOP.so_rr_arbiter.idle
+@22
+TOP.so_rr_arbiter.fifo_shift_out[3:0]
+TOP.so_rr_arbiter.grant[3:0]
+@1000200
+-ctrl
+@28
+TOP.so_rr_arbiter.valid
+@22
+TOP.so_rr_arbiter.dout[7:0]
+[pattern_trace] 1
+[pattern_trace] 0

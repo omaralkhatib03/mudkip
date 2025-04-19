@@ -1,1 +1,20 @@
+
+# Build artifacts
+*.o
+*.d
+*.obj
+*.a
+*.dll
+*.dylib
+*.exe
+*.gcda
+*.gcno
+*.gcov
+
+# Mine
 waves/*
+playground
+work/
+build/
+libgmp.so.11
+libmpfr.so.4
