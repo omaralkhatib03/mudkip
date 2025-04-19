@@ -26,7 +26,7 @@ jobs:
         sudo apt-get install -y cmake g++ make libgmp-dev libmpfr-dev
 
     - name: Build all targets
-      run: make default
+      run: make -C hw default
 
     - name: Run Google Tests
-      run: make test
+      run: make -C hw test
