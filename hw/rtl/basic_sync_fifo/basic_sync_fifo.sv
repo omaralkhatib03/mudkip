@@ -2,9 +2,9 @@
 
 
 module basic_sync_fifo #(
-  parameter DATA_WIDTH        = 32,
-  parameter DEPTH             = 64,
-  parameter READ_LATENCY      = 1
+  parameter DATA_WIDTH       /* verilator public */  = 32,
+  parameter DEPTH            /* verilator public */  = 4,
+  parameter READ_LATENCY     /* verilator public */  = 1
 ) (
   input wire                    clk,
   input wire                    rst_n,
@@ -90,13 +90,13 @@ module basic_sync_fifo #(
       assign dout     = shift_in && empty ? din : mem[rd_ptr_r];
       assign valid    = shift_in || !empty;
       assign empty    = rd_ptr_r == wr_ptr_r;
-      assign full     = (wr_ptr_r + 1'b1 == rd_ptr_r) && !shift_in;
+      assign full     = (wr_ptr_r + 1'b1 == rd_ptr_r);
     end
     else
     begin : fifo_1_latency
       assign dout       = mem[rd_ptr_r];
       assign valid      = !empty;
-      assign full       = wr_ptr_r + 1'b1 == rd_ptr_r;
+      assign full       = (wr_ptr_r + 1'b1 == rd_ptr_r);
       assign empty      = (rd_ptr_r == wr_ptr_r);
     end
   endgenerate

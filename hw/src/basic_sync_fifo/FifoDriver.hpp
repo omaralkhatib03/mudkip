@@ -39,7 +39,16 @@ public:
         if (!this->isControllerEmpty())
         {
             driveFifoIntf(this->front());
-            this->pop();
+
+            if (!this->theDevice->full)
+            {
+                this->pop();
+            }
+            else 
+            {
+                driveFifoIntf({this->front().din, this->front().shift_in, (bool) (rand() % 2)});            
+            }
+
             return;
         }
         reset();

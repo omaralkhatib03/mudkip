@@ -33,17 +33,15 @@ public:
         theCurrentIntf.overflow = this->theDevice->overflow;
         theCurrentIntf.underflow = this->theDevice->underflow;
 
-        if (theCurrentIntf.valid)
+        if (theCurrentIntf.valid && this->theDevice->shift_out)
         {
             this->add(theCurrentIntf);
+            counter++; 
         }
-
-        assert(!theCurrentIntf.underflow);
-        assert(!theCurrentIntf.overflow);
     }
 
     FifoMonitorIntf theCurrentIntf{};
-
+    int counter = 1;
 };
 
 

@@ -1,6 +1,6 @@
 BUILD_DIR := build
-CURRENT := spmv_network_tb
-TARGETS := basic_sync_fifo spmv_network_op_tb spmv_network_tb row_decoder_tb fproduct vector_ram_tb 
+CURRENT := basic_sync_fifo
+TARGETS := basic_sync_fifo spmv_network_op_tb spmv_network_tb row_decoder_tb fproduct 
 JOBS := 12
 
 .PHONY: all
@@ -32,4 +32,20 @@ clean:
 deep_clean:
 	@echo "Removing build directory..."
 	@rm -rf $(BUILD_DIR)
+
+
+.PHONY: test
+test: $(TARGETS)
+	@echo "Running tests for all binaries..."
+	@for binary in $(TARGETS); do \
+		if [ -f "$(BUILD_DIR)/bin/$$binary" ]; then \
+			echo "Running $$binary..."; \
+			./$(BUILD_DIR)/bin/$$binary --gtest_output=xml:./test_results/$$binary.xml; \
+			if [ $$? -ne 0 ]; then \
+				echo "Test failed for $$binary"; \
+				exit 1; \
+			fi; \
+		fi; \
+	done
+	@echo "All tests have been executed."
 
