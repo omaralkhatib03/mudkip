@@ -24,9 +24,12 @@ $(TARGETS): configure
 clean:
 	@echo "Cleaning build artifacts (keeping build directory)..."
 	rm -rf waves
+	rm -rf libgmp.so.11
+	rm -rf libmpfr.so.4
 	@cmake --build $(BUILD_DIR) --target clean
 
 .PHONY: deep_clean
 deep_clean:
 	@echo "Removing build directory..."
 	@rm -rf $(BUILD_DIR)
+
