@@ -1,0 +1,32 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Verilator setup (already in your workflow)
+    - uses: drom/action-verilator@ac3f30ed6c9f1c9530bb68192396c117c14419d0
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake g++ make libgmp-dev libmpfr-dev
+
+    - name: Configure CMake (create build directory)
+      run: make configure
+
+    - name: Build all targets
+      run: make all
+
+    - name: Run Google Tests
+      run: make test
