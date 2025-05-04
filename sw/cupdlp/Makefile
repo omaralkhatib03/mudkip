@@ -92,8 +92,16 @@ package/sd_card.img: $(PLC_BIN) $(BUILD_DIR)/emconfig.json $(INI) $(BUILD_DIR)/h
 $(BUILD_DIR)/emconfig.json:
 	emconfigutil --platform $(PLATFROM) --nd 1 --od $(BUILD_DIR)
 
-clean:
-	rm -rf build vadd* app.exe *json *csv *log *summary _x package *.json .run .Xil .ipcache *.jou
-
 $(BUILD_DIR):
 	mkdir -p $@
+
+.PHONY: clean upload
+
+clean:
+	rm -rf build vadd* app.exe *json *csv *log *summary _x package *.json .run .Xil .ipcache *.jou *.xclbin
+
+
+upload: package/sd_card.img
+	cp package/sd_card/BOOT.BIN package/sd_card/boot.scr package/sd_card/Image /media/oa321/boot/ 
+
+	cp package/sd_card/xrt.ini package/sd_card/plc package/sd_card/afiro.mps package/sd_card/a.xclbin /media/oa321/root/home/root/
