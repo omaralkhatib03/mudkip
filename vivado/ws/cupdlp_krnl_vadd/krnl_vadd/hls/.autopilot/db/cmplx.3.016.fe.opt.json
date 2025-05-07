@@ -1,0 +1,62 @@
+{
+  "0": {
+    "basicblocks": 1,
+    "calls": "2 4 1 3",
+    "file": "krnl_vadd.cpp",
+    "fileloc": 132,
+    "instructions": 29,
+    "name": "krnl_vadd",
+    "total_instructions": 113
+  },
+  "1": {
+    "basicblocks": 4,
+    "calls": "",
+    "file": "krnl_vadd.cpp",
+    "fileloc": 99,
+    "instructions": 20,
+    "loads": {
+      "L": 2
+    },
+    "name": "compute_add",
+    "stores": {
+      "L": 1
+    },
+    "total_instructions": 20
+  },
+  "2": {
+    "basicblocks": 4,
+    "calls": "",
+    "file": "krnl_vadd.cpp",
+    "fileloc": 91,
+    "instructions": 21,
+    "name": "load_input",
+    "stores": {
+      "L": 1
+    },
+    "total_instructions": 21
+  },
+  "3": {
+    "basicblocks": 4,
+    "calls": "",
+    "file": "krnl_vadd.cpp",
+    "fileloc": 112,
+    "instructions": 22,
+    "loads": {
+      "L": 1
+    },
+    "name": "store_result",
+    "total_instructions": 22
+  },
+  "4": {
+    "basicblocks": 4,
+    "calls": "",
+    "file": "krnl_vadd.cpp",
+    "fileloc": 91,
+    "instructions": 21,
+    "name": "load_input",
+    "stores": {
+      "L": 1
+    },
+    "total_instructions": 21
+  }
+}

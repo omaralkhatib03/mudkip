@@ -1,0 +1,6 @@
+{
+  "workspaceRoot": "/home/oa321/work/mudkip/vivado/ws",
+  "mapping": {
+    "cupdlp_krnl_vadd/krnl_vadd.cpp": "cupdlp_krnl_vadd"
+  }
+}

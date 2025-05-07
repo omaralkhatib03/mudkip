@@ -1,0 +1,17 @@
+Begin Function 'store_result'
+
+RTL state condition: (1'b1 == ap_CS_fsm_state1)
+# ST_1
+local size_read <> <integer> <FifoRead> 'read' <>
+reg: size_read_reg_131[31:0] lv
+
+local trunc_ln114_1 <partselect_114> <integer> <> 'partselect' <krnl_vadd.cpp:114>
+trunc_ln114_1 /home/oa321/work/mudkip/vivado/ws/cupdlp_krnl_vadd/krnl_vadd.cpp:114
+reg: trunc_ln114_1_reg_136[61:0] lv
+
+
+RTL state condition: (1'b1 == ap_CS_fsm_state3)
+# ST_3
+
+End Function 'store_result'
+
