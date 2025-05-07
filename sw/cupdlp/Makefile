@@ -2,7 +2,7 @@ TARGET=sw_emu
 BUILD_DIR=build
 
 CFG_FILE=vsva1902.cfg
-PLATFROM?=xilinx_vck190_base_202410_1 
+PLATFROM?=mudkip 
 SYSROOT=/opt/xilinx/SDK/sysroots/cortexa72-cortexa53-xilinx-linux/
 ROOTFS=/opt/xilinx/xilinx-versal-common-v2024.1/
 INI=xrt.ini

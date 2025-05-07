@@ -7,8 +7,6 @@ data
 # notes
 # release*
 # debug*
-vivado
-vivado/*
 __pycache__
 .vscode
 .cache/
