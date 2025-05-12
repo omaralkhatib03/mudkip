@@ -4,7 +4,7 @@
 #include "cupdlp_defs.h"
 #include "cupdlp_utils.h"
 #if !(CUPDLP_CPU)
-#include "cuda/cupdlp_cudalinalg.cuh"
+// Add Vitis BLAS ??  
 #endif
 
 void ScatterCol(CUPDLPwork *w, cupdlp_int iCol, cupdlp_float multiplier,

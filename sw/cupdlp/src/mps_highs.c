@@ -182,10 +182,10 @@ cupdlp_retcode main(int argc, char **argv) {
   CUPDLPwork *w = cupdlp_NULL;
   CUPDLP_INIT_ZERO(w, 1);
 #if !(CUPDLP_CPU)
-  cupdlp_float cuda_prepare_time = getTimeStamp();
-  CHECK_CUSPARSE(cusparseCreate(&w->cusparsehandle));
-  CHECK_CUBLAS(cublasCreate(&w->cublashandle));
-  cuda_prepare_time = getTimeStamp() - cuda_prepare_time;
+  // cupdlp_float cuda_prepare_time = getTimeStamp();
+  // CHECK_CUSPARSE(cusparseCreate(&w->cusparsehandle));
+  // CHECK_CUBLAS(cublasCreate(&w->cublashandle));
+  // cuda_prepare_time = getTimeStamp() - cuda_prepare_time;
 #endif
 
   CUPDLP_CALL(problem_create(&prob));
@@ -203,7 +203,7 @@ cupdlp_retcode main(int argc, char **argv) {
   memcpy(csc_cpu->colMatIdx, csc_idx, nnz_pdlp * sizeof(int));
   memcpy(csc_cpu->colMatElem, csc_val, nnz_pdlp * sizeof(double));
 #if !(CUPDLP_CPU)
-  csc_cpu->cuda_csc = NULL;
+  // csc_cpu->cuda_csc = NULL;
 #endif
 
   cupdlp_float scaling_time = getTimeStamp();
@@ -230,7 +230,7 @@ cupdlp_retcode main(int argc, char **argv) {
 #if !(CUPDLP_CPU)
   w->timers->AllocMem_CopyMatToDeviceTime += alloc_matrix_time;
   w->timers->CopyVecToDeviceTime += copy_vec_time;
-  w->timers->CudaPrepareTime = cuda_prepare_time;
+  // w->timers->CudaPrepareTime = cuda_prepare_time;
 #endif
 
   cupdlp_printf("--------------------------------------------------\n");
@@ -334,7 +334,7 @@ exit_cleanup:
   csc_clear_host(csc_cpu);
   problem_clear(prob);
   #if !(CUPDLP_CPU)
-    CHECK_CUDA(cudaDeviceReset())
+    // CHECK_CUDA(cudaDeviceReset())
   #endif
 
   return retcode;

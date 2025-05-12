@@ -9,8 +9,6 @@
 #endif
 
 #if !(CUPDLP_CPU)
-#include "cuda/cupdlp_cuda_kernels.cuh"
-#include "cuda/cupdlp_cudalinalg.cuh"
 #endif
 #ifdef __cplusplus
 extern "C" {
@@ -122,7 +120,6 @@ struct CUPDLP_CUDA_DENSE_VEC {
   cupdlp_int len;
   cupdlp_float *data;
 #if !(CUPDLP_CPU)
-  cusparseDnVecDescr_t cuda_vec;
 #endif
 };
 
@@ -140,8 +137,7 @@ struct CUPDLP_CSR_MATRIX {
   cupdlp_int *rowMatIdx;
   cupdlp_float *rowMatElem;
 #if !(CUPDLP_CPU)
-  // Pointers to GPU vectors
-  cusparseSpMatDescr_t cuda_csr;
+  // Pointers to FPGA (IDK If I need yet) 
 #endif
 };
 
@@ -156,8 +152,7 @@ struct CUPDLP_CSC_MATRIX {
   // Used to aviod implementing NormInf on cuda
   cupdlp_float MatElemNormInf;
 #if !(CUPDLP_CPU)
-  // Pointers to GPU vectors
-  cusparseSpMatDescr_t cuda_csc;
+  // Pointers to FPGA (IDK If I need yet) 
 #endif
 };
 
@@ -403,12 +398,7 @@ struct CUPDLP_WORK {
   cupdlp_float *rowScale;
   cupdlp_float *colScale;
 #if !(CUPDLP_CPU)
-  // CUDAmv *MV;
-  cusparseHandle_t cusparsehandle;
-  void *dBuffer_csc_ATy;
-  void *dBuffer_csr_Ax;
-  // cusparseDnVecDescr_t vecbuffer;
-  cublasHandle_t cublashandle;
+  // Vitismv *MV; ?? (Maybe)
 #endif
 };
 
