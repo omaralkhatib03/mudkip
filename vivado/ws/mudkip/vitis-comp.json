@@ -37,6 +37,17 @@
         "bootDirectory": "/home/oa321/work/mudkip/vivado/pfm/mudkip-lin/images/linux",
         "sdCardDirectory": "",
         "customDtb": "/home/oa321/work/mudkip/vivado/pfm/mudkip-lin/images/linux/system.dtb"
+      },
+      {
+        "name": "mudkip_aie",
+        "displayName": "mudkip_aie",
+        "qemuData": "/home/oa321/work/mudkip/vivado/ws/mudkip/resources/mudkip_aie/qemu",
+        "qemuArgsFile": "/home/oa321/work/mudkip/vivado/ws/mudkip/resources/mudkip_aie/qemu/qemu_args.txt",
+        "pmcQemuArgsFile": "/home/oa321/work/mudkip/vivado/ws/mudkip/resources/mudkip_aie/qemu/pmc_args.txt",
+        "processor": "ai_engine",
+        "cpuType": "ai_engine",
+        "cpuInstance": "ai_engine",
+        "os": "aie_runtime"
       }
     ],
     "emptyToolchainConfiguration": []

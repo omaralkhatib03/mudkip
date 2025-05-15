@@ -1,0 +1,620 @@
+/*
+
+AMD Vivado v2024.1 (64-bit) [Major: 2024, Minor: 1]
+SW Build: 5076996 on Wed May 22 18:36:09 MDT 2024
+IP Build: 5075265 on Wed May 22 21:45:21 MDT 2024
+IP Build: 5075265 on Wed May 22 21:45:21 MDT 2024
+
+Process ID (PID): 78865
+License: Customer
+Mode: GUI Mode
+
+Current time: 	Wed May 14 14:10:42 BST 2025
+Time zone: 	Greenwich Mean Time (Europe/London)
+
+OS: Ubuntu
+OS Version: 6.8.0-59-generic
+OS Architecture: amd64
+Available processors (cores): 32
+LSB Release Description: DISTRIB_ID=Ubuntu
+
+Display: 0
+Screen size: 1920x1200
+Local screen bounds: x = 70, y = 27, width = 1850, height = 1173
+Screen resolution (DPI): 100
+Available screens: 1
+Default font: family=Dialog,name=Dialog,style=plain,size=12
+Scale size: 12
+OS font scaling: 100%
+Anti-Alias Enabled: false
+
+Java version: 	21.0.1 64-bit
+JavaFX version: 21.0.1
+Java home: 	/opt/Xilinx/Vivado/2024.1/tps/lnx64/jre21.0.1_12
+Java executable: 	/opt/Xilinx/Vivado/2024.1/tps/lnx64/jre21.0.1_12/bin/java
+Java arguments: 	[-Dsun.java2d.pmoffscreen=false, -Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2, -Dsun.java2d.xrender=false, -Dsun.java2d.uiScale.enabled=false, -Dswing.aatext=true, -XX:-UsePerfData, -Djdk.map.althashing.threshold=512, -XX:StringTableSize=4072, -XX:+UseStringDeduplication, -XX:MaxGCPauseMillis=200, -XX:+ParallelRefProcEnabled, --add-opens=java.desktop/javax.swing.plaf.synth=ALL-UNNAMED, --add-opens=java.base/java.nio=ALL-UNNAMED, --add-opens=java.desktop/sun.swing=ALL-UNNAMED, --add-opens=java.desktop/javax.swing=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.tree=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.synth=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED, --add-opens=java.desktop/javax.swing=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.tree=ALL-UNNAMED, --add-opens=java.desktop/java.awt.event=ALL-UNNAMED, --add-exports=java.desktop/javax.swing.plaf.synth=ALL-UNNAMED, --add-exports=java.base/java.nio=ALL-UNNAMED, --add-exports=java.desktop/sun.swing=ALL-UNNAMED, --add-exports=java.desktop/javax.swing=ALL-UNNAMED, --add-exports=java.desktop/javax.swing.tree=ALL-UNNAMED, --add-exports=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED, --add-exports=java.desktop/sun.swing=ALL-UNNAMED, --add-exports=java.desktop/sun.swing.table=ALL-UNNAMED, --add-exports=java.desktop/sun.swing.plaf.synth=ALL-UNNAMED, --add-exports=java.desktop/sun.awt.shell=ALL-UNNAMED, --add-exports=java.base/sun.security.action=ALL-UNNAMED, --add-exports=java.desktop/sun.font=ALL-UNNAMED, --add-opens=java.desktop/sun.awt.X11=ALL-UNNAMED, -XX:NewSize=80m, -XX:MaxNewSize=80m, -Xms512m, -Xmx4072m, -Xss10m, -Xrs]
+Java initial memory (-Xms): 	512 MB
+Java maximum memory (-Xmx):	 3 GB
+
+User name: 	oa321
+User home directory: /home/oa321
+User working directory: /home/oa321/work/mudkip/vivado
+User country: 	US
+User language: 	en
+User locale: 	en_US
+
+RDI_BASEROOT: /opt/Xilinx/Vivado
+HDI_APPROOT: /opt/Xilinx/Vivado/2024.1
+RDI_DATADIR: /opt/Xilinx/SharedData/2024.1/data:/opt/Xilinx/Vivado/2024.1/data
+RDI_BINDIR: /opt/Xilinx/Vivado/2024.1/bin
+
+Vivado preferences file: /home/oa321/.Xilinx/Vivado/2024.1/vivado.xml
+Vivado preferences directory: /home/oa321/.Xilinx/Vivado/2024.1/
+Vivado layouts directory: /home/oa321/.Xilinx/Vivado/2024.1/data/layouts
+PlanAhead jar file: 	/opt/Xilinx/Vivado/2024.1/lib/classes/planAhead.jar
+Vivado log file: 	/home/oa321/work/mudkip/vivado/vivado.log
+Vivado journal file: 	/home/oa321/work/mudkip/vivado/vivado.jou
+Engine tmp dir: 	./.Xil/Vivado-78865-gambhir
+Non-Default Parameters:	[]
+
+Xilinx & AMD Environment Variables
+--------------------------------------------------------------------------------------------
+GNOME_SHELL_SESSION_MODE: ubuntu
+RDI_APPROOT: /opt/Xilinx/Vivado/2024.1
+RDI_BASEROOT: /opt/Xilinx/Vivado
+RDI_BINROOT: /opt/Xilinx/Vivado/2024.1/bin
+RDI_BUILD: yes
+RDI_DATADIR: /opt/Xilinx/SharedData/2024.1/data:/opt/Xilinx/Vivado/2024.1/data
+RDI_INSTALLROOT: /opt/Xilinx
+RDI_INSTALLVER: 2024.1
+RDI_JAVA_PLATFORM: 
+RDI_JAVA_VERSION: 21.0.1_12
+RDI_LIBDIR: /opt/Xilinx/Vivado/2024.1/lib/lnx64.o/Ubuntu/22:/opt/Xilinx/Vivado/2024.1/lib/lnx64.o/Ubuntu:/opt/Xilinx/Vivado/2024.1/lib/lnx64.o
+RDI_OPT_EXT: .o
+RDI_PATCHROOT: 
+RDI_PLATFORM: lnx64
+RDI_PREPEND_PATH: /opt/Xilinx/Vitis/2024.1/bin:/opt/Xilinx/Vivado/2024.1/ids_lite/ISE/bin/lin64
+RDI_PROG: /opt/Xilinx/Vivado/2024.1/bin/unwrapped/lnx64.o/vivado
+RDI_SESSION_INFO: /home/oa321/work/mudkip/vivado:gambhir_1747228232_78825
+RDI_SHARED_DATA: /opt/Xilinx/SharedData/2024.1/data
+RDI_TPS_ROOT: /opt/Xilinx/Vivado/2024.1/tps/lnx64
+RDI_USE_JDK21: True
+SHELL: /bin/bash
+XILINX: /opt/Xilinx/Vivado/2024.1/ids_lite/ISE
+XILINX_DSP: /opt/Xilinx/Vivado/2024.1/ids_lite/ISE
+XILINX_HLS: /opt/Xilinx/Vitis_HLS/2024.1
+XILINX_PLANAHEAD: /opt/Xilinx/Vivado/2024.1
+XILINX_SDK: /opt/Xilinx/Vitis/2024.1
+XILINX_VITIS: /opt/Xilinx/Vitis/2024.1
+XILINX_VIVADO: /opt/Xilinx/Vivado/2024.1
+XILINX_VIVADO_HLS: /opt/Xilinx/Vivado/2024.1
+XILINX_XRT: /opt/xilinx/xrt
+
+
+GUI allocated memory:	512 MB
+GUI max memory:		4,072 MB
+Engine allocated memory: 1,630 MB
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+
+*/
+
+// TclEventType: START_GUI
+// Tcl Message: start_gui 
+// HMemoryUtils.trashcanNow. Engine heap size: 1,649 MB. GUI used memory: 70 MB. Current time: 5/14/25, 2:10:43 PM BST
+selectList(PAResourceQtoS.SyntheticaGettingStartedView_RECENT_PROJECTS, "/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.xpr", 0); // b.c (PAResourceQtoS.SyntheticaGettingStartedView_RECENT_PROJECTS)
+// [GUI Memory]: 134 MB (+137833kb) [00:00:48]
+// [Engine Memory]: 1,634 MB (+1561967kb) [00:00:48]
+// Opening Vivado Project: /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.xpr. Version: Vivado v2024.1 
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: FLOW_ADDED
+// TclEventType: MSGMGR_MOVEMSG
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: FILE_SET_NEW
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_CURRENT
+// TclEventType: PROJECT_DASHBOARD_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: COMPOSITE_FILE_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_NEW
+// [Engine Memory]: 1,794 MB (+81705kb) [00:00:51]
+// [GUI Memory]: 141 MB (+181kb) [00:00:52]
+// [Engine Memory]: 2,236 MB (+369955kb) [00:00:52]
+// [GUI Memory]: 149 MB (+985kb) [00:00:52]
+// Tcl Message: open_project /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.xpr 
+// Tcl Message: Scanning sources... Finished scanning sources 
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1704] No user IP repositories specified INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/Xilinx/Vivado/2024.1/data/ip'. 
+// [GUI Memory]: 157 MB (+991kb) [00:00:52]
+// [GUI Memory]: 166 MB (+1172kb) [00:00:52]
+// Project name: marshtomp; location: /home/oa321/work/mudkip/vivado/marshtomp; part: xcvc1902-vsva2197-2MP-e-S
+dismissDialog("Open Project"); // bj (Open Project Progress)
+// HMemoryUtils.trashcanNow. Engine heap size: 2,356 MB. GUI used memory: 94 MB. Current time: 5/14/25, 2:11:28 PM BST
+// [Engine Memory]: 2,356 MB (+8633kb) [00:00:53]
+// Tcl Message: update_compile_order -fileset sources_1 
+selectTreeTable(PAResourceEtoH.ExpRunTreePanel_EXP_RUN_TREE_TABLE, "Out-of-Context Module Runs ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; ", 2, "Out-of-Context Module Runs", 0, true); // ar (PAResourceEtoH.ExpRunTreePanel_EXP_RUN_TREE_TABLE) - Node
+selectTreeTable(PAResourceEtoH.ExpRunTreePanel_EXP_RUN_TREE_TABLE, "ext_platform ;  ; Running Submodule Runs ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; Wed May 14 12:07:21 BST 2025 ; 01:09:39 ;  ;  ;  ;  ; ", 3, "ext_platform", 0, true); // ar (PAResourceEtoH.ExpRunTreePanel_EXP_RUN_TREE_TABLE) - Node
+selectTreeTable(PAResourceEtoH.ExpRunTreePanel_EXP_RUN_TREE_TABLE, "ext_platform ;  ; Running Submodule Runs ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; Wed May 14 12:07:21 BST 2025 ; 01:09:39 ;  ;  ;  ;  ; ", 3, "ext_platform", 0, true, false, false, false, true, false); // ar (PAResourceEtoH.ExpRunTreePanel_EXP_RUN_TREE_TABLE) - Popup Trigger - Node
+selectTab((HResource) null, (HResource) null, "Log", 2); // aa
+selectTree(PAResourceItoN.LogPanel_LOG_NAVIGATOR, "[Out-of-Context Module Runs, ext_platform]", 17, false); // a (PAResourceItoN.LogPanel_LOG_NAVIGATOR)
+selectTree(PAResourceItoN.LogPanel_LOG_NAVIGATOR, "[Out-of-Context Module Runs, ext_platform]", 18, false); // a (PAResourceItoN.LogPanel_LOG_NAVIGATOR)
+selectTree(PAResourceItoN.LogPanel_LOG_NAVIGATOR, "[Out-of-Context Module Runs, ext_platform]", 19, false); // a (PAResourceItoN.LogPanel_LOG_NAVIGATOR)
+selectTree(PAResourceItoN.LogPanel_LOG_NAVIGATOR, "[Out-of-Context Module Runs, ext_platform]", 22, false); // a (PAResourceItoN.LogPanel_LOG_NAVIGATOR)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, IP Integrator, Open Block Design]", 7, false); // g (PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, Flow Navigator Tree)
+// Run Command: PAResourceCommand.PACommandNames_OPEN_BLOCK_DESIGN
+// TclEventType: LOAD_FEATURE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: LOAD_FEATURE
+// TclEventType: COMPOSITE_FILE_CHANGE
+// Tcl Message: open_bd_design {/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.srcs/sources_1/bd/ext_platform/ext_platform.bd} 
+// Tcl Message: Reading block design file </home/oa321/work/mudkip/vivado/marshtomp/marshtomp.srcs/sources_1/bd/ext_platform/ext_platform.bd>... Adding component instance block -- xilinx.com:ip:versal_cips:3.4 - CIPS_0 
+// TclEventType: COMPOSITE_FILE_CHANGE
+selectButton(RDIResource.ProgressDialog_BACKGROUND, "Background", "Open Block Design"); // a (RDIResource.ProgressDialog_BACKGROUND)
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_LOCK_CHANGE
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: RSB_LOCK_CHANGE
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: RSB_LOCK_CHANGE
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: RSB_LOCK_CHANGE
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: RSB_LOCK_CHANGE
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: RSB_LOCK_CHANGE
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: RSB_LOCK_CHANGE
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: RSB_LOCK_CHANGE
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// HMemoryUtils.trashcanNow. Engine heap size: 3,222 MB. GUI used memory: 93 MB. Current time: 5/14/25, 2:11:53 PM BST
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_OPEN_DIAGRAM
+// [Engine Memory]: 3,263 MB (+827264kb) [00:01:21]
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_OPEN_DIAGRAM
+// Tcl Message: INFO: [Device 21-403] Loading part xcvc1902-vsva2197-2MP-e-S 
+runTclCommand (PAResourceOtoP.PAViews_SYSTEM, "unselect_objects"); // fU (PAResourceOtoP.PAViews_SYSTEM, PlanAheadTabSystem)
+closeView(PAResourceOtoP.PAViews_PROJECT_SUMMARY, "Project Summary"); // u (PAResourceOtoP.PAViews_PROJECT_SUMMARY, PlanAheadTabProject Summary)
+// Tcl Message: open_bd_design: Time (s): cpu = 00:00:12 ; elapsed = 00:00:10 . Memory (MB): peak = 9455.734 ; gain = 542.613 ; free physical = 51648 ; free virtual = 56656 
+dismissDialog("Open Block Design"); // bj (Open Block Design Progress)
+// WARNING: HTimer (Open addressing views timer) is taking 193ms to process. Increasing delay to 1300 ms.
+// [GUI Memory]: 179 MB (+4784kb) [00:01:25]
+// TclEventType: FILE_SET_CHANGE
+// [Engine Memory]: 3,495 MB (+72196kb) [00:01:26]
+// Elapsed time: 42 seconds
+selectTab((HResource) null, (HResource) null, "Messages", 1); // aa
+selectTab((HResource) null, (HResource) null, "Log", 2); // aa
+selectTree(PAResourceItoN.LogPanel_LOG_NAVIGATOR, "[Out-of-Context Module Runs, ext_platform]", 17, false); // a (PAResourceItoN.LogPanel_LOG_NAVIGATOR)
+selectButton(PAResourceQtoS.SyntheticaStateMonitor_CANCEL, "Cancel"); // g (PAResourceQtoS.SyntheticaStateMonitor_CANCEL, Cancel)
+selectButton("OptionPane.button", "Cancel Process", "Cancel Out-of-Context"); // JButton (OptionPane.button)
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// Tcl Message: reset_run ext_platform_system_cache_0_0_synth_1 
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+selectButton(RDIResource.ProgressDialog_BACKGROUND, "Background", "Resetting Runs"); // a (RDIResource.ProgressDialog_BACKGROUND)
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: reset_run ext_platform_system_cache_1_0_synth_1 
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: reset_run ext_platform_system_cache_2_0_synth_1 
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: reset_run ext_platform_system_cache_0_1_synth_1 
+dismissDialog("Resetting Runs"); // bj (Resetting Runs Progress)
+// Elapsed time: 65 seconds
+selectTree(PAResourceItoN.LogPanel_LOG_NAVIGATOR, "[Out-of-Context Module Runs, ext_platform]", 19, false); // a (PAResourceItoN.LogPanel_LOG_NAVIGATOR)
+selectTree(PAResourceItoN.LogPanel_LOG_NAVIGATOR, "[Out-of-Context Module Runs, ext_platform]", 18, false); // a (PAResourceItoN.LogPanel_LOG_NAVIGATOR)
+selectTree(PAResourceItoN.LogPanel_LOG_NAVIGATOR, "[Out-of-Context Module Runs, ext_platform]", 17, false); // a (PAResourceItoN.LogPanel_LOG_NAVIGATOR)
+selectTab((HResource) null, (HResource) null, "Sources", 0); // aa
+selectTab(PAResourceEtoH.FileSetView_TABBED_PANE, (HResource) null, "IP Sources", 1); // g (PAResourceEtoH.FileSetView_TABBED_PANE, SourcesView)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Block Designs, ext_platform]", 1, true, false, false, false, true, false); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE) - Popup Trigger - Node
+selectMenu(PAResourceCommand.PACommandNames_OPEN_FILE_WITH, "Open With"); // am (PAResourceCommand.PACommandNames_OPEN_FILE_WITH, Open With)
+selectMenuItem(PAResourceCommand.PACommandNames_GENERATE_COMPOSITE_FILE, "Generate Output Products..."); // ap (PAResourceCommand.PACommandNames_GENERATE_COMPOSITE_FILE, generate_composite_file_menu)
+// Run Command: PAResourceCommand.PACommandNames_GENERATE_COMPOSITE_FILE
+selectButton(PAResourceQtoS.SimpleOutputProductDialog_GENERATE_OUTPUT_PRODUCTS_IMMEDIATELY, "Generate", "Generate Output Products"); // a (PAResourceQtoS.SimpleOutputProductDialog_GENERATE_OUTPUT_PRODUCTS_IMMEDIATELY)
+// Tcl Message: generate_target all [get_files  /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.srcs/sources_1/bd/ext_platform/ext_platform.bd] 
+// Tcl Message: INFO: [BD 41-1637] Generated targets are already up-to-date for block design 'ext_platform' - hence not re-generating. 
+// Tcl Message: catch { config_ip_cache -export [get_ips -all ext_platform_system_cache_0_0] } 
+// Tcl Message: INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_system_cache_0_0 
+// Tcl Message: catch { config_ip_cache -export [get_ips -all ext_platform_system_cache_1_0] } 
+// Tcl Message: INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_system_cache_1_0 
+// Tcl Message: catch { config_ip_cache -export [get_ips -all ext_platform_system_cache_2_0] } 
+// Tcl Message: INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_system_cache_2_0 
+// Tcl Message: catch { config_ip_cache -export [get_ips -all ext_platform_system_cache_0_1] } 
+// Tcl Message: INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_system_cache_0_1 
+// Tcl Message: export_ip_user_files -of_objects [get_files /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.srcs/sources_1/bd/ext_platform/ext_platform.bd] -no_script -sync -force -quiet 
+// Tcl Message: create_ip_run [get_files -of_objects [get_fileset sources_1] /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.srcs/sources_1/bd/ext_platform/ext_platform.bd] 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: COMPOSITE_FILE_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: COMPOSITE_FILE_CHANGE
+// Tcl Message: launch_runs ext_platform_system_cache_0_0_synth_1 ext_platform_system_cache_0_1_synth_1 ext_platform_system_cache_1_0_synth_1 ext_platform_system_cache_2_0_synth_1 -jobs 16 
+// Tcl Message: INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_system_cache_0_0 INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_system_cache_0_1 INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_system_cache_1_0 INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_system_cache_2_0 
+// TclEventType: RUN_LAUNCH
+// TclEventType: COMPOSITE_FILE_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: COMPOSITE_FILE_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// TclEventType: PROJECT_CHANGE
+// TclEventType: PACKAGER_MESSAGE_RESET
+selectButton(RDIResource.ProgressDialog_BACKGROUND, "Background", "Managing Output Products"); // a (RDIResource.ProgressDialog_BACKGROUND)
+// 'bz' command handler elapsed time: 3 seconds
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// HMemoryUtils.trashcanNow. Engine heap size: 3,564 MB. GUI used memory: 109 MB. Current time: 5/14/25, 2:14:08 PM BST
+dismissDialog("Managing Output Products"); // bj (Managing Output Products Progress)
+selectButton("OptionPane.button", "OK", "Generate Output Products"); // JButton (OptionPane.button)
+// Elapsed Time for: 'L.f': 02m:50s
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// WARNING: HEventQueue.dispatchEvent() is taking  3349 ms.
+// HMemoryUtils.trashcanNow. Engine heap size: 3,692 MB. GUI used memory: 126 MB. Current time: 5/14/25, 2:17:23 PM BST
+// [Engine Memory]: 3,692 MB (+22675kb) [00:07:15]
+// [GUI Memory]: 189 MB (+1403kb) [00:08:23]
+// [GUI Memory]: 201 MB (+1831kb) [00:10:39]
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: FILE_SET_CHANGE
+// [GUI Memory]: 221 MB (+10879kb) [00:12:54]
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// HMemoryUtils.trashcanNow. Engine heap size: 3,750 MB. GUI used memory: 135 MB. Current time: 5/14/25, 2:23:38 PM BST
+// Elapsed time: 792 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Platform Setup", 2); // o (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectButton((HResource) null, "Platform Setup_PlatformInterfaceView.ToggleShowEnabledInterfaces"); // v (Platform Setup_PlatformInterfaceView.ToggleShowEnabledInterfaces): TRUE
+selectTreeTable(PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE, "S01_AXI ; true ; S_AXI_ACP ; CACHE1 ; ", 1, "S01_AXI", 0, false); // g (PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE)
+selectTreeTable(PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE, "S02_AXI ; true ; S_AXI_ACP ; CACHE2 ; ", 2, "S02_AXI", 0, false); // g (PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE)
+selectTreeTable(PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE, "S03_AXI ; true ; S_AXI_ACP ; CACHE3 ; ", 3, "S03_AXI", 0, false); // g (PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE)
+selectTreeTable(PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE, "S04_AXI ; true ; S_AXI_ACP ; CACHE4 ; ", 4, "S04_AXI", 0, false); // g (PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE)
+selectTreeTable(PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE, "S05_AXI ; true ; S_AXI_ACP ; CACHE5 ; ", 5, "S05_AXI", 0, false); // g (PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE)
+selectTreeTable(PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE, "S06_AXI ; true ; S_AXI_ACP ; CACHE6 ; ", 6, "S06_AXI", 0, false); // g (PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE)
+selectTreeTable(PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE, "S07_AXI ; true ; S_AXI_ACP ; CACHE7 ; ", 7, "S07_AXI", 0, false); // g (PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE)
+selectTreeTable(PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE, "S08_AXI ; true ; S_AXI_ACP ; CACHE8 ; ", 8, "S08_AXI", 0, false); // g (PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE)
+selectTreeTable(PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE, "S01_AXI ; true ; S_AXI_ACP ; CACHE1 ; ", 1, "S01_AXI", 0, false); // g (PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE)
+selectTreeTable(PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE, "S02_AXI ; true ; S_AXI_ACP ; CACHE2 ; ", 2, "S02_AXI", 0, false); // g (PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE)
+selectTreeTable(PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE, "S03_AXI ; true ; S_AXI_ACP ; CACHE3 ; ", 3, "S03_AXI", 0, false); // g (PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE)
+selectTreeTable(PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE, "S04_AXI ; true ; S_AXI_ACP ; CACHE4 ; ", 4, "S04_AXI", 0, false); // g (PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE)
+selectTreeTable(PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE, "S05_AXI ; true ; S_AXI_ACP ; CACHE5 ; ", 5, "S05_AXI", 0, false); // g (PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE)
+selectTreeTable(PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE, "S05_AXI ; true ; S_AXI_ACP ; CACHE5 ; ", 5, "S05_AXI", 0, false); // g (PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE)
+selectTreeTable(PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE, "S06_AXI ; true ; S_AXI_ACP ; CACHE6 ; ", 6, "S06_AXI", 0, false); // g (PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE)
+selectTreeTable(PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE, "S07_AXI ; true ; S_AXI_ACP ; CACHE7 ; ", 7, "S07_AXI", 0, false); // g (PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE)
+selectTreeTable(PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE, "S08_AXI ; true ; S_AXI_ACP ; CACHE8 ; ", 8, "S08_AXI", 0, false); // g (PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE)
+selectTreeTable(PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE, "S01_AXI ; true ; S_AXI_ACP ; CACHE1 ; ", 1, "S01_AXI", 0, false); // g (PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE)
+selectTreeTable(PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE, "S02_AXI ; true ; S_AXI_ACP ; CACHE2 ; ", 2, "S02_AXI", 0, false); // g (PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE)
+selectTreeTable(PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE, "S03_AXI ; true ; S_AXI_ACP ; CACHE3 ; ", 3, "S03_AXI", 0, false); // g (PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE)
+selectTreeTable(PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE, "S04_AXI ; true ; S_AXI_ACP ; CACHE4 ; ", 4, "S04_AXI", 0, false); // g (PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE)
+selectTreeTable(PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE, "S05_AXI ; true ; S_AXI_ACP ; CACHE5 ; ", 5, "S05_AXI", 0, false); // g (PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE)
+selectTreeTable(PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE, "S05_AXI ; true ; S_AXI_ACP ; CACHE5 ; ", 5, "S05_AXI", 0, false); // g (PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE)
+selectTreeTable(PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE, "S06_AXI ; true ; S_AXI_ACP ; CACHE6 ; ", 6, "S06_AXI", 0, false); // g (PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE)
+selectTreeTable(PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE, "S07_AXI ; true ; S_AXI_ACP ; CACHE7 ; ", 7, "S07_AXI", 0, false); // g (PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE)
+selectTreeTable(PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE, "S08_AXI ; true ; S_AXI_ACP ; CACHE8 ; ", 8, "S08_AXI", 0, false); // g (PAResourceOtoP.PlatformInterfacesTablePanel_PLATFORM_INTERFACES_TABLE)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "NoC", 1); // o (PlanAheadTabBaseWorkspace_JideTabbedPane)
+// HMemoryUtils.trashcanNow. Engine heap size: 3,756 MB. GUI used memory: 139 MB. Current time: 5/14/25, 2:27:46 PM BST
+selectGraphicalView(PAResourceOtoP.PAViews_NOC, 66702, 14722); // w (PAResourceOtoP.PAViews_NOC)
+// HMemoryUtils.trashcanNow. Engine heap size: 3,756 MB. GUI used memory: 140 MB. Current time: 5/14/25, 2:27:53 PM BST
+// Elapsed time: 11 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "System", 0); // o (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "NoC", 1); // o (PlanAheadTabBaseWorkspace_JideTabbedPane)
+// HMemoryUtils.trashcanNow. Engine heap size: 3,756 MB. GUI used memory: 140 MB. Current time: 5/14/25, 2:28:01 PM BST
+// HMemoryUtils.trashcanNow. Engine heap size: 3,756 MB. GUI used memory: 141 MB. Current time: 5/14/25, 2:28:02 PM BST
+// HMemoryUtils.trashcanNow. Engine heap size: 3,756 MB. GUI used memory: 141 MB. Current time: 5/14/25, 2:28:03 PM BST
+// HMemoryUtils.trashcanNow. Engine heap size: 3,756 MB. GUI used memory: 140 MB. Current time: 5/14/25, 2:28:03 PM BST
+// HMemoryUtils.trashcanNow. Engine heap size: 3,756 MB. GUI used memory: 142 MB. Current time: 5/14/25, 2:28:03 PM BST
+// HMemoryUtils.trashcanNow. Engine heap size: 3,756 MB. GUI used memory: 142 MB. Current time: 5/14/25, 2:28:04 PM BST
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "System", 0); // o (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "NoC", 1); // o (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectGraphicalView(PAResourceOtoP.PAViews_NOC, 49345, 19459); // w (PAResourceOtoP.PAViews_NOC)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Platform Setup", 2); // o (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectButton(PAResourceOtoP.PlatformSetupView_EXPORT_PLATFORM, "Export Platform..."); // a (PAResourceOtoP.PlatformSetupView_EXPORT_PLATFORM)
+// Run Command: PAResourceCommand.PACommandNames_EXPORT_PLATFORM_PRE_SYNTH
+// Tcl (Dont Echo) Command: 'get_property pfm_name [get_files -all {/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.srcs/sources_1/bd/ext_platform/ext_platform.bd}]'
+selectButton("NEXT", "Next >", "Export Hardware Platform"); // JButton (NEXT)
+selectRadioButton(PAResourceEtoH.ExportHwPlatformWizard_HARDWARE_AND_HARDWARE_EMULATION, "Hardware and hardware emulation. The project sources will be used for both hardware and hardware emulation."); // b (PAResourceEtoH.ExportHwPlatformWizard_HARDWARE_AND_HARDWARE_EMULATION)
+// HMemoryUtils.trashcanNow. Engine heap size: 3,798 MB. GUI used memory: 144 MB. Current time: 5/14/25, 2:28:23 PM BST
+selectButton("NEXT", "Next >", "Export Hardware Platform"); // JButton (NEXT)
+selectButton("NEXT", "Next >", "Export Hardware Platform"); // JButton (NEXT)
+selectButton(PAResourceEtoH.ExportHwPlatformWizard_TCL_HOOKS, "Set up Vitis Tcl hooks...", "Export Hardware Platform"); // a (PAResourceEtoH.ExportHwPlatformWizard_TCL_HOOKS)
+setText(PAResourceEtoH.ExportHwPlatformWizard_SELECT_TCL_SCRIPT, (String) null); // aj (PAResourceEtoH.ExportHwPlatformWizard_SELECT_TCL_SCRIPT)
+selectButton(RDIResource.BaseDialog_CANCEL, "Cancel", "Tcl Hooks"); // a (RDIResource.BaseDialog_CANCEL)
+dismissDialog("Tcl Hooks"); // k.f.b (dialog2)
+selectButton(PAResourceEtoH.ExportHwPlatformWizard_SET_UP_VITIS_CONSTRAINT_FILES, "Set up Vitis constraint files...", "Export Hardware Platform"); // a (PAResourceEtoH.ExportHwPlatformWizard_SET_UP_VITIS_CONSTRAINT_FILES)
+selectButton(RDIResource.BaseDialog_CANCEL, "Cancel", "Vitis Constraint Files"); // a (RDIResource.BaseDialog_CANCEL)
+dismissDialog("Vitis Constraint Files"); // k.f.a (dialog3)
+selectButton("NEXT", "Next >", "Export Hardware Platform"); // JButton (NEXT)
+setText(PAResourceEtoH.ExportHwPlatformWizard_XSA_FILE_NAME, "marshtomp", true); // R (PAResourceEtoH.ExportHwPlatformWizard_XSA_FILE_NAME)
+selectButton("NEXT", "Next >", "Export Hardware Platform"); // JButton (NEXT)
+selectButton("BACK", "< Back", "Export Hardware Platform"); // JButton (BACK)
+setText(PAResourceEtoH.ExportHwPlatformWizard_EXPORT_DIRECTORY, "/home/oa321/work/mudkip/vivado/pfm", true); // aj (PAResourceEtoH.ExportHwPlatformWizard_EXPORT_DIRECTORY)
+selectButton("NEXT", "Next >", "Export Hardware Platform"); // JButton (NEXT)
+setText(PAResourceEtoH.ExportHwPlatformWizard_XSA_FILE_NAME, "marshtomp_noc"); // R (PAResourceEtoH.ExportHwPlatformWizard_XSA_FILE_NAME)
+selectButton("NEXT", "Next >", "Export Hardware Platform"); // JButton (NEXT)
+// Tcl (Dont Echo) Command: 'get_property pfm_name [get_files -all {/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.srcs/sources_1/bd/ext_platform/ext_platform.bd}]'
+// Tcl Command: 'set_property pfm_name {xilinx.com:vck190:marshtomp:1.0} [get_files -all {/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.srcs/sources_1/bd/ext_platform/ext_platform.bd}]'
+// Tcl (Dont Echo) Command: 'get_property platform.description [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.design_intent.embedded [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.design_intent.datacenter [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.design_intent.server_managed [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.design_intent.external_host [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.default_output_type [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.platform_state [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.uses_pr [current_project]'
+// Tcl Command: 'set_property platform.uses_pr {false} [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.run.steps.init_design.tcl.pre [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.run.steps.init_design.tcl.post [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.run.steps.opt_design.tcl.pre [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.run.steps.opt_design.tcl.post [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.run.steps.power_opt_design.tcl.pre [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.run.steps.power_opt_design.tcl.post [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.run.steps.place_design.tcl.pre [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.run.steps.place_design.tcl.post [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.run.steps.post_place_power_opt_design.tcl.pre [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.run.steps.post_place_power_opt_design.tcl.post [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.run.steps.phys_opt_design.tcl.pre [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.run.steps.phys_opt_design.tcl.post [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.run.steps.route_design.tcl.pre [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.run.steps.route_design.tcl.post [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.run.steps.post_route_phys_opt_design.tcl.pre [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.run.steps.post_route_phys_opt_design.tcl.post [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.pre_sys_link_overlay_tcl_hook [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.post_sys_link_overlay_tcl_hook [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.synth_constraint_files [current_project]'
+// Tcl (Dont Echo) Command: 'get_property platform.impl_constraint_files [current_project]'
+selectButton("FINISH", "Finish", "Export Hardware Platform"); // JButton (FINISH)
+// 'j' command handler elapsed time: 35 seconds
+// Tcl Message: set_property pfm_name {xilinx.com:vck190:marshtomp:1.0} [get_files -all {/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.srcs/sources_1/bd/ext_platform/ext_platform.bd}] 
+// Tcl Message: set_property platform.uses_pr {false} [current_project] 
+dismissDialog("Export Hardware Platform"); // k (dialog1)
+// Tcl Message: write_hw_platform -force -file /home/oa321/work/mudkip/vivado/pfm/marshtomp_noc.xsa 
+// Tcl Message: INFO: [Project 1-1918] Creating Hardware Platform: /home/oa321/work/mudkip/vivado/pfm/marshtomp_noc.xsa ... 
+// [Engine Memory]: 3,951 MB (+78704kb) [00:18:21]
+// HMemoryUtils.trashcanNow. Engine heap size: 3,961 MB. GUI used memory: 141 MB. Current time: 5/14/25, 2:28:58 PM BST
+// TclEventType: MSGMGR_REFRESH_MSG
+// TclEventType: PROJECT_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: MSGMGR_REFRESH_MSG
+// Tcl Message: BD design is already open /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.srcs/sources_1/bd/ext_platform/ext_platform.bd 
+// Tcl Message: INFO: [Project 1-1932] Generating a pre-synthesis device image (.pdi file) and writing it to the platform file /home/oa321/work/mudkip/vivado/pfm/marshtomp_noc.xsa. 
+// Tcl Message: Generating Hard Block Files 
+selectButton(RDIResource.ProgressDialog_BACKGROUND, "Background", "Export Hardware Platform"); // a (RDIResource.ProgressDialog_BACKGROUND)
+selectButton(RDIResource.ProgressDialog_BACKGROUND, "Background", "Export Hardware Platform"); // a (RDIResource.ProgressDialog_BACKGROUND)
+// TclEventType: LOAD_FEATURE
+// Tcl Message: INFO: [Hsi 55-2053] elapsed time for repository (/opt/Xilinx/Vivado/2024.1/data/embeddedsw) loading 0 seconds 
+// Tcl Message: /opt/Xilinx/Vivado/2024.1/gnu/microblaze/lin 
+// Tcl Message: Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilnvm_v3_3/src Compiling XilNvm Library Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilsecure_v5_3/src Compiling XilSecure Library 
+// Tcl Message: Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilloader_v2_0/src Compiling XilLoader Library 
+// TclEventType: LOAD_FEATURE
+// Tcl Message: lto-wrapper.real: warning: using serial compilation of 6 LTRANS jobs lto-wrapper.real: note: see the '-flto' option documentation for more information 
+// Tcl Message: INFO: [Project 1-1179] Generating /home/oa321/work/mudkip/vivado/.Xil/Vivado-78865-gambhir/xsa/marshtomp_noc_presynth.bif file ... 
+// HMemoryUtils.trashcanNow. Engine heap size: 3,991 MB. GUI used memory: 142 MB. Current time: 5/14/25, 2:29:18 PM BST
+// Tcl Message:   ****** Bootgen v2024.1   **** Build date : May 19 2024-13:05:05     ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.     ** Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.   [INFO]   : Bootimage generated successfully  
+// Tcl Message: INFO: [Project 1-1945] The Hardware Platform can be used for Hardware and Hardware Emulation INFO: [Project 1-1941] Successfully created Hardware Platform: /home/oa321/work/mudkip/vivado/pfm/marshtomp_noc.xsa 
+// Tcl Message: write_hw_platform: Time (s): cpu = 00:00:33 ; elapsed = 00:00:30 . Memory (MB): peak = 10052.691 ; gain = 147.512 ; free physical = 52885 ; free virtual = 56230 
+// Elapsed time: 21 seconds
+dismissDialog("Export Hardware Platform"); // bj (Export Hardware Platform Progress)
+// Elapsed Time for: 'L.f': 17m:58s
+// Elapsed Time for: 'L.f': 18m:00s
+// [GUI Memory]: 239 MB (+7738kb) [00:22:00]

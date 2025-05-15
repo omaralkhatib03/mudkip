@@ -1,14 +1,14 @@
-2025-05-07 20:53:21,397 - [DEBUG] Using xsct from : /opt/xilinx/petalinux/components/xsct/bin/xsct
-2025-05-07 20:53:21,397 - [INFO] Getting Platform info from HW file
-2025-05-07 20:53:21,397 - [DEBUG] Using the soc_family specified by user:versal
-2025-05-07 20:53:21,445 - [DEBUG] Hardware Configuration:
-2025-05-07 20:53:21,445 - [DEBUG] MACHINE     = "None"
-2025-05-07 20:53:21,445 - [DEBUG] DEVICE_ID   = "xcvc1902"
-2025-05-07 20:53:21,445 - [DEBUG] SOC_FAMILY  = "versal"
-2025-05-07 20:53:21,445 - [DEBUG] SOC_VARIANT = "ai-core"
-2025-05-07 20:53:21,480 - [INFO] Silentconfig project
-2025-05-07 20:53:21,480 - [DEBUG] Running CMD: yes "" | env KCONFIG_CONFIG=/home/oa321/work/mudkip/vivado/pfm/mudkip-lin/project-spec/configs/config conf /home/oa321/work/mudkip/vivado/pfm/mudkip-lin/project-spec/configs/configs/Kconfig
-2025-05-07 20:53:21,483 - [DEBUG] *
+2025-05-14 20:45:41,152 - [DEBUG] Using xsct from : /opt/xilinx/petalinux/components/xsct/bin/xsct
+2025-05-14 20:45:41,152 - [INFO] Getting Platform info from HW file
+2025-05-14 20:45:41,152 - [DEBUG] Using the soc_family specified by user:versal
+2025-05-14 20:45:41,206 - [DEBUG] Hardware Configuration:
+2025-05-14 20:45:41,206 - [DEBUG] MACHINE     = "None"
+2025-05-14 20:45:41,206 - [DEBUG] DEVICE_ID   = "xcvc1902"
+2025-05-14 20:45:41,206 - [DEBUG] SOC_FAMILY  = "versal"
+2025-05-14 20:45:41,206 - [DEBUG] SOC_VARIANT = "ai-core"
+2025-05-14 20:45:41,247 - [INFO] Silentconfig project
+2025-05-14 20:45:41,247 - [DEBUG] Running CMD: yes "" | env KCONFIG_CONFIG=/home/oa321/work/mudkip/vivado/pfm/mudkip-lin/project-spec/configs/config conf /home/oa321/work/mudkip/vivado/pfm/mudkip-lin/project-spec/configs/configs/Kconfig
+2025-05-14 20:45:41,250 - [DEBUG] *
 * PetaLinux System Configuration
 *
 VERSAL Configuration (SYSTEM_VERSAL) [Y/?] y
@@ -286,9 +286,9 @@ user layer 0 (USER_LAYER_0) []
 #
 # configuration written to /home/oa321/work/mudkip/vivado/pfm/mudkip-lin/project-spec/configs/config
 #
-2025-05-07 20:53:21,516 - [INFO] Silentconfig rootfs
-2025-05-07 20:53:21,516 - [DEBUG] Running CMD: yes "" | env KCONFIG_CONFIG=/home/oa321/work/mudkip/vivado/pfm/mudkip-lin/project-spec/configs/rootfs_config conf /home/oa321/work/mudkip/vivado/pfm/mudkip-lin/project-spec/configs/rootfsconfigs/Kconfig
-2025-05-07 20:53:21,521 - [DEBUG] *
+2025-05-14 20:45:41,283 - [INFO] Silentconfig rootfs
+2025-05-14 20:45:41,283 - [DEBUG] Running CMD: yes "" | env KCONFIG_CONFIG=/home/oa321/work/mudkip/vivado/pfm/mudkip-lin/project-spec/configs/rootfs_config conf /home/oa321/work/mudkip/vivado/pfm/mudkip-lin/project-spec/configs/rootfsconfigs/Kconfig
+2025-05-14 20:45:41,287 - [DEBUG] *
 * Configuration
 *
 *
@@ -3830,4 +3830,4 @@ Add Users to Sudo users (ADD_USERS_TO_SUDOERS) [petalinux]
 #
 # configuration written to /home/oa321/work/mudkip/vivado/pfm/mudkip-lin/project-spec/configs/rootfs_config
 #
-2025-05-07 20:53:21,523 - [INFO] Generating configuration files
+2025-05-14 20:45:41,289 - [INFO] Generating configuration files

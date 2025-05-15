@@ -1,7 +1,18 @@
 create_project base_hw /home/oa321/work/mudkip/vivado/base_hw -part xcvc1902-vsva2197-2MP-e-S
 set_property board_part xilinx.com:vck190:part0:3.3 [current_project]
 create_bd_design "ext_platform" -mode batch
-instantiate_example_design -template xilinx.com:design:ext_platform:1.0 -design ext_platform -options { Clock_Options.VALUE {clk_out1 200.000 0 true} Include_AIE.VALUE true Include_BDC.VALUE false Include_DDR.VALUE true IRQS.VALUE 15}
+
+instantiate_example_design -template xilinx.com:design:ext_platform:1.0 -design ext_platform \
+-options { \
+  Clock_Options.VALUE {clk_out1 200.000 0 true clk_out2 225.000 1 false clk_out3 300.000 2 false} \
+  Include_AIE.VALUE true \
+  Include_BDC.VALUE false \
+  Include_DDR.VALUE true \
+  IRQS.VALUE 15 \
+}
+
+set_property PFM.CLOCK {clk_out1 {id "0" is_default "true" proc_sys_reset "/proc_sys_reset_0" status "scalable" freq_hz "200000000"} clk_out2 {id "1" is_default "false" proc_sys_reset "/proc_sys_reset_1" status "fixed" freq_hz "225000000"} clk_out3 {id "2" is_default "false" proc_sys_reset "/proc_sys_reset_2" status "fixed" freq_hz "300000000"}} [get_bd_cells /clk_wizard_0]
+
 update_compile_order -fileset sources_1
 generate_target all [get_files  /home/oa321/work/mudkip/vivado/base_hw/base_hw.srcs/sources_1/bd/ext_platform/ext_platform.bd]
 catch { config_ip_cache -export [get_ips -all ext_platform_axi_intc_0_0] }

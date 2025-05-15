@@ -1,6 +1,13 @@
 {
   "workspaceRoot": "/home/oa321/work/mudkip/vivado/ws",
   "mapping": {
-    "cupdlp_krnl_vadd/krnl_vadd.cpp": "cupdlp_krnl_vadd"
+    "/home/oa321/work/mudkip/sw/hls/HiHiSpMV/src/kernels/xlx_definitions.hpp": "spmv",
+    "/home/oa321/work/mudkip/sw/hls/HiHiSpMV/src/kernels/csr_spmv_repl_3_1.cpp": "spmv",
+    "cupdlp_krnl_vadd/krnl_vadd.cpp": "cupdlp_krnl_vadd",
+    "spmv/tb.cpp": "spmv",
+    "/home/oa321/work/mudkip/sw/hls/HiHiSpMV/src/kernels/spmv.cpp": "spmv",
+    "/home/oa321/work/mudkip/sw/hls/HiHiSpMV/src/kernels/csr_spmv_repl_3_2.cpp": "spmv",
+    "/home/oa321/work/mudkip/sw/hls/HiHiSpMV/src/kernels/csr_spmv_repl_2.cpp": "spmv",
+    "/home/oa321/work/mudkip/sw/hls/HiHiSpMV/src/kernels/csr_spmv_repl_1.cpp": "spmv"
   }
 }
