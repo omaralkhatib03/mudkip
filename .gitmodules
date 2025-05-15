@@ -4,6 +4,6 @@
 [submodule "sw/cupdlp/Vitis_Libraries"]
 	path = sw/cupdlp/Vitis_Libraries
 	url = https://github.com/Xilinx/Vitis_Libraries
-[submodule "sw/cupdlp/HiHiSpMV"]
-	path = sw/cupdlp/HiHiSpMV
+[submodule "sw/hls/HiHiSpMV"]
+	path = sw/hls/HiHiSpMV
 	url = https://github.com/pc2/HiHiSpMV
