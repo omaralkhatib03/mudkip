@@ -1,4 +1,5 @@
 #include "utils.hpp"
+#include "BSLogger.hpp"
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -149,11 +150,52 @@ void spMvCsC(int *c_beg, int *r_idx, data_t *val, int n, data_t * x, data_t ** o
 
 void spMvCsR(int *r_beg, int *c_idx, data_t *c_val, int m, data_t * x, data_t * out)
 {
+    LOG_INIT_CERR();
+
+    // log(LOG_DEBUG) << "Entering CSR Compute\n";
+
     for (int i = 0; i < m; i++)
     {
+        // log(LOG_DEBUG) << "M: " << i <<" \n";
         for (int j = r_beg[i]; j < r_beg[i + 1]; j++)
         {
+            // log(LOG_DEBUG) << "j: " << j <<" \n";
             out[i] += c_val[j] * x[c_idx[j]]; // Multiply and Accumulate (MAC)
         }
     }
+}
+
+int randInRange(int min, int max) {
+    return min + rand() % (max - min);
+}
+
+void makeRandomRowPtrs(int *r_idx, int m, int nnz) {
+    int non_zero_per_row = nnz / m;
+    int remainder = nnz % m;
+    
+    r_idx[0] = 0;
+    
+    for (int i = 1; i < m; i++) {
+        r_idx[i] = r_idx[i - 1] + non_zero_per_row + (i <= remainder ? 1 : 0);
+    }
+    
+    r_idx[m] = nnz;
+}
+
+void makeRandomCidx(int *c_idx, int nnz, int n) {
+    for (int i = 0; i < nnz; i++) {
+        c_idx[i] = randInRange(0, n);
+    }
+}
+
+void makeRandomValues(data_t *vals, int nnz) {
+    for (int i = 0; i < nnz; i++) {
+        vals[i] = static_cast<data_t>(randInRange(1, 100));
+    }
+}
+
+void makeRandomCsr(int *r_idx, int *c_idx, data_t *vals, int m, int n, int nnz) {
+    makeRandomRowPtrs(r_idx, m, nnz);
+    makeRandomCidx(c_idx, nnz, n);
+    makeRandomValues(vals, nnz);
 }

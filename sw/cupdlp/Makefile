@@ -7,11 +7,12 @@ SYSROOT=/home/oa321/work/mudkip/vivado/pfm/mudkip-lin/SDK/sysroots/cortexa72-cor
 ROOTFS=/home/oa321/work/mudkip/vivado/pfm/mudkip-lin/images/linux
 INI=xrt.ini
 XSA=/home/oa321/work/mudkip/vivado/pfm/base_mudkip_hw.xsa
+XRT_INCLUDE=/opt/xilinx/xrt/include/
 
 CFLAGS = -Wall -g -I./cupdlp -fPIC -I$(VERSAL_HIGHS_HOME)/include/highs
 CFLAGS += -Wno-comment -Wno-unused-variable -Wno-unused-label -Wno-unused-result
 CFLAGS += -Wno-unused-but-set-variable
-CXXFLAGS += -std=c++11 $(CFLAGS)
+CXXFLAGS += -std=c++17 $(CFLAGS)
 SRC_DIR = ./src
 
 CUPDLP_DIR = $(SRC_DIR)/cupdlp
@@ -45,17 +46,17 @@ ifeq ($(DEBUG), 1)
 	CFLAGS += -DCUPDLP_DEBUG=1
 endif
 
-$(BUILD_DIR)/%.o: $(CUPDLP_DIR)/%.c $(CUPDLP_HDRS) 
+$(BUILD_DIR)/%.o: $(CUPDLP_DIR)/%.c $(CUPDLP_HDRS) $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(wildcard *.h) $(CUPDLP_HDRS)
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(wildcard *.h) $(CUPDLP_HDRS) $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@ -L$(BUILD_DIR) $(CUPDLP_LIB) $(HIGHS_LIBS)
 
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp $(wildcard *.h) $(CUPDLP_HDRS) 
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp $(wildcard *.h) $(CUPDLP_HDRS) $(BUILD_DIR)
 	$(CXX) $(CFLAGS) -c $< -o $@ -L$(BUILD_DIR) $(CUPDLP_LIB) $(HIGHS_LIBS)
 
-$(PLC_BIN): $(OBJECTS) $(WRAPPER_OBJS) $(PLC_OBJS)
-	$(CC) $(CFLAGS) -I/usr/include/xrt -o $@ $^  	\
+$(PLC_BIN):  $(OBJECTS) $(WRAPPER_OBJS) $(PLC_OBJS)
+	$(CC) $(CFLAGS) -o $@ $^  	\
 		$(LDFLAGS) $(HIGHS_LIBS)  					\
 		-lOpenCL -lpthread -lstdc++ 				\
 		-lm -lrt -lz
@@ -93,18 +94,18 @@ $(BUILD_DIR)/$(TB): $(UTILS) $(HLS_SOURCES)
 $(XCLBIN): $(BUILD_DIR)/$(SPMV_KERNEL).xo
 	$(VPP) -l -t $(TARGET) --config $(CFG_FILE) -o $@ $< -I$(HLS_DIR) -R2
 
-$(BUILD_DIR)/$(CL_TB): $(CLTB_SRC) $(XCLBIN) $(UTILS)
-	$(CXX) -g -I$(HLS_DIR) -I/usr/include/xrt -lOpenCL -std=c++17 -o $@ $(UTILS) $(CLTB_SRC)
+$(BUILD_DIR)/$(CL_TB): $(CLTB_SRC) $(UTILS)
+	$(CXX) -g -I$(HLS_DIR) -I$(XRT_INCLUDE) \
+	-lOpenCL -lxrt_coreutil -o $@ $(UTILS) $(CLTB_SRC)
 
 $(BUILD_DIR):
 	mkdir -p $@
-
 
 ####################################################
 ##############        Package        ###############
 ####################################################
 
-$(BUILD_DIR)/package/sd_card.img: $(PLC_BIN) $(BUILD_DIR)/$(CL_TB) $(BUILD_DIR)/emconfig.json $(INI)
+$(BUILD_DIR)/package/sd_card.img: $(PLC_BIN) $(XCLBIN) $(BUILD_DIR)/emconfig.json $(INI)
 	v++ -p -t $(TARGET) --platform $(PLATFROM) ./_x/link/int/spmv.xclbin -o $(BUILD_DIR)/kernel.xclbin \
 		--package.out_dir $(BUILD_DIR)/package \
 		--package.rootfs ${ROOTFS}/rootfs.ext4 \
@@ -120,7 +121,7 @@ log-clean:
 	rm -rf *.log 
 
 clean:
-	rm -rf build vadd* app.exe *json *csv *log *summary _x package *.json .run .Xil .ipcache *.jou *.xclbin
+	rm -rf vadd* app.exe *json *csv *log *summary _x package *.json .run .Xil .ipcache *.jou *.xclbin
 
 # upload: package/sd_card.img
 	# cp package/sd_card/BOOT.BIN package/sd_card/boot.scr package/sd_card/Image /media/oa321/boot/ 

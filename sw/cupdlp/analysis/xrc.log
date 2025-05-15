@@ -1,0 +1,14 @@
+Wed May 14 23:07:24 2025: Server was asked to start on port: '33215'
+Wed May 14 23:07:24 2025: Server is using token UUID: '0385faaf-1bbe-473c-afb3-e50f13bd6cd2'
+Wed May 14 23:07:24 2025: Attempting to start server on port '33215'
+Wed May 14 23:07:24 2025: XRC main fifo: created main fifo '/tmp/xrcmain0385faaf-1bbe-473c-afb3-e50f13bd6cd2', fd read = 11
+Wed May 14 23:07:24 2025: Running Rule Check Server
+Wed May 14 23:07:24 2025: Version 1.6.1
+Wed May 14 23:07:25 2025: Rule Check Server: Accepted socket connection from client
+Wed May 14 23:07:25 2025: EXCHANGE_TOKEN received, server token: 0385faaf-1bbe-473c-afb3-e50f13bd6cd2, passed token: 0385faaf-1bbe-473c-afb3-e50f13bd6cd2
+Wed May 14 23:19:35 2025: STOP_SERVER received, server token: 0385faaf-1bbe-473c-afb3-e50f13bd6cd2, passed token: 0385faaf-1bbe-473c-afb3-e50f13bd6cd2
+Wed May 14 23:19:35 2025: Socket received request to stop server.
+Wed May 14 23:19:35 2025: SERVER: destructor for server bound to port 33215
+Wed May 14 23:19:35 2025: XRC main fifo: Good unlink of /tmp/xrcmain0385faaf-1bbe-473c-afb3-e50f13bd6cd2
+Wed May 14 23:19:35 2025: Server exiting with status 0.
+Wed May 14 23:19:35 2025: Closing log file.

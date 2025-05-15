@@ -30,7 +30,7 @@ def moveProblem(problem: str) -> None:
 def runProblem(problem: str) -> None: 
     logger.debug(f'Running {problem}')
     problem_path = f'{problem}.mps'
-    cmd = f'./run.sh {problem_path}'
+    cmd = f'./scripts/run.sh {problem_path}'
     subprocess.run(['bash', '-c', cmd])
 
 def deleteProblem(problem: str) -> None:
@@ -133,7 +133,7 @@ def main():
 
     logger.info(f'Total Normal Problems: {len(normal_problems)}')
     logger.info(f'Stress Problems: {stress_problems}')
-    
+
     logger.info('Running Normal Problems ...')
     runProblems(normal_problems)
 

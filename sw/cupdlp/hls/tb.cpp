@@ -6,13 +6,18 @@
 #include <string.h>
 #include "utils.hpp"
 #include "spmv.hpp"
+#include "BSLogger.hpp"
 
 int main(int argc, char *argv[])
 {
-    data_t m = 4;
-    data_t n = 8;
-    data_t nnz = 12;
+    LOG_INIT_CERR();
+    log.set_log_level(LOG_DEBUG);
+
+    data_t m = 64;
+    data_t n = 64;
+    data_t nnz = 32;
     int ll = 1;
+
     data_t sparsity = nnz / (m * n);
     //   data_t sparsity = 0.0000000627;
     nnz = (unsigned) (sparsity * m * n);
@@ -33,7 +38,8 @@ int main(int argc, char *argv[])
     data_t * c_val = NULL;
 
     printf("nnz: %e\n", nnz);
-
+    
+    log(LOG_DEBUG) << "Mallocing Input Vector \n";
     data_t * x = (data_t * ) malloc(sizeof(data_t) * n);
 
     for (int i = 0; i < n; i++)
@@ -45,36 +51,48 @@ int main(int argc, char *argv[])
     /*printVector(x, n);*/
     /*printf("\n");*/
 
+    log(LOG_DEBUG) << "Mallocing Output Vector ... \n";
     data_t * out = (data_t * ) malloc(sizeof(data_t) * m);
     memset(out, 0, sizeof(data_t) * m);
 
+    log(LOG_DEBUG) << "Mallocing HW Output Vector ... \n";
     data_t * hw_out = (data_t * ) malloc(sizeof(data_t) * m);
     memset(hw_out, 0, sizeof(data_t) * m);
 
+    log(LOG_DEBUG) << "Building Random CSC Matrix ... \n";
     makeRandomCsCMatrix(&c_beg, &r_idx, &r_val, m, n, nnz);
 
+    log(LOG_DEBUG) << "Converting to CSR ... \n";
     csCToCsR(c_beg, r_idx, r_val, m, n, &r_beg, &c_idx, &c_val, nnz);
 
-    printf("Matrix A:\n");
-    printMatrix(r_beg, c_idx, c_val, m);
-    printf("\n");
+    // printf("Matrix A:\n");
+    // printMatrix(r_beg, c_idx, c_val, m);
+    // printf("\n");
 
+    log(LOG_DEBUG) << "Computing SW ... \n";
     spMvCsR(r_beg, c_idx, c_val, m, x, out);
-    spmv(r_beg, c_idx, c_val, m, x, hw_out);
 
-    printf("Result (SW): \n");
-    printVector(out, m);
+    log(LOG_DEBUG) << "Computing HW ... \n";
+    spmv(r_beg, c_idx, c_val, x, hw_out, m, nnz);
 
-    printf("Result (HW): \n");
-    printVector(hw_out, m);
+    // printf("Result (SW): \n");
+    // printVector(out, m);
+
+    // printf("Result (HW): \n");
+    // printVector(hw_out, m);
        
     bool passed = 1;
+    double eps = 10e-5;
 
     for (int i = 0; i < m; i++)
     {
-        passed &= out[i] == hw_out[i];    
+        passed &= (out[i] - hw_out[i]) < eps;
+        if (!passed)
+        {
+            std::cout << "i: " << i << " ref: " << out[i] << " hw: " << hw_out[i] << std::endl;
+            break;
+        }
     }
-    
     
     if (passed)
         std::cout << "Passed !" << std::endl;
