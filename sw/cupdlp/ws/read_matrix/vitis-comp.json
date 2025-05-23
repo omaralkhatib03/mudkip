@@ -1,0 +1,11 @@
+{
+  "name": "read_matrix",
+  "type": "HLS",
+  "configuration": {
+    "componentType": "HLS",
+    "configFiles": [
+      "hls_config.cfg"
+    ],
+    "work_dir": "read_matrix"
+  }
+}

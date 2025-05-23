@@ -1,0 +1,81 @@
+{
+  "modelVersion": "1.0",
+  "projectName": "SPMV",
+  "platform": "/home/oa321/work/mudkip/vivado/ws/swampert/export/swampert/swampert.xpfm",
+  "externalComponentRefs": [
+    "csr_repl_3_1",
+    "csr_repl_1",
+    "csr_repl_3_2",
+    "csr_repl_2",
+    "cltb_host"
+  ],
+  "components": [
+    {
+      "name": "package",
+      "type": "PACKAGE",
+      "configuration": {
+        "componentType": "PACKAGE",
+        "packageConfigurations": [
+          {
+            "configId": "package.default",
+            "options": []
+          }
+        ],
+        "configFiles": [
+          "package/package.cfg"
+        ]
+      }
+    },
+    {
+      "name": "hw_link",
+      "type": "HW_LINKER",
+      "configuration": {
+        "componentType": "HW_LINKER",
+        "containers": [
+          {
+            "name": "spmv",
+            "kernels": {
+              "csr_spmv_repl_3": "csr_repl_3_1",
+              "csr_spmv_repl_4": "csr_repl_3_2",
+              "csr_spmv_repl_1": "csr_repl_1",
+              "csr_spmv_repl_2": "csr_repl_2"
+            },
+            "userXoKernels": {},
+            "aieComponents": [],
+            "userAieLibadfList": [],
+            "cfgFiles": [
+              "hw_link/spmv-link.cfg"
+            ]
+          }
+        ],
+        "vppLinkerConfigurations": [
+          {
+            "configId": "hw_link.default",
+            "options": [],
+            "containerOptions": {},
+            "buildDatafiles": []
+          }
+        ]
+      }
+    }
+  ],
+  "buildConfigurations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "supportedTargets": [
+        "SW_EMU",
+        "HW_EMU",
+        "HW"
+      ],
+      "componentConfigMap": {
+        "package": "package.default",
+        "hw_link": "hw_link.default"
+      }
+    }
+  ],
+  "activeBuildConfigId": "default",
+  "hostMode": "x86",
+  "isDirty": true,
+  "applicationFlow": "EMBEDDED_ACCEL"
+}
