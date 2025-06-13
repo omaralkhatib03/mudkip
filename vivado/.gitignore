@@ -1,3 +1,11 @@
+
 base_hw
 marshtomp
 .Xil
+ip_repo
+*.xsa
+*.log
+*.jou
+*.hwdef
+swampert
+

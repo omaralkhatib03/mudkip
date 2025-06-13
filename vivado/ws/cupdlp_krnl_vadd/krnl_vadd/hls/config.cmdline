@@ -1,3 +1,0 @@
-relativeroot=/home/oa321/work/mudkip/vivado/ws/cupdlp_krnl_vadd
-original_argv=-c --mode hls --config /home/oa321/work/mudkip/vivado/ws/cupdlp_krnl_vadd/hls_config.cfg --work_dir krnl_vadd 
-

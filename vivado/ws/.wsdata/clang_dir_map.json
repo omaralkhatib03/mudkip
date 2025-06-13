@@ -1,13 +1,8 @@
 {
   "workspaceRoot": "/home/oa321/work/mudkip/vivado/ws",
   "mapping": {
-    "/home/oa321/work/mudkip/sw/hls/HiHiSpMV/src/kernels/xlx_definitions.hpp": "spmv",
-    "/home/oa321/work/mudkip/sw/hls/HiHiSpMV/src/kernels/csr_spmv_repl_3_1.cpp": "spmv",
-    "cupdlp_krnl_vadd/krnl_vadd.cpp": "cupdlp_krnl_vadd",
-    "spmv/tb.cpp": "spmv",
-    "/home/oa321/work/mudkip/sw/hls/HiHiSpMV/src/kernels/spmv.cpp": "spmv",
-    "/home/oa321/work/mudkip/sw/hls/HiHiSpMV/src/kernels/csr_spmv_repl_3_2.cpp": "spmv",
-    "/home/oa321/work/mudkip/sw/hls/HiHiSpMV/src/kernels/csr_spmv_repl_2.cpp": "spmv",
-    "/home/oa321/work/mudkip/sw/hls/HiHiSpMV/src/kernels/csr_spmv_repl_1.cpp": "spmv"
+    "aie_sys_design_s2mm/src/s2mm.cpp": "aie_sys_design_s2mm",
+    "aie_sys_design_mm2s/src/mm2s.cpp": "aie_sys_design_mm2s",
+    "aie_sys_design_polar_clip/src/polar_clip.cpp": "aie_sys_design_polar_clip"
   }
 }

@@ -1,294 +1,36 @@
-2025-05-15 14:26:09,622 - [DEBUG] Using xsct from : /opt/xilinx/petalinux/components/xsct/bin/xsct
-2025-05-15 14:26:09,622 - [INFO] Getting Platform info from HW file
-2025-05-15 14:26:09,622 - [DEBUG] Using the soc_family specified by user:versal
-2025-05-15 14:26:09,672 - [DEBUG] Hardware Configuration:
-2025-05-15 14:26:09,672 - [DEBUG] MACHINE     = "None"
-2025-05-15 14:26:09,672 - [DEBUG] DEVICE_ID   = "xcvc1902"
-2025-05-15 14:26:09,672 - [DEBUG] SOC_FAMILY  = "versal"
-2025-05-15 14:26:09,672 - [DEBUG] SOC_VARIANT = "ai-core"
-2025-05-15 14:26:09,711 - [INFO] Silentconfig project
-2025-05-15 14:26:09,711 - [DEBUG] Running CMD: yes "" | env KCONFIG_CONFIG=/home/oa321/work/mudkip/vivado/pfm/mudkip-lin/project-spec/configs/config conf /home/oa321/work/mudkip/vivado/pfm/mudkip-lin/project-spec/configs/configs/Kconfig
-2025-05-15 14:26:09,714 - [DEBUG] *
-* PetaLinux System Configuration
-*
-VERSAL Configuration (SYSTEM_VERSAL) [Y/?] y
-Subsystem Architecture (NO EDIT!)
-> 1. aarch64 (SUBSYSTEM_ARCH_AARCH64)
-  2. arm (SUBSYSTEM_ARCH_ARM)
-  3. microblaze (SUBSYSTEM_ARCH_MICROBLAZE)
-choice[1-3?]: *
-* Linux Components Selection
-*
-PLM (SUBSYSTEM_COMPONENT_PLM) [Y/n/?] 
-PSM Firmware (SUBSYSTEM_COMPONENT_PSM_FIRMWARE) [Y/n/?] 
-u-boot
-> 1. u-boot-xlnx (SUBSYSTEM_COMPONENT_U__BOOT_NAME_U__BOOT__XLNX)
-  2. remote (SUBSYSTEM_COMPONENT_U__BOOT_NAME_REMOTE)
-  3. ext-local-src (SUBSYSTEM_COMPONENT_U__BOOT_NAME_EXT__LOCAL__SRC)
-choice[1-3]: trusted-firmware-arm
-> 1. trusted-firmware-arm (SUBSYSTEM_COMPONENT_TRUSTED__FIRMWARE__ARM_NAME_TRUSTED__FIRMWARE__ARM)
-  2. remote (SUBSYSTEM_COMPONENT_TRUSTED__FIRMWARE__ARM_NAME_REMOTE)
-  3. ext-local-src (SUBSYSTEM_COMPONENT_TRUSTED__FIRMWARE__ARM_NAME_EXT__LOCAL__SRC)
-choice[1-3]: linux-kernel
-> 1. linux-xlnx (SUBSYSTEM_COMPONENT_LINUX__KERNEL_NAME_LINUX__XLNX)
-  2. remote (SUBSYSTEM_COMPONENT_LINUX__KERNEL_NAME_REMOTE)
-  3. ext-local-src (SUBSYSTEM_COMPONENT_LINUX__KERNEL_NAME_EXT__LOCAL__SRC)
-choice[1-3]: plm
-> 1. plm (SUBSYSTEM_COMPONENT_PLM_NAME_PLM)
-  2. remote (SUBSYSTEM_COMPONENT_PLM_NAME_REMOTE)
-  3. ext-local-src (SUBSYSTEM_COMPONENT_PLM_NAME_EXT__LOCAL__SRC)
-choice[1-3]: psm-firmware
-> 1. psm-firmware (SUBSYSTEM_COMPONENT_PSM__FIRMWARE_NAME_PSM__FIRMWARE)
-  2. remote (SUBSYSTEM_COMPONENT_PSM__FIRMWARE_NAME_REMOTE)
-  3. ext-local-src (SUBSYSTEM_COMPONENT_PSM__FIRMWARE_NAME_EXT__LOCAL__SRC)
-choice[1-3]: *
-* Auto Config Settings
-*
-Device tree autoconfig (SUBSYSTEM_AUTOCONFIG_DEVICE__TREE) [Y/n/?] 
-Specify a manual device tree include directory (SUBSYSTEM_DEVICE_TREE_MANUAL_INCLUDE) [N/y/?] 
-*
-* Subsystem Hardware Settings
-*
-System Processor
-> 1. CIPS_0_pspmc_0_psv_cortexa72_0 (SUBSYSTEM_PROCESSOR_CIPS_0_pspmc_0_psv_cortexa72_0_SELECT)
-choice[1]: 1
-*
-* Memory Settings
-*
-Primary Memory
-> 1. C0_DDR_LOW0 (SUBSYSTEM_MEMORY_C0_DDR_LOW0_BANKLESS_SELECT)
-  2. C0_DDR_LOW1 (SUBSYSTEM_MEMORY_C0_DDR_LOW1_BANKLESS_SELECT)
-  3. C0_DDR_CH1x2 (SUBSYSTEM_MEMORY_C0_DDR_CH1X2_BANKLESS_SELECT)
-  4. manual (SUBSYSTEM_MEMORY_MANUAL_SELECT)
-choice[1-4?]: System memory base address (SUBSYSTEM_MEMORY_C0_DDR_LOW0_BANKLESS_BASEADDR) [0x00000000] 
-System memory size (SUBSYSTEM_MEMORY_C0_DDR_LOW0_BANKLESS_SIZE) [0x80000000] 
-u-boot text base address (SUBSYSTEM_MEMORY_C0_DDR_LOW0_BANKLESS_U__BOOT_TEXTBASE_OFFSET) [0x8000000] 
-*
-* Serial Settings
-*
-PLM Serial stdin/stdout
-> 1. CIPS_0_pspmc_0_psv_sbsauart_0 (SUBSYSTEM_PLM_SERIAL_CIPS_0_PSPMC_0_PSV_SBSAUART_0_SELECT)
-  2. manual (SUBSYSTEM_PLM_SERIAL_MANUAL_SELECT)
-choice[1-2?]: TF-A Serial stdin/stdout
-> 1. CIPS_0_pspmc_0_psv_sbsauart_0 (SUBSYSTEM_TF-A_SERIAL_CIPS_0_PSPMC_0_PSV_SBSAUART_0_SELECT)
-  2. CIPS_0_pspmc_0_psv_coresight_0 (SUBSYSTEM_TF-A_SERIAL_CIPS_0_PSPMC_0_PSV_CORESIGHT_0_SELECT)
-  3. manual (SUBSYSTEM_TF-A_SERIAL_MANUAL_SELECT)
-choice[1-3?]: U-boot/Linux Serial stdin/stdout
-> 1. CIPS_0_pspmc_0_psv_sbsauart_0 (SUBSYSTEM_SERIAL_CIPS_0_PSPMC_0_PSV_SBSAUART_0_SELECT)
-  2. CIPS_0_pspmc_0_psv_coresight_0 (SUBSYSTEM_SERIAL_CIPS_0_PSPMC_0_PSV_CORESIGHT_0_SELECT)
-  3. manual (SUBSYSTEM_SERIAL_MANUAL_SELECT)
-choice[1-3?]: System stdin/stdout baudrate for CIPS_0_pspmc_0_psv_sbsauart_0
-  1. 600 (SUBSYSTEM_SERIAL_CIPS_0_PSPMC_0_PSV_SBSAUART_0_BAUDRATE_600)
-  2. 9600 (SUBSYSTEM_SERIAL_CIPS_0_PSPMC_0_PSV_SBSAUART_0_BAUDRATE_9600)
-  3. 28800 (SUBSYSTEM_SERIAL_CIPS_0_PSPMC_0_PSV_SBSAUART_0_BAUDRATE_28800)
-> 4. 115200 (SUBSYSTEM_SERIAL_CIPS_0_PSPMC_0_PSV_SBSAUART_0_BAUDRATE_115200)
-  5. 230400 (SUBSYSTEM_SERIAL_CIPS_0_PSPMC_0_PSV_SBSAUART_0_BAUDRATE_230400)
-  6. 460800 (SUBSYSTEM_SERIAL_CIPS_0_PSPMC_0_PSV_SBSAUART_0_BAUDRATE_460800)
-  7. 921600 (SUBSYSTEM_SERIAL_CIPS_0_PSPMC_0_PSV_SBSAUART_0_BAUDRATE_921600)
-choice[1-7?]: System stdin/stdout baudrate for CIPS_0_pspmc_0_psv_coresight_0
-  1. 600 (SUBSYSTEM_SERIAL_CIPS_0_PSPMC_0_PSV_CORESIGHT_0_BAUDRATE_600)
-  2. 9600 (SUBSYSTEM_SERIAL_CIPS_0_PSPMC_0_PSV_CORESIGHT_0_BAUDRATE_9600)
-  3. 28800 (SUBSYSTEM_SERIAL_CIPS_0_PSPMC_0_PSV_CORESIGHT_0_BAUDRATE_28800)
-> 4. 115200 (SUBSYSTEM_SERIAL_CIPS_0_PSPMC_0_PSV_CORESIGHT_0_BAUDRATE_115200)
-  5. 230400 (SUBSYSTEM_SERIAL_CIPS_0_PSPMC_0_PSV_CORESIGHT_0_BAUDRATE_230400)
-  6. 460800 (SUBSYSTEM_SERIAL_CIPS_0_PSPMC_0_PSV_CORESIGHT_0_BAUDRATE_460800)
-  7. 921600 (SUBSYSTEM_SERIAL_CIPS_0_PSPMC_0_PSV_CORESIGHT_0_BAUDRATE_921600)
-choice[1-7?]: *
-* Ethernet Settings
-*
-Primary Ethernet
-> 1. CIPS_0_pspmc_0_psv_ethernet_0 (SUBSYSTEM_ETHERNET_CIPS_0_PSPMC_0_PSV_ETHERNET_0_SELECT)
-  2. CIPS_0_pspmc_0_psv_ethernet_1 (SUBSYSTEM_ETHERNET_CIPS_0_PSPMC_0_PSV_ETHERNET_1_SELECT)
-  3. manual (SUBSYSTEM_ETHERNET_MANUAL_SELECT)
-choice[1-3?]: Randomise MAC address (SUBSYSTEM_ETHERNET_CIPS_0_PSPMC_0_PSV_ETHERNET_0_MAC_AUTO) [N/y/?] 
-  Ethernet MAC address (SUBSYSTEM_ETHERNET_CIPS_0_PSPMC_0_PSV_ETHERNET_0_MAC) [ff:ff:ff:ff:ff:ff] 
-Obtain IP address automatically (SUBSYSTEM_ETHERNET_CIPS_0_PSPMC_0_PSV_ETHERNET_0_USE_DHCP) [Y/n/?] 
-*
-* Flash Settings
-*
-Primary Flash
-> 1. CIPS_0_pspmc_0_psv_pmc_qspi_0 (SUBSYSTEM_FLASH_CIPS_0_PSPMC_0_PSV_PMC_QSPI_0_BANKLESS_SELECT)
-  2. CIPS_0_pspmc_0_psv_pmc_qspi_ospi_flash_0 (SUBSYSTEM_FLASH_CIPS_0_PSPMC_0_PSV_PMC_QSPI_OSPI_FLASH_0_BANKLESS_SELECT)
-  3. manual (SUBSYSTEM_FLASH_MANUAL_SELECT)
-choice[1-3?]: Advanced Flash Auto Configuration (SUBSYSTEM_FLASH__ADVANCED_AUTOCONFIG) [N/y/?] 
-*
-* partition 0
-*
-name (SUBSYSTEM_FLASH_CIPS_0_PSPMC_0_PSV_PMC_QSPI_0_BANKLESS_PART0_NAME) [qspi-boot] 
-size (SUBSYSTEM_FLASH_CIPS_0_PSPMC_0_PSV_PMC_QSPI_0_BANKLESS_PART0_SIZE) [0x100000] 
-*
-* partition 1
-*
-name (SUBSYSTEM_FLASH_CIPS_0_PSPMC_0_PSV_PMC_QSPI_0_BANKLESS_PART1_NAME) [qspi-kernel] 
-size (SUBSYSTEM_FLASH_CIPS_0_PSPMC_0_PSV_PMC_QSPI_0_BANKLESS_PART1_SIZE) [0x1600000] 
-*
-* partition 2
-*
-name (SUBSYSTEM_FLASH_CIPS_0_PSPMC_0_PSV_PMC_QSPI_0_BANKLESS_PART2_NAME) [qspi-bootenv] 
-size (SUBSYSTEM_FLASH_CIPS_0_PSPMC_0_PSV_PMC_QSPI_0_BANKLESS_PART2_SIZE) [0x40000] 
-*
-* partition 3
-*
-name (SUBSYSTEM_FLASH_CIPS_0_PSPMC_0_PSV_PMC_QSPI_0_BANKLESS_PART3_NAME) [] 
-*
-* SD/SDIO Settings
-*
-Primary SD/SDIO
-> 1. manual (SUBSYSTEM_PRIMARY_SD_MANUAL_SELECT)
-choice[1]: 1
-*
-* RTC Settings
-*
-Primary RTC
-> 1. manual (SUBSYSTEM_RTC_MANUAL_SELECT)
-choice[1]: 1
-*
-* DTG Settings
-*
-MACHINE_NAME (SUBSYSTEM_MACHINE_NAME) [versal-vck190-reva-x-ebm-01-reva] 
-Device-tree workspace (SUBSYSTEM_DT_XSCT_WORKSPACE) [${PROOT}/components/plnx_workspace/device-tree] 
-DTB padding size (SUBSYSTEM_DTB_PADDING_SIZE) [0x1000] 
-Extra dts/dtsi files (SUBSYSTEM_EXTRA_DT_FILES) [] 
-*
-* Kernel Bootargs
-*
-generate boot args automatically (SUBSYSTEM_BOOTARGS_AUTO) [Y/n/?] 
-enable kernel earlyprintk (SUBSYSTEM_BOOTARGS_EARLYPRINTK) [Y/n/?] 
-Auto generated bootargs (NO EDIT!) (SUBSYSTEM_BOOTARGS_GENERATED) [console=ttyAMA0 earlycon=pl011,mmio32,0xFF000000,115200n8 root=/dev/mmcblk0p2 ro rootwait clk_ignore_unused cma=512M rootfstype=ext4] 
-Add extra boot args (SUBSYSTEM_EXTRA_BOOTARGS) [clk_ignore_unused cma=512M rootfstype=ext4] 
-Devicetree compiler flags (SUBSYSTEM_DEVICETREE_COMPILER_FLAGS) [-@] 
-Devicetree overlay (SUBSYSTEM_DTB_OVERLAY) [N/y/?] 
-Remove PL from devicetree (SUBSYSTEM_REMOVE_PL_DTB) [N/y/?] 
-Enable openamp dtsi (SUBSYSTEM_ENABLE_OPENAMP_DTSI) [N/y/?] 
-Enable xen hardware dtsi (SUBSYSTEM_ENABLE_XEN_HW_DTSI) [N/y/?] 
-Enable xen QEMU dtsi (SUBSYSTEM_ENABLE_XEN_QEMU_DTSI) [N/y/?] 
-Enable board specific aliases (SUBSYSTEM_ENABLE_NO_ALIAS) [N/y/?] 
-Enable aliases generated by DTG (SUBSYSTEM_ENABLE_DTG_ALIAS) [N/y/?] 
-Enable dt verbose (SUBSYSTEM_ENABLE_DT_VERBOSE) [N/y/?] 
-Enable eeprom alias (SUBSYSTEM_ADD_EEPROM_ALIAS) [N/y/?] 
-Enable rtc alias (SUBSYSTEM_ADD_RTC_ALIAS) [N/y/?] 
-*
-* FPGA Manager
-*
-Fpga Manager (SUBSYSTEM_FPGA_MANAGER) [N/y/?] 
-*
-* Trusted Firmware ARM (TF-A) Configuration
-*
-TF-A memory settings (SUBSYSTEM_TF-A_MEMORY_SETTINGS) [N/y/?] 
-TF-A extra compiler flags (SUBSYSTEM_TF-A_EXTRA_COMPILER_FLAGS) [] 
-TF-A debug (SUBSYSTEM_TF-A_DEBUG) [N/y/?] 
-*
-* u-boot Configuration
-*
-u-boot config target (SUBSYSTEM_UBOOT_CONFIG_TARGET) [xilinx_versal_virt_defconfig] 
-*
-* u-boot script configuration
-*
-Append base address to image offsets (SUBSYSTEM_UBOOT_APPEND_BASEADDR) [Y/n/?] 
-Pre bootenv (SUBSYSTEM_UBOOT_PRE_BOOTENV) [] 
-*
-* JTAG/DDR image offsets
-*
-Devicetree offset (SUBSYSTEM_UBOOT_DEVICETREE_OFFSET) [0x1000] 
-Kernel offset (SUBSYSTEM_UBOOT_KERNEL_OFFSET) [0x200000] 
-Ramdisk image offset (SUBSYSTEM_UBOOT_RAMDISK_IMAGE_OFFSET) [0x4000000] 
-Fit image offset (SUBSYSTEM_UBOOT_FIT_IMAGE_OFFSET) [0x10000000] 
-Boot script offset (SUBSYSTEM_UBOOT_BOOTSCR_OFFSET) [0x20000000] 
-*
-* QSPI/OSPI image offsets
-*
-QSPI/OSPI Kernel offset (SUBSYSTEM_UBOOT_QSPI_KERNEL_OFFSET) [0xF00000] 
-QSPI/OSPI Kernel size (SUBSYSTEM_UBOOT_QSPI_KERNEL_SIZE) [0x1D00000] 
-QSPI/OSPI Ramdisk offset (SUBSYSTEM_UBOOT_QSPI_RAMDISK_OFFSET) [0x2E00000] 
-QSPI/OSPI Ramdisk size (SUBSYSTEM_UBOOT_QSPI_RAMDISK_SIZE) [0x4000000] 
-QSPI/OSPI fit image offset (SUBSYSTEM_UBOOT_QSPI_FIT_IMAGE_OFFSET) [0xF40000] 
-QSPI/OSPI fit image size (SUBSYSTEM_UBOOT_QSPI_FIT_IMAGE_SIZE) [0x6400000] 
-QSPI/OSPI Boot script offset (SUBSYSTEM_UBOOT_QSPI_BOOTSCR_OFFSET) [AUTO] 
-QSPI/OSPI Boot script size (SUBSYSTEM_UBOOT_QSPI_BOOTSCR_SIZE) [AUTO] 
-*
-* NAND image offsets
-*
-NAND Kernel offset (SUBSYSTEM_UBOOT_NAND_KERNEL_OFFSET) [0x4100000] 
-NAND Kernel size (SUBSYSTEM_UBOOT_NAND_KERNEL_SIZE) [0x3200000] 
-NAND Ramdisk offset (SUBSYSTEM_UBOOT_NAND_RAMDISK_OFFSET) [0x8200000] 
-NAND Ramdisk size (SUBSYSTEM_UBOOT_NAND_RAMDISK_SIZE) [0x3200000] 
-NAND fit image offset (SUBSYSTEM_UBOOT_NAND_FIT_IMAGE_OFFSET) [0x4180000] 
-NAND fit image size (SUBSYSTEM_UBOOT_NAND_FIT_IMAGE_SIZE) [0x6400000] 
-Kernel image name (SUBSYSTEM_UBOOT_KERNEL_IMAGE) [Image] 
-Fit image name (SUBSYSTEM_UBOOT_FIT_IMAGE) [image.ub] 
-u-boot-ext-dtb (SUBSYSTEM_UBOOT_EXT_DTB) [N/y/?] 
-*
-* Linux Configuration
-*
-linux config target (SUBSYSTEM_LINUX_CONFIG_TARGET) [] 
-*
-* Image Packaging Configuration
-*
-Root filesystem type
-  1. INITRAMFS (SUBSYSTEM_ROOTFS_INITRAMFS)
-  2. INITRD (SUBSYSTEM_ROOTFS_INITRD)
-  3. JFFS2 (SUBSYSTEM_ROOTFS_JFFS2)
-  4. UBI/UBIFS (SUBSYSTEM_ROOTFS_UBIFS)
-  5. NFS (SUBSYSTEM_ROOTFS_NFS)
-> 6. EXT4 (SD/eMMC/SATA/USB) (SUBSYSTEM_ROOTFS_EXT4)
-  7. other (SUBSYSTEM_ROOTFS_OTHER)
-choice[1-7]: Device node of SD device (SUBSYSTEM_SDROOT_DEV) [/dev/mmcblk0p2] 
-name for bootable kernel image (SUBSYSTEM_UIMAGE_NAME) [image.ub] 
-Root filesystem formats (SUBSYSTEM_RFS_FORMATS) [cpio cpio.gz cpio.gz.u-boot ext4 tar.gz jffs2] 
-Copy final images to tftpboot (SUBSYSTEM_COPY_TO_TFTPBOOT) [N/y/?] 
-PDI File name (SUBSYSTEM_PDI_FILENAME) [] 
-*
-* Firmware Version Configuration
-*
-Host name (SUBSYSTEM_HOSTNAME) [mudkip-lin] 
-Product name (SUBSYSTEM_PRODUCT) [mudkip-lin] 
-Firmware Version (SUBSYSTEM_FW_VERSION) [1.00] 
-*
-* Yocto Settings
-*
-Yocto Machine Name (YOCTO_MACHINE_NAME) [versal-generic] 
-Yocto Include Machine name (YOCTO_INCLUDE_MACHINE_NAME) [] 
-Yocto Additional Overrides (YOCTO_ADD_OVERRIDES) [] 
-*
-* TMPDIR Location
-*
-TMPDIR Location (TMP_DIR_LOCATION) [${PROOT}/build/tmp] 
-*
-* Devtool Workspace Location
-*
-Devtool Workspace Location (DEVTOOL_WORKSPACE_LOCATION) [${PROOT}/components/yocto/workspace] 
-PetaLinux Deploy Directory (PLNX_IMAGES_LOCATION) [${PROOT}/images/linux] 
-*
-* Parallel thread execution
-*
-Set number of bb threads (BB_NUMBER_THREADS) (YOCTO_BB_NUMBER_THREADS) [] 
-Set number of bb parse threads (BB_NUMBER_PARSE_THREADS) (YOCTO_BB_NUMBER_PARSE_THREADS) [] 
-Set number of parallel make -j (PARALLEL_MAKE) (YOCTO_PARALLEL_MAKE) [] 
-*
-* Add pre-mirror url 
-*
-pre-mirror url path (PRE_MIRROR_URL) [http://petalinux.xilinx.com/sswreleases/rel-v${PETALINUX_MAJOR_VER}/downloads] 
-*
-* Local sstate feeds settings
-*
-local sstate feeds url (YOCTO_LOCAL_SSTATE_FEEDS_URL) [] 
-Enable Network sstate feeds (YOCTO_NETWORK_SSTATE_FEEDS) [Y/n/?] 
-  *
-  * Network sstate feeds URL
-  *
-  network sstate feeds url (YOCTO_NETWORK_SSTATE_FEEDS_URL) [http://petalinux.xilinx.com/sswreleases/rel-v${PETALINUX_MAJOR_VER}/aarch64/sstate-cache] 
-Enable BB NO NETWORK (YOCTO_BB_NO_NETWORK) [N/y/?] 
-Enable Buildtools Extended (YOCTO_BUILDTOOLS_EXTENDED) [N/y/?] 
-*
-* User Layers
-*
-user layer 0 (USER_LAYER_0) [] 
-#
-# configuration written to /home/oa321/work/mudkip/vivado/pfm/mudkip-lin/project-spec/configs/config
-#
-2025-05-15 14:26:09,746 - [INFO] Silentconfig rootfs
-2025-05-15 14:26:09,746 - [DEBUG] Running CMD: yes "" | env KCONFIG_CONFIG=/home/oa321/work/mudkip/vivado/pfm/mudkip-lin/project-spec/configs/rootfs_config conf /home/oa321/work/mudkip/vivado/pfm/mudkip-lin/project-spec/configs/rootfsconfigs/Kconfig
-2025-05-15 14:26:09,751 - [DEBUG] *
+2025-05-22 18:15:26,945 - [DEBUG] Using xsct from : /opt/xilinx/petalinux/components/xsct/bin/xsct
+2025-05-22 18:15:26,945 - [INFO] Getting Platform info from HW file
+2025-05-22 18:15:26,945 - [DEBUG] Using the soc_family specified by user:versal
+2025-05-22 18:15:27,015 - [INFO] Generating Kconfig for project
+2025-05-22 18:15:27,015 - [DEBUG] Generating System HW file
+2025-05-22 18:15:27,015 - [DEBUG] xsct -sdx -nodisp /home/oa321/work/mudkip/vivado/pfm/mudkip-lin/components/yocto/layers/meta-xilinx/meta-xilinx-core/gen-machine-conf/gen-machine-scripts/hw-description.tcl plnx_gen_hwsysconf /home/oa321/work/mudkip/vivado/pfm/swampert-lin/project-spec/hw-description/system.xsa /home/oa321/work/mudkip/vivado/pfm/swampert-lin/project-spec/configs/configs/Kconfig.syshw
+2025-05-22 18:15:33,768 - [DEBUG] 
+WARNING: sdtgen package cannot be loaded. System Device tree commands will not 
+ be available
+INFO: [Hsi 55-2053] elapsed time for repository (/opt/xilinx/petalinux/components/xsct/data/embeddedsw) loading 0 seconds
+
+WARNING: Failed in finding /opt/xilinx/petalinux/components/xsct/data/system-device-tree-xlnx/device_tree/data/device_tree.tcl path.
+
+
+2025-05-22 18:15:33,785 - [DEBUG] Hardware Configuration:
+2025-05-22 18:15:33,785 - [DEBUG] MACHINE     = "None"
+2025-05-22 18:15:33,785 - [DEBUG] DEVICE_ID   = "xcvc1902"
+2025-05-22 18:15:33,785 - [DEBUG] SOC_FAMILY  = "versal"
+2025-05-22 18:15:33,785 - [DEBUG] SOC_VARIANT = "ai-core"
+2025-05-22 18:15:33,875 - [INFO] Menuconfig project
+2025-05-22 18:15:33,875 - [DEBUG] Running CMD: env KCONFIG_CONFIG=/home/oa321/work/mudkip/vivado/pfm/swampert-lin/project-spec/configs/config mconf -s /home/oa321/work/mudkip/vivado/pfm/swampert-lin/project-spec/configs/configs/Kconfig
+2025-05-22 18:15:40,913 - [DEBUG] xsct -sdx -nodisp /home/oa321/work/mudkip/vivado/pfm/mudkip-lin/components/yocto/layers/meta-xilinx/meta-xilinx-core/gen-machine-conf/gen-machine-scripts/petalinux_hsm.tcl get_flash_width_parts /home/oa321/work/mudkip/vivado/pfm/swampert-lin/project-spec/configs/config /home/oa321/work/mudkip/vivado/pfm/mudkip-lin/components/yocto/layers/meta-xilinx/meta-xilinx-core/gen-machine-conf/gen-machine-scripts/data/ipinfo.yaml /home/oa321/work/mudkip/vivado/pfm/swampert-lin/project-spec/hw-description/system.xsa /home/oa321/work/mudkip/vivado/pfm/swampert-lin/project-spec/configs/flash_parts.txt
+2025-05-22 18:15:47,545 - [DEBUG] 
+WARNING: sdtgen package cannot be loaded. System Device tree commands will not 
+ be available
+INFO: [Hsi 55-2053] elapsed time for repository (/opt/xilinx/petalinux/components/xsct/data/embeddedsw) loading 0 seconds
+
+WARNING: Failed in finding /opt/xilinx/petalinux/components/xsct/data/system-device-tree-xlnx/device_tree/data/device_tree.tcl path.
+
+
+2025-05-22 18:15:47,548 - [INFO] Silentconfig rootfs
+2025-05-22 18:15:47,548 - [DEBUG] Running CMD: yes "" | env KCONFIG_CONFIG=/home/oa321/work/mudkip/vivado/pfm/swampert-lin/project-spec/configs/rootfs_config conf /home/oa321/work/mudkip/vivado/pfm/swampert-lin/project-spec/configs/rootfsconfigs/Kconfig
+2025-05-22 18:15:47,554 - [DEBUG] *
 * Configuration
 *
 *
@@ -3828,6 +3570,14 @@ Create new Groups (CREATE_NEW_GROUPS) [aie;]
 Add Users to Groups (ADD_USERS_TO_GROUPS) [petalinux:audio,video,aie,input;] 
 Add Users to Sudo users (ADD_USERS_TO_SUDOERS) [petalinux] 
 #
-# configuration written to /home/oa321/work/mudkip/vivado/pfm/mudkip-lin/project-spec/configs/rootfs_config
+# configuration written to /home/oa321/work/mudkip/vivado/pfm/swampert-lin/project-spec/configs/rootfs_config
 #
-2025-05-15 14:26:09,753 - [INFO] Generating configuration files
+2025-05-22 18:15:47,557 - [INFO] Generating configuration files
+2025-05-22 18:15:47,662 - [INFO] Generating machine conf file
+2025-05-22 18:15:47,666 - [INFO] Generating plnxtool conf file
+2025-05-22 18:15:47,682 - [DEBUG] python3 /home/oa321/work/mudkip/vivado/pfm/mudkip-lin/components/yocto/layers/meta-xilinx/meta-xilinx-core/gen-machine-conf/gen-machine-scripts/rootfsconfigs/rootfs_config.py --update_cfg /home/oa321/work/mudkip/vivado/pfm/swampert-lin/project-spec/configs/rootfs_config /home/oa321/work/mudkip/vivado/pfm/swampert-lin/build/conf/plnxtool.conf versal
+2025-05-22 18:15:47,710 - [DEBUG] 
+Warning: Root password set to 'root', It is highly recommended to change Root password.
+
+
+
