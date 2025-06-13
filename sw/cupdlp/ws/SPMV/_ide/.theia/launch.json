@@ -66,7 +66,7 @@
 				}
 			],
 			"replaceNativeEnv": false,
-			"arguments": "./spmv.xclbin",
+			"arguments": "./spmv.xclbin afiro",
 			"workingDirectory": "/run/media/mmcblk0p1",
 			"stopAtMain": true,
 			"stopAtProgramEntry": false,
@@ -137,7 +137,7 @@
 				}
 			],
 			"replaceNativeEnv": false,
-			"arguments": "./spmv.xclbin",
+			"arguments": "./spmv.xclbin ns1687037",
 			"workingDirectory": "/home/petalinux/cltb/",
 			"stopAtMain": true,
 			"stopAtProgramEntry": false,
@@ -150,7 +150,7 @@
 			"type": "gdb",
 			"request": "launch",
 			"applicationProjectDir": "${workspaceFolder}/SPMV",
-			"arguments": "${workspaceFolder}/SPMV/build/sw_emu/package/spmv.xclbin",
+			"arguments": "${workspaceFolder}/SPMV/build/sw_emu/package/spmv.xclbin ",
 			"cwd": "${workspaceFolder}/SPMV/build/sw_emu/SPMV_sw_emu_new",
 			"gdbpath": "${env:XILINX_VITIS}/bin/xgdb",
 			"valuesFormatting": "prettyPrinters",
@@ -160,7 +160,8 @@
 				"XCL_EMULATION_MODE": "sw_emu",
 				"ENABLE_KERNEL_DEBUG": "true",
 				"XCL_BIN_PATH": "${workspaceFolder}/SPMV/build/sw_emu/package",
-				"LD_LIBRARY_PATH": "${env:XILINX_XRT}/lib"
+				"LD_LIBRARY_PATH": "${env:XILINX_XRT}/lib",
+				"XRT_INI_PATH": "${workspaceFolder}/SPMV/SPMV_host/runtime/sw_emu_xrt.ini"
 			},
 			"target": "${workspaceFolder}/cltb_host/build/x86sim/cltb_host"
 		},

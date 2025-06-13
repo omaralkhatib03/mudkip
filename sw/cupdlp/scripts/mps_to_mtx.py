@@ -5,6 +5,7 @@ from scipy.io import mmwrite
 from scipy.sparse import csr_matrix
 import utils
 import benchmark
+from benchmark import logger
 from pathlib import Path
 from heatmap import load_mps_as_sparse_matrix
 
@@ -24,7 +25,7 @@ def convert_mps_to_mtx(problem: str, out_dir: str):
     problem_path = Path.cwd() / 'problems' / f'{problem}.mps'
     matrix = load_mps_as_sparse_matrix(problem_path)
     sorted_matrix = sort_rows_by_sum(matrix)
-    save_matrix_to_mtx(sorted_matrix, f'{Path.cwd()} / {out_dir} / {problem}.mtx')
+    save_matrix_to_mtx(sorted_matrix, f'{out_dir}{problem}.mtx')
 
 def main():
     parser = argparse.ArgumentParser(

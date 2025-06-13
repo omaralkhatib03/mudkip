@@ -25,21 +25,22 @@
 #include <cstdio>
 #include <stdlib.h>
 #include "partitioning_utility.hpp"
+#include "xclbin.h"
 #include "xrt_utility.hpp"
+#include "utility.hpp"
 
 constexpr int run           = 1;
 constexpr int iterations    = 1;
 
 #define MAX_NNZ 1e6 
-#define INCR 1000
-#define M_MAX 49152 
-#define N_MAX 49152  
+#define INCR 8000
+#define M_MAX 49152 * 2
+#define N_MAX 49152 * 2
 #define M_INCR 1000 
 #define N_INCR 1000 
 
 template <typename T>
 using CSRMatrixTiled = std::vector<std::vector<CSRMatrix<T>*>>;
-
 
 struct SpMvKernel
 {
@@ -164,7 +165,7 @@ CSRMatrix<T> generate_csr_matrix(int m, int n, int nnz) {
 
 
 template<typename T> 
-void tile_matrix(CSRMatrix<T> & csr, int computeUnits, int hwSideLen, std::vector<std::vector<int>> & yPartRows, CSRMatrixTiled<T> & csr_tiled)
+void tile_matrix(const CSRMatrix<T> & csr, int computeUnits, int hwSideLen, std::vector<std::vector<int>> & yPartRows, CSRMatrixTiled<T> & csr_tiled)
 {
     LOG_INIT_CERR();
 
@@ -244,7 +245,6 @@ double time_cpu_csr(CSRMatrix<T> &csr, const DenseVector<T> &x, int m, const Den
     };
     return time_op<>(cpu_lambda);
 }
-
 
 template<typename T>
 void setArgs(SpMvKernel & kernel, SpMvBoBuffers & boBuffers, BlockVectors & blockVectors, KernelRuns & krnlRuns, const CSRMatrixTiled<T> & tiles)
@@ -478,7 +478,7 @@ void nnz_run(int nnz, int m, int n, int compute_units, int hw_side_len,
 
 }
 
-void m_n_run(xrt::device & device, SpMvKernel spmvKernel, double spsty, int m, int n, int compute_units, int hw_side_len)
+void m_n_run(xrt::device & device,  std::string & xclbin_file, xrt::uuid & uuid, double spsty, int m, int n, int compute_units, int hw_side_len)
 {
     LOG_INIT_CERR();
 
@@ -505,6 +505,21 @@ void m_n_run(xrt::device & device, SpMvKernel spmvKernel, double spsty, int m, i
             CSRMatrixTiled<data_t> csr_tiled;
             tile_matrix<data_t>(csr, compute_units, hw_side_len, yPartRows, csr_tiled);
 
+            SpMvKernel spmvKernel;
+
+            std::cout << csr_tiled[0][0]->rows() << " " << csr_tiled[0][0]->cols() << std::endl;
+            std::cout << csr_tiled[0][1]->rows() << " " << csr_tiled[0][1]->cols() << std::endl;
+            break;
+            
+            spmvKernel.krnl1.resize(csr_tiled.size());
+            spmvKernel.krnl2.resize(csr_tiled.size());
+            spmvKernel.krnl3.resize(csr_tiled.size());
+            spmvKernel.krnl4.resize(csr_tiled.size());
+
+            log(LOG_INFO) << "Creating Kernels \n";
+
+            CreateKernels(spmvKernel.krnl1, spmvKernel.krnl2, spmvKernel.krnl3, spmvKernel.krnl4, device, uuid, xclbin_file, csr_tiled.size(), 1);
+
             SpMvBoBuffers boBuffers;
             auto blockVectors  = allocate_buffer(csr_tiled, device, 0, x, boBuffers, spmvKernel);
 
@@ -519,51 +534,58 @@ void m_n_run(xrt::device & device, SpMvKernel spmvKernel, double spsty, int m, i
 
             csvfile.write(m_curr, n_curr, diff_cpu, diff_kernel);
         }
+        break;
     }
 }
 
-int main(int argc, char *argv[]) {
+void run_pdlp_matrix(xrt::device & device, std::string & xclbin_file, xrt::uuid & uuid, int compute_units, int hw_side_len, const std::string & problem)
+{
     LOG_INIT_CERR();
 
-    log.set_log_level(LOG_INFO);
+    auto solved_filename = "solved.csv";
+    auto unsolved_filename = "unsolved.csv";
+    auto solved_csvfile = csv::CsvWriter(solved_filename, "problem", "cpu_time_us", "kerneltime_us");
+    auto unsolved_csvfile = csv::CsvWriter(unsolved_filename, "problem");
+    std::vector<std::string> matrix_files;
+    bool read;
 
-    log(LOG_DEBUG) << "Arguments: " << argc << "\n";
+    auto path = "./mtx/" + problem + ".mtx";
+    auto mtrxPtr = ReadMatrixCSR<data_t>(path, read);
+    auto verbosity = 1;
 
-    if (argc != 2) {
-        std::cerr << "Usage: ./xrt_spmv <xclbin>\n";
-        return EXIT_FAILURE;
+    DenseVector<data_t> x(mtrxPtr->cols());
+    DenseVector<data_t> ref_out(mtrxPtr->rows()); 
+    DenseVector<data_t> hw_out(mtrxPtr->rows());
+    DenseVector<data_t> out(mtrxPtr->rows());
+
+    std::vector<std::vector<int>>  yPartRows;
+    int xParts = std::ceil(mtrxPtr->cols()/(double)hw_side_len);
+
+    if (!read)
+    {
+        log(LOG_ERROR) << "Could Not read file " << path << "\n";
     }
 
-    int nnz = 1000;
-    int m   = 49152;
-    int n   = 49152;
+    if (hw_side_len < std::ceil(mtrxPtr->rows()/(double)compute_units)) 
+    {
+        log(LOG_ERROR) << "The Hardware size: " << hw_side_len 
+            <<  " can not accomodate y_partition size: " << mtrxPtr->rows()/compute_units << "\n";
+        unsolved_csvfile.write(problem);
+        return;
+    }
 
-    // int nnz = 10;
-    // int m   = 49;
-    // int n   = 49;
+    if (hw_side_len < std::ceil(mtrxPtr->cols()/xParts)) 
+    {
+        log(LOG_ERROR) << "The hardware size: " << hw_side_len 
+            <<  " can not accomodate x_partition size: " << mtrxPtr->cols()/xParts << "\n";
+        unsolved_csvfile.write(problem);
+        return;
+    }
 
-    // double sparsity = 0.01;
-    int compute_units = 12;
-    int hw_side_len = 4096;
-    int verbosity = 0;
-    int verify = 0;
-
-    std::string xclbin_file = argv[1];
-
-    DenseVector<data_t> x(n), ref_out(m), hw_out(m), out(m);
-    std::vector<std::vector<int>> yPartRows;
-
-    log(LOG_INFO) << "Preparing Test Matrix ... \n";
-    CSRMatrix<data_t> csr = prepareData(x, ref_out, nnz, m, n);
     CSRMatrixTiled<data_t> csr_tiled;
-    tile_matrix<data_t>(csr, compute_units, hw_side_len, yPartRows, csr_tiled);
-   
-
-    auto device = xrt::device(0);
-    auto uuid = device.load_xclbin(xclbin_file);
+    tile_matrix<data_t>(*mtrxPtr.get(), compute_units, hw_side_len, yPartRows, csr_tiled);
 
     SpMvKernel spmvKernel;
-    
 
     spmvKernel.krnl1.resize(csr_tiled.size());
     spmvKernel.krnl2.resize(csr_tiled.size());
@@ -575,25 +597,93 @@ int main(int argc, char *argv[]) {
     CreateKernels(spmvKernel.krnl1, spmvKernel.krnl2, spmvKernel.krnl3, spmvKernel.krnl4, 
         device, uuid, xclbin_file, csr_tiled.size(), verbosity);
 
-    log(LOG_INFO) << "Calling Allocator Kernels \n";
-
     SpMvBoBuffers boBuffers;
-    auto blockVectors  = allocate_buffer(csr_tiled, device, verify, x, boBuffers, spmvKernel);
+    auto blockVectors  = allocate_buffer(csr_tiled, device, 0, x, boBuffers, spmvKernel);
 
-    log(LOG_INFO) << "Starting CPU Time Test ... \n";
-    auto diff_cpu = time_cpu_csr(csr, x, m, out);
-    log(LOG_INFO) << "Finished CPU Time Test: " << diff_cpu << " \u03BCs\n";
-
-    log(LOG_INFO) << "Starting Kernel Time Test ... \n";
     auto diff_kernel = time_kernel_csr(csr_tiled, spmvKernel, boBuffers, blockVectors, yPartRows, hw_out);
-    log(LOG_INFO) << "Finished Kernel Time Test: " << diff_kernel << " \u03BCs\n";
+    log(LOG_INFO) << "Problem:  " << problem <<  " Kernel Time: " << diff_kernel << " \u03bcs\n";
 
-    bool success = validate(ref_out, hw_out);
+    auto diff_cpu = time_cpu_csr(*mtrxPtr.get(), x, mtrxPtr->rows(), out);
+    log(LOG_INFO) << "Problem:  " << problem<<  " CPU Time: " << diff_cpu << " \u03bcs\n";
+    
+    validate(out, hw_out);
 
-    std::cout << (success ? "PASSED" : "FAILED") << std::endl;
+    solved_csvfile.write(problem, diff_cpu, diff_kernel);
+}
+
+int main(int argc, char *argv[]) {
+    LOG_INIT_CERR();
+
+    log.set_log_level(LOG_INFO);
+
+    log(LOG_DEBUG) << "Arguments: " << argc << "\n";
+
+    if (argc != 3) {
+        std::cerr << "Usage: ./xrt_spmv <xclbin> <problem>\n";
+        return EXIT_FAILURE;
+    }
+
+    // int nnz = 10000;
+    int m   = 500;
+    int n   = 500;
+
+    // int nnz = 100;
+    // int m   = 490;
+    // int n   = 490; // 1 2^16, 2 2^15
+
+    double sparsity = 0.01;
+    int compute_units = 10;
+    int hw_side_len = 16000;
+    // int verbosity = 0;
+    // int verify = 0;
+
+    std::string xclbin_file = argv[1];
+    std::string problem = argv[2];
+
+    // DenseVector<data_t> x(n), ref_out(m), hw_out(m), out(m);
+    // std::vector<std::vector<int>> yPartRows;
+
+    // log(LOG_INFO) << "Preparing Test Matrix ... \n";
+    // CSRMatrix<data_t> csr = prepareData(x, ref_out, nnz, m, n);
+    // CSRMatrixTiled<data_t> csr_tiled;
+    // tile_matrix<data_t>(csr, compute_units, hw_side_len, yPartRows, csr_tiled);
+   
+    auto device = xrt::device(0);
+    auto uuid = device.load_xclbin(xclbin_file);
+
+    // SpMvKernel spmvKernel;
+
+    // spmvKernel.krnl1.resize(csr_tiled.size());
+    // spmvKernel.krnl2.resize(csr_tiled.size());
+    // spmvKernel.krnl3.resize(csr_tiled.size());
+    // spmvKernel.krnl4.resize(csr_tiled.size());
+
+    // log(LOG_INFO) << "Creating Kernels \n";
+
+    // CreateKernels(spmvKernel.krnl1, spmvKernel.krnl2, spmvKernel.krnl3, spmvKernel.krnl4, 
+    //     device, uuid, xclbin_file, csr_tiled.size(), verbosity);
+
+    // log(LOG_INFO) << "Calling Allocator Kernels \n";
+
+    // SpMvBoBuffers boBuffers;
+    // auto blockVectors  = allocate_buffer(csr_tiled, device, verify, x, boBuffers, spmvKernel);
+
+    // log(LOG_INFO) << "Starting CPU Time Test ... \n";
+    // auto diff_cpu = time_cpu_csr(csr, x, m, out);
+    // log(LOG_INFO) << "Finished CPU Time Test: " << diff_cpu << " \u03BCs\n";
+
+    // log(LOG_INFO) << "Starting Kernel Time Test ... \n";
+    // auto diff_kernel = time_kernel_csr(csr_tiled, spmvKernel, boBuffers, blockVectors, yPartRows, hw_out);
+    // log(LOG_INFO) << "Finished Kernel Time Test: " << diff_kernel << " \u03bcs\n";
+
+    // bool success = validate(ref_out, hw_out);
+
+    // std::cout << (success ? "PASSED" : "FAILED") << std::endl;
     // return success ? EXIT_SUCCESS : EXIT_FAILURE;
 
-    nnz_run(nnz, m, n, compute_units, hw_side_len, spmvKernel, device);
-    
+    // nnz_run(nnz, m, n, compute_units, hw_side_len, spmvKernel, device);
+    // m_n_run(device, xclbin_file, uuid, sparsity, m, n, compute_units, hw_side_len);
+    run_pdlp_matrix(device, xclbin_file, uuid, compute_units, hw_side_len, problem);
 }
+
 

@@ -1,7 +1,11 @@
 import mps_to_mtx
-from pathlib import Path
 import benchmark
+import os
+
+from pathlib import Path
 from typing import List
+from benchmark import * 
+from mps_to_mtx import convert_mps_to_mtx
 
 def convert_problems(problems: List[str], out_dir: str):
     for problem in problems:
@@ -15,27 +19,26 @@ def main():
 
     # For now err on the side of caution
     DISABLED_PROBLEMS = [
-        "dlr2",
-        "dlr1",
+        "cont1",
         "Dual2_5000",
-        "L2CTA3D",
-        "bdry2",
-        "L1_sixm1000obs",
+        "stat96v2",
+        "dlr2",
+        "cont11",
+        "ex10"
     ]
 
-    DISABLED_PROBLEMS += ["Primal2_1000", "cont11", "fhnw-binschedule1", "neos"]
-    DISABLED_PROBLEMS += ["physiciansched3-3", "s82", "s100", "shs1023", "square41"]
-    DISABLED_PROBLEMS += ["thk_48", "thk_63", "tpl-tub-ws1617", "set-cover-model"]
-    STRESSFUL_PROBLEMS = ["rail02", "rail4284"]  # Run these last
+    # DISABLED_PROBLEMS += ["Primal2_1000", "cont11", "fhnw-binschedule1", "neos"]
+    # DISABLED_PROBLEMS += ["physiciansched3-3", "s82", "s100", "shs1023", "square41"]
+    # DISABLED_PROBLEMS += ["thk_48", "thk_63", "tpl-tub-ws1617", "set-cover-model"]
+    # STRESSFUL_PROBLEMS = ["rail02", "rail4284"]  # Run these last
 
     logger.info('Reading Problems ...')
 
     problems = os.listdir(f"{Path.cwd()}/mittelman")
-    solved = os.listdir(f"{Path.cwd()}/solutions")
+    solved = os.listdir(f"{Path.cwd()}/mtx")
     output_dir = f"{Path.cwd()}/mtx/";
 
-    if not output_dir.exists():
-        os.mkdir(output_dir)
+    os.makedirs(output_dir, exist_ok=True)
 
     logger.info(f'Read {len(problems)} problems')
     logger.info(f'Solved Problems: {len(solved)} ')
@@ -51,7 +54,7 @@ def main():
 
     logger.info('Converting Problems ...')
 
-    convert_problems(problems, out_dir)
+    convert_problems(problems, output_dir)
     
     logger.info('Converted All Problems to MTX !')
 

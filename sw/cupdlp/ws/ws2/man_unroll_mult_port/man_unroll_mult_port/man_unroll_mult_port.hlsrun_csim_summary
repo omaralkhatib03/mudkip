@@ -1,0 +1,158 @@
+<ENTRY>
+{
+ "thisFile": "/home/oa321/work/mudkip/sw/cupdlp/ws/ws2/man_unroll_mult_port/man_unroll_mult_port/man_unroll_mult_port.hlsrun_csim_summary",
+ "connectId": "",
+ "serverToken": "",
+ "timestamp": "0"
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_CmdStep",
+ "dateTimestamp": "Sun Jun  8 18:17:29 2025",
+ "timestampMillis": "1749403049988",
+ "buildStep": {
+  "cmdId": "87e6a922-9eff-4389-ac01-1a9b14718f64",
+  "name": "vitis-run",
+  "logFile": "/home/oa321/work/mudkip/sw/cupdlp/ws/ws2/man_unroll_mult_port/man_unroll_mult_port/logs/man_unroll_mult_port.steps.log",
+  "commandLine": "/opt/Xilinx/Vitis/2024.1/bin/unwrapped/lnx64.o/vitis-run  --mode hls --csim --config /home/oa321/work/mudkip/sw/cupdlp/ws/ws2/man_unroll_mult_port/hls_config.cfg --work_dir man_unroll_mult_port ",
+  "args": [
+   "--mode",
+   "hls",
+   "--csim",
+   "--config",
+   "/home/oa321/work/mudkip/sw/cupdlp/ws/ws2/man_unroll_mult_port/hls_config.cfg",
+   "--work_dir",
+   "man_unroll_mult_port"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/oa321/work/mudkip/sw/cupdlp/ws/ws2/man_unroll_mult_port"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Sun Jun  8 18:17:29 2025",
+ "timestampMillis": "1749403049988",
+ "status": {
+  "cmdId": "87e6a922-9eff-4389-ac01-1a9b14718f64",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_FlowMetaData",
+ "dateTimestamp": "Sun Jun  8 18:17:31 2025",
+ "timestampMillis": "1749403051995",
+ "buildSummary": {
+  "hardwarePlatform": "",
+  "hardwareDsa": "",
+  "platformDirectory": "",
+  "runtime": "",
+  "systemConfig": "",
+  "flow": "BF_RUN",
+  "target": "TT_HLS_C_SIM",
+  "kernels": [
+   {
+    "base": {
+     "type": "KERNEL",
+     "name": "spmv_unroll_port",
+     "file": "",
+     "reports": [],
+     "uuid": ""
+    },
+    "sources": [
+     "/home/oa321/work/mudkip/sw/cupdlp/hls/spmv.cc",
+     "/home/oa321/work/mudkip/sw/cupdlp/hls/spmv.hpp",
+     "/home/oa321/work/mudkip/sw/cupdlp/hls/types.hpp"
+    ],
+    "psSources": [],
+    "cuNames": [],
+    "type": "HLS",
+    "frequency": 0,
+    "freqUnits": ""
+   }
+  ],
+  "toolVersion": "2024.1"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Sun Jun  8 18:17:31 2025",
+ "timestampMillis": "1749403051996",
+ "buildStep": {
+  "cmdId": "e7484e76-5ba0-47f7-a2e6-e90a685e3685",
+  "name": "csim_design",
+  "logFile": "/home/oa321/work/mudkip/sw/cupdlp/ws/ws2/man_unroll_mult_port/man_unroll_mult_port/hls/hls.log",
+  "commandLine": "csim_design",
+  "args": [],
+  "iniFiles": [],
+  "cwd": "/home/oa321/work/mudkip/sw/cupdlp/ws/ws2/man_unroll_mult_port"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Sun Jun  8 18:17:31 2025",
+ "timestampMillis": "1749403051996",
+ "status": {
+  "cmdId": "e7484e76-5ba0-47f7-a2e6-e90a685e3685",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Sun Jun  8 18:17:35 2025",
+ "timestampMillis": "1749403055165",
+ "status": {
+  "cmdId": "e7484e76-5ba0-47f7-a2e6-e90a685e3685",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Sun Jun  8 18:17:35 2025",
+ "timestampMillis": "1749403055254",
+ "status": {
+  "cmdId": "87e6a922-9eff-4389-ac01-1a9b14718f64",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Sun Jun  8 18:17:35 2025",
+ "timestampMillis": "1749403055254",
+ "report": {
+  "path": "",
+  "name": "",
+  "fileType": "HTML",
+  "reportType": "GLOBAL_RULECHECK_GUIDANCE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Sun Jun  8 18:17:35 2025",
+ "timestampMillis": "1749403055254",
+ "report": {
+  "path": "",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_RULECHECK_GUIDANCE",
+  "cmdId": ""
+ }
+}
+</ENTRY>

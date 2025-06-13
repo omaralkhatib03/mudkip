@@ -116,7 +116,7 @@ void read_matrix(ddr_stream_t & r_beg_s, ddr_stream_t & r_idx, int m)
     rows:
     for (int i = 0; i < (m + 1) / EL_PER_DDR; i++) 
     {
-        // #pragma HLS LOOP_TRIPCOUNT max=1000000 / EL_PER_DDR min=10000 / EL_PER_DDR
+        #pragma HLS LOOP_TRIPCOUNT max=1000000 / EL_PER_DDR min=10000 / EL_PER_DDR
 
         ddr_decoder<>(r_beg_s.read(), r_ptrs);
 
@@ -138,7 +138,7 @@ void read_matrix(ddr_stream_t & r_beg_s, ddr_stream_t & r_idx, int m)
             current_nnz: for (int k = 0; k < lens[j]; k++)
             {
                 #pragma HLS PIPELINE II=1
-                // #pragma HLS LOOP_TRIPCOUNT max=1000000 min=0
+                #pragma HLS LOOP_TRIPCOUNT max=1000000 min=0
 
                 r_idx_arr[arr_offset++] = current_row;
 

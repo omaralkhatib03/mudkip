@@ -81,7 +81,7 @@ set(USER_COMPILE_ANSI )
 
 # Add any compiler options that are not covered by the above variables, they will be added as extra compiler options
 # To enable profiling -pg [ for gprof ]  or -p [ for prof information ]
-set(USER_COMPILE_OTHER_FLAGS )
+set(USER_COMPILE_OTHER_FLAGS -DCUPDLP_CPU)
 
 # -----------------------------------------
 

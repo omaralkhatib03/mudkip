@@ -16,7 +16,8 @@ module row_decoder #(
     input wire              rst_n,
 
     axi_stream_if.slave     r_beg,
-    axi_stream_if.master    row_ids
+    axi_stream_if.master    row_ids,
+    output wire             last
 );
 
     localparam IN_PAR       = r_beg.PARALLELISM;
@@ -27,7 +28,7 @@ module row_decoder #(
     localparam ID_WIDTH     = row_ids.DATA_WIDTH;
     localparam OUT_PAR_WIDTH = $clog2(OUT_PAR);
 
-    axi_stream_if #( .DATA_WIDTH(ID_WIDTH), .PARALLELISM(IN_PAR))   r_beg_fifo_if();
+    axi_stream_if #( .DATA_WIDTH(ID_WIDTH), .PARALLELISM(IN_PAR))         r_beg_fifo_if();
 
     axi_stream_if #( .DATA_WIDTH(ID_WIDTH), .PARALLELISM(INTERNAL_PAR))   r_beg_p0_b();
     axi_stream_if #( .DATA_WIDTH(ID_WIDTH), .PARALLELISM(INTERNAL_PAR))   r_beg_p0_r();
@@ -35,7 +36,7 @@ module row_decoder #(
     axi_stream_if #( .DATA_WIDTH(ID_WIDTH), .PARALLELISM(INTERNAL_PAR))   r_beg_p1_b();
     axi_stream_if #( .DATA_WIDTH(ID_WIDTH), .PARALLELISM(INTERNAL_PAR))   r_beg_p1_r();
 
-    axi_stream_if #( .DATA_WIDTH(ID_WIDTH), .PARALLELISM(OUT_PAR))  row_ids_b();
+    axi_stream_if #( .DATA_WIDTH(ID_WIDTH), .PARALLELISM(OUT_PAR))        row_ids_b();
 
     // ----------------------------------------- //
     // --------------   FIFO   ----------------- //
@@ -73,6 +74,10 @@ module row_decoder #(
 
     logic current_last_b;
     logic current_last_r;
+    logic current_last_r_p0;
+    logic current_last_r_p1;
+    logic current_last_r_p2;
+    logic current_last_r_p3;
 
     logic [ID_WIDTH-1:0] offset_b;
     logic [ID_WIDTH-1:0] offset_r;
@@ -117,7 +122,7 @@ module row_decoder #(
                                 curr_ids_b[i+1]     = {ID_WIDTH{1'b1}};
                             end
                             curr_ids_b[0]           = last_offset_b;
-                     end
+                    end
                     else
                     begin
                         curr_ids_b          = {r_beg_fifo_if.data, last_offset_b}; // Might pipeline this
@@ -188,10 +193,10 @@ module row_decoder #(
     ) pipeline_0_I (
         .clk        (clk),
         .rst_n      (rst_n),
-        .in_data    ({r_beg_p0_b.data, r_beg_p0_b.last, r_beg_p0_b.mask, offset_b, outputs_so_far_b}),
+        .in_data    ({r_beg_p0_b.data, r_beg_p0_b.last, r_beg_p0_b.mask, offset_b, outputs_so_far_b, current_last_r}),
         .in_valid   (r_beg_p0_b.valid),
         .in_ready   (r_beg_p0_b.ready),
-        .out_data   ({r_beg_p0_r.data, r_beg_p0_r.last, r_beg_p0_r.mask, offset_r, outputs_so_far_r}),
+        .out_data   ({r_beg_p0_r.data, r_beg_p0_r.last, r_beg_p0_r.mask, offset_r, outputs_so_far_r, current_last_r_p0}),
         .out_valid  (r_beg_p0_r.valid),
         .out_ready  (r_beg_p0_r.ready)
     );
@@ -235,10 +240,10 @@ module row_decoder #(
     ) pipeline_1_I (
         .clk        (clk),
         .rst_n      (rst_n),
-        .in_data    ({subs, r_beg_p0_r.last, r_beg_p0_r.mask, nw_comp_b, offset_r}),
+        .in_data    ({subs, r_beg_p0_r.last, r_beg_p0_r.mask, nw_comp_b, offset_r, current_last_r_p0}),
         .in_valid   (r_beg_p0_r.valid),
         .in_ready   (r_beg_p0_r.ready),
-        .out_data   ({subs_r, r_beg_p1_r.last, r_beg_p1_r.mask, nw_comp_r, offset_p0_r}),
+        .out_data   ({subs_r, r_beg_p1_r.last, r_beg_p1_r.mask, nw_comp_r, offset_p0_r, current_last_r_p1}),
         .out_valid  (r_beg_p1_r.valid),
         .out_ready  (r_beg_p1_r.ready)
     );
@@ -247,8 +252,8 @@ module row_decoder #(
     logic [OUT_PAR-1:0][ID_WIDTH-1:0] payload_b;
     logic [OUT_PAR-1:0][ID_WIDTH-1:0] payload_r;
     logic [INTERNAL_PAR-1:0][OUT_PAR_WIDTH-1:0] index;
-    
-    // timing go ahh loop 
+
+    // timing go ahh loop
     always_comb
     begin
 
@@ -293,11 +298,18 @@ module row_decoder #(
     // --------------  PIPE OUT  --------------- //
     // ----------------------------------------- //
 
-    axi_stream_fifo #( .PIPELINE_ONLY(1), .SKID(1) ) pipe_out_I (
+    pipeline #(
+        .DATA_WIDTH(row_ids_b.TOTAL_WIDTH + 1 + row_ids_b.PARALLELISM + 1),
+        .PIPE_LINE(1)
+    ) pipeline_I (
         .clk        (clk),
         .rst_n      (rst_n),
-        .in         (row_ids_b),
-        .out        (row_ids)
+        .in_data    ({row_ids_b.data, row_ids_b.last, row_ids_b.mask, current_last_r_p1}),
+        .in_valid   (row_ids_b.valid),
+        .in_ready   (row_ids_b.ready),
+        .out_data   ({row_ids.data, row_ids.last, row_ids.mask, last}),
+        .out_valid  (row_ids.valid),
+        .out_ready  (row_ids.ready)
     );
 
 endmodule

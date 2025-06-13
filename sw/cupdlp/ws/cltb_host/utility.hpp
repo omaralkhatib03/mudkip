@@ -100,7 +100,7 @@ static inline bool readIntIntInt(std::string line, int &a, int &b, T &c) {
 
 
 template<typename T>
-static inline std::unique_ptr<CSRMatrix<T>> ReadMatrixCSR(const std::string filePath, bool &read) {
+static inline std::unique_ptr<CSRMatrix<T>> ReadMatrixCSR(std::string filePath, bool &read) {
     std::string comment = "%";
     std::unique_ptr<CSRMatrix<T>> matrix;
     std::ifstream file(filePath);

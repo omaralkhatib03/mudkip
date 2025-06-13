@@ -56,7 +56,7 @@ set(USER_COMPILE_WARNINGS_INHIBIT_ALL )
 set(USER_COMPILE_OPTIMIZATION_LEVEL -O0)
 
 # Other flags related to optimization
-set(USER_COMPILE_OPTIMIZATION_OTHER_FLAGS -std=c++20)
+set(USER_COMPILE_OPTIMIZATION_OTHER_FLAGS )
 
 # -----------------------------------------
 
@@ -81,7 +81,7 @@ set(USER_COMPILE_ANSI )
 
 # Add any compiler options that are not covered by the above variables, they will be added as extra compiler options
 # To enable profiling -pg [ for gprof ]  or -p [ for prof information ]
-set(USER_COMPILE_OTHER_FLAGS )
+set(USER_COMPILE_OTHER_FLAGS -std=c++20)
 
 # -----------------------------------------
 

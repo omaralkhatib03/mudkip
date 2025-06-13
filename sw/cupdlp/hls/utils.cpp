@@ -150,17 +150,12 @@ void spMvCsC(int *c_beg, int *r_idx, data_t *val, int n, data_t * x, data_t ** o
 
 void spMvCsR(int *r_beg, int *c_idx, data_t *c_val, int m, data_t * x, data_t * out)
 {
-    LOG_INIT_CERR();
-
-    // log(LOG_DEBUG) << "Entering CSR Compute\n";
 
     for (int i = 0; i < m; i++)
     {
-        // log(LOG_DEBUG) << "M: " << i <<" \n";
         for (int j = r_beg[i]; j < r_beg[i + 1]; j++)
         {
-            // log(LOG_DEBUG) << "j: " << j <<" \n";
-            out[i] += c_val[j] * x[c_idx[j]]; // Multiply and Accumulate (MAC)
+            out[i] += c_val[j] * x[c_idx[j]];
         }
     }
 }

@@ -1,0 +1,81 @@
+{
+  "modelVersion": "1.0",
+  "projectName": "cltb_sys",
+  "platform": "/home/oa321/work/mudkip/vivado/ws/swampert/export/swampert/swampert.xpfm",
+  "externalComponentRefs": [
+    "cltb",
+    "spmv",
+    "spmv_naive",
+    "spmv_stream_manu_loc",
+    "spmv_naive_pipe"
+  ],
+  "components": [
+    {
+      "name": "package",
+      "type": "PACKAGE",
+      "configuration": {
+        "componentType": "PACKAGE",
+        "packageConfigurations": [
+          {
+            "configId": "package.default",
+            "options": []
+          }
+        ],
+        "configFiles": [
+          "package/package.cfg"
+        ]
+      }
+    },
+    {
+      "name": "hw_link",
+      "type": "HW_LINKER",
+      "configuration": {
+        "componentType": "HW_LINKER",
+        "containers": [
+          {
+            "name": "jin_mori",
+            "kernels": {
+              "spmv": "spmv",
+              "spmv_naive": "spmv_naive",
+              "spmv_stream_manu_loc": "spmv_stream_manu_loc",
+              "spmv_naive_pipe": "spmv_naive_pipe"
+            },
+            "userXoKernels": {},
+            "aieComponents": [],
+            "userAieLibadfList": [],
+            "cfgFiles": [
+              "hw_link/jin_mori-link.cfg"
+            ]
+          }
+        ],
+        "vppLinkerConfigurations": [
+          {
+            "configId": "hw_link.default",
+            "options": [],
+            "containerOptions": {},
+            "buildDatafiles": []
+          }
+        ]
+      }
+    }
+  ],
+  "buildConfigurations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "supportedTargets": [
+        "SW_EMU",
+        "HW_EMU",
+        "HW"
+      ],
+      "componentConfigMap": {
+        "package": "package.default",
+        "hw_link": "hw_link.default"
+      }
+    }
+  ],
+  "activeBuildConfigId": "default",
+  "hostMode": "x86",
+  "isDirty": true,
+  "applicationFlow": "EMBEDDED_ACCEL"
+}

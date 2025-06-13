@@ -92,9 +92,9 @@ def buildBinary():
         raise
 
 def main():
-    checkEnviroment()
-    cleanBuild()
-    buildBinary()
+    # checkEnviroment()
+    # cleanBuild()
+    # buildBinary()
 
     # For now err on the side of caution
     DISABLED_PROBLEMS = [

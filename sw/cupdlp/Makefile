@@ -2,17 +2,20 @@ TARGET=sw_emu
 BUILD_DIR=build
 
 CFG_FILE=vsva1902.cfg
-PLATFROM?=mudkip 
-SYSROOT=/home/oa321/work/mudkip/vivado/pfm/mudkip-lin/SDK/sysroots/cortexa72-cortexa53-xilinx-linux
-ROOTFS=/home/oa321/work/mudkip/vivado/pfm/mudkip-lin/images/linux
+# PLATFROM?=swampert
+PLATFROM?=swampert
+SYSROOT=/home/oa321/work/mudkip/vivado/pfm/swampert-lin/SDK/sysroots/cortexa72-cortexa53-xilinx-linux
+# ROOTFS=/home/oa321/work/mudkip/vivado/pfm/swampert-lin/images/linux
+ROOTFS=/opt/xilinx/xilinx-versal-common-v2024.1/
 INI=xrt.ini
-XSA=/home/oa321/work/mudkip/vivado/pfm/base_mudkip_hw.xsa
+XSA=/home/oa321/work/mudkip/vivado/pfm/base_swampert.xsa
 XRT_INCLUDE=/opt/xilinx/xrt/include/
+HLS_INCLUDE=/opt/Xilinx/Vitis_HLS/2024.1/include/
 
 CFLAGS = -Wall -g -I./cupdlp -fPIC -I$(VERSAL_HIGHS_HOME)/include/highs
 CFLAGS += -Wno-comment -Wno-unused-variable -Wno-unused-label -Wno-unused-result
 CFLAGS += -Wno-unused-but-set-variable
-CXXFLAGS += -std=c++17 $(CFLAGS)
+CXXFLAGS += -std=c++20 $(CFLAGS)
 SRC_DIR = ./src
 
 CUPDLP_DIR = $(SRC_DIR)/cupdlp
@@ -21,8 +24,8 @@ SOURCES = $(wildcard $(CUPDLP_DIR)/*.c)
 OBJECTS = $(addprefix $(BUILD_DIR)/, $(notdir $(SOURCES:.c=.o)))
 CFLAGS += -DCUPDLP_CPU=1
 
-LDFLAGS 	= -L$(BUILD_DIR)
-LDFLAGS 	= -L$(VERSAL_HIGHS_HOME) 
+LDFLAGS 	+= -L$(BUILD_DIR)
+LDFLAGS 	+= -L$(VERSAL_HIGHS_HOME) 
 HIGHS_LIBS 	= -lhighs
 CUPDLP_LIB 	= -lcupdlp
 PLC_BIN 	= $(BUILD_DIR)/plc
@@ -89,13 +92,13 @@ $(BUILD_DIR)/%.o: hls/%.cpp $(BUILD_DIR)
 	$(CXX) -g -I$(HLS_DIR) -c $< -o $@ 
 
 $(BUILD_DIR)/$(TB): $(UTILS) $(HLS_SOURCES)
-	$(CXX) -I$(HLS_DIR) $(TB_SRC) $(UTILS) -o $@ $(HLS_SOURCES)
+	$(CXX) -I$(HLS_INCLUDE) -I$(HLS_DIR) $(TB_SRC) $(UTILS) -o $@ $(HLS_SOURCES)
 
 $(XCLBIN): $(BUILD_DIR)/$(SPMV_KERNEL).xo
 	$(VPP) -l -t $(TARGET) --config $(CFG_FILE) -o $@ $< -I$(HLS_DIR) -R2
 
 $(BUILD_DIR)/$(CL_TB): $(CLTB_SRC) $(UTILS)
-	$(CXX) -g -I$(HLS_DIR) -I$(XRT_INCLUDE) \
+	$(CXX) -g -I$(HLS_INCLUDE) -I$(HLS_DIR) -I$(XRT_INCLUDE) \
 	-lOpenCL -lxrt_coreutil -o $@ $(UTILS) $(CLTB_SRC)
 
 $(BUILD_DIR):
@@ -122,7 +125,3 @@ log-clean:
 
 clean:
 	rm -rf vadd* app.exe *json *csv *log *summary _x package *.json .run .Xil .ipcache *.jou *.xclbin
-
-# upload: package/sd_card.img
-	# cp package/sd_card/BOOT.BIN package/sd_card/boot.scr package/sd_card/Image /media/oa321/boot/ 
-	# cp package/sd_card/xrt.ini package/sd_card/plc package/sd_card/afiro.mps package/sd_card/a.xclbin /media/oa321/root/home/root/

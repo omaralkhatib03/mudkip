@@ -37,104 +37,26 @@ module spmv_kernel_top #(
     vector_ram_if.slave rom_x_n
 );
 
-    vector_ram_if #(
-        .LENGTH         (VECTOR_LENGTH),
-        .DATA_WIDTH     (DATA_WIDTH),
-        .PARALLELISM    (PARALLELISM),
-        .FLOAT          (FLOAT),
-        .E_WIDTH        (E_WIDTH),
-        .FRAC_WIDTH     (FRAC_WIDTH) // + implicit 1
-    ) x_i();
+    read_matrix #(
+        .EL_PER_DDR(PARALLELISM),
+        .OFFSET(0)
+    ) (
+    .clk        (),
+    .rst_n      (),
 
-    vector_ram_if #(
-        .LENGTH         (VECTOR_LENGTH),
-        .DATA_WIDTH     (DATA_WIDTH),
-        .PARALLELISM    (PARALLELISM),
-        .FLOAT          (FLOAT),
-        .E_WIDTH        (E_WIDTH),
-        .FRAC_WIDTH     (FRAC_WIDTH) // + implicit 1
+    .r_beg_ddr  (),
+    .c_idx_ddr  (),
+    .c_val_ddr  (),
 
-    ) x_n_i();
+    .c_idx      (),
+    .val        (),
+    .r_idx      (),
+    .valid      (),
+    .ready      (),
+    .mask       (),
+    .last       ()
 
-    vector_ram_if #(
-        .LENGTH         (VECTOR_LENGTH),
-        .DATA_WIDTH     (DATA_WIDTH),
-        .PARALLELISM    (PARALLELISM),
-        .FLOAT          (FLOAT),
-        .E_WIDTH        (E_WIDTH),
-        .FRAC_WIDTH     (FRAC_WIDTH) // + implicit 1
-    ) ping_vec_i();
-
-    vector_ram_if #(
-        .LENGTH         (VECTOR_LENGTH),
-        .DATA_WIDTH     (DATA_WIDTH),
-        .PARALLELISM    (PARALLELISM),
-        .FLOAT          (FLOAT),
-        .E_WIDTH        (E_WIDTH),
-        .FRAC_WIDTH     (FRAC_WIDTH) // + implicit 1
-    ) pong_vec_i();
-
-    spmv_kernel spmv_k_I (
-        .clk    (clk),
-        .rst_n  (rst_n),
-        .en     (en),
-        .done   (done),
-
-        .val    (val),
-        .r_beg  (r_beg),
-        .c_idx  (c_idx),
-
-        .x      (x_i),
-        .x_n    (x_n_i)
-    );
-
-    generate
-        if (RELEASE_MODE)
-        begin : release_mode_gen
-
-            vector_ping_pong #(
-                .NUMBER_OF_RAMS (NUMBER_OF_RAMS),
-                .RAM_FIFO_DEPTH (RAM_FIFO_DEPTH)
-            ) iterates_ping_pong_I (
-                .clk        (clk),
-                .rst_n      (rst_n),
-
-                .ping       (ping),
-
-                .x          (x_i),
-                .x_n        (x_n_i),
-
-                .rom_x      (rom_x),
-                .rom_x_n    (rom_x_n)
-            );
-
-            vector_ram_slave_null null_I (cfg);
-
-        end
-        else
-        begin : test_mode_gen
-
-            vector_ping_pong_ld_wrapper #(
-                .NUMBER_OF_RAMS (NUMBER_OF_RAMS),
-                .RAM_FIFO_DEPTH (RAM_FIFO_DEPTH)
-            ) iterates_ping_pong_I (
-                .clk        (clk),
-                .rst_n      (rst_n),
-                .cfg_en     (cfg_en),
-
-                .ping       (ping),
-
-                .x          (x_i),
-                .x_n        (x_n_i),
-
-                .rom_x      (rom_x),
-                .rom_x_n    (rom_x_n),
-                .cfg        (cfg)
-            );
-
-        end
-
-    endgenerate
+)    
 
 
 endmodule

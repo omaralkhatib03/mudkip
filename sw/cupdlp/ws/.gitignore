@@ -18,3 +18,4 @@ logs
 .peers.ini
 .repo.yaml
 .vitisWorkspace.json
+resource_data

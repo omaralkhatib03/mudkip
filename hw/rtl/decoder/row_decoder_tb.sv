@@ -4,25 +4,24 @@ module row_decoder_tb #(
     parameter OFFSET       /*verilator public */ = 0,
     parameter DATA_WIDTH   /*verilator public */ = 32,
     parameter IN_PARALLEL  /*verilator public */ = 16,
-    parameter OUT_PARALLEL /*verilator public */ = 8
+    parameter OUT_PARALLEL /*verilator public */ = 16
 )(
-    input wire clk,
-    input wire rst_n,
+    input wire                                      clk,
+    input wire                                      rst_n,
 
-    input  wire [DATA_WIDTH-1:0] r_beg_data   [IN_PARALLEL-1:0],
-    input  wire                  r_beg_valid,
-    input  wire                  r_beg_last,
-    input  wire [IN_PARALLEL-1:0] r_beg_bytemask,
-    output logic                 r_beg_ready,
+    input  wire [IN_PARALLEL-1:0][DATA_WIDTH-1:0]   r_beg_data,
+    input  wire                                     r_beg_valid,
+    input  wire                                     r_beg_last,
+    input  wire [IN_PARALLEL-1:0]                   r_beg_bytemask,
+    output logic                                    r_beg_ready,
 
-    output logic [DATA_WIDTH-1:0] row_ids_data [OUT_PARALLEL-1:0],
-    output logic                  row_ids_valid,
-    output logic                  row_ids_last,
-    output logic [OUT_PARALLEL-1:0] row_ids_bytemask,
-    input  wire                   row_ids_ready
+    output logic [OUT_PARALLEL-1:0][DATA_WIDTH-1:0] row_ids_data,
+    output logic                                    row_ids_valid,
+    output logic                                    row_ids_last,
+    output logic [OUT_PARALLEL-1:0]                 row_ids_bytemask,
+    input  wire                                     row_ids_ready
 );
 
-    // Instantiate the stream interfaces
     axi_stream_if #(
         .DATA_WIDTH(DATA_WIDTH),
         .PARALLELISM(IN_PARALLEL)

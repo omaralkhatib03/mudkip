@@ -1,0 +1,68 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "spmv_aie_x86_1",
+			"debugType": "x86simulator",
+			"type": "gdb",
+			"x86SimOptions": "${workspaceFolder}/spmv_aie/build/x86sim/Work/options/x86sim.options",
+			"request": "launch",
+			"target": "${workspaceFolder}/spmv_aie/build/x86sim/Work/pthread/sim.out",
+			"cwd": "${workspaceFolder}/spmv_aie/build/x86sim",
+			"gdbpath": "${env:XILINX_VITIS}/bin/xgdb",
+			"valuesFormatting": "prettyPrinters",
+			"env": {
+				"LD_LIBRARY_PATH": "/opt/Xilinx/Vitis/2024.1/tps/lnx64/python-3.8.3/lib:/opt/Xilinx/Vitis/2024.1/aietools/tps/lnx64/gcc/lib64/:/opt/Xilinx/Vitis/2024.1/tps/lnx64/cmake-3.24.2/libs/Ubuntu/22:/opt/Xilinx/Vitis/2024.1/tps/lnx64/cmake-3.24.2/libs/Ubuntu:/opt/Xilinx/Vitis/2024.1/tps/lnx64/cmake-3.24.2/libs:/opt/Xilinx/Vitis/2024.1/lib/lnx64.o/Ubuntu/22:/opt/Xilinx/Vitis/2024.1/lib/lnx64.o/Ubuntu:/opt/Xilinx/Vitis/2024.1/lib/lnx64.o:/opt/Xilinx/Vitis/2024.1/tps/lnx64/python-3.8.3/lib:/opt/Xilinx/Vitis/2024.1/tps/lnx64/cmake-3.24.2/libs/Ubuntu/22:/opt/Xilinx/Vitis/2024.1/tps/lnx64/cmake-3.24.2/libs/Ubuntu:/opt/Xilinx/Vitis/2024.1/tps/lnx64/cmake-3.24.2/libs:/opt/Xilinx/Vitis/2024.1/lib/lnx64.o:/opt/Xilinx/Vitis/2024.1/lib/lnx64.o/Ubuntu/22:/opt/Xilinx/Vitis/2024.1/lib/lnx64.o/Ubuntu:/opt/Xilinx/Vitis/2024.1/lib/lnx64.o:/opt/Xilinx/Vitis/2024.1/tps/lnx64/python-3.8.3/lib:/opt/Xilinx/Vitis/2024.1/aietools/lib/lnx64.o:/opt/Xilinx/Vitis_HLS/2024.1/lib/lnx64.o/Ubuntu/22:/opt/Xilinx/Vitis_HLS/2024.1/lib/lnx64.o/Ubuntu:/opt/Xilinx/Vitis_HLS/2024.1/lib/lnx64.o:/opt/Xilinx/Vitis_HLS/2024.1/lib/lnx64.o:/opt/xilinx/xrt/lib:/opt/Xilinx/Vitis/2024.1/tps/lnx64/cmake-3.3.2/libs/Ubuntu/x86_64-linux-gnu/:/opt/Xilinx/Vitis/2024.1/tps/lnx64/cmake-3.24.2/libs/Ubuntu/",
+				"INPUTDIR": "../..",
+				"OUTPUTDIR": "./x86simulator_output",
+				"ASAN_OPTIONS": "detect_leaks=0",
+				"ASAN_SYMBOLIZER_PATH": "/opt/Xilinx/Vitis/2024.1/aietools/lnx64.o/tools/clang/bin/llvm-symbolizer",
+				"PACKAGEDIR": "./Work"
+			}
+		},
+		{
+			"type": "tcf-debug",
+			"request": "launch",
+			"name": "spmv_aie_aiesim_1",
+			"debugType": "aiesimulator",
+			"autoAttachProcessChildren": false,
+			"target": {
+				"targetConnectionId": "XRTServer",
+				"peersIniPath": "../../../.wsdata/.peers.ini",
+				"context": "MemSock"
+			},
+			"aieSimulatorOptions": {
+				"enablePipelineView": false,
+				"packageDirectory": "./Work",
+				"inputDirectory": "../..",
+				"additionalArgs": "",
+				"trace": {
+					"enableTrace": true,
+					"traceType": "onlineWdb",
+					"vcdFileName": "foo",
+					"generateXpe": false,
+					"traceModules": {
+						"io": true,
+						"dma": true,
+						"memory": true,
+						"core": true,
+						"shim": true,
+						"streamSwitch": true
+					},
+					"columnSelectionForTrace": [],
+					"rowSelectionForTrace": [],
+					"timeWindowForTrace": {
+						"start": "",
+						"end": ""
+					}
+				},
+				"profile": {
+					"enableProfiling": true,
+					"profileAllCores": true,
+					"cores": ""
+				}
+			},
+			"internalConsoleOptions": "openOnSessionStart"
+		}
+	]
+}

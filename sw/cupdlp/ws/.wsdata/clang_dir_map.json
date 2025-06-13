@@ -1,15 +1,6 @@
 {
   "workspaceRoot": "/home/oa321/work/mudkip/sw/cupdlp/ws",
   "mapping": {
-    "/home/oa321/work/HiHiSpMV/src/kernels/csr_spmv_repl_3_2.cpp": "csr_repl_3_2",
-    "read_matrix/read_matrix.hpp": "read_matrix",
-    "/home/oa321/work/HiHiSpMV/src/kernels/csr_spmv_repl_3_1.cpp": "csr_repl_3_1",
-    "read_matrix/read_matrix.cpp": "read_matrix",
-    "/home/oa321/work/HiHiSpMV/src/kernels/csr_spmv_repl_1.cpp": "csr_repl_1",
-    "read_matrix/spmv_tb.cpp": "read_matrix",
-    "/home/oa321/work/HiHiSpMV/src/kernels/xlx_definitions.hpp": "csr_repl_1",
-    "/home/oa321/work/HiHiSpMV/src/kernels/csr_spmv_repl_2.cpp": "csr_repl_2",
-    "read_matrix/tb.cpp": "read_matrix",
-    "read_matrix/BSLogger.hpp": "read_matrix"
+    "/home/oa321/work/HiHiSpMV/src/kernels/csr_spmv_repl_2.cpp": "csr_repl_2"
   }
 }

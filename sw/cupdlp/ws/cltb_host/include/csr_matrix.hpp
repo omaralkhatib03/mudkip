@@ -21,9 +21,9 @@ class CSRMatrix {
 
         ~CSRMatrix<T>();
 
-        const uint rows() const;
-        const uint nnz() const;
-        const uint cols() const;
+        uint rows() const;
+        uint nnz() const;
+        uint cols() const;
 
         // T& operator()(const int x, const int y);
         // const T& operator()(const int x, const int y);
@@ -32,10 +32,10 @@ class CSRMatrix {
         const T& getData(uint index) const;
 
         void setColIndex(const uint index, const int value);
-        const int getColIndex(uint index) const;
+        int getColIndex(uint index) const;
 
         void setRowPointer(const uint index, const int value);
-        const int getRowPointer(uint index) const;
+        int getRowPointer(uint index) const;
 
         void clear();
 };
@@ -61,16 +61,16 @@ template <typename T> CSRMatrix<T>::CSRMatrix(const CSRMatrix<T>& csrMatrix):
 
 template <typename T> CSRMatrix<T>::~CSRMatrix<T>() { }
 
-template <typename T> const uint CSRMatrix<T>::rows() const { return rows_;}
-template <typename T> const uint CSRMatrix<T>::nnz() const { return nnz_;} 
-template <typename T> const uint CSRMatrix<T>::cols() const { return cols_;} 
+template <typename T> uint CSRMatrix<T>::rows() const { return rows_;}
+template <typename T> uint CSRMatrix<T>::nnz() const { return nnz_;} 
+template <typename T> uint CSRMatrix<T>::cols() const { return cols_;} 
 
 template <typename T> void CSRMatrix<T>::setData(const uint index, const T& value) { data[index] = value; }
 template <typename T> const T& CSRMatrix<T>::getData(const uint index) const { return data[index];}
 template <typename T> void CSRMatrix<T>::setColIndex(const uint index, const int value) { colIndex[index] = value;}
-template <typename T> const int CSRMatrix<T>::getColIndex(const uint index) const { return colIndex[index];}
+template <typename T> int CSRMatrix<T>::getColIndex(const uint index) const { return colIndex[index];}
 template <typename T> void CSRMatrix<T>::setRowPointer(const uint index, const int value) { rowPointer[index] = value; }
-template <typename T> const int CSRMatrix<T>::getRowPointer(const uint index) const { return rowPointer[index];}
+template <typename T> int CSRMatrix<T>::getRowPointer(const uint index) const { return rowPointer[index];}
 
 template <typename T> void CSRMatrix<T>:: clear() { 
     std::fill(rowPointer.get(), rowPointer.get()+rows_+1, 0); 

@@ -11,14 +11,14 @@
 namespace sim
 {
 
-constexpr unsigned flog2(unsigned x)
-{
-    return x == 1 ? 0 : 1+flog2(x >> 1);
+constexpr unsigned flog2(unsigned x) {
+    unsigned r = 0;
+    while (x >>= 1) ++r;
+    return r;
 }
 
-constexpr unsigned clog2(unsigned x)
-{
-    return x == 1 ? 0 : flog2(x - 1) + 1;
+constexpr unsigned clog2(unsigned x) {
+    return x <= 1 ? 0 : flog2(x - 1) + 1;
 }
 
 constexpr int ceil(float num)
