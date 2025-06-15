@@ -1,9 +1,0 @@
-{
-  "workspaceRoot": "/home/oa321/work/mudkip/sw/cupdlp/ws/SPMV",
-  "mapping": {
-    "/home/oa321/work/HiHiSpMV/src/kernels/csr_spmv_repl_3_2.cpp": "/home/oa321/work/mudkip/sw/cupdlp/ws/csr_repl_3_2",
-    "/home/oa321/work/HiHiSpMV/src/kernels/csr_spmv_repl_3_1.cpp": "/home/oa321/work/mudkip/sw/cupdlp/ws/csr_repl_3_1",
-    "/home/oa321/work/HiHiSpMV/src/kernels/csr_spmv_repl_1.cpp": "/home/oa321/work/mudkip/sw/cupdlp/ws/csr_repl_1",
-    "/home/oa321/work/HiHiSpMV/src/kernels/csr_spmv_repl_2.cpp": "/home/oa321/work/mudkip/sw/cupdlp/ws/csr_repl_2"
-  }
-}

@@ -1,0 +1,20 @@
+{
+  "workspaceRoot": "/home/oa321/work/clean-up/mudkip/sw/cupdlp/hihispmv-ws",
+  "mapping": {
+    "csr_repl_1/../../../../HiHiSpMV/src/kernels/csr_spmv_repl_1.cpp": "csr_repl_1",
+    "read_matrix/read_matrix.hpp": "read_matrix",
+    "/home/oa321/work/mudkip/vivado/ws/aie_sys_design_mm2s/src/mm2s.cpp": "mm2s",
+    "read_matrix/read_matrix.cpp": "read_matrix",
+    "read_matrix/spmv_tb.cpp": "read_matrix",
+    "csr_repl_1/../../../../HiHiSpMV/src/kernels/xlx_definitions.hpp": "csr_repl_1",
+    "read_matrix/tb.cpp": "read_matrix",
+    "csr_repl_2/../../../../HiHiSpMV/src/kernels/xlx_definitions.hpp": "csr_repl_2",
+    "csr_repl_3_2/../../../../HiHiSpMV/src/kernels/csr_spmv_repl_3_2.cpp": "csr_repl_3_2",
+    "csr_repl_3_2/../../../../HiHiSpMV/src/kernels/xlx_definitions.hpp": "csr_repl_3_2",
+    "csr_repl_2/../../../../HiHiSpMV/src/kernels/csr_spmv_repl_2.cpp": "csr_repl_2",
+    "csr_repl_3_1/../../../../HiHiSpMV/src/kernels/csr_spmv_repl_3_1.cpp": "csr_repl_3_1",
+    "read_matrix/BSLogger.hpp": "read_matrix",
+    "/home/oa321/work/mudkip/vivado/ws/aie_sys_design_s2mm/src/s2mm.cpp": "s2mm",
+    "csr_repl_3_1/../../../../HiHiSpMV/src/kernels/xlx_definitions.hpp": "csr_repl_3_1"
+  }
+}

@@ -1,14 +1,13 @@
 # Ignore build output directory
-
-build
-export
+/build
+/export
 
 # Ignore object files and dependent files
 .o
 .d
 
 #Ignore logs folder and log files
-logs
+/logs
 .log
 
 #Ignore lock files
@@ -19,11 +18,3 @@ logs
 .peers.ini
 .repo.yaml
 .vitisWorkspace.json
-
-*
-
-!mudkip/
-!mudkip/*
-
-!swampert/
-!swampert/*

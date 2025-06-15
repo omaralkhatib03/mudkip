@@ -1,6 +1,0 @@
-{
-  "workspaceRoot": "/home/oa321/work/mudkip/sw/cupdlp/ws",
-  "mapping": {
-    "/home/oa321/work/HiHiSpMV/src/kernels/csr_spmv_repl_2.cpp": "csr_repl_2"
-  }
-}

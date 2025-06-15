@@ -4,11 +4,11 @@ BUILD_DIR=build
 CFG_FILE=vsva1902.cfg
 # PLATFROM?=swampert
 PLATFROM?=swampert
-SYSROOT=/home/oa321/work/mudkip/vivado/pfm/swampert-lin/SDK/sysroots/cortexa72-cortexa53-xilinx-linux
-# ROOTFS=/home/oa321/work/mudkip/vivado/pfm/swampert-lin/images/linux
+SYSROOT=../../vivado/pfm/swampert-lin/SDK/sysroots/cortexa72-cortexa53-xilinx-linux
+# ROOTFS=../../../../vivado/pfm/swampert-lin/images/linux
 ROOTFS=/opt/xilinx/xilinx-versal-common-v2024.1/
 INI=xrt.ini
-XSA=/home/oa321/work/mudkip/vivado/pfm/base_swampert.xsa
+XSA=../../vivado/pfm/base_swampert.xsa
 XRT_INCLUDE=/opt/xilinx/xrt/include/
 HLS_INCLUDE=/opt/Xilinx/Vitis_HLS/2024.1/include/
 

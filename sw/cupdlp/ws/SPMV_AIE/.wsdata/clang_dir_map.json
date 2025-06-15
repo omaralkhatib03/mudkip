@@ -1,7 +1,0 @@
-{
-  "workspaceRoot": "/home/oa321/work/mudkip/sw/cupdlp/ws/SPMV_AIE",
-  "mapping": {
-    "/home/oa321/work/mudkip/vivado/ws/aie_sys_design_mm2s/src/mm2s.cpp": "/home/oa321/work/mudkip/sw/cupdlp/ws/mm2s",
-    "/home/oa321/work/mudkip/vivado/ws/aie_sys_design_s2mm/src/s2mm.cpp": "/home/oa321/work/mudkip/sw/cupdlp/ws/s2mm"
-  }
-}

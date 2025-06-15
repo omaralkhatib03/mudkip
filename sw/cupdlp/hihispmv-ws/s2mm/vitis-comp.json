@@ -1,0 +1,12 @@
+{
+  "name": "s2mm",
+  "type": "HLS",
+  "part": "xcvc1902-vsva2197-2MP-e-S",
+  "configuration": {
+    "componentType": "HLS",
+    "configFiles": [
+      "/home/oa321/work/mudkip/vivado/ws/aie_sys_design_s2mm/hls_config.cfg"
+    ],
+    "work_dir": "s2mm"
+  }
+}
