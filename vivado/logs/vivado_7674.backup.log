@@ -1,0 +1,850 @@
+#-----------------------------------------------------------
+# Vivado v2024.1 (64-bit)
+# SW Build 5076996 on Wed May 22 18:36:09 MDT 2024
+# IP Build 5075265 on Wed May 22 21:45:21 MDT 2024
+# SharedData Build 5076995 on Wed May 22 18:29:18 MDT 2024
+# Start of session at: Wed May 14 11:50:40 2025
+# Process ID: 7674
+# Current directory: /home/oa321/work/mudkip/vivado
+# Command line: vivado
+# Log file: /home/oa321/work/mudkip/vivado/vivado.log
+# Journal file: /home/oa321/work/mudkip/vivado/vivado.jou
+# Running On        :gambhir
+# Platform          :Ubuntu
+# Operating System  :Ubuntu 22.04.5 LTS
+# Processor Detail  :AMD Ryzen 9 9950X 16-Core Processor
+# CPU Frequency     :600.000 MHz
+# CPU Physical cores:16
+# CPU Logical cores :32
+# Host memory       :64831 MB
+# Swap memory       :2147 MB
+# Total Virtual     :66979 MB
+# Available Virtual :61723 MB
+#-----------------------------------------------------------
+start_gui
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_a/1.0/board.xml as part xcve2802-vsvh1760-2lp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_a/1.1/board.xml as part xcve2802-vsvh1760-2lp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es_revb:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_b/1.0/board.xml as part xcve2802-vsvh1760-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es_revb:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_b/1.1/board.xml as part xcve2802-vsvh1760-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158_es:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vhk158/es/1.0/board.xml as part xcvh1582-vsva3697-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158_es:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vhk158/es/1.1/board.xml as part xcvh1582-vsva3697-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu208ld:part0:2.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu208ld/production/2.0/board.xml as part xczu58dr-fsvg1517-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu216ld:part0:2.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu216ld/production/2.0/board.xml as part xczu59dr-ffvf1760-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670ld:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu670ld/1.0/board.xml as part xczu57dr-fsve1156-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_a/1.0/board.xml as part xcve2802-vsvh1760-2lp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_a/1.1/board.xml as part xcve2802-vsvh1760-2lp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es_revb:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_b/1.0/board.xml as part xcve2802-vsvh1760-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es_revb:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_b/1.1/board.xml as part xcve2802-vsvh1760-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158_es:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vhk158/es/1.0/board.xml as part xcvh1582-vsva3697-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158_es:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vhk158/es/1.1/board.xml as part xcvh1582-vsva3697-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu208ld:part0:2.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu208ld/production/2.0/board.xml as part xczu58dr-fsvg1517-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu216ld:part0:2.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu216ld/production/2.0/board.xml as part xczu59dr-ffvf1760-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670ld:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu670ld/1.0/board.xml as part xczu57dr-fsve1156-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_a/1.0/board.xml as part xcve2802-vsvh1760-2lp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_a/1.1/board.xml as part xcve2802-vsvh1760-2lp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es_revb:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_b/1.0/board.xml as part xcve2802-vsvh1760-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es_revb:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_b/1.1/board.xml as part xcve2802-vsvh1760-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158_es:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vhk158/es/1.0/board.xml as part xcvh1582-vsva3697-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158_es:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vhk158/es/1.1/board.xml as part xcvh1582-vsva3697-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu208ld:part0:2.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu208ld/production/2.0/board.xml as part xczu58dr-fsvg1517-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu216ld:part0:2.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu216ld/production/2.0/board.xml as part xczu59dr-ffvf1760-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670ld:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu670ld/1.0/board.xml as part xczu57dr-fsve1156-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_a/1.0/board.xml as part xcve2802-vsvh1760-2lp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_a/1.1/board.xml as part xcve2802-vsvh1760-2lp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es_revb:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_b/1.0/board.xml as part xcve2802-vsvh1760-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es_revb:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_b/1.1/board.xml as part xcve2802-vsvh1760-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158_es:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vhk158/es/1.0/board.xml as part xcvh1582-vsva3697-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158_es:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vhk158/es/1.1/board.xml as part xcvh1582-vsva3697-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu208ld:part0:2.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu208ld/production/2.0/board.xml as part xczu58dr-fsvg1517-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu216ld:part0:2.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu216ld/production/2.0/board.xml as part xczu59dr-ffvf1760-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670ld:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu670ld/1.0/board.xml as part xczu57dr-fsve1156-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_a/1.0/board.xml as part xcve2802-vsvh1760-2lp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_a/1.1/board.xml as part xcve2802-vsvh1760-2lp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es_revb:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_b/1.0/board.xml as part xcve2802-vsvh1760-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es_revb:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_b/1.1/board.xml as part xcve2802-vsvh1760-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158_es:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vhk158/es/1.0/board.xml as part xcvh1582-vsva3697-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158_es:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vhk158/es/1.1/board.xml as part xcvh1582-vsva3697-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu208ld:part0:2.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu208ld/production/2.0/board.xml as part xczu58dr-fsvg1517-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu216ld:part0:2.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu216ld/production/2.0/board.xml as part xczu59dr-ffvf1760-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670ld:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu670ld/1.0/board.xml as part xczu57dr-fsve1156-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_a/1.0/board.xml as part xcve2802-vsvh1760-2lp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_a/1.1/board.xml as part xcve2802-vsvh1760-2lp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es_revb:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_b/1.0/board.xml as part xcve2802-vsvh1760-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es_revb:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_b/1.1/board.xml as part xcve2802-vsvh1760-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158_es:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vhk158/es/1.0/board.xml as part xcvh1582-vsva3697-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158_es:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vhk158/es/1.1/board.xml as part xcvh1582-vsva3697-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu208ld:part0:2.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu208ld/production/2.0/board.xml as part xczu58dr-fsvg1517-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu216ld:part0:2.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu216ld/production/2.0/board.xml as part xczu59dr-ffvf1760-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670ld:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu670ld/1.0/board.xml as part xczu57dr-fsve1156-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_a/1.0/board.xml as part xcve2802-vsvh1760-2lp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_a/1.1/board.xml as part xcve2802-vsvh1760-2lp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es_revb:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_b/1.0/board.xml as part xcve2802-vsvh1760-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es_revb:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_b/1.1/board.xml as part xcve2802-vsvh1760-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158_es:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vhk158/es/1.0/board.xml as part xcvh1582-vsva3697-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158_es:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vhk158/es/1.1/board.xml as part xcvh1582-vsva3697-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu208ld:part0:2.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu208ld/production/2.0/board.xml as part xczu58dr-fsvg1517-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu216ld:part0:2.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu216ld/production/2.0/board.xml as part xczu59dr-ffvf1760-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670ld:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu670ld/1.0/board.xml as part xczu57dr-fsve1156-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_a/1.0/board.xml as part xcve2802-vsvh1760-2lp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_a/1.1/board.xml as part xcve2802-vsvh1760-2lp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es_revb:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_b/1.0/board.xml as part xcve2802-vsvh1760-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es_revb:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_b/1.1/board.xml as part xcve2802-vsvh1760-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158_es:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vhk158/es/1.0/board.xml as part xcvh1582-vsva3697-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158_es:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vhk158/es/1.1/board.xml as part xcvh1582-vsva3697-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu208ld:part0:2.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu208ld/production/2.0/board.xml as part xczu58dr-fsvg1517-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu216ld:part0:2.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu216ld/production/2.0/board.xml as part xczu59dr-ffvf1760-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670ld:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu670ld/1.0/board.xml as part xczu57dr-fsve1156-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_a/1.0/board.xml as part xcve2802-vsvh1760-2lp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_a/1.1/board.xml as part xcve2802-vsvh1760-2lp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es_revb:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_b/1.0/board.xml as part xcve2802-vsvh1760-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es_revb:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_b/1.1/board.xml as part xcve2802-vsvh1760-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158_es:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vhk158/es/1.0/board.xml as part xcvh1582-vsva3697-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158_es:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vhk158/es/1.1/board.xml as part xcvh1582-vsva3697-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu208ld:part0:2.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu208ld/production/2.0/board.xml as part xczu58dr-fsvg1517-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu216ld:part0:2.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu216ld/production/2.0/board.xml as part xczu59dr-ffvf1760-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670ld:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu670ld/1.0/board.xml as part xczu57dr-fsve1156-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_a/1.0/board.xml as part xcve2802-vsvh1760-2lp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_a/1.1/board.xml as part xcve2802-vsvh1760-2lp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es_revb:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_b/1.0/board.xml as part xcve2802-vsvh1760-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es_revb:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_b/1.1/board.xml as part xcve2802-vsvh1760-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158_es:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vhk158/es/1.0/board.xml as part xcvh1582-vsva3697-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158_es:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vhk158/es/1.1/board.xml as part xcvh1582-vsva3697-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu208ld:part0:2.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu208ld/production/2.0/board.xml as part xczu58dr-fsvg1517-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu216ld:part0:2.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu216ld/production/2.0/board.xml as part xczu59dr-ffvf1760-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670ld:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu670ld/1.0/board.xml as part xczu57dr-fsve1156-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_a/1.0/board.xml as part xcve2802-vsvh1760-2lp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_a/1.1/board.xml as part xcve2802-vsvh1760-2lp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es_revb:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_b/1.0/board.xml as part xcve2802-vsvh1760-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es_revb:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_b/1.1/board.xml as part xcve2802-vsvh1760-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158_es:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vhk158/es/1.0/board.xml as part xcvh1582-vsva3697-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158_es:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vhk158/es/1.1/board.xml as part xcvh1582-vsva3697-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu208ld:part0:2.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu208ld/production/2.0/board.xml as part xczu58dr-fsvg1517-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu216ld:part0:2.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu216ld/production/2.0/board.xml as part xczu59dr-ffvf1760-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670ld:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu670ld/1.0/board.xml as part xczu57dr-fsve1156-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_a/1.0/board.xml as part xcve2802-vsvh1760-2lp-e-s-es1 specified in board_part file is either invalid or not available
+INFO: [Common 17-14] Message 'Board 49-26' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+INFO: [Common 17-14] Message 'Vivado 12-4842' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+create_project marshtomp /home/oa321/work/mudkip/vivado/marshtomp -part xcvc1902-vsva2197-2MP-e-S
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/Xilinx/Vivado/2024.1/data/ip'.
+set_property board_part xilinx.com:vck190:part0:3.3 [current_project]
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+create_bd_design "ext_platform" -mode batch
+Wrote  : </home/oa321/work/mudkip/vivado/marshtomp/marshtomp.srcs/sources_1/bd/ext_platform/ext_platform.bd> 
+instantiate_example_design -template xilinx.com:design:ext_platform:1.0 -design ext_platform -options { Clock_Options.VALUE {clk_out1 200.000 0 true clk_out2 225.000 1 false clk_out3 300.000 2 false clk_out4 100.000 3 false} Include_AIE.VALUE true Include_BDC.VALUE false Include_DDR.VALUE true}
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vek280_es_revb:part0* -latest_file_version'.
+WARNING: [Vivado 12-4842] No board parts matched 'get_board_parts *vhk158_es:part0* -latest_file_version'.
+INFO: selected use_aie:: true
+INFO: selected bdc:: false
+INFO: Available memory types for vck190 board are :
+	 -> Default memory type : noc_ddr4
+	 -> Additional memory type : noc_lpddr4
+create_root_design
+INFO: vck190 is selected
+INFO: xilinx.com:vck190:part0:3.3 is selected
+INFO: xcvc1902-vsva2197-2MP-e-S is selected
+INFO: selected Interrupts:: 15
+INFO: selected design_name:: ext_platform
+INFO: selected Include_LPDDR:: 1
+INFO: selected Clock_Options:: clk_out1 200.000 0 true clk_out2 225.000 1 false clk_out3 300.000 2 false clk_out4 100.000 3 false
+INFO: selected Include_AIE:: true
+INFO: Using enhanced Versal extensible platform CED
+INFO: Available memory types for vck190 board are :
+	 -> Default memory type : noc_ddr4
+	 -> Additional memory type : noc_lpddr4
+INFO: [BoardInterface 100-3] current_bd_design ext_platform
+INFO: [BoardInterface 100-119] set_property CONFIG.PS_BOARD_INTERFACE ps_pmc_fixed_io [get_bd_cells -quiet /CIPS_0]
+INFO: [Device 21-403] Loading part xcvc1902-vsva2197-2MP-e-S
+INFO: [BoardInterface 100-3] current_bd_design ext_platform
+INFO: [BoardInterface 100-12] set_property CONFIG.CH0_DDR4_0_BOARD_INTERFACE ddr4_dimm1 [get_bd_cells -quiet /noc_ddr4]
+INFO: [BoardInterface 100-108] create_bd_intf_port -mode Master -vlnv xilinx.com:interface:ddr4_rtl:1.0 ddr4_dimm1
+INFO: [BoardInterface 100-109] connect_bd_intf_net /ddr4_dimm1 /noc_ddr4/CH0_DDR4_0
+INFO: [BoardInterface 100-3] current_bd_design ext_platform
+INFO: [BoardInterface 100-12] set_property CONFIG.sys_clk0_BOARD_INTERFACE ddr4_dimm1_sma_clk [get_bd_cells -quiet /noc_ddr4]
+INFO: [BoardInterface 100-108] create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_clock_rtl:1.0 ddr4_dimm1_sma_clk
+INFO: [BoardInterface 100-104] set_property CONFIG.FREQ_HZ 200000000 /ddr4_dimm1_sma_clk
+INFO: [BoardInterface 100-109] connect_bd_intf_net /ddr4_dimm1_sma_clk /noc_ddr4/sys_clk0
+INFO: [BoardInterface 100-112] set_property CONFIG.FREQ_HZ 200000000 /ddr4_dimm1_sma_clk
+INFO: [Ipptcl 7-1463] No Compatible Board Interface found. Board Tab not created in customize GUI
+INFO: [Ipptcl 7-1463] No Compatible Board Interface found. Board Tab not created in customize GUI
+INFO: [Ipptcl 7-1463] No Compatible Board Interface found. Board Tab not created in customize GUI
+INFO: [Ipptcl 7-1463] No Compatible Board Interface found. Board Tab not created in customize GUI
+INFO: lpddr4 selected
+INFO: [BoardInterface 100-3] current_bd_design ext_platform
+INFO: [BoardInterface 100-12] set_property CONFIG.CH0_LPDDR4_0_BOARD_INTERFACE ch0_lpddr4_c0 [get_bd_cells -quiet /noc_lpddr4]
+INFO: [BoardInterface 100-108] create_bd_intf_port -mode Master -vlnv xilinx.com:interface:lpddr4_rtl:1.0 ch0_lpddr4_c0
+INFO: [BoardInterface 100-109] connect_bd_intf_net /ch0_lpddr4_c0 /noc_lpddr4/CH0_LPDDR4_0
+INFO: [BoardInterface 100-3] current_bd_design ext_platform
+INFO: [BoardInterface 100-12] set_property CONFIG.CH1_LPDDR4_0_BOARD_INTERFACE ch1_lpddr4_c0 [get_bd_cells -quiet /noc_lpddr4]
+INFO: [BoardInterface 100-108] create_bd_intf_port -mode Master -vlnv xilinx.com:interface:lpddr4_rtl:1.0 ch1_lpddr4_c0
+INFO: [BoardInterface 100-109] connect_bd_intf_net /ch1_lpddr4_c0 /noc_lpddr4/CH1_LPDDR4_0
+INFO: [BoardInterface 100-3] current_bd_design ext_platform
+INFO: [BoardInterface 100-12] set_property CONFIG.sys_clk0_BOARD_INTERFACE lpddr4_sma_clk1 [get_bd_cells -quiet /noc_lpddr4]
+INFO: [BoardInterface 100-108] create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_clock_rtl:1.0 lpddr4_sma_clk1
+INFO: [BoardInterface 100-104] set_property CONFIG.FREQ_HZ 200321000 /lpddr4_sma_clk1
+INFO: [BoardInterface 100-109] connect_bd_intf_net /lpddr4_sma_clk1 /noc_lpddr4/sys_clk0
+INFO: [BoardInterface 100-112] set_property CONFIG.FREQ_HZ 200321000 /lpddr4_sma_clk1
+INFO: [BoardInterface 100-3] current_bd_design ext_platform
+INFO: [BoardInterface 100-12] set_property CONFIG.CH0_LPDDR4_1_BOARD_INTERFACE ch0_lpddr4_c1 [get_bd_cells -quiet /noc_lpddr4]
+INFO: [BoardInterface 100-108] create_bd_intf_port -mode Master -vlnv xilinx.com:interface:lpddr4_rtl:1.0 ch0_lpddr4_c1
+INFO: [BoardInterface 100-109] connect_bd_intf_net /ch0_lpddr4_c1 /noc_lpddr4/CH0_LPDDR4_1
+INFO: [BoardInterface 100-3] current_bd_design ext_platform
+INFO: [BoardInterface 100-12] set_property CONFIG.CH1_LPDDR4_1_BOARD_INTERFACE ch1_lpddr4_c1 [get_bd_cells -quiet /noc_lpddr4]
+INFO: [BoardInterface 100-108] create_bd_intf_port -mode Master -vlnv xilinx.com:interface:lpddr4_rtl:1.0 ch1_lpddr4_c1
+INFO: [BoardInterface 100-109] connect_bd_intf_net /ch1_lpddr4_c1 /noc_lpddr4/CH1_LPDDR4_1
+INFO: [BoardInterface 100-3] current_bd_design ext_platform
+INFO: [BoardInterface 100-12] set_property CONFIG.sys_clk1_BOARD_INTERFACE lpddr4_sma_clk2 [get_bd_cells -quiet /noc_lpddr4]
+INFO: [BoardInterface 100-108] create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_clock_rtl:1.0 lpddr4_sma_clk2
+INFO: [BoardInterface 100-104] set_property CONFIG.FREQ_HZ 200321000 /lpddr4_sma_clk2
+INFO: [BoardInterface 100-109] connect_bd_intf_net /lpddr4_sma_clk2 /noc_lpddr4/sys_clk1
+INFO: [BoardInterface 100-112] set_property CONFIG.FREQ_HZ 200321000 /lpddr4_sma_clk2
+INFO: [BD 41-3092] Triggering Container based Auto Assign Algorithm
+Slave segment '/axi_intc_0/S_AXI/Reg' is being assigned into address space '/CIPS_0/M_AXI_FPD' at <0xA400_0000 [ 64K ]>.
+Slave segment '/noc_ddr4/S00_INI/C0_DDR_LOW1' is being assigned into address space '/CIPS_0/FPD_CCI_NOC_0' at <0x8_0000_0000 [ 6G ]>.
+Slave segment '/noc_ddr4/S00_INI/C0_DDR_LOW0' is being assigned into address space '/CIPS_0/FPD_CCI_NOC_0' at <0x0000_0000 [ 2G ]>.
+Slave segment '/noc_lpddr4/S00_INI/C0_DDR_CH1x2' is being assigned into address space '/CIPS_0/FPD_CCI_NOC_0' at <0x500_0000_0000 [ 8G ]>.
+Slave segment '/ai_engine_0/S00_AXI/AIE_ARRAY_0' is being assigned into address space '/CIPS_0/FPD_CCI_NOC_0' at <0x200_0000_0000 [ 4G ]>.
+Slave segment '/noc_ddr4/S00_INI/C0_DDR_LOW1' is being assigned into address space '/CIPS_0/FPD_CCI_NOC_1' at <0x8_0000_0000 [ 6G ]>.
+Slave segment '/noc_ddr4/S00_INI/C0_DDR_LOW0' is being assigned into address space '/CIPS_0/FPD_CCI_NOC_1' at <0x0000_0000 [ 2G ]>.
+Slave segment '/noc_lpddr4/S00_INI/C0_DDR_CH1x2' is being assigned into address space '/CIPS_0/FPD_CCI_NOC_1' at <0x500_0000_0000 [ 8G ]>.
+Slave segment '/ai_engine_0/S00_AXI/AIE_ARRAY_0' is being assigned into address space '/CIPS_0/FPD_CCI_NOC_1' at <0x200_0000_0000 [ 4G ]>.
+Slave segment '/noc_ddr4/S00_INI/C0_DDR_LOW1' is being assigned into address space '/CIPS_0/FPD_CCI_NOC_2' at <0x8_0000_0000 [ 6G ]>.
+Slave segment '/noc_ddr4/S00_INI/C0_DDR_LOW0' is being assigned into address space '/CIPS_0/FPD_CCI_NOC_2' at <0x0000_0000 [ 2G ]>.
+Slave segment '/noc_lpddr4/S00_INI/C0_DDR_CH1x2' is being assigned into address space '/CIPS_0/FPD_CCI_NOC_2' at <0x500_0000_0000 [ 8G ]>.
+Slave segment '/ai_engine_0/S00_AXI/AIE_ARRAY_0' is being assigned into address space '/CIPS_0/FPD_CCI_NOC_2' at <0x200_0000_0000 [ 4G ]>.
+Slave segment '/noc_ddr4/S00_INI/C0_DDR_LOW1' is being assigned into address space '/CIPS_0/FPD_CCI_NOC_3' at <0x8_0000_0000 [ 6G ]>.
+Slave segment '/noc_ddr4/S00_INI/C0_DDR_LOW0' is being assigned into address space '/CIPS_0/FPD_CCI_NOC_3' at <0x0000_0000 [ 2G ]>.
+Slave segment '/noc_lpddr4/S00_INI/C0_DDR_CH1x2' is being assigned into address space '/CIPS_0/FPD_CCI_NOC_3' at <0x500_0000_0000 [ 8G ]>.
+Slave segment '/ai_engine_0/S00_AXI/AIE_ARRAY_0' is being assigned into address space '/CIPS_0/FPD_CCI_NOC_3' at <0x200_0000_0000 [ 4G ]>.
+Slave segment '/noc_ddr4/S00_INI/C0_DDR_LOW1' is being assigned into address space '/CIPS_0/FPD_AXI_NOC_0' at <0x8_0000_0000 [ 6G ]>.
+Slave segment '/noc_ddr4/S00_INI/C0_DDR_LOW0' is being assigned into address space '/CIPS_0/FPD_AXI_NOC_0' at <0x0000_0000 [ 2G ]>.
+Slave segment '/noc_lpddr4/S00_INI/C0_DDR_CH1x2' is being assigned into address space '/CIPS_0/FPD_AXI_NOC_0' at <0x500_0000_0000 [ 8G ]>.
+Slave segment '/noc_ddr4/S00_INI/C0_DDR_LOW1' is being assigned into address space '/CIPS_0/FPD_AXI_NOC_1' at <0x8_0000_0000 [ 6G ]>.
+Slave segment '/noc_ddr4/S00_INI/C0_DDR_LOW0' is being assigned into address space '/CIPS_0/FPD_AXI_NOC_1' at <0x0000_0000 [ 2G ]>.
+Slave segment '/noc_lpddr4/S00_INI/C0_DDR_CH1x2' is being assigned into address space '/CIPS_0/FPD_AXI_NOC_1' at <0x500_0000_0000 [ 8G ]>.
+Slave segment '/noc_ddr4/S00_INI/C0_DDR_LOW1' is being assigned into address space '/CIPS_0/LPD_AXI_NOC_0' at <0x8_0000_0000 [ 6G ]>.
+Slave segment '/noc_ddr4/S00_INI/C0_DDR_LOW0' is being assigned into address space '/CIPS_0/LPD_AXI_NOC_0' at <0x0000_0000 [ 2G ]>.
+Slave segment '/noc_lpddr4/S00_INI/C0_DDR_CH1x2' is being assigned into address space '/CIPS_0/LPD_AXI_NOC_0' at <0x500_0000_0000 [ 8G ]>.
+Slave segment '/noc_ddr4/S00_INI/C0_DDR_LOW1' is being assigned into address space '/CIPS_0/PMC_NOC_AXI_0' at <0x8_0000_0000 [ 6G ]>.
+Slave segment '/noc_ddr4/S00_INI/C0_DDR_LOW0' is being assigned into address space '/CIPS_0/PMC_NOC_AXI_0' at <0x0000_0000 [ 2G ]>.
+Slave segment '/noc_lpddr4/S00_INI/C0_DDR_CH1x2' is being assigned into address space '/CIPS_0/PMC_NOC_AXI_0' at <0x500_0000_0000 [ 8G ]>.
+Slave segment '/ai_engine_0/S00_AXI/AIE_ARRAY_0' is being assigned into address space '/CIPS_0/PMC_NOC_AXI_0' at <0x200_0000_0000 [ 4G ]>.
+INFO: [BD 41-3052] NOC Block /noc_ddr4 does not have shared segments on DDR and HBM. Shared segments allow full range access via NSU irrespective of multipath topology. Mutiple paths to DDR  across /noc_ddr4 with current configuration may split assignment. Please use the following AR-000036160 https://xilinx.lightning.force.com/lightning/articles/Knowledge/000036160?language=en_US to leverage shared segments for DDR/HBM.
+INFO: [BD 41-3052] NOC Block /noc_lpddr4 does not have shared segments on DDR and HBM. Shared segments allow full range access via NSU irrespective of multipath topology. Mutiple paths to DDR  across /noc_lpddr4 with current configuration may split assignment. Please use the following AR-000036160 https://xilinx.lightning.force.com/lightning/articles/Knowledge/000036160?language=en_US to leverage shared segments for DDR/HBM.
+INFO: [BD 41-3052] NOC Block /cips_noc does not have shared segments on DDR and HBM. Shared segments allow full range access via NSU irrespective of multipath topology. Mutiple paths to DDR  across /cips_noc with current configuration may split assignment. Please use the following AR-000036160 https://xilinx.lightning.force.com/lightning/articles/Knowledge/000036160?language=en_US to leverage shared segments for DDR/HBM.
+WARNING: [BD 5-699] No address segments matched 'get_bd_addr_segs to_delete_kernel/S_AXI/Reg'
+WARNING: [BD 5-699] No address segments matched 'get_bd_addr_segs to_delete_kernel_ctrl_0/S_AXI/Reg'
+WARNING: [BD 5-699] No address segments matched 'get_bd_addr_segs to_delete_kernel_ctrl_1/S_AXI/Reg'
+WARNING: [BD 5-699] No address segments matched 'get_bd_addr_segs to_delete_kernel_ctrl_2/S_AXI/Reg'
+WARNING: [BD 5-699] No address segments matched 'get_bd_addr_segs to_delete_kernel_ctrl_3/S_AXI/Reg'
+INFO: [BD 41-3052] NOC Block /noc_ddr4 does not have shared segments on DDR and HBM. Shared segments allow full range access via NSU irrespective of multipath topology. Mutiple paths to DDR  across /noc_ddr4 with current configuration may split assignment. Please use the following AR-000036160 https://xilinx.lightning.force.com/lightning/articles/Knowledge/000036160?language=en_US to leverage shared segments for DDR/HBM.
+INFO: [BD 41-3052] NOC Block /noc_lpddr4 does not have shared segments on DDR and HBM. Shared segments allow full range access via NSU irrespective of multipath topology. Mutiple paths to DDR  across /noc_lpddr4 with current configuration may split assignment. Please use the following AR-000036160 https://xilinx.lightning.force.com/lightning/articles/Knowledge/000036160?language=en_US to leverage shared segments for DDR/HBM.
+INFO: [BD 41-3052] NOC Block /cips_noc does not have shared segments on DDR and HBM. Shared segments allow full range access via NSU irrespective of multipath topology. Mutiple paths to DDR  across /cips_noc with current configuration may split assignment. Please use the following AR-000036160 https://xilinx.lightning.force.com/lightning/articles/Knowledge/000036160?language=en_US to leverage shared segments for DDR/HBM.
+INFO: Block design generation completed, yet to set PFM properties
+INFO: Creating extensible_platform for vck190
+INFO: lpddr4 selected
+INFO: Platform creation completed!
+INFO: [BD 41-3052] NOC Block /noc_ddr4 does not have shared segments on DDR and HBM. Shared segments allow full range access via NSU irrespective of multipath topology. Mutiple paths to DDR  across /noc_ddr4 with current configuration may split assignment. Please use the following AR-000036160 https://xilinx.lightning.force.com/lightning/articles/Knowledge/000036160?language=en_US to leverage shared segments for DDR/HBM.
+INFO: [BD 41-3052] NOC Block /noc_lpddr4 does not have shared segments on DDR and HBM. Shared segments allow full range access via NSU irrespective of multipath topology. Mutiple paths to DDR  across /noc_lpddr4 with current configuration may split assignment. Please use the following AR-000036160 https://xilinx.lightning.force.com/lightning/articles/Knowledge/000036160?language=en_US to leverage shared segments for DDR/HBM.
+INFO: [BD 41-3052] NOC Block /cips_noc does not have shared segments on DDR and HBM. Shared segments allow full range access via NSU irrespective of multipath topology. Mutiple paths to DDR  across /cips_noc with current configuration may split assignment. Please use the following AR-000036160 https://xilinx.lightning.force.com/lightning/articles/Knowledge/000036160?language=en_US to leverage shared segments for DDR/HBM.
+INFO: [Vivado 12-3458] The update_compile_order command is not intended for use in the GUI, where compile order updates occur based on project changes and the hierarchy update settings. No update performed.
+INFO: [Vivado 12-3458] The update_compile_order command is not intended for use in the GUI, where compile order updates occur based on project changes and the hierarchy update settings. No update performed.
+INFO: [BD 5-320] Validate design is not run, since the design is already validated.
+INFO: End of create_root_design
+instantiate_example_design: Time (s): cpu = 00:00:41 ; elapsed = 00:00:33 . Memory (MB): peak = 9588.922 ; gain = 1593.824 ; free physical = 49919 ; free virtual = 55874
+update_compile_order -fileset sources_1
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:system_cache:5.0 system_cache_0
+endgroup
+set_property location {3 975 1335} [get_bd_cells system_cache_0]
+set_property -dict [list \
+  CONFIG.C_CACHE_DATA_MEMORY_TYPE {3} \
+  CONFIG.C_CACHE_LINE_LENGTH {256} \
+  CONFIG.C_CACHE_SIZE {4194304} \
+  CONFIG.C_ENABLE_NON_SECURE {1} \
+  CONFIG.C_NUM_OPTIMIZED_PORTS {2} \
+  CONFIG.C_NUM_WAYS {4} \
+] [get_bd_cells system_cache_0]
+startgroup
+set_property CONFIG.NUM_SI {1} [get_bd_cells noc_ddr4]
+set_property -dict [list CONFIG.CONNECTIONS {MC_0 {read_bw {500} write_bw {500} read_avg_burst {4} write_avg_burst {4}}}] [get_bd_intf_pins /noc_ddr4/S00_AXI]
+set_property -dict [list CONFIG.CONNECTIONS {MC_0 {read_bw {128} write_bw {128} read_avg_burst {4} write_avg_burst {4}}}] [get_bd_intf_pins /noc_ddr4/S00_INI]
+endgroup
+connect_bd_intf_net [get_bd_intf_pins system_cache_0/M0_AXI] [get_bd_intf_pins noc_ddr4/S00_AXI]
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:system_cache:5.0 system_cache_1
+endgroup
+set_property location {2.5 831 1179} [get_bd_cells system_cache_1]
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:system_cache:5.0 system_cache_2
+endgroup
+set_property location {3 844 1367} [get_bd_cells system_cache_2]
+connect_bd_intf_net [get_bd_intf_pins system_cache_2/M0_AXI] [get_bd_intf_pins system_cache_0/S1_AXI]
+connect_bd_intf_net [get_bd_intf_pins system_cache_1/M0_AXI] [get_bd_intf_pins system_cache_0/S0_AXI]
+startgroup
+set_property -dict [list \
+  CONFIG.C_CACHE_DATA_MEMORY_TYPE {3} \
+  CONFIG.C_CACHE_LINE_LENGTH {256} \
+  CONFIG.C_CACHE_SIZE {4194304} \
+  CONFIG.C_ENABLE_NON_SECURE {1} \
+  CONFIG.C_NUM_OPTIMIZED_PORTS {16} \
+  CONFIG.C_NUM_WAYS {4} \
+] [get_bd_cells system_cache_1]
+endgroup
+startgroup
+set_property -dict [list \
+  CONFIG.C_CACHE_DATA_MEMORY_TYPE {3} \
+  CONFIG.C_CACHE_LINE_LENGTH {256} \
+  CONFIG.C_CACHE_SIZE {4194304} \
+  CONFIG.C_ENABLE_NON_SECURE {1} \
+  CONFIG.C_NUM_OPTIMIZED_PORTS {16} \
+] [get_bd_cells system_cache_2]
+endgroup
+apply_bd_automation -rule xilinx.com:bd_rule:clkrst -config { Clk {/clk_wizard_0/clk_out1 (200 MHz)} Freq {200} Ref_Clk0 {} Ref_Clk1 {} Ref_Clk2 {}}  [get_bd_pins system_cache_0/ACLK]
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:smartconnect:1.0 smartconnect_0
+endgroup
+set_property location {2.5 680 1188} [get_bd_cells smartconnect_0]
+copy_bd_objs /  [get_bd_cells {smartconnect_0}]
+set_property location {3 652 1698} [get_bd_cells smartconnect_1]
+set_property location {3 625 1604} [get_bd_cells smartconnect_1]
+set_property location {4 955 1689} [get_bd_cells system_cache_2]
+set_property -dict [list \
+  CONFIG.NUM_MI {16} \
+  CONFIG.NUM_SI {1} \
+] [get_bd_cells smartconnect_1]
+set_property -dict [list \
+  CONFIG.NUM_MI {16} \
+  CONFIG.NUM_SI {1} \
+] [get_bd_cells smartconnect_0]
+set_property location {3 660 1165} [get_bd_cells smartconnect_0]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_0/M00_AXI] [get_bd_intf_pins system_cache_1/S0_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_0/M01_AXI] [get_bd_intf_pins system_cache_1/S1_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_0/M02_AXI] [get_bd_intf_pins system_cache_1/S2_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_0/M03_AXI] [get_bd_intf_pins system_cache_1/S3_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_0/M04_AXI] [get_bd_intf_pins system_cache_1/S4_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_0/M05_AXI] [get_bd_intf_pins system_cache_1/S5_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_0/M06_AXI] [get_bd_intf_pins system_cache_1/S6_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_0/M07_AXI] [get_bd_intf_pins system_cache_1/S7_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_0/M08_AXI] [get_bd_intf_pins system_cache_1/S8_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_0/M09_AXI] [get_bd_intf_pins system_cache_1/S9_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_0/M10_AXI] [get_bd_intf_pins system_cache_1/S10_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_0/M11_AXI] [get_bd_intf_pins system_cache_1/S11_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_0/M12_AXI] [get_bd_intf_pins system_cache_1/S12_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_0/M13_AXI] [get_bd_intf_pins system_cache_1/S13_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_0/M14_AXI] [get_bd_intf_pins system_cache_1/S14_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_0/M15_AXI] [get_bd_intf_pins system_cache_1/S15_AXI]
+set_property location {3 660 1638} [get_bd_cells smartconnect_1]
+set_property location {3 681 1663} [get_bd_cells smartconnect_1]
+set_property location {3 676 1670} [get_bd_cells smartconnect_1]
+set_property location {3 676 1636} [get_bd_cells smartconnect_1]
+set_property location {3 696 1660} [get_bd_cells smartconnect_1]
+set_property location {3 674 1659} [get_bd_cells smartconnect_1]
+set_property location {3 673 1656} [get_bd_cells smartconnect_1]
+set_property location {3 676 1667} [get_bd_cells smartconnect_1]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_1/M00_AXI] [get_bd_intf_pins system_cache_2/S0_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_1/M01_AXI] [get_bd_intf_pins system_cache_2/S1_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_1/M02_AXI] [get_bd_intf_pins system_cache_2/S2_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_1/M03_AXI] [get_bd_intf_pins system_cache_2/S3_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_1/M04_AXI] [get_bd_intf_pins system_cache_2/S4_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_1/M05_AXI] [get_bd_intf_pins system_cache_2/S5_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_1/M06_AXI] [get_bd_intf_pins system_cache_2/S6_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_1/M07_AXI] [get_bd_intf_pins system_cache_2/S7_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_1/M08_AXI] [get_bd_intf_pins system_cache_2/S8_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_1/M09_AXI] [get_bd_intf_pins system_cache_2/S9_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_1/M10_AXI] [get_bd_intf_pins system_cache_2/S10_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_1/M11_AXI] [get_bd_intf_pins system_cache_2/S11_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_1/M12_AXI] [get_bd_intf_pins system_cache_2/S12_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_1/M13_AXI] [get_bd_intf_pins system_cache_2/S13_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_1/M14_AXI] [get_bd_intf_pins system_cache_2/S14_AXI]
+connect_bd_intf_net [get_bd_intf_pins smartconnect_1/M15_AXI] [get_bd_intf_pins system_cache_2/S15_AXI]
+connect_bd_net [get_bd_pins smartconnect_0/aclk] [get_bd_pins clk_wizard_0/clk_out1]
+connect_bd_net [get_bd_pins smartconnect_0/aresetn] [get_bd_pins proc_sys_reset_0/peripheral_aresetn]
+connect_bd_net [get_bd_pins smartconnect_1/aclk] [get_bd_pins clk_wizard_0/clk_out1]
+connect_bd_net [get_bd_pins smartconnect_1/aresetn] [get_bd_pins proc_sys_reset_0/peripheral_aresetn]
+assign_bd_address
+INFO: [BD 41-3092] Triggering Container based Auto Assign Algorithm
+auto_assign_options {memory_capacity 0G}
+set_property PFM.CLOCK {clk_out1 {id "0" is_default "true" proc_sys_reset "/proc_sys_reset_0" status "scalable" freq_hz "200000000"} clk_out2 {id "1" is_default "false" proc_sys_reset "/proc_sys_reset_1" status "fixed" freq_hz "225000000"} clk_out3 {id "2" is_default "false" proc_sys_reset "/proc_sys_reset_2" status "fixed" freq_hz "300000000"} clk_out4 {id "3" is_default "false" proc_sys_reset "/proc_sys_reset_3" status "fixed" freq_hz "100000000"}} [get_bd_cells /clk_wizard_0]
+set_property platform.vendor {xilinx.com} [current_project]
+set_property platform.name {marshtomp} [current_project]
+set_property platform.version {1.0} [current_project]
+set_property pfm_name {xilinx.com:vck190:marshtomp:1.0} [get_files -all {ext_platform.bd}]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_0]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_1]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S0" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_0]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S0" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S1" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_0]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S0" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S1" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S2" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_0]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S0" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S1" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S2" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S3" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_0]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S0" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S1" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S2" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S3" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S4" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_0]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S0" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S1" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S2" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S3" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S4" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S5" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_0]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S0" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S1" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S2" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S3" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S4" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S5" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "S6" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_0]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S0" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S1" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S2" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S3" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S4" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S5" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "S6" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "S7" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_0]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S0" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S1" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S2" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S3" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S4" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S5" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "S6" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "S7" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "S8" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_0]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S0" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S1" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S2" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S3" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S4" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S5" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "S6" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "S7" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "S8" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "S9" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_0]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S0" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S1" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S2" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S3" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S4" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S5" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "S6" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "S7" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "S8" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "S9" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "S10" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_0]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S0" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S1" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S2" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S3" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S4" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S5" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "S6" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "S7" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "S8" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "S9" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "S10" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "S11" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_0]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S0" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S1" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S2" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S3" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S4" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S5" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "S6" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "S7" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "S8" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "S9" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "S10" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "S11" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "S12" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_0]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S0" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S1" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S2" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S3" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S4" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S5" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "S6" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "S7" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "S8" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "S9" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "S10" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "S11" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "S12" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "S13" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_0]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S0" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S1" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S2" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S3" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S4" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S5" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "S6" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "S7" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "S8" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "S9" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "S10" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "S11" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "S12" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "S13" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_0]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S0" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S1" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S2" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S3" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S4" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S5" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "S6" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "S7" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "S8" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "S9" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "S10" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "S11" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "S12" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "S13" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_0]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S0" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S1" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S2" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S3" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S4" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S5" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "S6" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "S7" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "S8" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "S9" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "S10" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "S11" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "S12" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "S13" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_0]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S0" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S1" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S2" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S3" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S4" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S5" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "S6" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "S7" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "S8" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "S9" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "S10" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "S11" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "S12" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "S13" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_0]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S0" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S1" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S2" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S3" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S4" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S5" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "S6" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "S7" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "S8" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "S9" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "S10" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "S11" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "S12" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "S13" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "S14" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_0]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S0" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S1" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S2" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S3" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S4" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S5" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "S6" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "S7" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "S8" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "S9" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "S10" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "S11" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "S12" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "S13" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "S14" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "S15" memory "" is_range "true"}} [get_bd_cells /smartconnect_0]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S16" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_1]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S16" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S17" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_1]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S16" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S17" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S18" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_1]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S16" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S17" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S18" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S19" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_1]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S16" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S17" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S18" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S19" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S20" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_1]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S16" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S17" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S18" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S19" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S20" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S21" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_1]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S16" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S17" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S18" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S19" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S20" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S21" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "S22" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_1]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S16" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S17" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S18" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S19" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S20" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S21" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "S22" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "S23" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_1]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S16" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S17" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S18" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S19" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S20" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S21" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "S22" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "S23" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "S24" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_1]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S16" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S17" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S18" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S19" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S20" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S21" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "S22" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "S23" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "S24" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_1]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S16" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S17" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S18" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S19" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S20" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S21" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "S22" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "S23" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "S24" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_1]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S16" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S17" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S18" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S19" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S20" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S21" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "S22" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "S23" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "S24" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "S25" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_1]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S16" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S17" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S18" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S19" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S20" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S21" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "S22" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "S23" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "S24" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "S25" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "S26" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_1]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S16" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S17" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S18" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S19" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S20" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S21" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "S22" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "S23" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "S24" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "S25" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "S26" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "S27" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_1]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S16" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S17" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S18" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S19" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S20" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S21" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "S22" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "S23" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "S24" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "S25" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "S26" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "S27" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "S28" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_1]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S16" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S17" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S18" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S19" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S20" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S21" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "S22" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "S23" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "S24" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "S25" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "S26" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "S27" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "S28" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "S29" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_1]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S16" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S17" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S18" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S19" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S20" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S21" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "S22" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "S23" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "S24" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "S25" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "S26" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "S27" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "S28" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "S29" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "S30" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "" memory "" is_range "true"}} [get_bd_cells /smartconnect_1]
+set_property PFM.AXI_PORT {S00_AXI {memport "MIG" sptag "S16" memory "" is_range "true"} S01_AXI {memport "MIG" sptag "S17" memory "" is_range "true"} S02_AXI {memport "MIG" sptag "S18" memory "" is_range "true"} S03_AXI {memport "MIG" sptag "S19" memory "" is_range "true"} S04_AXI {memport "MIG" sptag "S20" memory "" is_range "true"} S05_AXI {memport "MIG" sptag "S21" memory "" is_range "true"} S06_AXI {memport "MIG" sptag "S22" memory "" is_range "true"} S07_AXI {memport "MIG" sptag "S23" memory "" is_range "true"} S08_AXI {memport "MIG" sptag "S24" memory "" is_range "true"} S09_AXI {memport "MIG" sptag "S25" memory "" is_range "true"} S10_AXI {memport "MIG" sptag "S26" memory "" is_range "true"} S11_AXI {memport "MIG" sptag "S27" memory "" is_range "true"} S12_AXI {memport "MIG" sptag "S28" memory "" is_range "true"} S13_AXI {memport "MIG" sptag "S29" memory "" is_range "true"} S14_AXI {memport "MIG" sptag "S30" memory "" is_range "true"} S15_AXI {memport "MIG" sptag "S31" memory "" is_range "true"}} [get_bd_cells /smartconnect_1]
+validate_bd_design
+CRITICAL WARNING: [BD 41-1811] The interconnect </smartconnect_1> is missing a valid slave interface connection
+CRITICAL WARNING: [BD 41-1811] The interconnect </smartconnect_0> is missing a valid slave interface connection
+INFO: [BD 41-3052] NOC Block /noc_ddr4 does not have shared segments on DDR and HBM. Shared segments allow full range access via NSU irrespective of multipath topology. Mutiple paths to DDR  across /noc_ddr4 with current configuration may split assignment. Please use the following AR-000036160 https://xilinx.lightning.force.com/lightning/articles/Knowledge/000036160?language=en_US to leverage shared segments for DDR/HBM.
+INFO: [BD 41-3052] NOC Block /noc_lpddr4 does not have shared segments on DDR and HBM. Shared segments allow full range access via NSU irrespective of multipath topology. Mutiple paths to DDR  across /noc_lpddr4 with current configuration may split assignment. Please use the following AR-000036160 https://xilinx.lightning.force.com/lightning/articles/Knowledge/000036160?language=en_US to leverage shared segments for DDR/HBM.
+INFO: [BD 41-3052] NOC Block /cips_noc does not have shared segments on DDR and HBM. Shared segments allow full range access via NSU irrespective of multipath topology. Mutiple paths to DDR  across /cips_noc with current configuration may split assignment. Please use the following AR-000036160 https://xilinx.lightning.force.com/lightning/articles/Knowledge/000036160?language=en_US to leverage shared segments for DDR/HBM.
+WARNING: [BD 41-2909] Smartconnect block </smartconnect_0> has no assigned address segments through any of its interfaces and has its contents undefined, which may lead to black-box errors during implementation
+Resolution: Make sure that there is at least one address assigned through this Smartconnect and endpoints are correctly connected to each other
+WARNING: [BD 41-2909] Smartconnect block </smartconnect_1> has no assigned address segments through any of its interfaces and has its contents undefined, which may lead to black-box errors during implementation
+Resolution: Make sure that there is at least one address assigned through this Smartconnect and endpoints are correctly connected to each other
+WARNING: [SMARTCONNECT-2] The S_AXI ports of /smartconnect_0 are not connected to any endpoints.   Please connect at least one S_AXI port to an endpoint.
+WARNING: [SMARTCONNECT-2] The S_AXI ports of /smartconnect_1 are not connected to any endpoints.   Please connect at least one S_AXI port to an endpoint.
+Generating placement and routing for NoC components
+NoC TrafficSpec | Checksum: 2e1882da
+NoC Constraints | Checksum: f7fcfe05
+NoC Incremental Solution | Checksum: 8cee98bf
+INFO: [Ipconfig 75-92] Running NOC Placement
+INFO: [Ipconfig 75-122] Detailed placement phase
+INFO: [Ipconfig 75-133] Running NOC Routing
+NoC Compiler Finished Successfully
+NoC Solution | Checksum: 9eab0507
+INFO: [Ipconfig 75-108] Writing file /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/common/nsln/NOC_Power.xpe.
+WARNING: [BD 41-702] Propagation TCL tries to overwrite USER strength parameter C_S_AXI_ID_WIDTH(16) on '/noc_ai_mm_0' with propagated value(2). Command ignored
+INFO: [BD 5-943] Reserving offset range <0xA400_0000 [ 64K ]> from slave interface '/icn_ctrl/S00_AXI' to master interface '/icn_ctrl/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [xilinx.com:ip:smartconnect:1.0-1] ext_platform_icn_ctrl_0: SmartConnect ext_platform_icn_ctrl_0 is in Low-Area Mode.
+WARNING: [xilinx.com:ip:smartconnect:1.0-1] ext_platform_icn_ctrl_0: IP ext_platform_icn_ctrl_0 is configured in Low-area mode as all propagated traffic is low-bandwidth (AXI4LITE). SI S00_AXI has property HAS_BURST == 1. WRAP bursts are not supported in Low-area mode and will result in DECERR if received.
+WARNING: [xilinx.com:ip:smartconnect:1.0-1] ext_platform_icn_ctrl_0: If WRAP transactions are required then turn off Low-area mode using ADVANCED_PROPERTIES. Execute following: set_property CONFIG.ADVANCED_PROPERTIES {__experimental_features__ {disable_low_area_mode 1}} [get_bd_cells /ext_platform_icn_ctrl_0]
+INFO: [Ipptcl 7-1463] No Compatible Board Interface found. Board Tab not created in customize GUI
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M01_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M02_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M03_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M04_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M05_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M06_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M07_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M08_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M09_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M10_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M11_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M12_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M13_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M14_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M15_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_1: The System Cache is connected to non MicroBlaze IP /smartconnect_0 on Optimized port 0, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_1: The System Cache is connected to non MicroBlaze IP /smartconnect_0 on Optimized port 1, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_1: The System Cache is connected to non MicroBlaze IP /smartconnect_0 on Optimized port 2, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_1: The System Cache is connected to non MicroBlaze IP /smartconnect_0 on Optimized port 3, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_1: The System Cache is connected to non MicroBlaze IP /smartconnect_0 on Optimized port 4, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_1: The System Cache is connected to non MicroBlaze IP /smartconnect_0 on Optimized port 5, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_1: The System Cache is connected to non MicroBlaze IP /smartconnect_0 on Optimized port 6, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_1: The System Cache is connected to non MicroBlaze IP /smartconnect_0 on Optimized port 7, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_1: The System Cache is connected to non MicroBlaze IP /smartconnect_0 on Optimized port 8, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_1: The System Cache is connected to non MicroBlaze IP /smartconnect_0 on Optimized port 9, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_1: The System Cache is connected to non MicroBlaze IP /smartconnect_0 on Optimized port 10, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_1: The System Cache is connected to non MicroBlaze IP /smartconnect_0 on Optimized port 11, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_1: The System Cache is connected to non MicroBlaze IP /smartconnect_0 on Optimized port 12, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_1: The System Cache is connected to non MicroBlaze IP /smartconnect_0 on Optimized port 13, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_1: The System Cache is connected to non MicroBlaze IP /smartconnect_0 on Optimized port 14, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_1: The System Cache is connected to non MicroBlaze IP /smartconnect_0 on Optimized port 15, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_0: The System Cache is connected to non MicroBlaze IP /system_cache_1 on Optimized port 0, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_0: The System Cache is connected to non MicroBlaze IP /system_cache_2 on Optimized port 1, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_2: The System Cache is connected to non MicroBlaze IP /smartconnect_1 on Optimized port 0, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_2: The System Cache is connected to non MicroBlaze IP /smartconnect_1 on Optimized port 1, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_2: The System Cache is connected to non MicroBlaze IP /smartconnect_1 on Optimized port 2, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_2: The System Cache is connected to non MicroBlaze IP /smartconnect_1 on Optimized port 3, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_2: The System Cache is connected to non MicroBlaze IP /smartconnect_1 on Optimized port 4, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_2: The System Cache is connected to non MicroBlaze IP /smartconnect_1 on Optimized port 5, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_2: The System Cache is connected to non MicroBlaze IP /smartconnect_1 on Optimized port 6, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_2: The System Cache is connected to non MicroBlaze IP /smartconnect_1 on Optimized port 7, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_2: The System Cache is connected to non MicroBlaze IP /smartconnect_1 on Optimized port 8, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_2: The System Cache is connected to non MicroBlaze IP /smartconnect_1 on Optimized port 9, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_2: The System Cache is connected to non MicroBlaze IP /smartconnect_1 on Optimized port 10, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_2: The System Cache is connected to non MicroBlaze IP /smartconnect_1 on Optimized port 11, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_2: The System Cache is connected to non MicroBlaze IP /smartconnect_1 on Optimized port 12, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_2: The System Cache is connected to non MicroBlaze IP /smartconnect_1 on Optimized port 13, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_2: The System Cache is connected to non MicroBlaze IP /smartconnect_1 on Optimized port 14, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [xilinx.com:ip:system_cache:5.0-1] /system_cache_2: The System Cache is connected to non MicroBlaze IP /smartconnect_1 on Optimized port 15, make sure that C_Lx_CACHE_LINE_LENGTH (=4) is correctly set.
+WARNING: [BD 41-237] Bus Interface property RUSER_WIDTH does not match between /cips_noc/S00_AXI(17) and /CIPS_0/FPD_CCI_NOC_0(0)
+WARNING: [BD 41-237] Bus Interface property RUSER_WIDTH does not match between /cips_noc/S01_AXI(17) and /CIPS_0/FPD_CCI_NOC_1(0)
+WARNING: [BD 41-237] Bus Interface property RUSER_WIDTH does not match between /cips_noc/S02_AXI(17) and /CIPS_0/FPD_CCI_NOC_2(0)
+WARNING: [BD 41-237] Bus Interface property RUSER_WIDTH does not match between /cips_noc/S03_AXI(17) and /CIPS_0/FPD_CCI_NOC_3(0)
+WARNING: [BD 41-237] Bus Interface property WUSER_WIDTH does not match between /cips_noc/S04_AXI(17) and /CIPS_0/FPD_AXI_NOC_0(0)
+WARNING: [BD 41-237] Bus Interface property RUSER_WIDTH does not match between /cips_noc/S04_AXI(17) and /CIPS_0/FPD_AXI_NOC_0(0)
+WARNING: [BD 41-237] Bus Interface property WUSER_WIDTH does not match between /cips_noc/S05_AXI(17) and /CIPS_0/FPD_AXI_NOC_1(0)
+WARNING: [BD 41-237] Bus Interface property RUSER_WIDTH does not match between /cips_noc/S05_AXI(17) and /CIPS_0/FPD_AXI_NOC_1(0)
+WARNING: [BD 41-237] Bus Interface property WUSER_WIDTH does not match between /cips_noc/S06_AXI(17) and /CIPS_0/LPD_AXI_NOC_0(0)
+WARNING: [BD 41-237] Bus Interface property RUSER_WIDTH does not match between /cips_noc/S06_AXI(17) and /CIPS_0/LPD_AXI_NOC_0(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_0/S0_AXI(1) and /system_cache_1/M0_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_0/S0_AXI(1) and /system_cache_1/M0_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_0/S1_AXI(1) and /system_cache_2/M0_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_0/S1_AXI(1) and /system_cache_2/M0_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_1/S0_AXI(1) and /smartconnect_0/M00_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_1/S0_AXI(1) and /smartconnect_0/M00_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_1/S1_AXI(1) and /smartconnect_0/M01_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_1/S1_AXI(1) and /smartconnect_0/M01_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_1/S2_AXI(1) and /smartconnect_0/M02_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_1/S2_AXI(1) and /smartconnect_0/M02_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_1/S3_AXI(1) and /smartconnect_0/M03_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_1/S3_AXI(1) and /smartconnect_0/M03_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_1/S4_AXI(1) and /smartconnect_0/M04_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_1/S4_AXI(1) and /smartconnect_0/M04_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_1/S5_AXI(1) and /smartconnect_0/M05_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_1/S5_AXI(1) and /smartconnect_0/M05_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_1/S6_AXI(1) and /smartconnect_0/M06_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_1/S6_AXI(1) and /smartconnect_0/M06_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_1/S7_AXI(1) and /smartconnect_0/M07_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_1/S7_AXI(1) and /smartconnect_0/M07_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_1/S8_AXI(1) and /smartconnect_0/M08_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_1/S8_AXI(1) and /smartconnect_0/M08_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_1/S9_AXI(1) and /smartconnect_0/M09_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_1/S9_AXI(1) and /smartconnect_0/M09_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_1/S10_AXI(1) and /smartconnect_0/M10_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_1/S10_AXI(1) and /smartconnect_0/M10_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_1/S11_AXI(1) and /smartconnect_0/M11_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_1/S11_AXI(1) and /smartconnect_0/M11_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_1/S12_AXI(1) and /smartconnect_0/M12_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_1/S12_AXI(1) and /smartconnect_0/M12_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_1/S13_AXI(1) and /smartconnect_0/M13_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_1/S13_AXI(1) and /smartconnect_0/M13_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_1/S14_AXI(1) and /smartconnect_0/M14_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_1/S14_AXI(1) and /smartconnect_0/M14_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_1/S15_AXI(1) and /smartconnect_0/M15_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_1/S15_AXI(1) and /smartconnect_0/M15_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_2/S0_AXI(1) and /smartconnect_1/M00_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_2/S0_AXI(1) and /smartconnect_1/M00_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_2/S1_AXI(1) and /smartconnect_1/M01_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_2/S1_AXI(1) and /smartconnect_1/M01_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_2/S2_AXI(1) and /smartconnect_1/M02_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_2/S2_AXI(1) and /smartconnect_1/M02_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_2/S3_AXI(1) and /smartconnect_1/M03_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_2/S3_AXI(1) and /smartconnect_1/M03_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_2/S4_AXI(1) and /smartconnect_1/M04_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_2/S4_AXI(1) and /smartconnect_1/M04_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_2/S5_AXI(1) and /smartconnect_1/M05_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_2/S5_AXI(1) and /smartconnect_1/M05_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_2/S6_AXI(1) and /smartconnect_1/M06_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_2/S6_AXI(1) and /smartconnect_1/M06_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_2/S7_AXI(1) and /smartconnect_1/M07_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_2/S7_AXI(1) and /smartconnect_1/M07_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_2/S8_AXI(1) and /smartconnect_1/M08_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_2/S8_AXI(1) and /smartconnect_1/M08_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_2/S9_AXI(1) and /smartconnect_1/M09_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_2/S9_AXI(1) and /smartconnect_1/M09_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_2/S10_AXI(1) and /smartconnect_1/M10_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_2/S10_AXI(1) and /smartconnect_1/M10_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_2/S11_AXI(1) and /smartconnect_1/M11_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_2/S11_AXI(1) and /smartconnect_1/M11_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_2/S12_AXI(1) and /smartconnect_1/M12_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_2/S12_AXI(1) and /smartconnect_1/M12_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_2/S13_AXI(1) and /smartconnect_1/M13_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_2/S13_AXI(1) and /smartconnect_1/M13_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_2/S14_AXI(1) and /smartconnect_1/M14_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_2/S14_AXI(1) and /smartconnect_1/M14_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /system_cache_2/S15_AXI(1) and /smartconnect_1/M15_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /system_cache_2/S15_AXI(1) and /smartconnect_1/M15_AXI(0)
+CRITICAL WARNING: [BD 41-759] The input pins (listed below) are either not connected or do not have a source port, and they don't have a tie-off specified. These pins are tied-off to all 0's to avoid error in Implementation flow.
+Please check your design and connect them as needed: 
+/axi_intc_0/intr
+
+validate_bd_design: Time (s): cpu = 00:00:16 ; elapsed = 00:00:14 . Memory (MB): peak = 10347.773 ; gain = 215.742 ; free physical = 48375 ; free virtual = 54454
+generate_target all [get_files  /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.srcs/sources_1/bd/ext_platform/ext_platform.bd]
+INFO: [BD 41-1662] The design 'ext_platform.bd' is already validated. Therefore parameter propagation will not be re-run.
+CRITICAL WARNING: [BD 41-759] The input pins (listed below) are either not connected or do not have a source port, and they don't have a tie-off specified. These pins are tied-off to all 0's to avoid error in Implementation flow.
+Please check your design and connect them as needed: 
+/axi_intc_0/intr
+
+Wrote  : </home/oa321/work/mudkip/vivado/marshtomp/marshtomp.srcs/sources_1/bd/ext_platform/ext_platform.bd> 
+Wrote  : </home/oa321/work/mudkip/vivado/marshtomp/marshtomp.srcs/sources_1/bd/ext_platform/ui/bd_c0985cd1.ui> 
+WARNING: [BD 41-2384] Width mismatch when connecting pin: '/cips_noc/M00_AXI_bid'(2) to pin: '/ai_engine_0/S00_AXI_bid'(16) - Only lower order bits will be connected.
+WARNING: [BD 41-2384] Width mismatch when connecting pin: '/ai_engine_0/S00_AXI_awid'(16) to pin: '/cips_noc/M00_AXI_awid'(2) - Only lower order bits will be connected.
+WARNING: [BD 41-2384] Width mismatch when connecting pin: '/cips_noc/M00_AXI_rid'(2) to pin: '/ai_engine_0/S00_AXI_rid'(16) - Only lower order bits will be connected.
+WARNING: [BD 41-2384] Width mismatch when connecting pin: '/ai_engine_0/S00_AXI_arid'(16) to pin: '/cips_noc/M00_AXI_arid'(2) - Only lower order bits will be connected.
+Verilog Output written to : /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/synth/ext_platform.v
+WARNING: [BD 41-2384] Width mismatch when connecting pin: '/cips_noc/M00_AXI_bid'(2) to pin: '/ai_engine_0/S00_AXI_bid'(16) - Only lower order bits will be connected.
+WARNING: [BD 41-2384] Width mismatch when connecting pin: '/ai_engine_0/S00_AXI_awid'(16) to pin: '/cips_noc/M00_AXI_awid'(2) - Only lower order bits will be connected.
+WARNING: [BD 41-2384] Width mismatch when connecting pin: '/cips_noc/M00_AXI_rid'(2) to pin: '/ai_engine_0/S00_AXI_rid'(16) - Only lower order bits will be connected.
+WARNING: [BD 41-2384] Width mismatch when connecting pin: '/ai_engine_0/S00_AXI_arid'(16) to pin: '/cips_noc/M00_AXI_arid'(2) - Only lower order bits will be connected.
+Verilog Output written to : /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/sim/ext_platform.v
+Verilog Output written to : /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/hdl/ext_platform_wrapper.v
+INFO: [xilinx.com:ip:pspmc:1.4-2] bd_a86f_pspmc_0_0: XDC Generation
+INFO: [xilinx.com:ip:pspmc:1.4-2] bd_a86f_pspmc_0_0: Time taken by generate_ps_data 480 ms
+INFO: [xilinx.com:ip:pspmc:1.4-2] bd_a86f_pspmc_0_0: Time taken by XDC_generate is 480 ms
+INFO: [xilinx.com:ip:pspmc:1.4-2] bd_a86f_pspmc_0_0: REG Generation
+INFO: [xilinx.com:ip:pspmc:1.4-2] bd_a86f_pspmc_0_0: Time taken by generate_ps_data 347 ms
+INFO: [xilinx.com:ip:pspmc:1.4-2] bd_a86f_pspmc_0_0: Time taken by reg_generate is 347 ms
+Exporting to file /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_CIPS_0_0/bd_0/hw_handoff/ext_platform_CIPS_0_0.hwh
+Generated Hardware Definition File /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_CIPS_0_0/bd_0/synth/ext_platform_CIPS_0_0.hwdef
+INFO: [BD 41-1029] Generation completed for the IP Integrator block CIPS_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_intc_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block clk_wizard_0 .
+INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'S00_AXI'. A default connection has been created.
+INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'S01_AXI'. A default connection has been created.
+INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'S02_AXI'. A default connection has been created.
+INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'S03_AXI'. A default connection has been created.
+INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'S04_AXI'. A default connection has been created.
+INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'S05_AXI'. A default connection has been created.
+INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'S06_AXI'. A default connection has been created.
+INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'S07_AXI'. A default connection has been created.
+INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'M00_AXI'. A default connection has been created.
+INFO: [xilinx.com:ip:noc_nmu:1.0-1] bd_07f8_S07_AXI_nmu_0: device = xcvc1902
+INFO: [xilinx.com:ip:noc_nmu:1.0-1] bd_07f8_S07_AXI_nmu_0: device = xcvc1902
+INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'SAXI4'. A default connection has been created.
+INFO: [xilinx.com:ip:noc_nmu:1.0-1] bd_07f8_S04_AXI_nmu_0: device = xcvc1902
+INFO: [xilinx.com:ip:noc_nmu:1.0-1] bd_07f8_S04_AXI_nmu_0: device = xcvc1902
+INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'SAXI4'. A default connection has been created.
+INFO: [xilinx.com:ip:noc_nmu:1.0-1] bd_07f8_S03_AXI_nmu_0: device = xcvc1902
+INFO: [xilinx.com:ip:noc_nmu:1.0-1] bd_07f8_S03_AXI_nmu_0: device = xcvc1902
+INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'SAXI4'. A default connection has been created.
+INFO: [xilinx.com:ip:noc_nmu:1.0-1] bd_07f8_S06_AXI_rpu_0: device = xcvc1902
+INFO: [xilinx.com:ip:noc_nmu:1.0-1] bd_07f8_S06_AXI_rpu_0: device = xcvc1902
+INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'SAXI4'. A default connection has been created.
+INFO: [xilinx.com:ip:noc_nmu:1.0-1] bd_07f8_S02_AXI_nmu_0: device = xcvc1902
+INFO: [xilinx.com:ip:noc_nmu:1.0-1] bd_07f8_S02_AXI_nmu_0: device = xcvc1902
+INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'SAXI4'. A default connection has been created.
+INFO: [xilinx.com:ip:noc_nmu:1.0-1] bd_07f8_S05_AXI_nmu_0: device = xcvc1902
+INFO: [xilinx.com:ip:noc_nmu:1.0-1] bd_07f8_S05_AXI_nmu_0: device = xcvc1902
+INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'SAXI4'. A default connection has been created.
+INFO: [xilinx.com:ip:noc_nmu:1.0-1] bd_07f8_S01_AXI_nmu_0: device = xcvc1902
+INFO: [xilinx.com:ip:noc_nmu:1.0-1] bd_07f8_S01_AXI_nmu_0: device = xcvc1902
+INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'SAXI4'. A default connection has been created.
+INFO: [xilinx.com:ip:noc_nmu:1.0-1] bd_07f8_S00_AXI_nmu_0: device = xcvc1902
+INFO: [xilinx.com:ip:noc_nmu:1.0-1] bd_07f8_S00_AXI_nmu_0: device = xcvc1902
+INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'SAXI4'. A default connection has been created.
+INFO: [xilinx.com:ip:noc_nsu:1.0-1] bd_07f8_M00_AXI_nsu_0: device = xcvc1902
+INFO: [xilinx.com:ip:noc_nsu:1.0-1] bd_07f8_M00_AXI_nsu_0: device = xcvc1902
+INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'MAXI4'. A default connection has been created.
+Exporting to file /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_cips_noc_0/bd_0/hw_handoff/ext_platform_cips_noc_0.hwh
+Generated Hardware Definition File /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_cips_noc_0/bd_0/synth/ext_platform_cips_noc_0.hwdef
+INFO: [BD 41-1029] Generation completed for the IP Integrator block cips_noc .
+INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'S00_AXI'. A default connection has been created.
+INFO: [xilinx.com:ip:noc_nmu:1.0-1] bd_b0c5_S00_AXI_nmu_0: device = xcvc1902
+INFO: [xilinx.com:ip:noc_nmu:1.0-1] bd_b0c5_S00_AXI_nmu_0: device = xcvc1902
+INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'SAXI4'. A default connection has been created.
+Calling reg_generate
+Exporting to file /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_noc_ddr4_0/bd_0/hw_handoff/ext_platform_noc_ddr4_0.hwh
+Generated Hardware Definition File /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_noc_ddr4_0/bd_0/synth/ext_platform_noc_ddr4_0.hwdef
+INFO: [BD 41-1029] Generation completed for the IP Integrator block noc_ddr4 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block proc_sys_reset_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block proc_sys_reset_1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block proc_sys_reset_2 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block proc_sys_reset_3 .
+Exporting to file /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_icn_ctrl_0/bd_0/hw_handoff/ext_platform_icn_ctrl_0.hwh
+Generated Hardware Definition File /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_icn_ctrl_0/bd_0/synth/ext_platform_icn_ctrl_0.hwdef
+INFO: [BD 41-1029] Generation completed for the IP Integrator block icn_ctrl .
+INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'S00_AXI'. A default connection has been created.
+Exporting to file /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_ai_engine_0_0/bd_0/hw_handoff/ext_platform_ai_engine_0_0.hwh
+Generated Hardware Definition File /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_ai_engine_0_0/bd_0/synth/ext_platform_ai_engine_0_0.hwdef
+INFO: [BD 41-1029] Generation completed for the IP Integrator block ai_engine_0 .
+Calling reg_generate
+Calling reg_generate
+Exporting to file /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_noc_lpddr4_0/bd_0/hw_handoff/ext_platform_noc_lpddr4_0.hwh
+Generated Hardware Definition File /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_noc_lpddr4_0/bd_0/synth/ext_platform_noc_lpddr4_0.hwdef
+INFO: [BD 41-1029] Generation completed for the IP Integrator block noc_lpddr4 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block system_cache_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block system_cache_1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block system_cache_2 .
+Exporting to file /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_smartconnect_0_0/bd_0/hw_handoff/ext_platform_smartconnect_0_0.hwh
+Generated Hardware Definition File /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_smartconnect_0_0/bd_0/synth/ext_platform_smartconnect_0_0.hwdef
+INFO: [BD 41-1029] Generation completed for the IP Integrator block smartconnect_0 .
+Exporting to file /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_smartconnect_0_1/bd_0/hw_handoff/ext_platform_smartconnect_0_1.hwh
+Generated Hardware Definition File /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_smartconnect_0_1/bd_0/synth/ext_platform_smartconnect_0_1.hwdef
+INFO: [BD 41-1029] Generation completed for the IP Integrator block smartconnect_1 .
+Exporting to file /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/hw_handoff/ext_platform.hwh
+Generated Hardware Definition File /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/synth/ext_platform.hwdef
+generate_target: Time (s): cpu = 00:00:54 ; elapsed = 00:00:41 . Memory (MB): peak = 10517.852 ; gain = 0.000 ; free physical = 47779 ; free virtual = 54269
+catch { config_ip_cache -export [get_ips -all ext_platform_axi_intc_0_0] }
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_axi_intc_0_0
+catch { config_ip_cache -export [get_ips -all ext_platform_clk_wizard_0_0] }
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_clk_wizard_0_0
+catch { config_ip_cache -export [get_ips -all ext_platform_cips_noc_0] }
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_cips_noc_0
+catch { config_ip_cache -export [get_ips -all ext_platform_noc_ddr4_0] }
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_noc_ddr4_0
+catch { config_ip_cache -export [get_ips -all ext_platform_proc_sys_reset_0_0] }
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_proc_sys_reset_0_0
+catch { config_ip_cache -export [get_ips -all ext_platform_proc_sys_reset_1_0] }
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_proc_sys_reset_1_0
+catch { config_ip_cache -export [get_ips -all ext_platform_proc_sys_reset_2_0] }
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_proc_sys_reset_2_0
+catch { config_ip_cache -export [get_ips -all ext_platform_proc_sys_reset_3_0] }
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_proc_sys_reset_3_0
+catch { config_ip_cache -export [get_ips -all ext_platform_icn_ctrl_0] }
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_icn_ctrl_0
+catch { config_ip_cache -export [get_ips -all ext_platform_noc_lpddr4_0] }
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_noc_lpddr4_0
+catch { config_ip_cache -export [get_ips -all ext_platform_system_cache_0_0] }
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_system_cache_0_0
+catch { config_ip_cache -export [get_ips -all ext_platform_system_cache_1_0] }
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_system_cache_1_0
+catch { config_ip_cache -export [get_ips -all ext_platform_system_cache_2_0] }
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_system_cache_2_0
+catch { config_ip_cache -export [get_ips -all ext_platform_smartconnect_0_0] }
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_smartconnect_0_0
+catch { config_ip_cache -export [get_ips -all ext_platform_smartconnect_0_1] }
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_smartconnect_0_1
+export_ip_user_files -of_objects [get_files /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.srcs/sources_1/bd/ext_platform/ext_platform.bd] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.srcs/sources_1/bd/ext_platform/ext_platform.bd]
+launch_runs ext_platform_axi_intc_0_0_synth_1 ext_platform_cips_noc_0_synth_1 ext_platform_clk_wizard_0_0_synth_1 ext_platform_icn_ctrl_0_synth_1 ext_platform_noc_ddr4_0_synth_1 ext_platform_noc_lpddr4_0_synth_1 ext_platform_proc_sys_reset_0_0_synth_1 ext_platform_proc_sys_reset_1_0_synth_1 ext_platform_proc_sys_reset_2_0_synth_1 ext_platform_proc_sys_reset_3_0_synth_1 ext_platform_smartconnect_0_0_synth_1 ext_platform_smartconnect_0_1_synth_1 ext_platform_system_cache_0_0_synth_1 ext_platform_system_cache_1_0_synth_1 ext_platform_system_cache_2_0_synth_1 -jobs 28
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_axi_intc_0_0
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_cips_noc_0
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_clk_wizard_0_0
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_icn_ctrl_0
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_noc_ddr4_0
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_noc_lpddr4_0
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_proc_sys_reset_0_0
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_proc_sys_reset_1_0
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_proc_sys_reset_2_0
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_proc_sys_reset_3_0
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_smartconnect_0_0
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_smartconnect_0_1
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_system_cache_0_0
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_system_cache_1_0
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_system_cache_2_0
+[Wed May 14 12:00:28 2025] Launched ext_platform_axi_intc_0_0_synth_1, ext_platform_cips_noc_0_synth_1, ext_platform_clk_wizard_0_0_synth_1, ext_platform_icn_ctrl_0_synth_1, ext_platform_noc_ddr4_0_synth_1, ext_platform_noc_lpddr4_0_synth_1, ext_platform_proc_sys_reset_0_0_synth_1, ext_platform_proc_sys_reset_1_0_synth_1, ext_platform_proc_sys_reset_2_0_synth_1, ext_platform_proc_sys_reset_3_0_synth_1, ext_platform_smartconnect_0_0_synth_1, ext_platform_smartconnect_0_1_synth_1, ext_platform_system_cache_0_0_synth_1, ext_platform_system_cache_1_0_synth_1, ext_platform_system_cache_2_0_synth_1...
+Run output will be captured here:
+ext_platform_axi_intc_0_0_synth_1: /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.runs/ext_platform_axi_intc_0_0_synth_1/runme.log
+ext_platform_cips_noc_0_synth_1: /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.runs/ext_platform_cips_noc_0_synth_1/runme.log
+ext_platform_clk_wizard_0_0_synth_1: /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.runs/ext_platform_clk_wizard_0_0_synth_1/runme.log
+ext_platform_icn_ctrl_0_synth_1: /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.runs/ext_platform_icn_ctrl_0_synth_1/runme.log
+ext_platform_noc_ddr4_0_synth_1: /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.runs/ext_platform_noc_ddr4_0_synth_1/runme.log
+ext_platform_noc_lpddr4_0_synth_1: /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.runs/ext_platform_noc_lpddr4_0_synth_1/runme.log
+ext_platform_proc_sys_reset_0_0_synth_1: /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.runs/ext_platform_proc_sys_reset_0_0_synth_1/runme.log
+ext_platform_proc_sys_reset_1_0_synth_1: /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.runs/ext_platform_proc_sys_reset_1_0_synth_1/runme.log
+ext_platform_proc_sys_reset_2_0_synth_1: /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.runs/ext_platform_proc_sys_reset_2_0_synth_1/runme.log
+ext_platform_proc_sys_reset_3_0_synth_1: /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.runs/ext_platform_proc_sys_reset_3_0_synth_1/runme.log
+ext_platform_smartconnect_0_0_synth_1: /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.runs/ext_platform_smartconnect_0_0_synth_1/runme.log
+ext_platform_smartconnect_0_1_synth_1: /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.runs/ext_platform_smartconnect_0_1_synth_1/runme.log
+ext_platform_system_cache_0_0_synth_1: /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.runs/ext_platform_system_cache_0_0_synth_1/runme.log
+ext_platform_system_cache_1_0_synth_1: /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.runs/ext_platform_system_cache_1_0_synth_1/runme.log
+ext_platform_system_cache_2_0_synth_1: /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.runs/ext_platform_system_cache_2_0_synth_1/runme.log
+export_simulation -of_objects [get_files /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.srcs/sources_1/bd/ext_platform/ext_platform.bd] -directory /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.ip_user_files/sim_scripts -ip_user_files_dir /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.ip_user_files -ipstatic_source_dir /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.ip_user_files/ipstatic -lib_map_path [list {modelsim=/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.cache/compile_simlib/modelsim} {questa=/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.cache/compile_simlib/questa} {xcelium=/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.cache/compile_simlib/xcelium} {vcs=/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.cache/compile_simlib/vcs} {riviera=/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.cache/compile_simlib/riviera}] -use_ip_compiled_libs -force -quiet

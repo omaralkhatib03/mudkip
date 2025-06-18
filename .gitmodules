@@ -1,0 +1,10 @@
+[submodule "vivado/pfm/device-tree-xlnx"]
+	path = vivado/pfm/device-tree-xlnx
+	url = https://github.com/Xilinx/device-tree-xlnx
+[submodule "sw/cupdlp/Vitis_Libraries"]
+	path = sw/cupdlp/Vitis_Libraries
+	url = https://github.com/Xilinx/Vitis_Libraries
+
+[submodule "HiHiSpMV"]
+	path = HiHiSpMV
+	url = https://github.com/omaralkhatib03/HiHiSpMV

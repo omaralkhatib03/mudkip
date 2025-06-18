@@ -1,0 +1,260 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "tcf-debug",
+			"request": "launch",
+			"name": "SPMV_hw_emu_new",
+			"debugType": "tcf_hw_emu",
+			"target": {
+				"targetConnectionId": "LinuxEmulation",
+				"peersIniPath": "../../../.wsdata/.peers.ini",
+				"file": "${workspaceFolder}/cltb_host/build/hw/cltb_host",
+				"remoteFilePath": "/run/media/mmcblk0p1/cltb_host"
+			},
+			"env": {
+				"XILINX_VITIS": "/run/media/mmcblk0p1",
+				"XILINX_XRT": "/usr",
+				"XCL_EMULATION_MODE": "hw_emu",
+				"XRT_INI_PATH": "/run/media/mmcblk0p1/hw_emu_xrt.ini",
+				"LD_LIBRARY_PATH": "/run/media/mmcblk0p1:/tmp:$LD_LIBRARY_PATH"
+			},
+			"copyToTarget": [
+				{
+					"source": "${workspaceFolder}/SPMV/build/hw_emu/package/spmv.xclbin",
+					"destination": "/run/media/mmcblk0p1"
+				},
+				{
+					"source": "${workspaceFolder}/SPMV/SPMV_host/runtime/hw_emu_xrt.ini",
+					"destination": "/run/media/mmcblk0p1"
+				}
+			],
+			"copyFromTargetOnTermination": [
+				{
+					"pattern": ".txt",
+					"destination": "${workspaceFolder}/SPMV/build/hw_emu/SPMV_hw_emu_new"
+				},
+				{
+					"pattern": ".run_summary",
+					"destination": "${workspaceFolder}/SPMV/build/hw_emu/SPMV_hw_emu_new"
+				},
+				{
+					"pattern": ".json",
+					"destination": "${workspaceFolder}/SPMV/build/hw_emu/SPMV_hw_emu_new"
+				},
+				{
+					"pattern": ".csv",
+					"destination": "${workspaceFolder}/SPMV/build/hw_emu/SPMV_hw_emu_new"
+				}
+			],
+			"pathMap": [
+				{
+					"source": "../../../../sw/cupdlp/ws/SPMV/build/hw_emu/hw_link/spmv/spmv/int/xo/csr_spmv_repl_3/csr_spmv_repl_3/cpu_sources",
+					"destination": "/home/oa321/work/HiHiSpMV/src/kernels"
+				},
+				{
+					"source": "../../../../sw/cupdlp/ws/SPMV/build/hw_emu/hw_link/spmv/spmv/int/xo/csr_spmv_repl_4/csr_spmv_repl_4/cpu_sources",
+					"destination": "/home/oa321/work/HiHiSpMV/src/kernels"
+				},
+				{
+					"source": "../../../../sw/cupdlp/ws/SPMV/build/hw_emu/hw_link/spmv/spmv/int/xo/csr_spmv_repl_1/csr_spmv_repl_1/cpu_sources",
+					"destination": "/home/oa321/work/HiHiSpMV/src/kernels"
+				},
+				{
+					"source": "../../../../sw/cupdlp/ws/SPMV/build/hw_emu/hw_link/spmv/spmv/int/xo/csr_spmv_repl_2/csr_spmv_repl_2/cpu_sources",
+					"destination": "/home/oa321/work/HiHiSpMV/src/kernels"
+				}
+			],
+			"replaceNativeEnv": false,
+			"arguments": "./spmv.xclbin afiro",
+			"workingDirectory": "/run/media/mmcblk0p1",
+			"stopAtMain": true,
+			"stopAtProgramEntry": false,
+			"autoAttachProcessChildren": false,
+			"internalConsoleOptions": "openOnSessionStart"
+		},
+		{
+			"type": "tcf-debug",
+			"request": "launch",
+			"name": "SPMV_hw_cltb",
+			"debugType": "tcf_hw",
+			"target": {
+				"targetConnectionId": "Linux Agent",
+				"peersIniPath": "../../../.wsdata/.peers.ini",
+				"file": "${workspaceFolder}/cltb_host/build/hw/cltb_host",
+				"remoteFilePath": "/home/petalinux/cltb/cltb_host"
+			},
+			"env": {
+				"XILINX_VITIS": "/home/petalinux/cltb/",
+				"XILINX_XRT": "/usr",
+				"XRT_INI_PATH": "/home/petalinux/cltb/hw_xrt.ini",
+				"LD_LIBRARY_PATH": "/home/petalinux/cltb/:/tmp:$LD_LIBRARY_PATH"
+			},
+			"copyToTarget": [
+				{
+					"source": "${workspaceFolder}/SPMV/build/hw/package/spmv.xclbin",
+					"destination": "/home/petalinux/cltb/"
+				},
+				{
+					"source": "${workspaceFolder}/SPMV/SPMV_host/runtime/hw_xrt.ini",
+					"destination": "/home/petalinux/cltb/"
+				}
+			],
+			"copyFromTargetOnTermination": [
+				{
+					"pattern": ".txt",
+					"destination": "${workspaceFolder}/SPMV/build/hw/SPMV_hw_new1"
+				},
+				{
+					"pattern": ".run_summary",
+					"destination": "${workspaceFolder}/SPMV/build/hw/SPMV_hw_new1"
+				},
+				{
+					"pattern": ".json",
+					"destination": "${workspaceFolder}/SPMV/build/hw/SPMV_hw_new1"
+				},
+				{
+					"pattern": ".csv",
+					"destination": "${workspaceFolder}/SPMV/build/hw/SPMV_hw_new1"
+				}
+			],
+			"pathMap": [
+				{
+					"source": "../../../../sw/cupdlp/ws/SPMV/build/hw/hw_link/spmv/spmv/int/xo/csr_spmv_repl_3/csr_spmv_repl_3/cpu_sources",
+					"destination": "/home/oa321/work/HiHiSpMV/src/kernels"
+				},
+				{
+					"source": "../../../../sw/cupdlp/ws/SPMV/build/hw/hw_link/spmv/spmv/int/xo/csr_spmv_repl_4/csr_spmv_repl_4/cpu_sources",
+					"destination": "/home/oa321/work/HiHiSpMV/src/kernels"
+				},
+				{
+					"source": "../../../../sw/cupdlp/ws/SPMV/build/hw/hw_link/spmv/spmv/int/xo/csr_spmv_repl_1/csr_spmv_repl_1/cpu_sources",
+					"destination": "/home/oa321/work/HiHiSpMV/src/kernels"
+				},
+				{
+					"source": "../../../../sw/cupdlp/ws/SPMV/build/hw/hw_link/spmv/spmv/int/xo/csr_spmv_repl_2/csr_spmv_repl_2/cpu_sources",
+					"destination": "/home/oa321/work/HiHiSpMV/src/kernels"
+				}
+			],
+			"replaceNativeEnv": false,
+			"arguments": "./spmv.xclbin ns1687037",
+			"workingDirectory": "/home/petalinux/cltb/",
+			"stopAtMain": true,
+			"stopAtProgramEntry": false,
+			"autoAttachProcessChildren": false,
+			"internalConsoleOptions": "openOnSessionStart"
+		},
+		{
+			"name": "SPMV_sw_cltb",
+			"debugType": "sw_emu",
+			"type": "gdb",
+			"request": "launch",
+			"applicationProjectDir": "${workspaceFolder}/SPMV",
+			"arguments": "${workspaceFolder}/SPMV/build/sw_emu/package/spmv.xclbin ",
+			"cwd": "${workspaceFolder}/SPMV/build/sw_emu/SPMV_sw_emu_new",
+			"gdbpath": "${env:XILINX_VITIS}/bin/xgdb",
+			"valuesFormatting": "prettyPrinters",
+			"env": {
+				"XILINX_VITIS": "${env:XILINX_VITIS}",
+				"XILINX_HLS": "${env:XILINX_VITIS}",
+				"XCL_EMULATION_MODE": "sw_emu",
+				"ENABLE_KERNEL_DEBUG": "true",
+				"XCL_BIN_PATH": "${workspaceFolder}/SPMV/build/sw_emu/package",
+				"LD_LIBRARY_PATH": "${env:XILINX_XRT}/lib",
+				"XRT_INI_PATH": "${workspaceFolder}/SPMV/SPMV_host/runtime/sw_emu_xrt.ini"
+			},
+			"target": "${workspaceFolder}/cltb_host/build/x86sim/cltb_host"
+		},
+		{
+			"name": "SPMV_sw_spmv_host",
+			"debugType": "sw_emu",
+			"type": "gdb",
+			"request": "launch",
+			"applicationProjectDir": "${workspaceFolder}/SPMV",
+			"arguments": "${workspaceFolder}/SPMV/build/sw_emu/package/spmv.xclbin",
+			"cwd": "${workspaceFolder}/SPMV/build/sw_emu/SPMV_sw_emu_new",
+			"gdbpath": "${env:XILINX_VITIS}/bin/xgdb",
+			"valuesFormatting": "prettyPrinters",
+			"env": {
+				"XILINX_VITIS": "${env:XILINX_VITIS}",
+				"XILINX_HLS": "${env:XILINX_VITIS}",
+				"XCL_EMULATION_MODE": "sw_emu",
+				"ENABLE_KERNEL_DEBUG": "true",
+				"XCL_BIN_PATH": "${workspaceFolder}/SPMV/build/sw_emu/package",
+				"LD_LIBRARY_PATH": "${env:XILINX_XRT}/lib"
+			},
+			"target": "${workspaceFolder}/cltb_host/build/x86sim/cltb_host"
+		},
+		{
+			"type": "tcf-debug",
+			"request": "launch",
+			"name": "SPMV_hw_new",
+			"debugType": "tcf_hw",
+			"target": {
+				"targetConnectionId": "Linux Agent",
+				"peersIniPath": "../../../.wsdata/.peers.ini",
+				"file": "${workspaceFolder}/cltb_host/build/hw/cltb_host",
+				"remoteFilePath": "/run/media/mmcblk0p1/cltb_host"
+			},
+			"env": {
+				"XILINX_VITIS": "/run/media/mmcblk0p1",
+				"XILINX_XRT": "/usr",
+				"XRT_INI_PATH": "/run/media/mmcblk0p1/hw_xrt.ini",
+				"LD_LIBRARY_PATH": "/run/media/mmcblk0p1:/tmp:$LD_LIBRARY_PATH"
+			},
+			"copyToTarget": [
+				{
+					"source": "${workspaceFolder}/SPMV/build/hw/package/spmv.xclbin",
+					"destination": "/run/media/mmcblk0p1"
+				},
+				{
+					"source": "${workspaceFolder}/SPMV/SPMV_host/runtime/hw_xrt.ini",
+					"destination": "/run/media/mmcblk0p1"
+				}
+			],
+			"copyFromTargetOnTermination": [
+				{
+					"pattern": ".txt",
+					"destination": "${workspaceFolder}/SPMV/build/hw/SPMV_hw_new1"
+				},
+				{
+					"pattern": ".run_summary",
+					"destination": "${workspaceFolder}/SPMV/build/hw/SPMV_hw_new1"
+				},
+				{
+					"pattern": ".json",
+					"destination": "${workspaceFolder}/SPMV/build/hw/SPMV_hw_new1"
+				},
+				{
+					"pattern": ".csv",
+					"destination": "${workspaceFolder}/SPMV/build/hw/SPMV_hw_new1"
+				}
+			],
+			"pathMap": [
+				{
+					"source": "../../../../sw/cupdlp/ws/SPMV/build/hw/hw_link/spmv/spmv/int/xo/csr_spmv_repl_3/csr_spmv_repl_3/cpu_sources",
+					"destination": "/home/oa321/work/HiHiSpMV/src/kernels"
+				},
+				{
+					"source": "../../../../sw/cupdlp/ws/SPMV/build/hw/hw_link/spmv/spmv/int/xo/csr_spmv_repl_4/csr_spmv_repl_4/cpu_sources",
+					"destination": "/home/oa321/work/HiHiSpMV/src/kernels"
+				},
+				{
+					"source": "../../../../sw/cupdlp/ws/SPMV/build/hw/hw_link/spmv/spmv/int/xo/csr_spmv_repl_1/csr_spmv_repl_1/cpu_sources",
+					"destination": "/home/oa321/work/HiHiSpMV/src/kernels"
+				},
+				{
+					"source": "../../../../sw/cupdlp/ws/SPMV/build/hw/hw_link/spmv/spmv/int/xo/csr_spmv_repl_2/csr_spmv_repl_2/cpu_sources",
+					"destination": "/home/oa321/work/HiHiSpMV/src/kernels"
+				}
+			],
+			"replaceNativeEnv": false,
+			"arguments": "./spmv.xclbin",
+			"workingDirectory": "/run/media/mmcblk0p1",
+			"stopAtMain": true,
+			"stopAtProgramEntry": false,
+			"autoAttachProcessChildren": false,
+			"internalConsoleOptions": "openOnSessionStart"
+		}
+	]
+}

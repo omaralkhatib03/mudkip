@@ -1,0 +1,11 @@
+{
+  "name": "spmv_stream_local",
+  "type": "HLS",
+  "configuration": {
+    "componentType": "HLS",
+    "configFiles": [
+      "hls_config.cfg"
+    ],
+    "work_dir": "spmv_stream_local"
+  }
+}

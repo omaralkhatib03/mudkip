@@ -1,13 +1,13 @@
 # Ignore build output directory
-/build
-/export
+build
+export
 
 # Ignore object files and dependent files
 .o
 .d
 
 #Ignore logs folder and log files
-/logs
+logs
 .log
 
 #Ignore lock files
@@ -18,3 +18,8 @@
 .peers.ini
 .repo.yaml
 .vitisWorkspace.json
+hls
+all_kernels_w_mem.archive
+mtx2_zip.zip
+CompareReport-spmv-spmv_manual_unroll-spmv_naive.csv
+

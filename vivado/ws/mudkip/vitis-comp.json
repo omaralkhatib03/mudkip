@@ -1,0 +1,55 @@
+{
+  "name": "mudkip",
+  "type": "PLATFORM",
+  "configuration": {
+    "description": "",
+    "xsa": "/home/oa321/work/mudkip/vivado/pfm/base_mudkip_hw.xsa",
+    "xsaPathInPlatform": "mudkip/hw/base_mudkip_hw.xsa",
+    "emulationXsa": "/home/oa321/work/mudkip/vivado/pfm/base_mudkip_hw.xsa",
+    "emulationXsaPathInPlatform": "mudkip/hw_emu/base_mudkip_hw.xsa",
+    "isCustomFSBL": false,
+    "fsblPath": "",
+    "pmufwElf": "",
+    "flow": "EMBEDDED_ACCEL",
+    "processorsMap": {
+      "psv_cortexa72_0": "psv_cortexa72",
+      "psv_cortexa72_1": "psv_cortexa72",
+      "psv_cortexr5_0": "psv_cortexr5",
+      "psv_cortexr5_1": "psv_cortexr5",
+      "psv_pmc_0": "psv_pmc",
+      "psv_psm_0": "psv_psm",
+      "ai_engine": "ai_engine"
+    },
+    "supportedFamily": "versal",
+    "componentType": "PLATFORM",
+    "domains": [
+      {
+        "name": "linux_psv_cortexa72",
+        "displayName": "linux_psv_cortexa72",
+        "processor": "psv_cortexa72",
+        "cpuType": "cortex-a72",
+        "cpuInstance": "psv_cortexa72",
+        "os": "linux",
+        "qemuData": "",
+        "qemuArgsFile": "/home/oa321/work/mudkip/vivado/ws/mudkip/resources/linux_psv_cortexa72/qemu/qemu_args.txt",
+        "pmcQemuArgsFile": "/home/oa321/work/mudkip/vivado/ws/mudkip/resources/linux_psv_cortexa72/qemu/pmc_args.txt",
+        "bifFile": "/home/oa321/work/mudkip/vivado/ws/mudkip/resources/linux_psv_cortexa72/linux.bif",
+        "bootDirectory": "/home/oa321/work/mudkip/vivado/pfm/mudkip-lin/images/linux",
+        "sdCardDirectory": "",
+        "customDtb": "/home/oa321/work/mudkip/vivado/pfm/mudkip-lin/images/linux/system.dtb"
+      },
+      {
+        "name": "mudkip_aie",
+        "displayName": "mudkip_aie",
+        "qemuData": "/home/oa321/work/mudkip/vivado/ws/mudkip/resources/mudkip_aie/qemu",
+        "qemuArgsFile": "/home/oa321/work/mudkip/vivado/ws/mudkip/resources/mudkip_aie/qemu/qemu_args.txt",
+        "pmcQemuArgsFile": "/home/oa321/work/mudkip/vivado/ws/mudkip/resources/mudkip_aie/qemu/pmc_args.txt",
+        "processor": "ai_engine",
+        "cpuType": "ai_engine",
+        "cpuInstance": "ai_engine",
+        "os": "aie_runtime"
+      }
+    ],
+    "emptyToolchainConfiguration": []
+  }
+}

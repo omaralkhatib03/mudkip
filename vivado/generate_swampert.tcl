@@ -1,0 +1,57 @@
+# start_gui
+create_project swampert /home/oa321/work/mudkip/vivado/swampert -part xcvc1902-vsva2197-2MP-e-S
+set_property board_part xilinx.com:vck190:part0:3.3 [current_project]
+create_bd_design "ext_platform" -mode batch
+instantiate_example_design -template xilinx.com:design:ext_platform:1.0 -design ext_platform -options { Clock_Options.VALUE {clk_out1 200.000 0 true clk_out2 225.000 1 false clk_out3 250.000 2 false clk_out4 300.000 3 false clk_out5 500.00 4 false} Include_AIE.VALUE true Include_BDC.VALUE false Include_DDR.VALUE true IRQS.VALUE 63}
+update_compile_order -fileset sources_1
+set_property PFM.CLOCK {clk_out1 {id "0" is_default "true" proc_sys_reset "/proc_sys_reset_0" status "scalable" freq_hz "200000000"} clk_out2 {id "1" is_default "false" proc_sys_reset "/proc_sys_reset_1" status "fixed" freq_hz "225000000"} clk_out3 {id "2" is_default "false" proc_sys_reset "/proc_sys_reset_2" status "fixed" freq_hz "257142857"} clk_out4 {id "3" is_default "false" proc_sys_reset "/proc_sys_reset_3" status "fixed" freq_hz "300000000"} clk_out5 {id "4" is_default "false" proc_sys_reset "/proc_sys_reset_4" status "fixed" freq_hz "500000000"}} [get_bd_cells /clk_wizard_0]
+validate_bd_design
+generate_target all [get_files  /home/oa321/work/mudkip/vivado/swampert/swampert.srcs/sources_1/bd/ext_platform/ext_platform.bd]
+catch { config_ip_cache -export [get_ips -all ext_platform_axi_intc_cascaded_1_0] }
+catch { config_ip_cache -export [get_ips -all ext_platform_axi_intc_parent_0] }
+catch { config_ip_cache -export [get_ips -all ext_platform_clk_wizard_0_0] }
+catch { config_ip_cache -export [get_ips -all ext_platform_cips_noc_0] }
+catch { config_ip_cache -export [get_ips -all ext_platform_noc_ddr4_0] }
+catch { config_ip_cache -export [get_ips -all ext_platform_proc_sys_reset_0_0] }
+catch { config_ip_cache -export [get_ips -all ext_platform_proc_sys_reset_1_0] }
+catch { config_ip_cache -export [get_ips -all ext_platform_proc_sys_reset_2_0] }
+catch { config_ip_cache -export [get_ips -all ext_platform_proc_sys_reset_3_0] }
+catch { config_ip_cache -export [get_ips -all ext_platform_proc_sys_reset_4_0] }
+catch { config_ip_cache -export [get_ips -all ext_platform_noc_lpddr4_0] }
+catch { config_ip_cache -export [get_ips -all ext_platform_to_delete_kernel_ctrl_0_0] }
+catch { config_ip_cache -export [get_ips -all ext_platform_to_delete_kernel_ctrl_1_0] }
+catch { config_ip_cache -export [get_ips -all ext_platform_to_delete_kernel_ctrl_2_0] }
+catch { config_ip_cache -export [get_ips -all ext_platform_to_delete_kernel_ctrl_3_0] }
+catch { config_ip_cache -export [get_ips -all ext_platform_icn_ctrl_0] }
+catch { config_ip_cache -export [get_ips -all ext_platform_icn_ctrl_0_0] }
+catch { config_ip_cache -export [get_ips -all ext_platform_icn_ctrl_1_0] }
+catch { config_ip_cache -export [get_ips -all ext_platform_icn_ctrl_2_0] }
+catch { config_ip_cache -export [get_ips -all ext_platform_icn_ctrl_3_0] }
+export_ip_user_files -of_objects [get_files /home/oa321/work/mudkip/vivado/swampert/swampert.srcs/sources_1/bd/ext_platform/ext_platform.bd] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] /home/oa321/work/mudkip/vivado/swampert/swampert.srcs/sources_1/bd/ext_platform/ext_platform.bd]
+launch_runs ext_platform_axi_intc_cascaded_1_0_synth_1 ext_platform_axi_intc_parent_0_synth_1 ext_platform_cips_noc_0_synth_1 ext_platform_clk_wizard_0_0_synth_1 ext_platform_icn_ctrl_0_0_synth_1 ext_platform_icn_ctrl_0_synth_1 ext_platform_icn_ctrl_1_0_synth_1 ext_platform_icn_ctrl_2_0_synth_1 ext_platform_icn_ctrl_3_0_synth_1 ext_platform_noc_ddr4_0_synth_1 ext_platform_noc_lpddr4_0_synth_1 ext_platform_proc_sys_reset_0_0_synth_1 ext_platform_proc_sys_reset_1_0_synth_1 ext_platform_proc_sys_reset_2_0_synth_1 ext_platform_proc_sys_reset_3_0_synth_1 ext_platform_proc_sys_reset_4_0_synth_1 ext_platform_to_delete_kernel_ctrl_0_0_synth_1 ext_platform_to_delete_kernel_ctrl_1_0_synth_1 ext_platform_to_delete_kernel_ctrl_2_0_synth_1 ext_platform_to_delete_kernel_ctrl_3_0_synth_1 -jobs 16
+wait_on_run ext_platform_axi_intc_cascaded_1_0_synth_1
+wait_on_run ext_platform_axi_intc_parent_0_synth_1
+wait_on_run ext_platform_cips_noc_0_synth_1
+wait_on_run ext_platform_clk_wizard_0_0_synth_1
+wait_on_run ext_platform_icn_ctrl_0_0_synth_1
+wait_on_run ext_platform_icn_ctrl_0_synth_1
+wait_on_run ext_platform_icn_ctrl_1_0_synth_1
+wait_on_run ext_platform_icn_ctrl_2_0_synth_1
+wait_on_run ext_platform_icn_ctrl_3_0_synth_1
+wait_on_run ext_platform_noc_ddr4_0_synth_1
+wait_on_run ext_platform_noc_lpddr4_0_synth_1
+wait_on_run ext_platform_proc_sys_reset_0_0_synth_1
+wait_on_run ext_platform_proc_sys_reset_1_0_synth_1
+wait_on_run ext_platform_proc_sys_reset_2_0_synth_1
+wait_on_run ext_platform_proc_sys_reset_3_0_synth_1
+wait_on_run ext_platform_proc_sys_reset_4_0_synth_1
+wait_on_run ext_platform_to_delete_kernel_ctrl_0_0_synth_1
+wait_on_run ext_platform_to_delete_kernel_ctrl_1_0_synth_1
+wait_on_run ext_platform_to_delete_kernel_ctrl_2_0_synth_1
+wait_on_run ext_platform_to_delete_kernel_ctrl_3_0_synth_1
+export_simulation -of_objects [get_files /home/oa321/work/mudkip/vivado/swampert/swampert.srcs/sources_1/bd/ext_platform/ext_platform.bd] -directory /home/oa321/work/mudkip/vivado/swampert/swampert.ip_user_files/sim_scripts -ip_user_files_dir /home/oa321/work/mudkip/vivado/swampert/swampert.ip_user_files -ipstatic_source_dir /home/oa321/work/mudkip/vivado/swampert/swampert.ip_user_files/ipstatic -lib_map_path [list {modelsim=/home/oa321/work/mudkip/vivado/swampert/swampert.cache/compile_simlib/modelsim} {questa=/home/oa321/work/mudkip/vivado/swampert/swampert.cache/compile_simlib/questa} {xcelium=/home/oa321/work/mudkip/vivado/swampert/swampert.cache/compile_simlib/xcelium} {vcs=/home/oa321/work/mudkip/vivado/swampert/swampert.cache/compile_simlib/vcs} {riviera=/home/oa321/work/mudkip/vivado/swampert/swampert.cache/compile_simlib/riviera}] -use_ip_compiled_libs -force -quiet
+set_property platform.name {swampert} [current_project]
+set_property pfm_name {xilinx:vck190:swampert:0.0} [get_files -all {/home/oa321/work/mudkip/vivado/swampert/swampert.srcs/sources_1/bd/ext_platform/ext_platform.bd}]
+set_property platform.uses_pr {false} [current_project]
+write_hw_platform -force -file /home/oa321/work/mudkip/vivado/pfm/base_swampert.xsa

@@ -1,0 +1,7 @@
+{
+  "workspaceRoot": "../hihispmv-ws",
+  "mapping": {
+    "../hls/spmv.cc": "mm2s",
+    "../hls/spmv.cc": "s2mm"
+  }
+}

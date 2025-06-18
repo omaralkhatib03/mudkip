@@ -1,0 +1,8 @@
+{
+  "workspaceRoot": "/home/oa321/work/mudkip/vivado/ws",
+  "mapping": {
+    "aie_sys_design_s2mm/src/s2mm.cpp": "aie_sys_design_s2mm",
+    "aie_sys_design_mm2s/src/mm2s.cpp": "aie_sys_design_mm2s",
+    "aie_sys_design_polar_clip/src/polar_clip.cpp": "aie_sys_design_polar_clip"
+  }
+}

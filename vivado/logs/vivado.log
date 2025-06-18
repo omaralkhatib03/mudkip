@@ -1,0 +1,295 @@
+#-----------------------------------------------------------
+# Vivado v2024.1 (64-bit)
+# SW Build 5076996 on Wed May 22 18:36:09 MDT 2024
+# IP Build 5075265 on Wed May 22 21:45:21 MDT 2024
+# SharedData Build 5076995 on Wed May 22 18:29:18 MDT 2024
+# Start of session at: Wed May 14 14:10:33 2025
+# Process ID: 78865
+# Current directory: /home/oa321/work/mudkip/vivado
+# Command line: vivado
+# Log file: /home/oa321/work/mudkip/vivado/vivado.log
+# Journal file: /home/oa321/work/mudkip/vivado/vivado.jou
+# Running On        :gambhir
+# Platform          :Ubuntu
+# Operating System  :Ubuntu 22.04.5 LTS
+# Processor Detail  :AMD Ryzen 9 9950X 16-Core Processor
+# CPU Frequency     :4773.897 MHz
+# CPU Physical cores:16
+# CPU Logical cores :32
+# Host memory       :64831 MB
+# Swap memory       :2147 MB
+# Total Virtual     :66979 MB
+# Available Virtual :62900 MB
+#-----------------------------------------------------------
+start_gui
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_a/1.0/board.xml as part xcve2802-vsvh1760-2lp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_a/1.1/board.xml as part xcve2802-vsvh1760-2lp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es_revb:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_b/1.0/board.xml as part xcve2802-vsvh1760-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280_es_revb:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vek280/es/rev_b/1.1/board.xml as part xcve2802-vsvh1760-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158_es:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vhk158/es/1.0/board.xml as part xcvh1582-vsva3697-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158_es:part0:1.1 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vhk158/es/1.1/board.xml as part xcvh1582-vsva3697-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu208ld:part0:2.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu208ld/production/2.0/board.xml as part xczu58dr-fsvg1517-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu216ld:part0:2.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu216ld/production/2.0/board.xml as part xczu59dr-ffvf1760-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670ld:part0:1.0 available at /opt/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu670ld/1.0/board.xml as part xczu57dr-fsve1156-2-i specified in board_part file is either invalid or not available
+open_project /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.xpr
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/Xilinx/Vivado/2024.1/data/ip'.
+WARNING: [IP_Flow 19-3664] IP 'ext_platform_system_cache_0_0' generated file not found '/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_system_cache_0_0/ext_platform_system_cache_0_0.dcp'. Please regenerate to continue.
+WARNING: [IP_Flow 19-3664] IP 'ext_platform_system_cache_0_0' generated file not found '/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_system_cache_0_0/ext_platform_system_cache_0_0_stub.v'. Please regenerate to continue.
+WARNING: [IP_Flow 19-3664] IP 'ext_platform_system_cache_0_0' generated file not found '/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_system_cache_0_0/ext_platform_system_cache_0_0_stub.vhdl'. Please regenerate to continue.
+WARNING: [IP_Flow 19-3664] IP 'ext_platform_system_cache_0_0' generated file not found '/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_system_cache_0_0/ext_platform_system_cache_0_0_sim_netlist.v'. Please regenerate to continue.
+WARNING: [IP_Flow 19-3664] IP 'ext_platform_system_cache_0_0' generated file not found '/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_system_cache_0_0/ext_platform_system_cache_0_0_sim_netlist.vhdl'. Please regenerate to continue.
+WARNING: [IP_Flow 19-3664] IP 'ext_platform_system_cache_1_0' generated file not found '/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_system_cache_1_0/ext_platform_system_cache_1_0.dcp'. Please regenerate to continue.
+WARNING: [IP_Flow 19-3664] IP 'ext_platform_system_cache_1_0' generated file not found '/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_system_cache_1_0/ext_platform_system_cache_1_0_stub.v'. Please regenerate to continue.
+WARNING: [IP_Flow 19-3664] IP 'ext_platform_system_cache_1_0' generated file not found '/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_system_cache_1_0/ext_platform_system_cache_1_0_stub.vhdl'. Please regenerate to continue.
+WARNING: [IP_Flow 19-3664] IP 'ext_platform_system_cache_1_0' generated file not found '/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_system_cache_1_0/ext_platform_system_cache_1_0_sim_netlist.v'. Please regenerate to continue.
+WARNING: [IP_Flow 19-3664] IP 'ext_platform_system_cache_1_0' generated file not found '/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_system_cache_1_0/ext_platform_system_cache_1_0_sim_netlist.vhdl'. Please regenerate to continue.
+WARNING: [IP_Flow 19-3664] IP 'ext_platform_system_cache_2_0' generated file not found '/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_system_cache_2_0/ext_platform_system_cache_2_0.dcp'. Please regenerate to continue.
+WARNING: [IP_Flow 19-3664] IP 'ext_platform_system_cache_2_0' generated file not found '/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_system_cache_2_0/ext_platform_system_cache_2_0_stub.v'. Please regenerate to continue.
+WARNING: [IP_Flow 19-3664] IP 'ext_platform_system_cache_2_0' generated file not found '/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_system_cache_2_0/ext_platform_system_cache_2_0_stub.vhdl'. Please regenerate to continue.
+WARNING: [IP_Flow 19-3664] IP 'ext_platform_system_cache_2_0' generated file not found '/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_system_cache_2_0/ext_platform_system_cache_2_0_sim_netlist.v'. Please regenerate to continue.
+WARNING: [IP_Flow 19-3664] IP 'ext_platform_system_cache_2_0' generated file not found '/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_system_cache_2_0/ext_platform_system_cache_2_0_sim_netlist.vhdl'. Please regenerate to continue.
+WARNING: [IP_Flow 19-3664] IP 'ext_platform_system_cache_0_1' generated file not found '/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_system_cache_0_1/ext_platform_system_cache_0_1.dcp'. Please regenerate to continue.
+WARNING: [IP_Flow 19-3664] IP 'ext_platform_system_cache_0_1' generated file not found '/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_system_cache_0_1/ext_platform_system_cache_0_1_stub.v'. Please regenerate to continue.
+WARNING: [IP_Flow 19-3664] IP 'ext_platform_system_cache_0_1' generated file not found '/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_system_cache_0_1/ext_platform_system_cache_0_1_stub.vhdl'. Please regenerate to continue.
+WARNING: [IP_Flow 19-3664] IP 'ext_platform_system_cache_0_1' generated file not found '/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_system_cache_0_1/ext_platform_system_cache_0_1_sim_netlist.v'. Please regenerate to continue.
+WARNING: [IP_Flow 19-3664] IP 'ext_platform_system_cache_0_1' generated file not found '/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.gen/sources_1/bd/ext_platform/ip/ext_platform_system_cache_0_1/ext_platform_system_cache_0_1_sim_netlist.vhdl'. Please regenerate to continue.
+update_compile_order -fileset sources_1
+open_bd_design {/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.srcs/sources_1/bd/ext_platform/ext_platform.bd}
+Reading block design file </home/oa321/work/mudkip/vivado/marshtomp/marshtomp.srcs/sources_1/bd/ext_platform/ext_platform.bd>...
+Adding component instance block -- xilinx.com:ip:versal_cips:3.4 - CIPS_0
+Adding component instance block -- xilinx.com:ip:axi_intc:4.1 - axi_intc_0
+Adding component instance block -- xilinx.com:ip:clk_wizard:1.0 - clk_wizard_0
+Adding component instance block -- xilinx.com:ip:axi_noc:1.1 - cips_noc
+Adding component instance block -- xilinx.com:ip:axi_noc:1.1 - noc_ddr4
+Adding component instance block -- xilinx.com:ip:proc_sys_reset:5.0 - proc_sys_reset_0
+Adding component instance block -- xilinx.com:ip:proc_sys_reset:5.0 - proc_sys_reset_1
+Adding component instance block -- xilinx.com:ip:proc_sys_reset:5.0 - proc_sys_reset_2
+Adding component instance block -- xilinx.com:ip:proc_sys_reset:5.0 - proc_sys_reset_3
+Adding component instance block -- xilinx.com:ip:smartconnect:1.0 - icn_ctrl
+Adding component instance block -- xilinx.com:ip:ai_engine:2.0 - ai_engine_0
+Adding component instance block -- xilinx.com:ip:axi_noc:1.1 - noc_lpddr4
+Adding component instance block -- xilinx.com:ip:system_cache:5.0 - system_cache_0
+Adding component instance block -- xilinx.com:ip:system_cache:5.0 - system_cache_1
+Adding component instance block -- xilinx.com:ip:system_cache:5.0 - system_cache_2
+Adding component instance block -- xilinx.com:ip:axi_noc:1.1 - axi_noc_1
+Adding component instance block -- xilinx.com:ip:system_cache:5.0 - system_cache_3
+Excluding slave segment /noc_ddr4/S00_AXI/C0_DDR_LOW0 from address space /CIPS_0/M_AXI_FPD.
+Excluding slave segment /noc_ddr4/S00_AXI/C0_DDR_LOW1 from address space /CIPS_0/M_AXI_FPD.
+Successfully read diagram <ext_platform> from block design file </home/oa321/work/mudkip/vivado/marshtomp/marshtomp.srcs/sources_1/bd/ext_platform/ext_platform.bd>
+INFO: [Device 21-403] Loading part xcvc1902-vsva2197-2MP-e-S
+INFO: [BD 41-3052] NOC Block /noc_ddr4 does not have shared segments on DDR and HBM. Shared segments allow full range access via NSU irrespective of multipath topology. Mutiple paths to DDR  across /noc_ddr4 with current configuration may split assignment. Please use the following AR-000036160 https://xilinx.lightning.force.com/lightning/articles/Knowledge/000036160?language=en_US to leverage shared segments for DDR/HBM.
+INFO: [BD 41-3052] NOC Block /axi_noc_1 does not have shared segments on DDR and HBM. Shared segments allow full range access via NSU irrespective of multipath topology. Mutiple paths to DDR  across /axi_noc_1 with current configuration may split assignment. Please use the following AR-000036160 https://xilinx.lightning.force.com/lightning/articles/Knowledge/000036160?language=en_US to leverage shared segments for DDR/HBM.
+INFO: [BD 41-3052] NOC Block /noc_lpddr4 does not have shared segments on DDR and HBM. Shared segments allow full range access via NSU irrespective of multipath topology. Mutiple paths to DDR  across /noc_lpddr4 with current configuration may split assignment. Please use the following AR-000036160 https://xilinx.lightning.force.com/lightning/articles/Knowledge/000036160?language=en_US to leverage shared segments for DDR/HBM.
+INFO: [BD 41-3052] NOC Block /cips_noc does not have shared segments on DDR and HBM. Shared segments allow full range access via NSU irrespective of multipath topology. Mutiple paths to DDR  across /cips_noc with current configuration may split assignment. Please use the following AR-000036160 https://xilinx.lightning.force.com/lightning/articles/Knowledge/000036160?language=en_US to leverage shared segments for DDR/HBM.
+open_bd_design: Time (s): cpu = 00:00:12 ; elapsed = 00:00:10 . Memory (MB): peak = 9455.734 ; gain = 542.613 ; free physical = 51648 ; free virtual = 56656
+reset_run ext_platform_system_cache_0_0_synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Attempt to kill process failed
+
+reset_run ext_platform_system_cache_1_0_synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Attempt to kill process failed
+
+reset_run ext_platform_system_cache_2_0_synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Attempt to kill process failed
+
+reset_run ext_platform_system_cache_0_1_synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Attempt to kill process failed
+
+generate_target all [get_files  /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.srcs/sources_1/bd/ext_platform/ext_platform.bd]
+INFO: [BD 41-1637] Generated targets are already up-to-date for block design 'ext_platform' - hence not re-generating.
+catch { config_ip_cache -export [get_ips -all ext_platform_system_cache_0_0] }
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_system_cache_0_0
+catch { config_ip_cache -export [get_ips -all ext_platform_system_cache_1_0] }
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_system_cache_1_0
+catch { config_ip_cache -export [get_ips -all ext_platform_system_cache_2_0] }
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_system_cache_2_0
+catch { config_ip_cache -export [get_ips -all ext_platform_system_cache_0_1] }
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_system_cache_0_1
+export_ip_user_files -of_objects [get_files /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.srcs/sources_1/bd/ext_platform/ext_platform.bd] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.srcs/sources_1/bd/ext_platform/ext_platform.bd]
+launch_runs ext_platform_system_cache_0_0_synth_1 ext_platform_system_cache_0_1_synth_1 ext_platform_system_cache_1_0_synth_1 ext_platform_system_cache_2_0_synth_1 -jobs 16
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_system_cache_0_0
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_system_cache_0_1
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_system_cache_1_0
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: ext_platform_system_cache_2_0
+[Wed May 14 14:14:06 2025] Launched ext_platform_system_cache_0_0_synth_1, ext_platform_system_cache_0_1_synth_1, ext_platform_system_cache_1_0_synth_1, ext_platform_system_cache_2_0_synth_1...
+Run output will be captured here:
+ext_platform_system_cache_0_0_synth_1: /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.runs/ext_platform_system_cache_0_0_synth_1/runme.log
+ext_platform_system_cache_0_1_synth_1: /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.runs/ext_platform_system_cache_0_1_synth_1/runme.log
+ext_platform_system_cache_1_0_synth_1: /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.runs/ext_platform_system_cache_1_0_synth_1/runme.log
+ext_platform_system_cache_2_0_synth_1: /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.runs/ext_platform_system_cache_2_0_synth_1/runme.log
+export_simulation -of_objects [get_files /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.srcs/sources_1/bd/ext_platform/ext_platform.bd] -directory /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.ip_user_files/sim_scripts -ip_user_files_dir /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.ip_user_files -ipstatic_source_dir /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.ip_user_files/ipstatic -lib_map_path [list {modelsim=/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.cache/compile_simlib/modelsim} {questa=/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.cache/compile_simlib/questa} {xcelium=/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.cache/compile_simlib/xcelium} {vcs=/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.cache/compile_simlib/vcs} {riviera=/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.cache/compile_simlib/riviera}] -use_ip_compiled_libs -force -quiet
+set_property pfm_name {xilinx.com:vck190:marshtomp:1.0} [get_files -all {/home/oa321/work/mudkip/vivado/marshtomp/marshtomp.srcs/sources_1/bd/ext_platform/ext_platform.bd}]
+set_property platform.uses_pr {false} [current_project]
+write_hw_platform -force -file /home/oa321/work/mudkip/vivado/pfm/marshtomp_noc.xsa
+INFO: [Project 1-1918] Creating Hardware Platform: /home/oa321/work/mudkip/vivado/pfm/marshtomp_noc.xsa ...
+INFO: [Project 1-1906] Skipping semantic label enumeration.
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M02_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M03_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M04_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M05_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M06_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M07_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M08_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M09_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M10_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M11_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M12_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M13_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M14_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [PFM-62] PFM.AXI_PORT for icn_ctrl/M15_AXI does not have an sptag specified, so is being assigned an auto generated name of GP
+INFO: [Project 1-1042] Successfully generated hpfm file
+BD design is already open /home/oa321/work/mudkip/vivado/marshtomp/marshtomp.srcs/sources_1/bd/ext_platform/ext_platform.bd
+INFO: [Project 1-1932] Generating a pre-synthesis device image (.pdi file) and writing it to the platform file /home/oa321/work/mudkip/vivado/pfm/marshtomp_noc.xsa.
+Generating Hard Block Files
+INFO: [Hsi 55-2053] elapsed time for repository (/opt/Xilinx/Vivado/2024.1/data/embeddedsw) loading 0 seconds
+/opt/Xilinx/Vivado/2024.1/gnu/microblaze/lin
+WARNING: Pmonpsv driver is being deprecated from 2024.1 release. It will be made obsolete in 2025.1 release.
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/cframe_v1_6/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/cfupmc_v1_7/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/coresightps_dcc_v1_10/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/cpu_v2_18/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/csudma_v1_15/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/ddrpsv_v1_5/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/emacps_v3_20/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/iomodule_v2_16/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/ipipsu_v2_15/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/pmonpsv_v2_3/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/qspipsu_v1_19/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/rtcpsu_v1_14/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/sdps_v4_3/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/standalone_v9_1/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/sysmonpsv_v4_2/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/trngpsv_v1_5/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/ttcps_v3_19/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/uartlite_v3_10/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/uartpsv_v1_10/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilcert_v1_2/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilffs_v5_2/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilloader_v2_0/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilnvm_v3_3/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilocp_v1_3/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilpdi_v1_9/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilplmi_v2_0/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilpm_v5_2/src
+Include files for this library have already been copied.
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilpuf_v2_3/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilsecure_v5_3/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilsem_v1_9/src
+Include files for this library have already been copied.
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/zdma_v1_18/src
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilpuf_v2_3/src
+Compiling XilPuf Library
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilcert_v1_2/src
+Compiling XilCert Library
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilocp_v1_3/src
+Compiling XilOcp Library
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilpdi_v1_9/src
+Compiling Xilpdi Library
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilplmi_v2_0/src
+Compiling XilPLMI Library
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilsem_v1_9/src
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilpm_v5_2/src
+Compiling XilPM Library
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilnvm_v3_3/src
+Compiling XilNvm Library
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilsecure_v5_3/src
+Compiling XilSecure Library
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilloader_v2_0/src
+Compiling XilLoader Library
+Finished building libraries sequentially.
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/cframe_v1_6/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/cfupmc_v1_7/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/coresightps_dcc_v1_10/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/cpu_v2_18/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/csudma_v1_15/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/ddrpsv_v1_5/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/emacps_v3_20/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/iomodule_v2_16/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/ipipsu_v2_15/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/pmonpsv_v2_3/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/qspipsu_v1_19/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/rtcpsu_v1_14/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/sdps_v4_3/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/standalone_v9_1/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/sysmonpsv_v4_2/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/trngpsv_v1_5/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/ttcps_v3_19/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/uartlite_v3_10/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/uartpsv_v1_10/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilcert_v1_2/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilffs_v5_2/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilloader_v2_0/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilnvm_v3_3/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilocp_v1_3/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilpdi_v1_9/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilplmi_v2_0/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilpm_v5_2/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilpuf_v2_3/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilsecure_v5_3/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilsem_v1_9/src
+Running Make include in CIPS_0_pspmc_0_psv_pmc_0/libsrc/zdma_v1_18/src
+Include files for this library have already been copied.
+Include files for this library have already been copied.
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/cframe_v1_6/src
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/cfupmc_v1_7/src
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/coresightps_dcc_v1_10/src
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/cpu_v2_18/src
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/csudma_v1_15/src
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/ddrpsv_v1_5/src
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/emacps_v3_20/src
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/iomodule_v2_16/src
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/ipipsu_v2_15/src
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/pmonpsv_v2_3/src
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/qspipsu_v1_19/src
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/rtcpsu_v1_14/src
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/sdps_v4_3/src
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/standalone_v9_1/src
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/sysmonpsv_v4_2/src
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/trngpsv_v1_5/src
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/ttcps_v3_19/src
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/uartlite_v3_10/src
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/uartpsv_v1_10/src
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/xilffs_v5_2/src
+Running Make libs in CIPS_0_pspmc_0_psv_pmc_0/libsrc/zdma_v1_18/src
+Compiling xsysmonpsv
+xcoresightpsdcc.c:42:2: warning: #warning "The driver is supported only for ARM architecture" [-Wcpp]
+   42 | #warning "The driver is supported only for ARM architecture"
+      |  ^~~~~~~
+microblaze_sleep.c:83:9: note: '#pragma message: For the sleep routines, assembly instructions are used'
+   83 | #pragma message ("For the sleep routines, assembly instructions are used")
+      |         ^~~~~~~
+In file included from xiomodule_g.c:16:
+../../../include/xparameters.h:1266:60: warning: conversion from 'long long unsigned int' to 'unsigned int' changes value from '18446744073709551615' to '4294967295' [-Woverflow]
+ 1266 | #define XPAR_CIPS_0_PSPMC_0_PSV_PMC_IOMODULE_0_IO_BASEADDR 0xFFFFFFFFFFFFFFFFU
+      |                                                            ^~~~~~~~~~~~~~~~~~~
+xiomodule_g.c:30:17: note: in expansion of macro 'XPAR_CIPS_0_PSPMC_0_PSV_PMC_IOMODULE_0_IO_BASEADDR'
+   30 |                 XPAR_CIPS_0_PSPMC_0_PSV_PMC_IOMODULE_0_IO_BASEADDR,
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+DEBUG NON_LTO_OBJECTS is ../../../lib/microblaze_interrupt_handler.o
+Finished building libraries parallelly.
+/opt/Xilinx/Vivado/2024.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/microblaze-xilinx-elf-ar.real: creating CIPS_0_pspmc_0_psv_pmc_0/lib/libxil.a
+Finished building libraries
+lto-wrapper.real: warning: using serial compilation of 6 LTRANS jobs
+lto-wrapper.real: note: see the '-flto' option documentation for more information
+INFO: [Project 1-1179] Generating /home/oa321/work/mudkip/vivado/.Xil/Vivado-78865-gambhir/xsa/marshtomp_noc_presynth.bif file ...
+
+
+****** Bootgen v2024.1
+  **** Build date : May 19 2024-13:05:05
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+
+
+[INFO]   : Bootimage generated successfully
+
+INFO: [Project 1-1945] The Hardware Platform can be used for Hardware and Hardware Emulation
+INFO: [Project 1-1941] Successfully created Hardware Platform: /home/oa321/work/mudkip/vivado/pfm/marshtomp_noc.xsa
+write_hw_platform: Time (s): cpu = 00:00:33 ; elapsed = 00:00:30 . Memory (MB): peak = 10052.691 ; gain = 147.512 ; free physical = 52885 ; free virtual = 56230

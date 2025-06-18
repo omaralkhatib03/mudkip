@@ -7,8 +7,6 @@ data
 # notes
 # release*
 # debug*
-vivado
-vivado/*
 __pycache__
 .vscode
 .cache/
@@ -46,4 +44,3 @@ build/
 compile_commands.json
 .clangd
 .cache/
-

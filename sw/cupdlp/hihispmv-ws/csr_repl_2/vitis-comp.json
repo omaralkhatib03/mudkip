@@ -1,0 +1,12 @@
+{
+  "name": "csr_repl_2",
+  "type": "HLS",
+  "part": "xcvc1902-vsva2197-2MP-e-S",
+  "configuration": {
+    "componentType": "HLS",
+    "configFiles": [
+      "hls_config.cfg"
+    ],
+    "work_dir": "csr_spmv_repl_2"
+  }
+}

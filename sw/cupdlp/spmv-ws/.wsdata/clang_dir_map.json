@@ -1,0 +1,17 @@
+{
+  "workspaceRoot": "/home/oa321/work/mudkip/sw/cupdlp/ws/ws2",
+  "mapping": {
+    "/home/oa321/work/mudkip/sw/cupdlp/hls/utility.hpp": "man_unroll_mult_port",
+    "/home/oa321/work/mudkip/sw/cupdlp/hls/partitioning_utility.hpp": "man_unroll_mult_port",
+    "/home/oa321/work/mudkip/sw/cupdlp/hls/include": "man_unroll_mult_port",
+    "/home/oa321/work/mudkip/sw/cupdlp/hls/tb.cpp": "spmv",
+    "/home/oa321/work/mudkip/sw/cupdlp/hls/spmv.hpp": "man_unroll_mult_port",
+    "/home/oa321/work/mudkip/sw/cupdlp/hls/types.hpp": "man_unroll_mult_port",
+    "man_unroll_mult_port/tb_unrolled.cpp": "man_unroll_mult_port",
+    "/home/oa321/work/mudkip/sw/cupdlp/hls/CsvWriter.hpp": "man_unroll_mult_port",
+    "/home/oa321/work/mudkip/sw/cupdlp/hls/spmv.cc": "man_unroll_mult_port",
+    "/home/oa321/work/mudkip/sw/cupdlp/hls/utils.cpp": "man_unroll_mult_port",
+    "/home/oa321/work/mudkip/sw/cupdlp/hls/BSLogger.hpp": "man_unroll_mult_port",
+    "/home/oa321/work/mudkip/sw/cupdlp/hls/utils.hpp": "man_unroll_mult_port"
+  }
+}

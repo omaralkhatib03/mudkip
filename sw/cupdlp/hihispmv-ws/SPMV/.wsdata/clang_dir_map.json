@@ -1,0 +1,9 @@
+{
+  "workspaceRoot": "../../../",
+  "mapping": {
+    "../../../../../HiHiSpMV/src/kernels/csr_spmv_repl_3_2.cpp": "../../../../sw/cupdlp/hihispmv-ws/csr_repl_3_2",
+    "../../../../../HiHiSpMV/src/kernels/csr_spmv_repl_3_1.cpp": "../../../../sw/cupdlp/hihispmv-ws/csr_repl_3_1",
+    "../../../../../HiHiSpMV/src/kernels/csr_spmv_repl_1.cpp": "../../../../sw/cupdlp/hihispmv-ws/csr_repl_1",
+    "../../../../../HiHiSpMV/src/kernels/csr_spmv_repl_2.cpp": "../../../../sw/cupdlp/hihispmv-ws/csr_repl_2"
+  }
+}
